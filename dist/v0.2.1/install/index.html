@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en" class="js csstransforms3d">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="generator" content="Hugo 0.26" />
+    <meta name="description" content="">
+
+
+    <title>Fission Installation Guide :: Fission: Serverless Functions for Kubernetes</title>
+    <link rel="shortcut icon" href="/docs/v0.2.1/images/favicon.png" type="image/x-icon" />
+    <link href="/docs/v0.2.1/css/nucleus.css" rel="stylesheet">
+    <link href="/docs/v0.2.1/css/font-awesome.min.css" rel="stylesheet">
+    <link href="/docs/v0.2.1/css/hybrid.css" rel="stylesheet">
+    <link href="/docs/v0.2.1/css/featherlight.min.css" rel="stylesheet">
+    <link href="/docs/v0.2.1/css/horsey.css" rel="stylesheet">
+    
+    <link href="/docs/v0.2.1/css/theme.css" rel="stylesheet">
+    
+    
+    <link rel="stylesheet" href="/docs/v0.2.1/css/bootstrap.min.css">
+    <script src="/docs/v0.2.1/js/jquery-2.x.min.js"></script>
+    <style type="text/css">
+      :root #header + #content > #left > #rlblock_left {
+        display:none !important;
+      }
+    </style>
+
+    
+
+    
+
+  </head>
+  <body class="" data-url="/docs/v0.2.1/install/">
+    <nav id="sidebar" class="">
+
+
+
+
+
+<div class="highlightable">
+  <div id="header-wrapper">
+    <div id="header">
+       
+	<p><img src="http://fission.io/img/fission-logo-whitebg.png" alt="fission" /></p>
+ 
+
+
+    </div>
+    
+        <div class="searchbox">
+    <label for="search-by"><i class="fa fa-search"></i></label>
+    <input data-search-input id="search-by" type="text" placeholder="Search...">
+    <span data-search-clear=""><i class="fa fa-close"></i></span>
+</div>
+<script type="text/javascript" src="/docs/v0.2.1/js/lunr.min.js"></script>
+<script type="text/javascript" src="/docs/v0.2.1/js/horsey.js"></script>
+<script type="text/javascript">
+    var baseurl = "http:\/\/fission.io\/docs\/v0.2.1";
+</script>
+<script type="text/javascript" src="/docs/v0.2.1/js/search.js"></script>
+
+    
+  </div>
+
+  
+    <ul class="topics">
+        
+            <li data-nav-id="/docs/v0.2.1/" class="dd-item">
+            <a href="/docs/v0.2.1/"><i class="fa fa-fw fa-home"></i></a>
+            </li>
+        
+        
+        
+          
+        
+
+        
+    </ul>
+    
+     
+    <section id="footer">
+      
+    </section>
+  </div>
+</nav>
+
+
+
+
+        <section id="body">
+        <div id="overlay"></div>
+        <div class="padding highlightable">
+        
+          <div id="top-bar">
+            
+
+            <div id="breadcrumbs" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+                <span id="sidebar-toggle-span">
+                  <a href="#" id="sidebar-toggle" data-sidebar-toggle="">
+                    <i class="fa fa-bars"></i>
+                  </a>
+                </span>
+                <span id="toc-menu"><i class="fa fa-list-alt"></i></span>
+                <span class="links">
+                
+
+ Fission Installation Guide
+
+   
+                </span>
+            </div>
+            <div class="progress">
+    <div class="wrapper">
+<nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#cluster-preliminaries">Cluster preliminaries</a>
+<ul>
+<li><a href="#kubernetes-cli">Kubernetes CLI</a></li>
+<li><a href="#helm">Helm</a></li>
+</ul></li>
+<li><a href="#install-fission">Install Fission</a>
+<ul>
+<li><a href="#minikube">Minikube</a></li>
+<li><a href="#cloud-hosted-clusters-gke-aws-azure-etc">Cloud hosted clusters (GKE, AWS, Azure etc.)</a></li>
+<li><a href="#minimal-version">Minimal version</a></li>
+</ul></li>
+<li><a href="#install-the-fission-cli">Install the Fission CLI</a>
+<ul>
+<li><a href="#os-x">OS X</a></li>
+<li><a href="#linux">Linux</a></li>
+<li><a href="#windows">Windows</a></li>
+</ul></li>
+<li><a href="#set-environment-vars">Set environment vars</a>
+<ul>
+<li><a href="#minikube-1">Minikube</a></li>
+<li><a href="#cloud-setups">Cloud setups</a></li>
+</ul></li>
+<li><a href="#run-an-example">Run an example</a></li>
+<li><a href="#what-s-next">What&rsquo;s next?</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+
+          </div>
+        
+        
+        <div id="body-inner">
+          
+            <h1>Fission Installation Guide</h1>
+          
+
+
+
+
+
+
+<p>Welcome! This guide will get you up and running with Fission on a
+Kubernetes cluster.</p>
+
+<h3 id="cluster-preliminaries">Cluster preliminaries</h3>
+
+<p>If you don&rsquo;t have a Kubernetes cluster, <a href="../kubernetessetup">here&rsquo;s a quick guide to set
+one up</a>.</p>
+
+<p>Let&rsquo;s ensure you have the Kubernetes CLI and Helm installed and
+ready. If you already have helm, <a href="#install-fission">skip ahead to the fission install</a>.</p>
+
+<h4 id="kubernetes-cli">Kubernetes CLI</h4>
+
+<p>Ensure you have the Kubernetes CLI.</p>
+
+<p>You can get the Kubernetes CLI for OSX like this:</p>
+
+<pre><code>$ curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/darwin/amd64/kubectl &amp;&amp; chmod +x kubectl &amp;&amp; sudo mv kubectl /usr/local/bin
+</code></pre>
+
+<p>Or, for Linux:</p>
+
+<pre><code>$ curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl &amp;&amp; chmod +x kubectl &amp;&amp; sudo mv kubectl /usr/local/bin
+</code></pre>
+
+<p>Ensure you have access to a cluster; use kubectl to check your
+Kubernetes version:</p>
+
+<pre><code>$ kubectl version
+</code></pre>
+
+<p>We need at least Kubernetes 1.6 (older versions may work, but we don&rsquo;t
+test them).</p>
+
+<h4 id="helm">Helm</h4>
+
+<p>Helm is an installer for Kubernetes.  If you already use helm, <a href="#install-fission">skip to
+the next section</a>.</p>
+
+<p>First, you&rsquo;ll need the helm CLI:</p>
+
+<p>On <strong>OS X</strong>:</p>
+
+<pre><code>$ curl -LO https://storage.googleapis.com/kubernetes-helm/helm-v2.6.1-darwin-amd64.tar.gz
+
+$ tar xzf helm-v2.6.1-darwin-amd64.tar.gz
+
+$ mv darwin-amd64/helm /usr/local/bin
+</code></pre>
+
+<p>On <strong>Linux</strong>:</p>
+
+<pre><code>$ curl -LO https://storage.googleapis.com/kubernetes-helm/helm-v2.6.1-linux-amd64.tar.gz
+
+$ tar xzf helm-v2.6.1-linux-amd64.tar.gz
+
+$ mv linux-amd64/helm /usr/local/bin
+</code></pre>
+
+<p>Next, install the Helm server on your Kubernetes cluster:</p>
+
+<pre><code>$ kubectl -n kube-system create sa tiller
+
+$ kubectl create clusterrolebinding tiller --clusterrole cluster-admin --serviceaccount=kube-system:tiller
+
+$ helm init --service-account tiller
+</code></pre>
+
+<p>(The first two commands are there to make sure that helm is allowed to
+install stuff on Kubernetes, in the common case that your cluster has
+role-based access control.)</p>
+
+<h3 id="install-fission">Install Fission</h3>
+
+<h4 id="minikube">Minikube</h4>
+
+<pre><code>$ helm install --namespace fission --set serviceType=NodePort https://github.com/fission/fission/releases/download/v0.2.1/fission-all-v0.2.1.tgz
+</code></pre>
+
+<p>The serviceType variable allows configuring the type of Kubernetes
+service outside the cluster.  You can use <code>ClusterIP</code> if you don&rsquo;t
+want to expose anything outside the cluster.</p>
+
+<h4 id="cloud-hosted-clusters-gke-aws-azure-etc">Cloud hosted clusters (GKE, AWS, Azure etc.)</h4>
+
+<pre><code>$ helm install --namespace fission https://github.com/fission/fission/releases/download/v0.2.1/fission-all-v0.2.1.tgz
+</code></pre>
+
+<h4 id="minimal-version">Minimal version</h4>
+
+<p>The fission-all helm chart installs a full set of services including
+the NATS message queue, influxDB for logs, etc. If you want a more
+minimal setup, you can install the fission-core chart instead:</p>
+
+<pre><code>$ helm install --namespace fission https://github.com/fission/fission/releases/download/v0.2.1/fission-core-v0.2.1.tgz
+</code></pre>
+
+<h3 id="install-the-fission-cli">Install the Fission CLI</h3>
+
+<h4 id="os-x">OS X</h4>
+
+<p>Get the CLI binary for Mac:</p>
+
+<pre><code>$ curl -Lo fission https://github.com/fission/fission/releases/download/v0.2.1/fission-cli-osx &amp;&amp; chmod +x fission &amp;&amp; sudo mv fission /usr/local/bin/
+</code></pre>
+
+<h4 id="linux">Linux</h4>
+
+<pre><code>$ curl -Lo fission https://github.com/fission/fission/releases/download/v0.2.1/fission-cli-linux &amp;&amp; chmod +x fission &amp;&amp; sudo mv fission /usr/local/bin/
+</code></pre>
+
+<h4 id="windows">Windows</h4>
+
+<p>For Windows, you can use the linux binary on WSL. Or you can download
+this windows executable: <a href="https://github.com/fission/fission/releases/download/v0.2.1/fission-cli-windows.exe">fission.exe</a></p>
+
+<h3 id="set-environment-vars">Set environment vars</h3>
+
+<p>Set the FISSION_URL and FISSION_ROUTER environment variables.
+FISSION_URL is used by the fission CLI to find the server.
+(FISSION_ROUTER is only needed for the examples below to work.)</p>
+
+<h4 id="minikube-1">Minikube</h4>
+
+<p>If you&rsquo;re using minikube, use these commands:</p>
+
+<pre><code>  $ export FISSION_URL=http://$(minikube ip):31313
+  $ export FISSION_ROUTER=$(minikube ip):31314
+</code></pre>
+
+<h4 id="cloud-setups">Cloud setups</h4>
+
+<p>Save the external IP addresses of controller and router services in
+FISSION_URL and FISSION_ROUTER, respectively.  Wait for services to
+get IP addresses (check this with <code>kubectl --namespace fission get
+svc</code>).  Then:</p>
+
+<pre><code>  $ export FISSION_URL=http://$(kubectl --namespace fission get svc controller -o=jsonpath='{..ip}')
+  $ export FISSION_ROUTER=$(kubectl --namespace fission get svc router -o=jsonpath='{..ip}')
+</code></pre>
+
+<h3 id="run-an-example">Run an example</h3>
+
+<p>Finally, you&rsquo;re ready to use Fission!</p>
+
+<pre><code>$ fission env create --name nodejs --image fission/node-env:v0.2.1
+
+$ curl -LO https://raw.githubusercontent.com/fission/fission/master/examples/nodejs/hello.js
+
+$ fission function create --name hello --env nodejs --code hello.js
+
+$ fission route create --method GET --url /hello --function hello
+
+$ curl http://$FISSION_ROUTER/hello
+Hello, world!
+</code></pre>
+
+<h3 id="what-s-next">What&rsquo;s next?</h3>
+
+<p>If something went wrong, we&rsquo;d love to help &ndash; please <a href="http://slack.fission.io">drop by the
+slack channel</a> and ask for help.</p>
+
+<p>Check out the
+<a href="https://github.com/fission/fission/tree/master/examples">examples</a>
+for some example functions.</p>
+
+
+<footer class=" footline" >
+	
+</footer>
+
+
+
+
+        
+
+      </div>
+    </div>
+
+    
+ 
+    
+
+    <div id="navigation">
+        
+        
+        
+        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+            
+        
+        
+        
+
+
+        
+        
+    </div>
+
+    </section>
+    <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
+      <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
+    </div>    
+
+    <script src="/docs/v0.2.1/js/clipboard.min.js"></script>
+<script src="/docs/v0.2.1/js/featherlight.min.js"></script>
+<script src="/docs/v0.2.1/js/html5shiv-printshiv.min.js"></script>
+<script src="/docs/v0.2.1/js/highlight.pack.js"></script>
+
+<script src="/docs/v0.2.1/js/modernizr.custom.71422.js"></script>
+<script src="/docs/v0.2.1/js/learn.js"></script>
+<script src="/docs/v0.2.1/js/hugo-learn.js"></script>
+
+
+<link href="/docs/v0.2.1/mermaid/mermaid.css" type="text/css" rel="stylesheet"/>
+<script src="/docs/v0.2.1/mermaid/mermaid.js"></script>
+<script>mermaid.initialize({startOnLoad:true});</script>
+
+    
+
+  </body>
+</html>
+

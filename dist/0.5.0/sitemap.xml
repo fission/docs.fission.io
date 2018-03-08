@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  
+  <url>
+    <loc>http://fission.io/docs/0.5.0/compilation/</loc>
+    <lastmod>2017-09-07T20:10:05-07:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://fission.io/docs/0.5.0/</loc>
+    <lastmod>2017-09-08T16:26:29-07:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://fission.io/docs/0.5.0/prerequisite/</loc>
+    <lastmod>2017-09-07T20:10:05-07:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://fission.io/docs/0.5.0/installation/</loc>
+    <lastmod>2017-09-07T20:10:05-07:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://fission.io/docs/0.5.0/upgrade/</loc>
+    <lastmod>2017-09-07T20:10:05-07:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://fission.io/docs/0.5.0/upgrade/upgrade-from-v0.1/</loc>
+    <lastmod>2017-09-08T16:26:29-07:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://fission.io/docs/0.5.0/upgrade/upgrade-from-v0.3/</loc>
+    <lastmod>2017-11-04T03:38:29+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://fission.io/docs/0.5.0/upgrade/upgrade-from-v0.4/</loc>
+    <lastmod>2018-02-08T04:40:29+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://fission.io/docs/0.5.0/tutorial/</loc>
+  </url>
+  
+  <url>
+    <loc>http://fission.io/docs/0.5.0/tutorial/access-secret-cfgmap-in-function/</loc>
+  </url>
+  
+  <url>
+    <loc>http://fission.io/docs/0.5.0/workflows/</loc>
+    <lastmod>2018-01-22T16:03:27+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://fission.io/docs/0.5.0/_header/</loc>
+  </url>
+  
+  <url>
+    <loc>http://fission.io/docs/0.5.0/categories/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://fission.io/docs/0.5.0/tags/</loc>
+    <priority>0</priority>
+  </url>
+  
+</urlset>
