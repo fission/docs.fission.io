@@ -1,6 +1,6 @@
 #!/bin/sh
 
-set -euo pipefail
+set -eu
 
 # Keep this version updated to the latest release (would be super nice
 # to do this automatically with the github api!)
