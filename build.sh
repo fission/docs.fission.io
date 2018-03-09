@@ -1,15 +1,17 @@
 #!/bin/sh
 
+set -euo pipefail
+
 # Keep this version updated to the latest release (would be super nice
 # to do this automatically with the github api!)
 VERSION=0.6.0
 
-pushd docs
+cd docs
 
 echo "Running hugo"
 hugo
 
-popd
+cd ..
 
 echo "Removing old site"
 rm -rf dist/$VERSION
