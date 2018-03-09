@@ -2,9 +2,7 @@
 
 set -eu
 
-# Keep this version updated to the latest release (would be super nice
-# to do this automatically with the github api!)
-VERSION=0.6.0
+source version.sh
 
 cd docs
 
