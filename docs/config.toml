@@ -11,7 +11,7 @@ defaultContentLanguageInSubdir= true
   editURL = "https://github.com/fission/docs.fission.io/edit/master/docs/content/"
   description = "Documentation for Fission"
   author = "Fission"
-  showVisitedLinks = true
+  showVisitedLinks = false
   themeVariant = "fission"
 
 [outputs]
