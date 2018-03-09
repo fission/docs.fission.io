@@ -1,3 +1,21 @@
 [build]
 publish = "dist"
 command = "./build.sh"
+
+[context.production.environment]
+HUGO_VERSION = "0.37.1"
+HUGO_ENV = "production"
+HUGO_ENABLEGITINFO = "true"
+
+[context.split1.environment]
+HUGO_VERSION = "0.37.1"
+HUGO_ENV = "production"
+
+[context.deploy-preview.environment]
+HUGO_VERSION = "0.37.1"
+
+[context.branch-deploy.environment]
+HUGO_VERSION = "0.37.1"
+
+[context.next.environment]
+HUGO_ENABLEGITINFO = "true"
