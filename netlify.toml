@@ -1,6 +1,5 @@
 [build]
 publish = "dist"
-command = "./build.sh"
 
 [context.production.environment]
 HUGO_VERSION = "0.37.1"
