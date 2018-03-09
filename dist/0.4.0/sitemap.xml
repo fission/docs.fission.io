@@ -3,56 +3,51 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>http://fission.io/docs/0.4.0/compilation/</loc>
+    <loc>http://docs.fission.io/0.4.0/compilation/</loc>
     <lastmod>2017-09-07T20:10:05-07:00</lastmod>
   </url>
   
   <url>
-    <loc>http://fission.io/docs/0.4.0/</loc>
+    <loc>http://docs.fission.io/0.4.0/</loc>
     <lastmod>2017-09-08T16:26:29-07:00</lastmod>
   </url>
   
   <url>
-    <loc>http://fission.io/docs/0.4.0/prerequisite/</loc>
+    <loc>http://docs.fission.io/0.4.0/prerequisite/</loc>
     <lastmod>2017-09-07T20:10:05-07:00</lastmod>
   </url>
   
   <url>
-    <loc>http://fission.io/docs/0.4.0/installation/</loc>
+    <loc>http://docs.fission.io/0.4.0/installation/</loc>
     <lastmod>2017-09-07T20:10:05-07:00</lastmod>
   </url>
   
   <url>
-    <loc>http://fission.io/docs/0.4.0/upgrade/</loc>
+    <loc>http://docs.fission.io/0.4.0/upgrade/</loc>
     <lastmod>2017-09-07T20:10:05-07:00</lastmod>
   </url>
   
   <url>
-    <loc>http://fission.io/docs/0.4.0/upgrade/upgrade-from-v0.1/</loc>
+    <loc>http://docs.fission.io/0.4.0/upgrade/upgrade-from-v0.1/</loc>
     <lastmod>2017-09-08T16:26:29-07:00</lastmod>
   </url>
   
   <url>
-    <loc>http://fission.io/docs/0.4.0/upgrade/upgrade-from-v0.3/</loc>
+    <loc>http://docs.fission.io/0.4.0/upgrade/upgrade-from-v0.3/</loc>
     <lastmod>2017-11-04T03:38:29+08:00</lastmod>
   </url>
   
   <url>
-    <loc>http://fission.io/docs/0.4.0/workflows/</loc>
-    <lastmod>2018-01-22T16:03:27+00:00</lastmod>
+    <loc>http://docs.fission.io/0.4.0/_header/</loc>
   </url>
   
   <url>
-    <loc>http://fission.io/docs/0.4.0/_header/</loc>
-  </url>
-  
-  <url>
-    <loc>http://fission.io/docs/0.4.0/categories/</loc>
+    <loc>http://docs.fission.io/0.4.0/categories/</loc>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>http://fission.io/docs/0.4.0/tags/</loc>
+    <loc>http://docs.fission.io/0.4.0/tags/</loc>
     <priority>0</priority>
   </url>
   
