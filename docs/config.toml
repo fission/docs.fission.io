@@ -1,4 +1,4 @@
-baseURL = "http://fission.io/docs/0.5.0"
+baseURL = "https://docs.fission.io/0.6.0"
 languageCode = "en-US"
 defaultContentLanguage = "en"
 
@@ -8,7 +8,7 @@ metaDataFormat = "yaml"
 defaultContentLanguageInSubdir= true
 
 [params]
-  editURL = "https://github.com/fission/fission/edit/master/Documentation/docs-site/content/"
+  editURL = "https://github.com/fission/docs.fission.io/edit/master/docs/content/"
   description = "Documentation for Fission"
   author = "Fission"
   showVisitedLinks = true
