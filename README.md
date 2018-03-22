@@ -1,4 +1,4 @@
-# To read the Fission docs, go to: [https://docs.fission.io](docs.fission.io).
+# To read the Fission docs, go to: [docs.fission.io](https://docs.fission.io).
 
 ---
 
