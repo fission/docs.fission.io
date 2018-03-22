@@ -96,4 +96,4 @@ Usage
   Hello, world!
 ```
 
-See the [examples](examples) directory for more.
+See the [examples](https://github.com/fission/fission/tree/0.6.0/examples) directory for more.
