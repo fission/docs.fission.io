@@ -61,6 +61,8 @@ Status code distribution:
 ```
 While the load is being generated, we will watch the HorizontalPodAutoscaler and how it scales over period of time. As you can notice, the number of pods is scaled from 1 to 3 after the load rises from 8 - 103%. After the load generator stops, it takes a few iterations to scale down from 3 to 1 pod.
 
+When testing the scaling behaviour, do keep in mind that the scaling event has an initial delay of uptp a minute and waits for the average CPU to reach 110% above the threshold before scaling up. It is best to maintain a minimum number of pods which can handle initial load and scale as needed.
+
 You will notice that the scaling up and down has different behaviour in terms of response time. This behaviour is governed by the frequency at which the controller watches (which defaults to 30s) and parameters set on controller-manager for upscale/downscale delay. More details can be found [here](https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/#support-for-cooldowndelay)
 
 ```
