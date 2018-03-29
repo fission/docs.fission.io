@@ -18,6 +18,6 @@ Time trigger based invocations are great for running scheduled jobs, periodic cl
 
 ## MQ Trigger
 
-Message queue based trigger enables ability to listen on a topic and invoke a function for each message. You can optinally send a response to another topic. By default it is assumed that the messages in queue are in application/json format but you can specify otherwise while creating the trigger. Currently `nats-streaming` and `azure-storage-queue` are supported message queues supported.
+Message queue based trigger enables ability to listen on a topic and invoke a function for each message. You can optionally send a response to another topic. By default it is assumed that the messages in queue are in application/json format but you can specify otherwise while creating the trigger. Currently, `nats-streaming` and `azure-storage-queue` are supported message queues.
 
 MQ triggers are great for integrating various systems in a decoupled and asynchronous manner.
