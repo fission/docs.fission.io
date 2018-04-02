@@ -1,0 +1,1426 @@
+<!DOCTYPE html>
+<html lang="en" class="js csstransforms3d">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="generator" content="Hugo 0.37" />
+    <meta name="description" content="Documentation for Fission">
+<meta name="author" content="Fission">
+
+    <link rel="shortcut icon" href=/0.6.1/images/favicon.png type="image/x-icon" />
+<link rel="icon" href=/0.6.1/images/favicon.png type="image/x-icon" />
+
+    <title>Enabling Istio on Fission :: Serverless Functions for Kubernetes</title>
+    
+    
+    <link href="/0.6.1/css/nucleus.css?1522713130" rel="stylesheet">
+    <link href="/0.6.1/css/font-awesome.min.css?1522713130" rel="stylesheet">
+    <link href="/0.6.1/css/hybrid.css?1522713130" rel="stylesheet">
+    <link href="/0.6.1/css/featherlight.min.css?1522713130" rel="stylesheet">
+    <link href="/0.6.1/css/perfect-scrollbar.min.css?1522713130" rel="stylesheet">
+    <link href="/0.6.1/css/auto-complete.css?1522713130" rel="stylesheet">
+    <link href="/0.6.1/css/theme.css?1522713130" rel="stylesheet">
+    <link href="/0.6.1/css/hugo-theme.css?1522713130" rel="stylesheet">
+    
+      <link href="/0.6.1/css/theme-fission.css?1522713130" rel="stylesheet">
+    
+
+    <script src="/0.6.1/js/jquery-2.x.min.js?1522713130"></script>
+    
+    <style type="text/css">
+      :root #header + #content > #left > #rlblock_left{ 
+          display:none !important;
+      }
+      
+    </style>
+    
+  </head>
+  <body class="" data-url="/0.6.1/tutorial/enabling-istio-on-fission/">
+    <nav id="sidebar" class="">
+
+
+
+  <div id="header-wrapper">
+    <div id="header">
+      <a id="logo" href="http://fission.io/">
+  <img src=/0.6.1/images/fission-logo.png>
+</a>
+
+    </div>
+    
+        <div class="searchbox">
+    <label for="search-by"><i class="fa fa-search"></i></label>
+    <input data-search-input id="search-by" type="text" placeholder="Search...">
+    <span data-search-clear=""><i class="fa fa-close"></i></span>
+</div>
+
+<script type="text/javascript" src="/0.6.1/js/lunr.min.js?1522713130"></script>
+<script type="text/javascript" src="/0.6.1/js/auto-complete.js?1522713130"></script>
+<script type="text/javascript">
+    
+        var baseurl = '\/0.6.1';
+    
+</script>
+<script type="text/javascript" src="/0.6.1/js/search.js?1522713130"></script>
+
+    
+  </div>
+
+    <div class="highlightable">
+    <ul class="topics">
+
+        
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/0.6.1/installation/" title="Installation Guide" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/0.6.1/installation/">
+          Installation Guide
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+            
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/0.6.1/installation/installation/" title="Installation Guide" class="dd-item ">
+        <a href="/0.6.1/installation/installation/">
+        Installation Guide
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/0.6.1/installation/kubernetessetup/" title="Kubernetes Quick Install" class="dd-item ">
+        <a href="/0.6.1/installation/kubernetessetup/">
+        Kubernetes Quick Install
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/0.6.1/installation/releasenotes/" title="Release notes" class="dd-item ">
+        <a href="/0.6.1/installation/releasenotes/">
+        Release notes
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/0.6.1/installation/upgrade/" title="Upgrade" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/0.6.1/installation/upgrade/">
+          Upgrade
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/0.6.1/installation/upgrade/upgrade-from-v0.1/" title="Upgrading from v0.1 to v0.2.x" class="dd-item ">
+        <a href="/0.6.1/installation/upgrade/upgrade-from-v0.1/">
+        Upgrading from v0.1 to v0.2.x
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/0.6.1/installation/upgrade/upgrade-from-v0.3/" title="Upgrading from v0.3 to v0.4.x" class="dd-item ">
+        <a href="/0.6.1/installation/upgrade/upgrade-from-v0.3/">
+        Upgrading from v0.3 to v0.4.x
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/0.6.1/installation/upgrade/upgrade-from-v0.4/" title="Upgrading from v0.4.x to v0.5.0" class="dd-item ">
+        <a href="/0.6.1/installation/upgrade/upgrade-from-v0.4/">
+        Upgrading from v0.4.x to v0.5.0
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/0.6.1/concepts/" title="Fission Concepts" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/0.6.1/concepts/">
+          Fission Concepts
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/0.6.1/concepts/environments/" title="Environments" class="dd-item ">
+        <a href="/0.6.1/concepts/environments/">
+        Environments
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/0.6.1/concepts/executor/" title="Controlling Function Execution" class="dd-item ">
+        <a href="/0.6.1/concepts/executor/">
+        Controlling Function Execution
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/0.6.1/concepts/trigger/" title="Trigger" class="dd-item ">
+        <a href="/0.6.1/concepts/trigger/">
+        Trigger
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/0.6.1/concepts/package/" title="Builder and Packages" class="dd-item ">
+        <a href="/0.6.1/concepts/package/">
+        Builder and Packages
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/0.6.1/usage/" title="Using Fission" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/0.6.1/usage/">
+          Using Fission
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/0.6.1/usage/functions/" title="Function" class="dd-item ">
+        <a href="/0.6.1/usage/functions/">
+        Function
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/0.6.1/usage/environments/" title="Environment" class="dd-item ">
+        <a href="/0.6.1/usage/environments/">
+        Environment
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/0.6.1/usage/executor/" title="Controlling Function Execution" class="dd-item ">
+        <a href="/0.6.1/usage/executor/">
+        Controlling Function Execution
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/0.6.1/usage/trigger/" title="Triggers" class="dd-item ">
+        <a href="/0.6.1/usage/trigger/">
+        Triggers
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/0.6.1/usage/package/" title="Packaging source code" class="dd-item ">
+        <a href="/0.6.1/usage/package/">
+        Packaging source code
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/0.6.1/usage/access-secret-cfgmap-in-function/" title="Accessing Secrets in Functions" class="dd-item ">
+        <a href="/0.6.1/usage/access-secret-cfgmap-in-function/">
+        Accessing Secrets in Functions
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/0.6.1/contributing/" title="Contributing to Fission" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/0.6.1/contributing/">
+          Contributing to Fission
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/0.6.1/contributing/compiling/" title="Compiling Fission" class="dd-item ">
+        <a href="/0.6.1/contributing/compiling/">
+        Compiling Fission
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/0.6.1/workflows/" title="Fission Workflows" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/0.6.1/workflows/">
+          Fission Workflows
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/0.6.1/tutorial/" title="Tutorials" class="dd-item 
+        parent
+        
+        
+        ">
+      <a href="/0.6.1/tutorial/">
+          Tutorials
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/0.6.1/tutorial/enabling-istio-on-fission/" title="Enabling Istio on Fission" class="dd-item active">
+        <a href="/0.6.1/tutorial/enabling-istio-on-fission/">
+        Enabling Istio on Fission
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+          
+         
+    </ul>
+
+    
+    
+      <section id="shortcuts">
+        <h3>More</h3>
+        <ul>
+          
+              <li class="" role=""> 
+                  <a class="padding" href="https://github.com/fission/fission"><i class='fa fa-fw fa-github'></i> Github repo</a>
+              </li>
+          
+              <li class="" role=""> 
+                  <a class="padding" href="https://github.com/fission/fission/graphs/contributors"><i class='fa fa-fw fa-bullhorn'></i> Credits</a>
+              </li>
+          
+        </ul>
+      </section>
+    
+
+    
+    <section id="footer">
+      <p>Built with <a href="https://github.com/matcornic/hugo-theme-learn"><i class="fa fa-heart"></i></a> from <a href="http://getgrav.org">Grav</a> and <a href="http://gohugo.io/">Hugo</a></p>
+
+    </section>
+  </div>
+</nav>
+
+
+
+
+
+        <section id="body">
+        <div id="overlay"></div>
+        <div class="padding highlightable">
+              
+              <div>
+                <div id="top-bar">
+                
+                  
+                  
+                  
+                  <div id="top-github-link">
+                    <a class="github-link" title='Edit this page' href="https://github.com/fission/docs.fission.io/edit/master/docs/content/tutorial/enabling-istio-on-fission.md" target="blank">
+                      <i class="fa fa-code-fork"></i>
+                      <span id="top-github-link-text">Edit this page</span>
+                    </a>
+                  </div>
+                  
+                
+                
+                <div id="breadcrumbs" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+                    <span id="sidebar-toggle-span">
+                        <a href="#" id="sidebar-toggle" data-sidebar-toggle="">
+                          <i class="fa fa-bars"></i>
+                        </a>
+                    </span>
+                  
+                  <span id="toc-menu"><i class="fa fa-list-alt"></i></span>
+                  
+                  <span class="links">
+                    
+          
+          
+            
+            
+          
+          
+            
+            
+          
+          
+            <a href='/0.6.1/'>Fission</a> > <a href='/0.6.1/tutorial/'>Tutorials</a> > Enabling Istio on Fission
+          
+         
+          
+         
+          
+           
+                  </span>
+                </div>
+                
+                    <div class="progress">
+    <div class="wrapper">
+<nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#test-environment">Test Environment</a></li>
+<li><a href="#set-up">Set Up</a>
+<ul>
+<li><a href="#create-kubernetes-v1-9-cluster">Create Kubernetes v1.9+ cluster</a></li>
+<li><a href="#grant-cluster-admin-permissions">Grant cluster admin permissions</a></li>
+<li><a href="#set-up-istio-environment">Set up Istio environment</a></li>
+<li><a href="#install-fission">Install fission</a></li>
+<li><a href="#create-a-function">Create a function</a></li>
+<li><a href="#install-istio-add-ons">Install Istio Add-ons</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+
+                
+              </div>
+            </div>
+            
+
+        
+        <div id="body-inner">
+          
+            <h1>Enabling Istio on Fission</h1>
+          
+
+        
+
+
+
+
+<p>This is the very first step for fission to integrate with <a href="https://istio.io/">Istio</a>. For those interested in trying to integrate fission with istio, following is the set up tutorial.</p>
+
+<h2 id="test-environment">Test Environment</h2>
+
+<ul>
+<li>Google Kubernetes Engine: 1.9.2-gke.1</li>
+</ul>
+
+<h2 id="set-up">Set Up</h2>
+
+<h3 id="create-kubernetes-v1-9-cluster">Create Kubernetes v1.9+ cluster</h3>
+
+<p>Enable both RBAC &amp; initializer features on kubernetes cluster.</p>
+
+<pre><code class="language-bash">$ export ZONE=&lt;zone name&gt;
+$ gcloud container clusters create istio-demo-1 \
+    --machine-type=n1-standard-2 \
+    --num-nodes=1 \
+    --no-enable-legacy-authorization \
+    --zone=$ZONE \
+    --cluster-version=1.9.2-gke.1
+</code></pre>
+
+<h3 id="grant-cluster-admin-permissions">Grant cluster admin permissions</h3>
+
+<p>Grant admin permission for <code>system:serviceaccount:kube-system:default</code> and current user.</p>
+
+<pre><code class="language-bash"># for system:serviceaccount:kube-system:default
+$ kubectl create clusterrolebinding --user system:serviceaccount:kube-system:default kube-system-cluster-admin --clusterrole cluster-admin
+
+# for current user
+$ kubectl create clusterrolebinding cluster-admin-binding --clusterrole=cluster-admin --user=$(gcloud config get-value core/account)
+</code></pre>
+
+<h3 id="set-up-istio-environment">Set up Istio environment</h3>
+
+<p>For Istio 0.5.1 you can follow the installation tutorial below. Also, you can follow the latest installation guides on Istio official site: <a href="https://istio.io/docs/setup/kubernetes/quick-start.html">Quick Start</a> and <a href="https://istio.io/docs/setup/kubernetes/sidecar-injection.html">Sidecar Injection</a>.</p>
+
+<p>Download Istio 0.5.1</p>
+
+<pre><code class="language-bash">$ export ISTIO_VERSION=0.5.1
+$ curl -L https://git.io/getLatestIstio | sh -
+$ cd istio-0.5.1
+</code></pre>
+
+<p>Apply istio related YAML files</p>
+
+<pre><code class="language-bash">$ kubectl apply -f install/kubernetes/istio.yaml
+</code></pre>
+
+<p>Automatic sidecar injection</p>
+
+<pre><code class="language-bash">$ kubectl api-versions | grep admissionregistration
+admissionregistration.k8s.io/v1beta1
+</code></pre>
+
+<p>Installing the webhook</p>
+
+<p>Download the missing files in istio release 0.5.1</p>
+
+<pre><code class="language-bash">$ wget https://raw.githubusercontent.com/istio/istio/master/install/kubernetes/webhook-create-signed-cert.sh -P install/kubernetes/
+$ wget https://raw.githubusercontent.com/istio/istio/master/install/kubernetes/webhook-patch-ca-bundle.sh -P install/kubernetes/
+$ chmod +x install/kubernetes/webhook-create-signed-cert.sh install/kubernetes/webhook-patch-ca-bundle.sh
+</code></pre>
+
+<p>Install the sidecar injection configmap.</p>
+
+<pre><code class="language-bash">$ ./install/kubernetes/webhook-create-signed-cert.sh \
+    --service istio-sidecar-injector \
+    --namespace istio-system \
+    --secret sidecar-injector-certs
+
+$ kubectl apply -f install/kubernetes/istio-sidecar-injector-configmap-release.yaml
+</code></pre>
+
+<p>Install the sidecar injector</p>
+
+<pre><code class="language-bash">$ cat install/kubernetes/istio-sidecar-injector.yaml | \
+     ./install/kubernetes/webhook-patch-ca-bundle.sh &gt; \
+     install/kubernetes/istio-sidecar-injector-with-ca-bundle.yaml
+
+$ kubectl apply -f install/kubernetes/istio-sidecar-injector-with-ca-bundle.yaml
+
+# Check sidecar injector status
+$ kubectl -n istio-system get deployment -listio=sidecar-injector
+NAME                     DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
+istio-sidecar-injector   1         1         1            1           26s
+</code></pre>
+
+<h3 id="install-fission">Install fission</h3>
+
+<p>Set default namespace for helm installation, here we use <code>fission</code> as example namespace.</p>
+
+<pre><code class="language-bash">$ export FISSION_NAMESPACE=fission
+</code></pre>
+
+<p>Create namespace &amp; add label for Istio sidecar injection.</p>
+
+<pre><code class="language-bash">$ kubectl create namespace $FISSION_NAMESPACE
+$ kubectl label namespace $FISSION_NAMESPACE istio-injection=enabled
+$ kubectl config set-context $(kubectl config current-context) --namespace=$FISSION_NAMESPACE
+</code></pre>
+
+<p>Follow the <a href="../../installation/">installation guide</a> to install fission with flag <code>enableIstio</code> true.</p>
+
+<pre><code class="language-bash">$ helm install --namespace $FISSION_NAMESPACE --set enableIstio=true --name istio-demo &lt;chart-fission-all-url&gt;
+</code></pre>
+
+<h3 id="create-a-function">Create a function</h3>
+
+<p>Set environment</p>
+
+<pre><code class="language-bash">$ export FISSION_URL=http://$(kubectl --namespace fission get svc controller -o=jsonpath='{..ip}')
+$ export FISSION_ROUTER=$(kubectl --namespace fission get svc router -o=jsonpath='{..ip}')
+</code></pre>
+
+<p>Let&rsquo;s create a simple function with Node.js.</p>
+
+<pre><code class="language-js"># hello.js
+module.exports = async function(context) {
+    console.log(context.request.headers);
+    return {
+        status: 200,
+        body: &quot;Hello, World!\n&quot;
+    };
+}
+</code></pre>
+
+<p>Create environment</p>
+
+<pre><code class="language-bash">$ fission env create --name nodejs --image fission/node-env:latest
+</code></pre>
+
+<p>Create function</p>
+
+<pre><code class="language-bash">$ fission fn create --name h1 --env nodejs --code hello.js --method GET
+</code></pre>
+
+<p>Create route</p>
+
+<pre><code class="language-bash">$ fission route create --method GET --url /h1 --function h1
+</code></pre>
+
+<p>Access function</p>
+
+<pre><code class="language-bash">$ curl http://$FISSION_ROUTER/h1
+Hello, World!
+</code></pre>
+
+<h3 id="install-istio-add-ons">Install Istio Add-ons</h3>
+
+<ul>
+<li>Prometheus</li>
+</ul>
+
+<pre><code class="language-bash">$ kubectl apply -f istio-0.5.1/install/kubernetes/addons/prometheus.yaml
+$ kubectl -n istio-system port-forward $(kubectl -n istio-system get pod -l app=prometheus -o jsonpath='{.items[0].metadata.name}') 9090:9090
+</code></pre>
+
+<p>Web Link: <a href="http://127.0.0.1:9090/graph">http://127.0.0.1:9090/graph</a></p>
+
+<ul>
+<li>Grafana</li>
+</ul>
+
+<p>Please install Prometheus first.</p>
+
+<p><img src="https://user-images.githubusercontent.com/202578/33528556-639493e2-d89d-11e7-9768-976fb9208646.png" alt="grafana min" /></p>
+
+<pre><code class="language-bash">$ kubectl apply -f istio-0.5.1/install/kubernetes/addons/grafana.yaml
+$ kubectl -n istio-system port-forward $(kubectl -n istio-system get pod -l app=grafana -o jsonpath='{.items[0].metadata.name}') 3000:3000
+</code></pre>
+
+<p>Web Link: <a href="http://127.0.0.1:3000/dashboard/db/istio-dashboard">http://127.0.0.1:3000/dashboard/db/istio-dashboard</a></p>
+
+<ul>
+<li>Jaegar</li>
+</ul>
+
+<p><img src="https://user-images.githubusercontent.com/202578/33528554-572c4f28-d89d-11e7-8a01-1543fc2aa064.png" alt="jaeger min" /></p>
+
+<pre><code class="language-bash">$ kubectl apply -n istio-system -f https://raw.githubusercontent.com/jaegertracing/jaeger-kubernetes/master/all-in-one/jaeger-all-in-one-template.yml
+$ kubectl port-forward -n istio-system $(kubectl get pod -n istio-system -l app=jaeger -o jsonpath='{.items[0].metadata.name}') 16686:16686
+</code></pre>
+
+<p>Web Link: <a href="http://localhost:16686">http://localhost:16686</a></p>
+
+
+<footer class=" footline" >
+	
+</footer>
+
+
+        
+        </div> 
+        
+
+      </div>
+
+    <div id="navigation">
+        
+        
+        
+        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+            
+        
+        
+        
+
+        
+    </div>
+
+    </section>
+    
+    <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
+      <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
+    </div>
+    <script src="/0.6.1/js/clipboard.min.js?1522713130"></script>
+    <script src="/0.6.1/js/perfect-scrollbar.min.js?1522713130"></script>
+    <script src="/0.6.1/js/perfect-scrollbar.jquery.min.js?1522713130"></script>
+    <script src="/0.6.1/js/jquery.sticky.js?1522713130"></script>
+    <script src="/0.6.1/js/featherlight.min.js?1522713130"></script>
+    <script src="/0.6.1/js/html5shiv-printshiv.min.js?1522713130"></script>
+    <script src="/0.6.1/js/highlight.pack.js?1522713130"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <script src="/0.6.1/js/modernizr.custom.71422.js?1522713130"></script>
+    <script src="/0.6.1/js/learn.js?1522713130"></script>
+    <script src="/0.6.1/js/hugo-learn.js?1522713130"></script>
+
+    <link href="/0.6.1/mermaid/mermaid.css?1522713130" type="text/css" rel="stylesheet" />
+    <script src="/0.6.1/mermaid/mermaid.js?1522713130"></script>
+    <script>
+        mermaid.initialize({ startOnLoad: true });
+    </script>
+    
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-86980724-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+<script type="text/javascript" src="//script.crazyegg.com/pages/scripts/0059/9755.js" async="async"></script>
+
+  </body>
+</html>
+
