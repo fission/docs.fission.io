@@ -137,7 +137,7 @@ Hello, world!
 For a compiled language like Go:
 
 ```sh
-$ fission env create --name go --image fission/go-env:0.6.0 --builder fission/go-builder:0.6.0
+$ fission env create --name go --image fission/go-env:0.7.0 --builder fission/go-builder:0.7.0
 
 $ curl -LO https://raw.githubusercontent.com/fission/fission/master/examples/go/hello.go
 
