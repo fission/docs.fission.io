@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -eu
+set -euo pipefail
 
 source version.sh
 
@@ -17,7 +17,7 @@ rm -rf dist/$VERSION
 echo "Moving new site into dist"
 mv docs/public dist/$VERSION
 
-echo "Making latest symlink"
-cd dist
-rm -f latest
-ln -s $VERSION latest
+echo "Making _redirects"
+echo "# Generated from _redirects.template" > dist/_redirects
+cat _redirects.template | sed -e "s/VERSION/$VERSION/g" >> dist/_redirects
+
