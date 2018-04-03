@@ -1,0 +1,3 @@
+# build.sh replaces "version" below with the actual version.
+
+/latest/* /VERSION/:splat
