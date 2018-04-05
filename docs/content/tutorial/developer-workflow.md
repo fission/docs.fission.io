@@ -5,26 +5,22 @@ description = ""
 draft= true
 +++
 
-# Source Code Organization and Your Development Workflow
-
 You've made a Hello World function in your favourite language, and
 you've run it on your Fission deployment.  What's next?
 
 How should you organize source code when you have lots of functions?
 How should you automate deployment into the cluster?  What about
-version control?  How do you test before deploy?
+version control?  How do you test before deploying?
 
 The answers to these questions start from a common first step: how do
 you _specify an application_?
 
 ## Declarative Specifications
 
-You can specify your functions in a set of YAML files instead of
-invoking the Fission CLI commands.
-
-For applications that involve many functions, this is better than
-scripting the `fission` CLI, which is meant as a user interface, not a
-programming interface.
+Instead of invoking the Fission CLI commands, you can specify your
+functions in a set of YAML files.  This is better than scripting the
+`fission` CLI, which is meant as a user interface, not a programming
+interface.
 
 You'll usually want to track these YAML files in version control along
 with your source code.  Fission provides CLI tools for generating
@@ -33,7 +29,7 @@ Fission installation.
 
 What does it mean to _apply_ a specification?  It means putting
 specification to effect: figuring out the things that need to be
-changed on the cluster, and changing them to make them the same as the
+changed on the cluster, and updating them to make them the same as the
 specification.
 
 Applying a Fission spec goes through these steps:
@@ -55,11 +51,9 @@ Applying a Fission spec goes through these steps:
 Note that running _apply_ more than once is equivalent to running it
 once: in other words, it's idempotent.
 
-## Usage
+## Usage Summary
 
-## Summary
-
-Start using Fission's declarative specs in 3 steps:
+Start using Fission's declarative application specifications in 3 steps:
 
  1. Initialize a directory of specs: `fission spec init`
  1. Generate some YAMLs: `fission function create --spec ...`
