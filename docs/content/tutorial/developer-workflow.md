@@ -305,14 +305,15 @@ are separated by a "---" separator.  The resources are functions,
 environments, triggers.
 
 There's a special resource there, _ArchiveUploadSpec_.  This is in
-fact not a resource, just looks like one.  It is used to specify and
-name a set of files that will be uploaded to the cluster.  `fission
-spec apply` uses these `ArchiveUploadSpec`s to create archives locally
-and upload them.  The specs reference these archives using
-`archive://` URLs, which are handled using 
-
-
-
+fact not a resource, just looks like one in the YAML files.  It is
+used to specify and name a set of files that will be uploaded to the
+cluster.  `fission spec apply` uses these `ArchiveUploadSpec`s to
+create archives locally and upload them.  The specs reference these
+archives using `archive://` URLs.  These aren't "real" URLs; they are
+replaced by http URLs by the `fission spec` implementation after the
+archives are uploaded to the cluster.  On the cluster, Archives are
+tracked with checksums; the Fission CLI only uploads archives when
+their checksum has changed.
 
 ## Usage Reference
 
