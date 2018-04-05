@@ -2,7 +2,6 @@
 title= "Source Code Organization and Your Development Workflow"
 date= 2017-12-01T18:01:57-08:00
 description = ""
-draft= true
 +++
 
 You've made a Hello World function in your favourite language, and
