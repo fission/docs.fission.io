@@ -1,0 +1,8 @@
+# Generated from _redirects.template
+# This is a netlify redirects file.  The format is documented at:
+# https://www.netlify.com/docs/redirects/
+#
+# build.sh replaces "version" below with the actual version, and
+# places it in _dist/redirects.
+
+/latest/* /0.7.0/:splat 302

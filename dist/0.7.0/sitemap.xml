@@ -3,124 +3,130 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://docs.fission.io/0.6.1/</loc>
+    <loc>https://docs.fission.io/0.7.0/</loc>
     <lastmod>2017-09-07T20:10:05-07:00</lastmod>
   </url>
   
   <url>
-    <loc>https://docs.fission.io/0.6.1/installation/</loc>
+    <loc>https://docs.fission.io/0.7.0/installation/</loc>
   </url>
   
   <url>
-    <loc>https://docs.fission.io/0.6.1/installation/installation/</loc>
+    <loc>https://docs.fission.io/0.7.0/installation/installation/</loc>
   </url>
   
   <url>
-    <loc>https://docs.fission.io/0.6.1/installation/kubernetessetup/</loc>
+    <loc>https://docs.fission.io/0.7.0/installation/kubernetessetup/</loc>
   </url>
   
   <url>
-    <loc>https://docs.fission.io/0.6.1/installation/releasenotes/</loc>
+    <loc>https://docs.fission.io/0.7.0/installation/releasenotes/</loc>
   </url>
   
   <url>
-    <loc>https://docs.fission.io/0.6.1/concepts/</loc>
+    <loc>https://docs.fission.io/0.7.0/concepts/</loc>
   </url>
   
   <url>
-    <loc>https://docs.fission.io/0.6.1/installation/upgrade/</loc>
+    <loc>https://docs.fission.io/0.7.0/installation/upgrade/</loc>
   </url>
   
   <url>
-    <loc>https://docs.fission.io/0.6.1/installation/upgrade/upgrade-from-v0.1/</loc>
+    <loc>https://docs.fission.io/0.7.0/installation/upgrade/upgrade-from-v0.1/</loc>
   </url>
   
   <url>
-    <loc>https://docs.fission.io/0.6.1/concepts/environments/</loc>
+    <loc>https://docs.fission.io/0.7.0/concepts/environments/</loc>
   </url>
   
   <url>
-    <loc>https://docs.fission.io/0.6.1/installation/upgrade/upgrade-from-v0.3/</loc>
+    <loc>https://docs.fission.io/0.7.0/installation/upgrade/upgrade-from-v0.3/</loc>
   </url>
   
   <url>
-    <loc>https://docs.fission.io/0.6.1/concepts/executor/</loc>
+    <loc>https://docs.fission.io/0.7.0/concepts/executor/</loc>
   </url>
   
   <url>
-    <loc>https://docs.fission.io/0.6.1/installation/upgrade/upgrade-from-v0.4/</loc>
+    <loc>https://docs.fission.io/0.7.0/installation/upgrade/upgrade-from-v0.4/</loc>
   </url>
   
   <url>
-    <loc>https://docs.fission.io/0.6.1/concepts/trigger/</loc>
+    <loc>https://docs.fission.io/0.7.0/concepts/trigger/</loc>
   </url>
   
   <url>
-    <loc>https://docs.fission.io/0.6.1/concepts/package/</loc>
+    <loc>https://docs.fission.io/0.7.0/concepts/package/</loc>
   </url>
   
   <url>
-    <loc>https://docs.fission.io/0.6.1/usage/</loc>
+    <loc>https://docs.fission.io/0.7.0/usage/</loc>
   </url>
   
   <url>
-    <loc>https://docs.fission.io/0.6.1/usage/functions/</loc>
+    <loc>https://docs.fission.io/0.7.0/usage/functions/</loc>
   </url>
   
   <url>
-    <loc>https://docs.fission.io/0.6.1/tutorial/enabling-istio-on-fission/</loc>
+    <loc>https://docs.fission.io/0.7.0/tutorial/enabling-istio-on-fission/</loc>
   </url>
   
   <url>
-    <loc>https://docs.fission.io/0.6.1/usage/environments/</loc>
+    <loc>https://docs.fission.io/0.7.0/usage/environments/</loc>
   </url>
   
   <url>
-    <loc>https://docs.fission.io/0.6.1/usage/executor/</loc>
+    <loc>https://docs.fission.io/0.7.0/usage/executor/</loc>
   </url>
   
   <url>
-    <loc>https://docs.fission.io/0.6.1/usage/trigger/</loc>
+    <loc>https://docs.fission.io/0.7.0/usage/trigger/</loc>
   </url>
   
   <url>
-    <loc>https://docs.fission.io/0.6.1/usage/package/</loc>
+    <loc>https://docs.fission.io/0.7.0/usage/package/</loc>
   </url>
   
   <url>
-    <loc>https://docs.fission.io/0.6.1/usage/access-secret-cfgmap-in-function/</loc>
+    <loc>https://docs.fission.io/0.7.0/usage/access-secret-cfgmap-in-function/</loc>
   </url>
   
   <url>
-    <loc>https://docs.fission.io/0.6.1/contributing/</loc>
+    <loc>https://docs.fission.io/0.7.0/contributing/</loc>
     <lastmod>2017-09-07T20:10:05-07:00</lastmod>
   </url>
   
   <url>
-    <loc>https://docs.fission.io/0.6.1/contributing/compiling/</loc>
+    <loc>https://docs.fission.io/0.7.0/contributing/compiling/</loc>
     <lastmod>2017-09-07T20:10:05-07:00</lastmod>
   </url>
   
   <url>
-    <loc>https://docs.fission.io/0.6.1/workflows/</loc>
+    <loc>https://docs.fission.io/0.7.0/workflows/</loc>
   </url>
   
   <url>
-    <loc>https://docs.fission.io/0.6.1/_header/</loc>
+    <loc>https://docs.fission.io/0.7.0/tutorial/developer-workflow/</loc>
+    <lastmod>2017-12-01T18:01:57-08:00</lastmod>
   </url>
   
   <url>
-    <loc>https://docs.fission.io/0.6.1/categories/</loc>
+    <loc>https://docs.fission.io/0.7.0/_header/</loc>
+  </url>
+  
+  <url>
+    <loc>https://docs.fission.io/0.7.0/categories/</loc>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://docs.fission.io/0.6.1/tags/</loc>
+    <loc>https://docs.fission.io/0.7.0/tags/</loc>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://docs.fission.io/0.6.1/tutorial/</loc>
+    <loc>https://docs.fission.io/0.7.0/tutorial/</loc>
+    <lastmod>2017-12-01T18:01:57-08:00</lastmod>
     <priority>0</priority>
   </url>
   
