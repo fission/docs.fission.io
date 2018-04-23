@@ -6,30 +6,34 @@ weight: 44
 
 ### Create a HTTP Trigger
 
-You can create a HTTP trigger with default method (GET) for a function:
+An HTTP trigger invokes a function when there is an HTTP request.  
+
+You can specify the relative URL and HTTP method for a trigger:
 
 ```
-$ fission ht create --url /hello --function hello
+$ fission ht create --url /hello --method GET --function hello
 trigger '94cd5163-30dd-4fb2-ab3c-794052f70841' created
 ```
 
 ### Create a Time Trigger
 
-Time based triggers can be created with cron specifications: 
+Time-based triggers invoke functions based on time.  They can run once
+or repeatedly.  They're specified using [cron string
+specifications](https://en.wikipedia.org/wiki/Cron):
 
 ```
-$ fission tt create --name halfhourly --function hello --cron "0 30 * * *"
+$ fission tt create --name halfhourly --function hello --cron "*/30 * * * *"
 trigger 'halfhourly' created
 ```
 
-Also a more friendly syntax such "every 1m" or "@hourly" can be used to create a time based trigger.
+You can also use a friendlier syntax such "@every 1m" or "@hourly":
 
 ```
 $ fission tt create --name minute --function hello --cron "@every 1m"
 trigger 'minute' created
 ```
 
-You can list time based triggers to inspect their associated function and cron specifications:
+And you can list time triggers to see their associated function and cron strings:
 
 ```
 $ fission tt list
@@ -41,8 +45,10 @@ minute     @every 1m  hello
 ### Create a Message Queue Trigger
 
 A message queue trigger invokes a function based on messages from an
-message queue.  Currently, NATS and Azure Storage Queue are supported
-queues.  (Kafka support is under development.)
+message queue.  Optionally, it can place the response of a function
+onto another queue.
+
+NATS and Azure Storage Queue are supported queues:
 
 ```
 $ fission mqt create --name hellomsg --function hello --mqtype nats-streaming --topic newfile --resptopic newfileresponse 

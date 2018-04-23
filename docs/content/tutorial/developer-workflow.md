@@ -269,6 +269,8 @@ Create a `requirements.txt`, and add something to it:
 xxx
 ```
 
+Modify the ArchiveUploadSpec inside specs/function-<name>.yaml
+
 Once again, deploying is the same:
 
 ```
