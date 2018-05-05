@@ -22,6 +22,5 @@ echo "# Generated from _redirects.template" > dist/_redirects
 cat _redirects.template | sed -e "s/VERSION/$VERSION/g" >> dist/_redirects
 
 echo "Making index.html"
-echo "# Generated from index.html.template" > dist/index.html
 cat index.html.template | sed -e "s/VERSION/$VERSION/g" >> dist/index.html
 
