@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Using Fission on Serverless Functions for Kubernetes</title>
+    <link>https://docs.fission.io/0.7.2/usage/</link>
+    <description>Recent content in Using Fission on Serverless Functions for Kubernetes</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-US</language>
+    
+	<atom:link href="https://docs.fission.io/0.7.2/usage/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Function</title>
+      <link>https://docs.fission.io/0.7.2/usage/functions/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://docs.fission.io/0.7.2/usage/functions/</guid>
+      <description>Create a function Before creating a function the environment should be created, we will assume that you have already created environment named node.
+Let&amp;rsquo;s create a simple code snippet in nodejs which will output Hello world:
+module.exports = async function(context) { return { status: 200, body: &amp;quot;Hello, world!\n&amp;quot; }; }  Let&amp;rsquo;s create a route for the function which can be used for making HTTP requests:
+$ fission route create --function hello --url /hello trigger &#39;5327e9a7-6d87-4533-a4fb-c67f55b1e492&#39; created  Let&amp;rsquo;s create a function based on pool based executor.</description>
+    </item>
+    
+    <item>
+      <title>Environment</title>
+      <link>https://docs.fission.io/0.7.2/usage/environments/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://docs.fission.io/0.7.2/usage/environments/</guid>
+      <description>Create an environment You can create an environment on your cluster from an image for that language. Optionally, you can specify CPU and memory resource limits. You can also specify the number of initially pre-warmed pods, which is called the poolsize.
+$ fission env create --name node --image fission/node-env:0.4.0 --mincpu 40 --maxcpu 80 --minmemory 64 --maxmemory 128 --poolsize 4  In case of pool based executor, the resources specified for environment are used for function pod as well.</description>
+    </item>
+    
+    <item>
+      <title>Controlling Function Execution</title>
+      <link>https://docs.fission.io/0.7.2/usage/executor/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://docs.fission.io/0.7.2/usage/executor/</guid>
+      <description>Autoscaling Let&amp;rsquo;s create a function to demonstrate the autoscaling behaviour in Fission. We create a simple function which outputs &amp;ldquo;Hello World&amp;rdquo; in using NodeJS. We have kept the CPU request and limit purposefully low to simulate the load and also kept the target CPU percent to 50%.
+$ fission fn create --name hello --env node --code hello.js --mincpu 10 --maxcpu 40 --minmemory 64 --maxmemory 128 --minscale 1 --maxscale 6 --executortype newdeploy --targetcpu 50 function &#39;hello&#39; created  Now let&amp;rsquo;s use hey to generate the load with 250 concurrent and a total of 10000 requests:</description>
+    </item>
+    
+    <item>
+      <title>Triggers</title>
+      <link>https://docs.fission.io/0.7.2/usage/trigger/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://docs.fission.io/0.7.2/usage/trigger/</guid>
+      <description>Create a HTTP Trigger An HTTP trigger invokes a function when there is an HTTP request.
+You can specify the relative URL and HTTP method for a trigger:
+$ fission ht create --url /hello --method GET --function hello trigger &#39;94cd5163-30dd-4fb2-ab3c-794052f70841&#39; created  Create a Time Trigger Time-based triggers invoke functions based on time. They can run once or repeatedly. They&amp;rsquo;re specified using cron string specifications:
+$ fission tt create --name halfhourly --function hello --cron &amp;quot;*/30 * * * *&amp;quot; trigger &#39;halfhourly&#39; created  You can also use a friendlier syntax such &amp;ldquo;@every 1m&amp;rdquo; or &amp;ldquo;@hourly&amp;rdquo;:</description>
+    </item>
+    
+    <item>
+      <title>Packaging source code</title>
+      <link>https://docs.fission.io/0.7.2/usage/package/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://docs.fission.io/0.7.2/usage/package/</guid>
+      <description>Creating source package Before you create a package, you need to create an environment with associated builder image:
+$ fission env create --name pythonsrc --image fission/python-env:latest --builder fission/python-builder:latest --mincpu 40 --maxcpu 80 --minmemory 64 --maxmemory 128 --poolsize 2 environment &#39;pythonsrc&#39; created  Let&amp;rsquo;s take a simple python function which has dependency on a python pyyaml module. We can specify the dependencies in requirements.txt and a simple command to build from source.</description>
+    </item>
+    
+    <item>
+      <title>Accessing Secrets in Functions</title>
+      <link>https://docs.fission.io/0.7.2/usage/access-secret-cfgmap-in-function/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://docs.fission.io/0.7.2/usage/access-secret-cfgmap-in-function/</guid>
+      <description>Functions can access Kubernetes Secrets and ConfigMaps.
+Use secrets for things like API keys, authentication tokens, and so on.
+Use config maps for any other configuration that doesn&amp;rsquo;t need to be a secret.
+Create A Secret or a ConfigMap You can create a Secret or ConfigMap with the Kubernetes CLI:
+$ kubectl -n default create secret generic my-secret --from-literal=TEST_KEY=&amp;quot;TESTVALUE&amp;quot; $ kubectl -n default create configmap my-configmap --from-literal=TEST_KEY=&amp;quot;TESTVALUE&amp;quot;  Or, use kubectl create -f &amp;lt;filename.</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -29,7 +29,7 @@ trigger '5327e9a7-6d87-4533-a4fb-c67f55b1e492' created
 Let's create a function based on pool based executor.
 
 ```
-fission fn create --name hello --code hello.js --env node --executortype poolmgr
+$ fission fn create --name hello --code hello.js --env node --executortype poolmgr
 ```
 
 When you hit this function's URL , you get a response:
@@ -41,7 +41,7 @@ Hello, world!
 Similarly you can create a new deployment executor type function and provide minmum and maximum scale for the function. 
 
 ```
-fission fn create --name hello --code hello.js --env node --minscale 1 --maxscale 5  --executortype newdeploy
+$ fission fn create --name hello --code hello.js --env node --minscale 1 --maxscale 5  --executortype newdeploy
 ```
 
 ### View & update function source code
@@ -153,12 +153,12 @@ pip3 install -r ${SRC_PKG}/requirements.txt -t ${SRC_PKG} && cp -r ${SRC_PKG} ${
 You first need to create an environment with environment image and python-builder image specified:
 
 ```
-$fission env create --name python --image fission/python-env:latest --builder fission/python-builder:latest --mincpu 40 --maxcpu 80 --minmemory 64 --maxmemory 128 --poolsize 2
+$ fission env create --name python --image fission/python-env:latest --builder fission/python-builder:latest --mincpu 40 --maxcpu 80 --minmemory 64 --maxmemory 128 --poolsize 2
 ```
 Now let's zip the directory containing the source files and create a function with source package:
 
 ```
-$zip -jr demo-src-pkg.zip sourcepkg/
+$ zip -jr demo-src-pkg.zip sourcepkg/
   adding: __init__.py (stored 0%)
   adding: build.sh (deflated 24%)
   adding: requirements.txt (stored 0%)
@@ -172,7 +172,7 @@ $ fission route create --function hellopy --url /hellopy
 Once we create the function, the build process is started. You can check logs of the builder in fission-builder namespace:
 
 ```
-$ k -n fission-builder logs -f py3-4214348-59555d9bd8-ks7m4 builder
+$ kubectl -n fission-builder logs -f py3-4214348-59555d9bd8-ks7m4 builder
 2018/02/16 11:44:21 Builder received request: {demo-src-pkg-zip-ninf-djtswo ./build.sh}
 2018/02/16 11:44:21 Starting build...
 

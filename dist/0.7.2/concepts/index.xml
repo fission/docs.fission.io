@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Fission Concepts on Serverless Functions for Kubernetes</title>
+    <link>https://docs.fission.io/0.7.2/concepts/</link>
+    <description>Recent content in Fission Concepts on Serverless Functions for Kubernetes</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-US</language>
+    
+	<atom:link href="https://docs.fission.io/0.7.2/concepts/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Environments</title>
+      <link>https://docs.fission.io/0.7.2/concepts/environments/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://docs.fission.io/0.7.2/concepts/environments/</guid>
+      <description>An environment contains the language and runtime specific parts of a function. An environment is essentially a container with a webserver and a dynamic loader for the function code.
+The following pre-built environments are currently available for use in Fission:
+   Environment Image     Binary (for executables or scripts) fission/binary-env   Go fission/go-env   .NET fission/dotnet-env   .NET 2.0 fission/dotnet20-env   NodeJS (Alpine) fission/node-env   NodeJS (Debian) fission/node-env-debian   Perl fission/perl-env   PHP 7 fission/php-env   Python 3 fission/python-env   Ruby fission/ruby-env    To create custom environments you can extend one of the environments in the list or create your own environment from scratch.</description>
+    </item>
+    
+    <item>
+      <title>Controlling Function Execution</title>
+      <link>https://docs.fission.io/0.7.2/concepts/executor/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://docs.fission.io/0.7.2/concepts/executor/</guid>
+      <description>Executors When you create a function, you can specify an executor for a function. An executor controls how function pods are created and what capabilities are available for that executor type.
+Pool-based executor A pool based executor (Refered to as poolmgr) creates a pool of generic environment pods as soon as you create an environment. The pool size of initial &amp;ldquo;warm&amp;rdquo; containers can be configured based on user needs. These warm containers contain a small dynamic loader for loading the function.</description>
+    </item>
+    
+    <item>
+      <title>Trigger</title>
+      <link>https://docs.fission.io/0.7.2/concepts/trigger/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://docs.fission.io/0.7.2/concepts/trigger/</guid>
+      <description>Triggers are events that can invoke a function. Fission has three kinds of triggers that can be used to invoke functions.
+Http Trigger HTTP triggers enable calling functions with HTTP requests. Supported methods are GET, POST, PUT, DELETE, HEAD and by default GET is used. URL pattern follow the gorilla/mux supported patterns.
+Time Trigger If you want a function to be called at a periodic frequency then the time triggers are perfect for the use case.</description>
+    </item>
+    
+    <item>
+      <title>Builder and Packages</title>
+      <link>https://docs.fission.io/0.7.2/concepts/package/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://docs.fission.io/0.7.2/concepts/package/</guid>
+      <description>Most real world applications are more than a single file of code and typically have dependencies on libraries etc. Packages in fission solve three distinct problems:
+1) Enable a mechanism to store more than one file as a single unit and use them with functions. This is done through a combination of deployment archive builder environment associated with the environment.
+2) Provide a mechanism to build from source code and dependencies into a binary based on a build command and store it as an object.</description>
+    </item>
+    
+  </channel>
+</rss>
