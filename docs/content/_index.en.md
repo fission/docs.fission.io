@@ -92,8 +92,8 @@ Usage
   $ fission route create --method GET --url /hello --function hello
 
   # Run the function.  This takes about 100msec the first time.
-  $ curl http://$FISSION_ROUTER/hello
+  $ fission function test --name hello
   Hello, world!
 ```
 
-See the [examples](https://github.com/fission/fission/tree/0.6.0/examples) directory for more.
+See the [examples](https://github.com/fission/fission/tree/master/examples) directory for more.
