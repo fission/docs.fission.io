@@ -75,7 +75,7 @@ $ helm init
 #### Minikube
 
 ```sh
-$ helm install --namespace fission --set serviceType=NodePort https://github.com/fission/fission/releases/download/0.7.2/fission-all-0.7.2.tgz
+$ helm install --namespace fission --set serviceType=NodePort,routerServiceType=NodePort https://github.com/fission/fission/releases/download/0.7.2/fission-all-0.7.2.tgz
 ```
 
 The serviceType variable allows configuring the type of Kubernetes
