@@ -16,7 +16,7 @@ Fission Workflows requires the following components to be installed on your loca
 Fission Workflows is deployed on top of a Kubernetes cluster.
 If you don't have a Kubernetes cluster, [here's a quick guide to set one up](../kubernetessetup).
 It also requires a [Fission](https://github.com/fission/fission) deployment to be present on your Kubernetes cluster. 
-If you do not have a Fission deployment, follow [Fission's installation guide](../install).
+If you do not have a Fission deployment, follow [Fission's installation guide](../installation).
 
 **(Note that Fission Workflows 0.2.0 requires Fission 0.4.1 or higher, with the NATS component installed!)**
 
