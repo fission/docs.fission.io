@@ -66,6 +66,20 @@ $ mv linux-amd64/helm /usr/local/bin
 
 Next, install the Helm server on your Kubernetes cluster:
 
+On __Google Kubernetes Engine__ (GKE):
+
+To avoid RBAC related issues on GKE use the following steps to install helm using a dedicated service account.
+
+```sh
+$ kubectl create serviceaccount --namespace kube-system tiller
+
+$ kubectl create clusterrolebinding tiller-cluster-rule --clusterrole=cluster-admin --serviceaccount=kube-system:tiller
+
+$ helm init --service-account tiller --upgrade
+```
+
+On __Other Kubernetes installations__:
+
 ```sh
 $ helm init
 ```
