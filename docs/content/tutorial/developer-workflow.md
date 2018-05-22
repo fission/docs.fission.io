@@ -160,9 +160,9 @@ specifies the function name, where the code lives, and associates the
 function with the python environment:
 
 ```
-fission function create --spec --name calc-form --env python --source form.py --entrypoint form.main
+fission function create --spec --name calc-form --env python --src form.py --entrypoint form.main
 
-fission function create --spec --name calc-eval --env python --source calc.py --entrypoint calc.main
+fission function create --spec --name calc-eval --env python --src calc.py --entrypoint calc.main
 ```
 
 You can see the generated YAML files in
