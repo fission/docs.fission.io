@@ -15,6 +15,25 @@ $ fission ht create --url /hello --method GET --function hello
 trigger '94cd5163-30dd-4fb2-ab3c-794052f70841' created
 ```
 
+If you want to create a ingress for the HTTP trigger, you can provide the flag along with the hostname. If the hostname is not provided, it defaults to "*"
+
+```
+$ fission ht create --url /hello --method GET --function hello --createingress --host acme.com
+trigger '94cd5163-30dd-4fb2-ab3c-794052f70841' created
+
+$ fission route list
+NAME                                 METHOD HOST     URL      INGRESS FUNCTION_NAME
+94cd5163-30dd-4fb2-ab3c-794052f70841 GET    acme.com /hello   true    hello
+
+```
+
+Please note that for ingress to work, you will have to deploy a ingress controller in your cluster. Kubernetes currently supports and maintains for following ingress controller and you should check documentation of individual ingress controllers for setup.
+
+- [Nginx Ingress Controller](https://github.com/kubernetes/ingress-nginx)
+- [GCE Ingress Controller](https://github.com/kubernetes/ingress-gce)
+
+[F5 networks](http://clouddocs.f5.com/products/connectors/k8s-bigip-ctlr/v1.5/) and [Kong](https://konghq.com/blog/kubernetes-ingress-controller-for-kong/) also offer ingress controllers which are supported and maintained by them.
+
 ### Create a Time Trigger
 
 Time-based triggers invoke functions based on time.  They can run once
