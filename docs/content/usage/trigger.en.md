@@ -11,11 +11,11 @@ An HTTP trigger invokes a function when there is an HTTP request.
 You can specify the relative URL and HTTP method for a trigger:
 
 ```
-$ fission ht create --url /hello --method GET --function hello
+$ fission httptrigger create --url /hello --method GET --function hello
 trigger '94cd5163-30dd-4fb2-ab3c-794052f70841' created
 ```
 
-If you want to create a ingress for the HTTP trigger, you can provide the flag along with the hostname. If the hostname is not provided, it defaults to "*"
+If you want to create a ingress for the HTTP trigger, you can provide the flag along with the hostname. Hostname is the host field as per HTTP1.1 specifications. If the hostname is not provided, it defaults to "*" which indicates wildcard host.
 
 ```
 $ fission ht create --url /hello --method GET --function hello --createingress --host acme.com
@@ -27,7 +27,7 @@ NAME                                 METHOD HOST     URL      INGRESS FUNCTION_N
 
 ```
 
-Please note that for ingress to work, you will have to deploy a ingress controller in your cluster. Kubernetes currently supports and maintains for following ingress controller and you should check documentation of individual ingress controllers for setup.
+Please note that for ingress to work, you will have to deploy an ingress controller in Kubernetes cluster. Kubernetes currently supports and maintains the following ingress controllers:
 
 - [Nginx Ingress Controller](https://github.com/kubernetes/ingress-nginx)
 - [GCE Ingress Controller](https://github.com/kubernetes/ingress-gce)
