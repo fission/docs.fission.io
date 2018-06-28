@@ -10,6 +10,8 @@ Triggers are events that can invoke a [function](../function). Fission has three
 
 HTTP triggers enable calling functions with HTTP requests. Supported methods are GET, POST, PUT, DELETE, HEAD and by default GET is used. URL pattern follow the gorilla/mux supported patterns.
 
+HTTP trigger also supports creation of ingress for a HTTP trigger. The ingress can be used to give the function an externally-reachable URL, terminate SSL, load balance traffic etc.
+
 ## Time Trigger
 
 If you want a function to be called at a periodic frequency then the time triggers are perfect for the use case. Time triggers follow cron like specifications and are invoked based on the cron schedule.
