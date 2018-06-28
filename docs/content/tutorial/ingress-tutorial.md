@@ -4,19 +4,19 @@ draft: false
 weight: 43
 ---
 
-This tutorial will walk you through exposing a function using a ingress controller. We will make the function available on a FQDN using Fission's route and ingress controller setup in a cloud environment.
+This tutorial will walk you through exposing a function using an ingress controller (You can read more about ingress and ingress controller [here](https://kubernetes.io/docs/concepts/services-networking/ingress/#ingress-controllers)). We will make the function available on a fully qualified domain name (FQDN) using Fission's route and ingress controller setup in a cloud environment.
 
 ## Setup & pre-requisites
 
-You will need a Kubernetes cluster with Fission installed (Please check [installation page](../../installation/installation/) for details). This tutorial uses a cloud load balancer and if you are trying on Minikube, you might want [to take a look at details here](https://github.com/kubernetes/minikube/issues/496)
+You will need a Kubernetes cluster with Fission installed (Please check [installation page](../../installation/installation/) for details). This tutorial uses a cloud load  balancer, but if you are using Minikube you might want [to take a look at details here](https://github.com/kubernetes/minikube/issues/496)
 
-Later parts of this tutorial use a FQDN to reach the function. If you plan to go along in this section, you will need a domain name setup and access to modify the NS records & create A record in the zone of the domain name you have. The tutorial uses Google cloud to walk through the tutorial but you can use any cloud you prefer to. Also the changes in name server can take upto 24-48 hours so you may want to use an already created domain name.
+Later parts of this tutorial use a FQDN to reach the function. If you plan to go along in this section, you will need a domain name setup and access to modify the NS records and create A record in the zone of the domain name you have. The tutorial uses Google cloud to walk through the tutorial but you can use any cloud you prefer to. Also the changes in name server can take 24-48 hours so you may want to use an already created domain name.
 
 ### Setup an Ingress Controller
 
-First thing we will need is an ingress controller and we will use Nginx ingress controller in this tutorial. Based on your setup you can choose [one of the ways to install Nginx ingress controller from here](https://kubernetes.github.io/ingress-nginx/deploy/). This setup should work with other ingress controllers also but has not been tested.
+First thing we will need is an ingress controller and we will use Nginx ingress controller in this tutorial. Based on your setup you can choose [one of the multiple ways to install Nginx ingress controller](https://kubernetes.github.io/ingress-nginx/deploy/). This setup should work with other ingress controllers also but has not been tested.
 
-Once ingress controller is installed properly, let's verify that the installation succeeded (In my case all components of ingress controller were installed in ingress-nginx namespace):
+Let's verify that the installation succeeded:
 
 ```
 kubectl get all -n ingress-nginx
@@ -37,7 +37,8 @@ rs/default-http-backend-66b447d9cf       1         1         1         19d
 rs/nginx-ingress-controller-58fcfdc6fd   1         1         1         19d
 
 ```
-Some key points to validate that ingress controller installation succeeded:
+
+Following are key points to validate that ingress controller installation succeeded (Please refer to output of a successful installation above)
 
 - The ingress controller pod is up and running
 - The ingress-nginx service has a external IP address populated
@@ -51,9 +52,11 @@ default backend - 404
 
 ## Deploying Function with ingress
 
+An ingress resource allows traffic from outside the cluster to reach the services inside the cluster. The ingress is fulfilled by an ingress controller. In following sections we will create a function and enable traffic outside the cluster to reach the function.
+
 ### Create a function
 
-We will create an environment, function and test that it works:
+We will create an environment, a function and test that it works:
 
 ```
 $ fission env create --name nodejs --image fission/node-env
@@ -77,7 +80,9 @@ Hello, Fission!
 
 ### Create a internal route
 
-Let's create a route which is not exposed via the ingress controller:
+Let's create a route which is not exposed via the ingress controller so that it can be consumed by resources inside the cluster only.
+
+Currently since functions are also exposed via the Fission router, the function can be accessed from outside the cluster but in future the router may not expose all functions outside the cluster.
 
 ```
 $ fission route create --url /ihello --function hello
@@ -112,7 +117,7 @@ I0604 12:47:08.985535       5 event.go:218] Event(v1.ObjectReference{Kind:"Ingre
 I0604 12:47:09.117629       5 controller.go:177] ingress backend successfully reloaded...
 ```
 
-If you now hit the function at ingress controller's IP and the path (`http://<INGRESS-CONTROLLER-EXTERNAL-IP>/hello`), you will get function response. Depending on your setup and settings, you will have to try HTTP or HTTPS. Some ingress controllers by default enable SSL redirect and hence HTTPS URL has to be accessed.
+If you now hit the function at ingress controller's IP and the path (`http://<INGRESS-CONTROLLER-EXTERNAL-IP>/hello`), you will get function's response. Depending on your setup and settings, you will have to try HTTP or HTTPS. Some ingress controllers enable SSL redirect by default and hence the HTTPS URL has to be accessed.
 
 ```
 $ curl -k  https://35.200.150.175/hello
@@ -120,11 +125,11 @@ Hello, Fission!
 
 ```
 
-### Create a FQDN route (Optional, needs pre-requisites fulfilled)
+### Create a FQDN route
 
-Lastly we can map the FQDN to function if you have DNS setup and access. You need to do a few steps:
+This is an optional step and pre-requisites should be fulfilled before proceeding. You can map the FQDN to function if you have DNS setup and access. You need to do a few steps:
 
-- Map the domain name's name server to your cloud provider. For example we used domain name fission.sh and mapped the name server to google cloud (Since this tutorial setup is on Google cloud)
+- Map the domain name's name server to your cloud provider. For example we used domain name fission.sh and mapped the name server to google cloud (Since this tutorial setup is on Google cloud). The instructions are specific to your domain name provider, please check the documentation of the provider.
 
 - Create a zone for the root domain in the cloud provider (Created a zone for fission.sh in google cloud)
 
