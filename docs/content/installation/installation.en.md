@@ -88,6 +88,23 @@ $ helm init
 
 #### Minikube
 
+Since minikube 0.26.0 the default bootstrapper is kubeadm which enables RBAC by default. For those who work on versions before 0.26.0, please follow the steps below to enable RBAC.
+
+```sh
+# For minikube before version 0.26.0
+$ minikube start --extra-config=apiserver.Authorization.Mode=RBAC
+```
+
+Then, you should see the cluster role `cluster-admin`.
+
+``` sh
+$ kubectl get clusterroles cluster-admin
+NAME            AGE
+cluster-admin   44d
+```
+
+Install fission with helm
+
 ```sh
 $ helm install --namespace fission --set serviceType=NodePort,routerServiceType=NodePort https://github.com/fission/fission/releases/download/0.8.0/fission-all-0.8.0.tgz
 ```
