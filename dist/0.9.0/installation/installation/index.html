@@ -13,19 +13,19 @@
     <title>Installation Guide :: Serverless Functions for Kubernetes</title>
     
     
-    <link href="/0.9.0/css/nucleus.css?1530689086" rel="stylesheet">
-    <link href="/0.9.0/css/font-awesome.min.css?1530689086" rel="stylesheet">
-    <link href="/0.9.0/css/hybrid.css?1530689086" rel="stylesheet">
-    <link href="/0.9.0/css/featherlight.min.css?1530689086" rel="stylesheet">
-    <link href="/0.9.0/css/perfect-scrollbar.min.css?1530689086" rel="stylesheet">
-    <link href="/0.9.0/css/auto-complete.css?1530689086" rel="stylesheet">
-    <link href="/0.9.0/css/theme.css?1530689086" rel="stylesheet">
-    <link href="/0.9.0/css/hugo-theme.css?1530689086" rel="stylesheet">
+    <link href="/0.9.0/css/nucleus.css?1530695663" rel="stylesheet">
+    <link href="/0.9.0/css/font-awesome.min.css?1530695663" rel="stylesheet">
+    <link href="/0.9.0/css/hybrid.css?1530695663" rel="stylesheet">
+    <link href="/0.9.0/css/featherlight.min.css?1530695663" rel="stylesheet">
+    <link href="/0.9.0/css/perfect-scrollbar.min.css?1530695663" rel="stylesheet">
+    <link href="/0.9.0/css/auto-complete.css?1530695663" rel="stylesheet">
+    <link href="/0.9.0/css/theme.css?1530695663" rel="stylesheet">
+    <link href="/0.9.0/css/hugo-theme.css?1530695663" rel="stylesheet">
     
-      <link href="/0.9.0/css/theme-fission.css?1530689086" rel="stylesheet">
+      <link href="/0.9.0/css/theme-fission.css?1530695663" rel="stylesheet">
     
 
-    <script src="/0.9.0/js/jquery-2.x.min.js?1530689086"></script>
+    <script src="/0.9.0/js/jquery-2.x.min.js?1530695663"></script>
     
     <style type="text/css">
       :root #header + #content > #left > #rlblock_left{ 
@@ -54,14 +54,14 @@
     <span data-search-clear=""><i class="fa fa-close"></i></span>
 </div>
 
-<script type="text/javascript" src="/0.9.0/js/lunr.min.js?1530689086"></script>
-<script type="text/javascript" src="/0.9.0/js/auto-complete.js?1530689086"></script>
+<script type="text/javascript" src="/0.9.0/js/lunr.min.js?1530695663"></script>
+<script type="text/javascript" src="/0.9.0/js/auto-complete.js?1530695663"></script>
 <script type="text/javascript">
     
         var baseurl = '\/0.9.0';
     
 </script>
-<script type="text/javascript" src="/0.9.0/js/search.js?1530689086"></script>
+<script type="text/javascript" src="/0.9.0/js/search.js?1530695663"></script>
 
     
   </div>
@@ -917,7 +917,7 @@ cluster-admin   44d
 
 <p>Install fission with helm</p>
 
-<pre><code class="language-sh">$ helm install --namespace fission --set serviceType=NodePort,routerServiceType=NodePort https://github.com/fission/fission/releases/download/0.8.0/fission-all-0.8.0.tgz
+<pre><code class="language-sh">$ helm install --namespace fission --set serviceType=NodePort,routerServiceType=NodePort https://github.com/fission/fission/releases/download/0.9.0/fission-all-0.9.0.tgz
 </code></pre>
 
 <p>The serviceType variable allows configuring the type of Kubernetes
@@ -926,7 +926,7 @@ want to expose anything outside the cluster.</p>
 
 <h4 id="cloud-hosted-clusters-gke-aws-azure-etc">Cloud hosted clusters (GKE, AWS, Azure etc.)</h4>
 
-<pre><code class="language-sh">$ helm install --namespace fission https://github.com/fission/fission/releases/download/0.8.0/fission-all-0.8.0.tgz
+<pre><code class="language-sh">$ helm install --namespace fission https://github.com/fission/fission/releases/download/0.9.0/fission-all-0.9.0.tgz
 </code></pre>
 
 <h4 id="minimal-version">Minimal version</h4>
@@ -935,7 +935,7 @@ want to expose anything outside the cluster.</p>
 the NATS message queue, influxDB for logs, etc. If you want a more
 minimal setup, you can install the fission-core chart instead:</p>
 
-<pre><code class="language-sh">$ helm install --namespace fission https://github.com/fission/fission/releases/download/0.8.0/fission-core-0.8.0.tgz
+<pre><code class="language-sh">$ helm install --namespace fission https://github.com/fission/fission/releases/download/0.9.0/fission-core-0.9.0.tgz
 </code></pre>
 
 <h3 id="install-the-fission-cli">Install the Fission CLI</h3>
@@ -944,24 +944,24 @@ minimal setup, you can install the fission-core chart instead:</p>
 
 <p>Get the CLI binary for Mac:</p>
 
-<pre><code class="language-sh">$ curl -Lo fission https://github.com/fission/fission/releases/download/0.8.0/fission-cli-osx &amp;&amp; chmod +x fission &amp;&amp; sudo mv fission /usr/local/bin/
+<pre><code class="language-sh">$ curl -Lo fission https://github.com/fission/fission/releases/download/0.9.0/fission-cli-osx &amp;&amp; chmod +x fission &amp;&amp; sudo mv fission /usr/local/bin/
 </code></pre>
 
 <h4 id="linux">Linux</h4>
 
-<pre><code class="language-sh">$ curl -Lo fission https://github.com/fission/fission/releases/download/0.8.0/fission-cli-linux &amp;&amp; chmod +x fission &amp;&amp; sudo mv fission /usr/local/bin/
+<pre><code class="language-sh">$ curl -Lo fission https://github.com/fission/fission/releases/download/0.9.0/fission-cli-linux &amp;&amp; chmod +x fission &amp;&amp; sudo mv fission /usr/local/bin/
 </code></pre>
 
 <h4 id="windows">Windows</h4>
 
 <p>For Windows, you can use the linux binary on WSL. Or you can download
-this windows executable: <a href="https://github.com/fission/fission/releases/download/0.8.0/fission-cli-windows.exe">fission.exe</a></p>
+this windows executable: <a href="https://github.com/fission/fission/releases/download/0.9.0/fission-cli-windows.exe">fission.exe</a></p>
 
 <h3 id="run-an-example">Run an example</h3>
 
 <p>Finally, you&rsquo;re ready to use Fission!</p>
 
-<pre><code class="language-sh">$ fission env create --name nodejs --image fission/node-env:0.8.0
+<pre><code class="language-sh">$ fission env create --name nodejs --image fission/node-env:0.9.0
 
 $ curl -LO https://raw.githubusercontent.com/fission/fission/master/examples/nodejs/hello.js
 
@@ -973,7 +973,7 @@ Hello, world!
 
 <p>For a compiled language like Go:</p>
 
-<pre><code class="language-sh">$ fission env create --name go --image fission/go-env:0.8.0 --builder fission/go-builder:0.8.0
+<pre><code class="language-sh">$ fission env create --name go --image fission/go-env:0.9.0 --builder fission/go-builder:0.9.0
 
 $ curl -LO https://raw.githubusercontent.com/fission/fission/master/examples/go/hello.go
 
@@ -1492,20 +1492,20 @@ for some example functions.</p>
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/0.9.0/js/clipboard.min.js?1530689086"></script>
-    <script src="/0.9.0/js/perfect-scrollbar.min.js?1530689086"></script>
-    <script src="/0.9.0/js/perfect-scrollbar.jquery.min.js?1530689086"></script>
-    <script src="/0.9.0/js/jquery.sticky.js?1530689086"></script>
-    <script src="/0.9.0/js/featherlight.min.js?1530689086"></script>
-    <script src="/0.9.0/js/html5shiv-printshiv.min.js?1530689086"></script>
-    <script src="/0.9.0/js/highlight.pack.js?1530689086"></script>
+    <script src="/0.9.0/js/clipboard.min.js?1530695663"></script>
+    <script src="/0.9.0/js/perfect-scrollbar.min.js?1530695663"></script>
+    <script src="/0.9.0/js/perfect-scrollbar.jquery.min.js?1530695663"></script>
+    <script src="/0.9.0/js/jquery.sticky.js?1530695663"></script>
+    <script src="/0.9.0/js/featherlight.min.js?1530695663"></script>
+    <script src="/0.9.0/js/html5shiv-printshiv.min.js?1530695663"></script>
+    <script src="/0.9.0/js/highlight.pack.js?1530695663"></script>
     <script>hljs.initHighlightingOnLoad();</script>
-    <script src="/0.9.0/js/modernizr.custom.71422.js?1530689086"></script>
-    <script src="/0.9.0/js/learn.js?1530689086"></script>
-    <script src="/0.9.0/js/hugo-learn.js?1530689086"></script>
+    <script src="/0.9.0/js/modernizr.custom.71422.js?1530695663"></script>
+    <script src="/0.9.0/js/learn.js?1530695663"></script>
+    <script src="/0.9.0/js/hugo-learn.js?1530695663"></script>
 
-    <link href="/0.9.0/mermaid/mermaid.css?1530689086" type="text/css" rel="stylesheet" />
-    <script src="/0.9.0/mermaid/mermaid.js?1530689086"></script>
+    <link href="/0.9.0/mermaid/mermaid.css?1530695663" type="text/css" rel="stylesheet" />
+    <script src="/0.9.0/mermaid/mermaid.js?1530695663"></script>
     <script>
         mermaid.initialize({ startOnLoad: true });
     </script>
