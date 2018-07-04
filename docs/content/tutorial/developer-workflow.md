@@ -94,7 +94,7 @@ cluster from these specs will be annotated with that unique ID.
 ### Setup a Python environment
 
 ```
-fission env create --spec --name python --image fission/python-env:0.8.0 --builder fission/python-build-env:0.8.0
+fission env create --spec --name python --image fission/python-env:0.9.0 --builder fission/python-build-env:0.9.0
 ```
 
 This command creates a YAML file under specs called `specs/env-python.yaml`.
