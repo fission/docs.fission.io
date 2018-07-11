@@ -18,7 +18,7 @@ If you don't have a Kubernetes cluster, [here's a quick guide to set one up](../
 It also requires a [Fission](https://github.com/fission/fission) deployment to be present on your Kubernetes cluster. 
 If you do not have a Fission deployment, follow [Fission's installation guide](../installation/installation/).
 
-**(Note that Fission Workflows 0.4.0 requires Fission 0.4.1 or higher, with the NATS component installed!)**
+**(Note that Fission Workflows 0.5.0 requires Fission 0.4.1 or higher, with the NATS component installed!)**
 
 ### Installing Fission Workflows
 
@@ -34,7 +34,7 @@ $ helm repo add fission-charts https://fission.github.io/fission-charts/
 $ helm repo update
 
 # Install Fission Workflows
-$ helm install --wait -n fission-workflows fission-charts/fission-workflows --version 0.4.0
+$ helm install --wait -n fission-workflows fission-charts/fission-workflows --version 0.5.0
 ```
 
 ### Creating your first workflow
@@ -45,11 +45,11 @@ With the following code snippet you will be able to deploy and run a small workf
 
 ```bash
 # Fetch the required files, alternatively you could clone the fission-workflow repo
-$ curl https://raw.githubusercontent.com/fission/fission-workflows/0.4.0/examples/whales/fortune.sh > fortune.sh
+$ curl https://raw.githubusercontent.com/fission/fission-workflows/0.5.0/examples/whales/fortune.sh > fortune.sh
 
-$ curl https://raw.githubusercontent.com/fission/fission-workflows/0.4.0/examples/whales/whalesay.sh > whalesay.sh
+$ curl https://raw.githubusercontent.com/fission/fission-workflows/0.5.0/examples/whales/whalesay.sh > whalesay.sh
 
-$ curl https://raw.githubusercontent.com/fission/fission-workflows/0.4.0/examples/whales/fortunewhale.wf.yaml > fortunewhale.wf.yaml
+$ curl https://raw.githubusercontent.com/fission/fission-workflows/0.5.0/examples/whales/fortunewhale.wf.yaml > fortunewhale.wf.yaml
 
 #
 # Add binary environment and create two test functions on your Fission setup:
@@ -152,7 +152,7 @@ This means that you could use this workflow as a function in the `run` in other 
 ### What's next?
 To learn more about the Fission Workflows system and its advanced concepts, see the [documentation on Github](https://github.com/fission/fission-workflows/tree/master/Docs).
 
-Or, check out the [examples](https://github.com/fission/fission-workflows/tree/0.4.0/examples) for more example workflows.
+Or, check out the [examples](https://github.com/fission/fission-workflows/tree/0.5.0/examples) for more example workflows.
 
 If something went wrong, we'd love to help -- please [drop by the slack channel](http://slack.fission.io) and ask for help.
 
