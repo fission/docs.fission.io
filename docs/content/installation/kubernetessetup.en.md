@@ -10,6 +10,11 @@ your laptop (or on the cloud).
 (This isn't meant as a production Kuberenetes guide; it's merely
 intended to give you something quickly so you can try Fission on it.)
 
+## VirtualBox
+
+Minikube depends on the Oracle VM VirtualBox. Download and install from:
+https://www.virtualbox.org/wiki/Downloads
+
 ## Minikube
 
 Minikube is the usual way to run Kubernetes on your laptop:
