@@ -1,0 +1,1468 @@
+<!DOCTYPE html>
+<html lang="en" class="js csstransforms3d">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="generator" content="Hugo 0.35" />
+    <meta name="description" content="Documentation for Fission">
+<meta name="author" content="Fission">
+
+    <link rel="shortcut icon" href=/0.9.2/images/favicon.png type="image/x-icon" />
+<link rel="icon" href=/0.9.2/images/favicon.png type="image/x-icon" />
+
+    <title>Upgrading from v0.1 to v0.2.x :: Serverless Functions for Kubernetes</title>
+    
+    
+    <link href="/0.9.2/css/nucleus.css?1532541434" rel="stylesheet">
+    <link href="/0.9.2/css/font-awesome.min.css?1532541434" rel="stylesheet">
+    <link href="/0.9.2/css/hybrid.css?1532541434" rel="stylesheet">
+    <link href="/0.9.2/css/featherlight.min.css?1532541434" rel="stylesheet">
+    <link href="/0.9.2/css/perfect-scrollbar.min.css?1532541434" rel="stylesheet">
+    <link href="/0.9.2/css/auto-complete.css?1532541434" rel="stylesheet">
+    <link href="/0.9.2/css/theme.css?1532541434" rel="stylesheet">
+    <link href="/0.9.2/css/hugo-theme.css?1532541434" rel="stylesheet">
+    
+      <link href="/0.9.2/css/theme-fission.css?1532541434" rel="stylesheet">
+    
+
+    <script src="/0.9.2/js/jquery-2.x.min.js?1532541434"></script>
+    
+    <style type="text/css">
+      :root #header + #content > #left > #rlblock_left{ 
+          display:none !important;
+      }
+      
+    </style>
+    
+  </head>
+  <body class="" data-url="/0.9.2/installation/upgrade/upgrade-from-v0.1/">
+    <nav id="sidebar" class="">
+
+
+
+  <div id="header-wrapper">
+    <div id="header">
+      <a id="logo" href="http://fission.io/">
+  <img src=/0.9.2/images/fission-logo.png>
+</a>
+
+    </div>
+    
+        <div class="searchbox">
+    <label for="search-by"><i class="fa fa-search"></i></label>
+    <input data-search-input id="search-by" type="text" placeholder="Search...">
+    <span data-search-clear=""><i class="fa fa-close"></i></span>
+</div>
+
+<script type="text/javascript" src="/0.9.2/js/lunr.min.js?1532541434"></script>
+<script type="text/javascript" src="/0.9.2/js/auto-complete.js?1532541434"></script>
+<script type="text/javascript">
+    
+        var baseurl = '\/0.9.2';
+    
+</script>
+<script type="text/javascript" src="/0.9.2/js/search.js?1532541434"></script>
+
+    
+  </div>
+
+    <div class="highlightable">
+    <ul class="topics">
+
+        
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/0.9.2/installation/" title="Installation Guide" class="dd-item 
+        parent
+        
+        
+        ">
+      <a href="/0.9.2/installation/">
+          Installation Guide
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+            
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/0.9.2/installation/installation/" title="Installation Guide" class="dd-item ">
+        <a href="/0.9.2/installation/installation/">
+        Installation Guide
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/0.9.2/installation/kubernetessetup/" title="Kubernetes Quick Install" class="dd-item ">
+        <a href="/0.9.2/installation/kubernetessetup/">
+        Kubernetes Quick Install
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/0.9.2/installation/releasenotes/" title="Release notes" class="dd-item ">
+        <a href="/0.9.2/installation/releasenotes/">
+        Release notes
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/0.9.2/installation/upgrade/" title="Upgrade" class="dd-item 
+        parent
+        
+        
+        ">
+      <a href="/0.9.2/installation/upgrade/">
+          Upgrade
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/0.9.2/installation/upgrade/upgrade-from-v0.1/" title="Upgrading from v0.1 to v0.2.x" class="dd-item active">
+        <a href="/0.9.2/installation/upgrade/upgrade-from-v0.1/">
+        Upgrading from v0.1 to v0.2.x
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/0.9.2/installation/upgrade/upgrade-from-v0.3/" title="Upgrading from v0.3 to v0.4.x" class="dd-item ">
+        <a href="/0.9.2/installation/upgrade/upgrade-from-v0.3/">
+        Upgrading from v0.3 to v0.4.x
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/0.9.2/installation/upgrade/upgrade-from-v0.4/" title="Upgrading from v0.4.x to v0.5.0" class="dd-item ">
+        <a href="/0.9.2/installation/upgrade/upgrade-from-v0.4/">
+        Upgrading from v0.4.x to v0.5.0
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/0.9.2/concepts/" title="Fission Concepts" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/0.9.2/concepts/">
+          Fission Concepts
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/0.9.2/concepts/environments/" title="Environments" class="dd-item ">
+        <a href="/0.9.2/concepts/environments/">
+        Environments
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/0.9.2/concepts/executor/" title="Controlling Function Execution" class="dd-item ">
+        <a href="/0.9.2/concepts/executor/">
+        Controlling Function Execution
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/0.9.2/concepts/trigger/" title="Trigger" class="dd-item ">
+        <a href="/0.9.2/concepts/trigger/">
+        Trigger
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/0.9.2/concepts/package/" title="Builder and Packages" class="dd-item ">
+        <a href="/0.9.2/concepts/package/">
+        Builder and Packages
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/0.9.2/usage/" title="Using Fission" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/0.9.2/usage/">
+          Using Fission
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/0.9.2/usage/functions/" title="Function" class="dd-item ">
+        <a href="/0.9.2/usage/functions/">
+        Function
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/0.9.2/usage/environments/" title="Environment" class="dd-item ">
+        <a href="/0.9.2/usage/environments/">
+        Environment
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/0.9.2/usage/executor/" title="Controlling Function Execution" class="dd-item ">
+        <a href="/0.9.2/usage/executor/">
+        Controlling Function Execution
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/0.9.2/usage/trigger/" title="Triggers" class="dd-item ">
+        <a href="/0.9.2/usage/trigger/">
+        Triggers
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/0.9.2/usage/package/" title="Packaging source code" class="dd-item ">
+        <a href="/0.9.2/usage/package/">
+        Packaging source code
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/0.9.2/usage/access-secret-cfgmap-in-function/" title="Accessing Secrets in Functions" class="dd-item ">
+        <a href="/0.9.2/usage/access-secret-cfgmap-in-function/">
+        Accessing Secrets in Functions
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/0.9.2/contributing/" title="Contributing to Fission" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/0.9.2/contributing/">
+          Contributing to Fission
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/0.9.2/contributing/compiling/" title="Compiling Fission" class="dd-item ">
+        <a href="/0.9.2/contributing/compiling/">
+        Compiling Fission
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/0.9.2/workflows/" title="Fission Workflows" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/0.9.2/workflows/">
+          Fission Workflows
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/0.9.2/tutorial/" title="Tutorials" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/0.9.2/tutorial/">
+          Tutorials
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/0.9.2/tutorial/enabling-istio-on-fission/" title="Enabling Istio on Fission" class="dd-item ">
+        <a href="/0.9.2/tutorial/enabling-istio-on-fission/">
+        Enabling Istio on Fission
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/0.9.2/tutorial/ingress-tutorial/" title="Exposing functions with Ingress" class="dd-item ">
+        <a href="/0.9.2/tutorial/ingress-tutorial/">
+        Exposing functions with Ingress
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/0.9.2/tutorial/java-example/" title="Building Java Functions" class="dd-item ">
+        <a href="/0.9.2/tutorial/java-example/">
+        Building Java Functions
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/0.9.2/tutorial/developer-workflow/" title="Source Code Organization and Your Development Workflow" class="dd-item ">
+        <a href="/0.9.2/tutorial/developer-workflow/">
+        Source Code Organization and Your Development Workflow
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+          
+         
+    </ul>
+
+    
+    
+      <section id="shortcuts">
+        <h3>More</h3>
+        <ul>
+          
+              <li class="" role=""> 
+                  <a class="padding" href="https://github.com/fission/fission"><i class='fa fa-fw fa-github'></i> Github repo</a>
+              </li>
+          
+              <li class="" role=""> 
+                  <a class="padding" href="https://github.com/fission/fission/graphs/contributors"><i class='fa fa-fw fa-bullhorn'></i> Credits</a>
+              </li>
+          
+        </ul>
+      </section>
+    
+
+    
+    <section id="footer">
+      <p>Built with <a href="https://github.com/matcornic/hugo-theme-learn"><i class="fa fa-heart"></i></a> from <a href="http://getgrav.org">Grav</a> and <a href="http://gohugo.io/">Hugo</a></p>
+
+    </section>
+  </div>
+</nav>
+
+
+
+
+
+        <section id="body">
+        <div id="overlay"></div>
+        <div class="padding highlightable">
+              
+              <div>
+                <div id="top-bar">
+                
+                  
+                  
+                  
+                  <div id="top-github-link">
+                    <a class="github-link" title='Edit this page' href="https://github.com/fission/docs.fission.io/edit/master/docs/content/installation/upgrade/upgrade-from-v0.1.en.md" target="blank">
+                      <i class="fa fa-code-fork"></i>
+                      <span id="top-github-link-text">Edit this page</span>
+                    </a>
+                  </div>
+                  
+                
+                
+                <div id="breadcrumbs" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+                    <span id="sidebar-toggle-span">
+                        <a href="#" id="sidebar-toggle" data-sidebar-toggle="">
+                          <i class="fa fa-bars"></i>
+                        </a>
+                    </span>
+                  
+                  <span id="toc-menu"><i class="fa fa-list-alt"></i></span>
+                  
+                  <span class="links">
+                    
+          
+          
+            
+            
+          
+          
+            
+            
+          
+          
+            
+            
+          
+          
+            <a href='/0.9.2/'>Fission</a> > <a href='/0.9.2/installation/'>Installation Guide</a> > <a href='/0.9.2/installation/upgrade/'>Upgrade</a> > Upgrading from v0.1 to v0.2.x
+          
+         
+          
+         
+          
+         
+          
+           
+                  </span>
+                </div>
+                
+                    <div class="progress">
+    <div class="wrapper">
+<nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#tl-dr">TL;DR</a></li>
+<li><a href="#why-is-this-so-complicated">Why is this so complicated?</a></li>
+<li><a href="#how-to-upgrade">How to Upgrade</a>
+<ul>
+<li><a href="#get-the-new-cli">Get the new CLI</a>
+<ul>
+<li><a href="#os-x">OS X</a></li>
+<li><a href="#linux">Linux</a></li>
+<li><a href="#windows">Windows</a></li>
+</ul></li>
+<li><a href="#get-fission-state-from-v0-1-install">Get Fission state from v0.1 install</a></li>
+<li><a href="#install-the-new-version">Install the new version</a></li>
+<li><a href="#restore-your-fission-state-into-fission-v0-2-1">Restore your Fission state into Fission v0.2.1</a></li>
+<li><a href="#verify">Verify</a></li>
+<li><a href="#switch-over">Switch over</a></li>
+<li><a href="#destroy-your-old-install">Destroy your old install</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+
+                
+              </div>
+            </div>
+            
+
+        
+        <div id="body-inner">
+          
+            <h1>Upgrading from v0.1 to v0.2.x</h1>
+          
+
+        
+
+
+
+
+<h2 id="tl-dr">TL;DR</h2>
+
+<p>The Fission API has changed significantly in this version.  The new API is incompatible with the
+old one.  The CLI is compatible; if you wrote scripts using it, those should still work.</p>
+
+<p>Below we describe a tool for migrating your state from your old install to the new one.</p>
+
+<p>While this upgrade is going to be disruptive, we&rsquo;re going to do our best to make sure future
+upgrades aren&rsquo;t as bad.</p>
+
+<h2 id="why-is-this-so-complicated">Why is this so complicated?</h2>
+
+<p>For a couple of reasons, we wanted to switch to using Kubernetes resources (ThirdPartyResources
+now, CustomResources in the next release) for storing Fission state: (a) it would allow users to
+avoid management of another database and (b) Fission would fit better into the Kubernetes
+ecosystem.</p>
+
+<p>Concurrently with this change, we were also trying to make our versioning approach less
+opinionated, so it would work with other tools.</p>
+
+<p>Thirdly, we were also enabling build pipelines (v2 Environments).</p>
+
+<p>These changes, especially the difference in versioning approach, made maintaining compatiblity not
+worth the effort at this early stage of the project.</p>
+
+<p>All that said, we want you to know that we care a lot about compatiblity, and we&rsquo;ll be more
+rigorous about it from the beta release onwards.</p>
+
+<h2 id="how-to-upgrade">How to Upgrade</h2>
+
+<ol>
+<li>Get the v0.2.1 CLI</li>
+<li>Get the Fission state from your old install</li>
+<li>Install Fission v0.2.1</li>
+<li>Restore Fission state into your new install</li>
+<li>Destroy your old install</li>
+</ol>
+
+<h3 id="get-the-new-cli">Get the new CLI</h3>
+
+<h4 id="os-x">OS X</h4>
+
+<pre><code>$ curl -Lo fission https://github.com/fission/fission/releases/download/v0.2.1-rc/fission-cli-osx &amp;&amp; chmod +x fission &amp;&amp; sudo mv fission /usr/local/bin/
+</code></pre>
+
+<h4 id="linux">Linux</h4>
+
+<pre><code>$ curl -Lo fission https://github.com/fission/fission/releases/download/v0.2.1-rc/fission-cli-linux &amp;&amp; chmod +x fission &amp;&amp; sudo mv fission /usr/local/bin/
+</code></pre>
+
+<h4 id="windows">Windows</h4>
+
+<p>For Windows, you can use the linux binary on WSL. Or you can download
+this windows executable: <a href="https://github.com/fission/fission/releases/download/v0.2.1-rc/fission-cli-windows.exe">fission.exe</a></p>
+
+<h3 id="get-fission-state-from-v0-1-install">Get Fission state from v0.1 install</h3>
+
+<pre><code>fission --server &lt;your V1 server&gt; upgrade dump --file state.json
+</code></pre>
+
+<p>You can skip the &ndash;server argument if you have the environment
+variable <code>$FISSION_URL</code> set to point at a v0.1 Fission server.</p>
+
+<p>This will create a JSON file with all your fission state in the
+current directory.</p>
+
+<h3 id="install-the-new-version">Install the new version</h3>
+
+<p>Read the <a href="../install">install guide</a>.  You can follow all of it, except that you will need to
+ensure your two installs don&rsquo;t conflict.  To do that, use separate namespaces and ensure nodeports
+don&rsquo;t conflict.  Install with a command similar to this:</p>
+
+<pre><code>helm install fission-all --namespace fission2 --set controllerPort=31303,routerPort=31304,natsStreamingPort=31305,functionNamespace=fission2-function
+</code></pre>
+
+<p>This installs fission in the <code>fission2</code> namespace and runs functions
+in the <code>fission2-function</code> namespace.</p>
+
+<h3 id="restore-your-fission-state-into-fission-v0-2-1">Restore your Fission state into Fission v0.2.1</h3>
+
+<pre><code>fission upgrade restore --file state.json
+</code></pre>
+
+<p>This commands needs $FISSION_URL set to point to new fission installation.</p>
+
+<p>It uses the file created in the first step.  It doesn&rsquo;t modify state.json.</p>
+
+<p>(Note that you can run this restore on any cluster; it doesn&rsquo;t have the be the same kubernetes
+cluster as your old install.)</p>
+
+<h3 id="verify">Verify</h3>
+
+<p>How exactly you do this is up to you! But, at a minimum, run <code>fission
+fn list</code> to check that all the functions you expect are there.</p>
+
+<h3 id="switch-over">Switch over</h3>
+
+<p>If you had exposed fission&rsquo;s router to the outside world, switch over to using the new install&rsquo;s router.</p>
+
+<h3 id="destroy-your-old-install">Destroy your old install</h3>
+
+<p>Once you&rsquo;re no longer using the old install, you can destroy it by
+deleting the namespaces that was installed in.</p>
+
+<pre><code>kubectl delete namespace fission fission-function
+</code></pre>
+
+
+<footer class=" footline" >
+	
+</footer>
+
+
+        
+        </div> 
+        
+
+      </div>
+
+    <div id="navigation">
+        
+        
+        
+        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+            
+        
+        
+        
+
+        
+    </div>
+
+    </section>
+    
+    <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
+      <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
+    </div>
+    <script src="/0.9.2/js/clipboard.min.js?1532541434"></script>
+    <script src="/0.9.2/js/perfect-scrollbar.min.js?1532541434"></script>
+    <script src="/0.9.2/js/perfect-scrollbar.jquery.min.js?1532541434"></script>
+    <script src="/0.9.2/js/jquery.sticky.js?1532541434"></script>
+    <script src="/0.9.2/js/featherlight.min.js?1532541434"></script>
+    <script src="/0.9.2/js/html5shiv-printshiv.min.js?1532541434"></script>
+    <script src="/0.9.2/js/highlight.pack.js?1532541434"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <script src="/0.9.2/js/modernizr.custom.71422.js?1532541434"></script>
+    <script src="/0.9.2/js/learn.js?1532541434"></script>
+    <script src="/0.9.2/js/hugo-learn.js?1532541434"></script>
+
+    <link href="/0.9.2/mermaid/mermaid.css?1532541434" type="text/css" rel="stylesheet" />
+    <script src="/0.9.2/mermaid/mermaid.js?1532541434"></script>
+    <script>
+        mermaid.initialize({ startOnLoad: true });
+    </script>
+    
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-86980724-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+<script type="text/javascript" src="//script.crazyegg.com/pages/scripts/0059/9755.js" async="async"></script>
+
+  </body>
+</html>
+
