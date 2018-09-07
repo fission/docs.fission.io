@@ -8,15 +8,15 @@ weight: 43
 
 Let's create a function to demonstrate the autoscaling behaviour in Fission. We create a simple function which outputs "Hello World" in using NodeJS. We have kept the CPU request and limit purposefully low to simulate the load and also kept the target CPU percent to 50%. 
 
-```
+```bash
 $ fission fn create --name hello --env node --code hello.js --minmemory 64 --maxmemory 128 --minscale 1 --maxscale 6 --executortype newdeploy --targetcpu 50
 function 'hello' created
 ```
 
 Now let's use [hey](https://github.com/rakyll/hey) to generate the load with 250 concurrent and a total of 10000 requests:
 
-```
-$ hey -c 250 -n 10000 http://$FISSION_ROUTER/hello
+```bash
+$ hey -c 250 -n 10000 http://${FISSION_ROUTER}/hello
 Summary:
   Total:	67.3535 secs
   Slowest:	4.6192 secs

@@ -10,21 +10,25 @@ An HTTP trigger invokes a function when there is an HTTP request.
 
 You can specify the relative URL and HTTP method for a trigger:
 
-```
+``` bash
 $ fission httptrigger create --url /hello --method GET --function hello
 trigger '94cd5163-30dd-4fb2-ab3c-794052f70841' created
+
+$ curl http://$FISSION_ROUTER/hello
+Hello World!
 ```
+
+**NOTE**: For how to set up environment variable `FISSION_ROUTER` please visit [Setting FISSION_ROUTER for HTTP Trigger](../../fission-env/fission_router)
 
 If you want to create a ingress for the HTTP trigger, you can provide the flag along with the hostname. Hostname is the host field as per HTTP1.1 specifications. If the hostname is not provided, it defaults to "*" which indicates wildcard host.
 
-```
-$ fission ht create --url /hello --method GET --function hello --createingress --host acme.com
+```  bash
+$ fission httptrigger create --url /hello --method GET --function hello --createingress --host acme.com
 trigger '94cd5163-30dd-4fb2-ab3c-794052f70841' created
 
 $ fission route list
 NAME                                 METHOD HOST     URL      INGRESS FUNCTION_NAME
 94cd5163-30dd-4fb2-ab3c-794052f70841 GET    acme.com /hello   true    hello
-
 ```
 
 Please note that for ingress to work, you will have to deploy an ingress controller in Kubernetes cluster. Kubernetes currently supports and maintains the following ingress controllers:
@@ -40,25 +44,37 @@ Time-based triggers invoke functions based on time.  They can run once
 or repeatedly.  They're specified using [cron string
 specifications](https://en.wikipedia.org/wiki/Cron):
 
-```
+``` bash
 $ fission tt create --name halfhourly --function hello --cron "*/30 * * * *"
 trigger 'halfhourly' created
 ```
 
 You can also use a friendlier syntax such "@every 1m" or "@hourly":
 
-```
+``` bash
 $ fission tt create --name minute --function hello --cron "@every 1m"
 trigger 'minute' created
 ```
 
 And you can list time triggers to see their associated function and cron strings:
 
-```
+``` bash
 $ fission tt list
-NAME       CRON       FUNCTION_NAME
-halfhourly 0 30 * * * hello
-minute     @every 1m  hello
+NAME       CRON         FUNCTION_NAME
+halfhourly 0 30 * * * * hello
+minute     @every 1m    hello
+```
+
+After 0.8.0, you can also use `showschedule` to show schedule for given cron spec.
+
+``` bash
+$ fission tt showschedule --cron "0 30 * * * *" --round 5
+Current Server Time: 	2018-06-12T05:07:41Z
+Next 1 invocation: 	2018-06-12T05:30:00Z
+Next 2 invocation: 	2018-06-12T06:30:00Z
+Next 3 invocation: 	2018-06-12T07:30:00Z
+Next 4 invocation: 	2018-06-12T08:30:00Z
+Next 5 invocation: 	2018-06-12T09:30:00Z
 ```
 
 ### Create a Message Queue Trigger
@@ -69,7 +85,7 @@ onto another queue.
 
 NATS and Azure Storage Queue are supported queues:
 
-```
+``` bash
 $ fission mqt create --name hellomsg --function hello --mqtype nats-streaming --topic newfile --resptopic newfileresponse 
 trigger 'hellomsg' created
 ```
