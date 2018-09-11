@@ -1,7 +1,7 @@
 ---
 title: "Enabling Istio on Fission"
 draft: false
-weight: 42
+weight: 62
 ---
 
 This is the very first step for fission to integrate with [Istio](https://istio.io/). For those interested in trying to integrate fission with istio, following is the set up tutorial.

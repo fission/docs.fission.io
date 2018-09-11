@@ -1,10 +1,7 @@
 ---
 title: "Contributing to Fission"
 draft: false
-weight: 50
-chapter: true
+weight: 40
 ---
 
-# Contributing to Fission
-
-### Development guide
+* [Compiling Fission]({{%relref "contributing/compiling.en.md" %}})

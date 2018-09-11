@@ -1,7 +1,7 @@
 ---
 title: "Packaging source code"
 draft: false
-weight: 46
+weight: 35
 ---
 
 ### Creating source package

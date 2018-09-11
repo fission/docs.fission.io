@@ -1,7 +1,7 @@
 ---
 title: "Release notes"
 draft: false
-weight: 22
+weight: 13
 ---
 
 - The fission team is on http://slack.fission.io if you have any questions.

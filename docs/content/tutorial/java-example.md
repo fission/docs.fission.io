@@ -1,7 +1,7 @@
 ---
 title: "Building Java Functions"
 draft: false
-weight: 45
+weight: 64
 ---
 
 With the [JVM environment](https://github.com/fission/fission/tree/master/environments/jvm) there is now support to use Java functions in Fission. This tutorial explains about the working and some inner details of the way Java functions work in Fission.

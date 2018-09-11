@@ -1,7 +1,7 @@
 ---
 title: "Environments"
 draft: false
-weight: 32
+weight: 22
 ---
 
 An environment contains the language and runtime specific parts of a function. An environment is essentially a container with a webserver and a dynamic loader for the function code.

@@ -1,7 +1,7 @@
 ---
 title: "Triggers"
 draft: false
-weight: 44
+weight: 34
 ---
 
 ### Create a HTTP Trigger
@@ -18,7 +18,9 @@ $ curl http://$FISSION_ROUTER/hello
 Hello World!
 ```
 
-**NOTE**: For how to set up environment variable `FISSION_ROUTER` please visit [Setting FISSION_ROUTER for HTTP Trigger](../../fission-env/fission_router)
+{{% notice tip %}} 
+For how to set up environment variable `FISSION_ROUTER` please visit [Setting FISSION_ROUTER for HTTP Trigger](../../fission-env/fission_router)
+{{% /notice %}}
 
 If you want to create a ingress for the HTTP trigger, you can provide the flag along with the hostname. Hostname is the host field as per HTTP1.1 specifications. If the hostname is not provided, it defaults to "*" which indicates wildcard host.
 

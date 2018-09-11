@@ -5,9 +5,11 @@ draft: false
 weight: 51
 ---
 
-[You only need to do this if you're making Fission changes; if you're
+{{% notice info %}}
+You only need to do this if you're making Fission changes; if you're
 just deploying Fission, use fission.yaml which points to prebuilt
-images.]
+images.
+{{% /notice %}}
 
 You'll need the `go` compiler and tools installed, along with the
 [glide dependency management

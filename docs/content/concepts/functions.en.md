@@ -1,7 +1,7 @@
 ---
 title: "Function"
 draft: true
-weight: 31
+weight: 21
 ---
 A function is a piece of code that will be invoked based on a [trigger](../trigger). The code follows the Fission interface. In practice, the function is only an entry point for execution and it can be backed by a larger program or module.
 

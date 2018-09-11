@@ -1,7 +1,7 @@
 ---
 title: "Function"
 draft: false
-weight: 41
+weight: 32
 ---
 
 ### Create a function

@@ -1,7 +1,7 @@
 ---
 title: "Accessing Secrets in Functions"
 draft: false
-weight: 47
+weight: 36
 ---
 
 Functions can access Kubernetes

@@ -1,7 +1,7 @@
 ---
 title: "Installation Guide"
 draft: false
-weight: 20
+weight: 11
 ---
 
 Welcome! This guide will get you up and running with Fission on a
@@ -36,8 +36,10 @@ Kubernetes version:
 $ kubectl version
 ```
 
+{{% notice warning %}}
 We need at least Kubernetes 1.6 (older versions may work, but we don't
 test them).
+{{% /notice %}}
 
 #### Helm
 

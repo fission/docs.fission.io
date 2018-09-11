@@ -1,9 +1,8 @@
 ---
-title: "Controlling Function Execution"
+title: "Executor"
 draft: false
-weight: 33
+weight: 23
 ---
-# Executors 
 
 When you create a function, you can specify an executor for a function. An executor controls how function pods are created and what capabilities are available for that executor type.
 

@@ -1,7 +1,7 @@
 ---
 title: "Kubernetes Quick Install"
 draft: false
-weight: 21
+weight: 12
 ---
 
 This is a quick guide to help you get started running Kubernetes on

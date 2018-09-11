@@ -1,8 +1,8 @@
-+++
-title= "Source Code Organization and Your Development Workflow"
-date= 2017-12-01T18:01:57-08:00
-description = ""
-+++
+---
+title: "Source Code Organization and Your Development Workflow"
+date: 2017-12-01T18:01:57-08:00
+weight: 61
+---
 
 You've made a Hello World function in your favourite language, and
 you've run it on your Fission deployment.  What's next?

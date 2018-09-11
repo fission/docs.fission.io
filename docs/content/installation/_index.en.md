@@ -1,10 +1,9 @@
 ---
 title: "Installation Guide"
 draft: false
-weight: 20
-chapter : true
+weight: 10
 ---
 
-# Installation
-
-### Installing and upgrading Fission
+* [Release Note]({{%relref "installation/releasenotes.en.md" %}})
+* [Installation Guide]({{%relref "installation/installation.en.md" %}})
+* [Kubernetes Quick Install]({{%relref "installation/kubernetessetup.en.md" %}})

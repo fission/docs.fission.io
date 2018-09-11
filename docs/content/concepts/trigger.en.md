@@ -1,7 +1,7 @@
 ---
 title: "Trigger"
 draft: false
-weight: 34
+weight: 24
 ---
 
 Triggers are events that can invoke a [function](../function). Fission has three kinds of triggers that can be used to invoke functions.
