@@ -5,3 +5,4 @@
 # places it in _dist/redirects.
 
 /latest/* /VERSION/:splat 302
+/latest/installation/installation /VERSION/installation 302
