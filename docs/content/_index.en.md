@@ -1,6 +1,7 @@
 ---
 title: Fission
 weight: 1
+alwaysopen: true
 ---
 
 Fission: Serverless Functions for Kubernetes

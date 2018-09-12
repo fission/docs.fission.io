@@ -4,16 +4,20 @@ draft: false
 weight: 35
 ---
 
-### Creating source package
+### Creating a Source Package
 
-Before you create a package, you need to create an environment with associated builder image:
+Before you create a package, you need to create an environment with an
+associated builder image:
 
 ```
 $ fission env create --name pythonsrc --image fission/python-env:latest --builder fission/python-builder:latest --mincpu 40 --maxcpu 80 --minmemory 64 --maxmemory 128 --poolsize 2
 environment 'pythonsrc' created
 ```
 
-Let's take a simple python function which has dependency on a python pyyaml module. We can specify the dependencies in requirements.txt and a simple command to build from source. The tree structure of directory and contents of the file looks like:
+Let's take a simple python function which has a dependency on the
+`pyyaml` module. We can specify the dependencies in `requirements.txt`
+and a simple command to build from source. The tree structure of
+directory and contents of the file would look like:
 
 ```
 sourcepkg/
@@ -58,7 +62,9 @@ $ fission package create --sourcearchive demo-src-pkg.zip --env pythonsrc --buil
 Package 'demo-src-pkg-zip-8lwt' created
 ```
 
-Since we are working with source package, we provided the build command. Once you create the package, the build process will start and you can check the build logs by getting information of the package:
+Since we are working with a source package, we provided the build
+command. Once you create the package, the build process will start and
+you can see the build logs with the `fission package info` command:
 
 ```
 $ fission pkg info --name demo-src-pkg-zip-8lwt
@@ -74,18 +80,24 @@ Installing collected packages: pyyaml
 Successfully installed pyyaml-3.12
 ```
 
-Using the package above you can create the function. Since package already is associated with a source package, environment and build command, these will be ignored when creating a function. Only addition thing you will need to provide is the entrypoint. Assuming you hace created the route, the function should be reachable with successful output:
+Using the package above you can create the function. Since package
+already is associated with a source package, environment and build
+command, these will be ignored when creating a function. 
+
+The only additional thing you'll need to provide is the Function's
+entrypoint:
 
 ```
 $ fission fn create --name srcpy --pkg demo-src-pkg-zip-8lwt --entrypoint "user.main"
 function 'srcpy' created
 
-$ curl http://$FISSION_ROUTER/srcpy
+# Run the function:
+$ fission fn test --name srcpy
 a: 1
 b: {c: 3, d: 4}
 ```
 
-### Creating deployment package
+### Creating a Deployment Package
 
 Before you create a package you need to create an environment with the builder image:
 ```
@@ -110,7 +122,7 @@ $ fission package create --deployarchive demo-deploy-pkg.zip --env pythondeploy
 Package 'demo-deploy-pkg-zip-whzl' created
 ```
 
-Since it is a deployment archive, there is no need to build it, hence the build logs for the package will be empty:
+Since it is a deployment archive, there is no need to build it, so the build logs for the package will be empty:
 
 ```
 $ fission package info --name demo-deploy-pkg-zip-whzl
@@ -125,6 +137,10 @@ Finally you can create a function with the package and test the function:
 ```
 $ fission fn create --name deploypy --pkg demo-deploy-pkg-zip-whzl --entrypoint "hello.main"
 
-$curl http://$FISSION_ROUTER/deploypy
+$ fission fn test --name deploypy
 Hello, world!
 ```
+
+While these examples illustrate how to use packages, you don't have to
+use them every time you need to build your source code.  A better way
+is to use [Specifications](../developer-workflow/).

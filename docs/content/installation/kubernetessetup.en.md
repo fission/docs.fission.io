@@ -36,6 +36,6 @@ $ minikube start
 
 ## Google Container Engine
 
-Alternatively, you can use [Google Container Engine's](https://cloud.google.com/container-engine/) free trial to
+Alternatively, you can use [Google Kubernetes Engine's](https://cloud.google.com/container-engine/) free trial to
 get a 3-node cluster.  Hop over to [Google Cloud](https://cloud.google.com/container-engine/) to set that up.
 
