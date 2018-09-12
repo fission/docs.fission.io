@@ -1,7 +1,7 @@
 ---
 title: "Exposing functions with Ingress"
 draft: false
-weight: 63
+weight: 49
 ---
 
 This tutorial will walk you through exposing a function using an ingress controller (You can read more about ingress and ingress controller [here](https://kubernetes.io/docs/concepts/services-networking/ingress/#ingress-controllers)). We will make the function available on a fully qualified domain name (FQDN) using Fission's route and ingress controller setup in a cloud environment.

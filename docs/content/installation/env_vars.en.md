@@ -1,12 +1,24 @@
 ---
-title: "FISSION_ROUTER"
+title: Environment Variables
 draft: false
 weight: 47
 ---
 
-`FISSION_ROUTER` is the environment variable for user to access functions through the fission router. 
+## Namespace
 
-Normally, you don’t need to set this environment variable unless you want to expose the function to external network for public access.
+Set `FISSION_NAMESPACE` to the namespace where the Fission is
+installed.  You don't have to set this unless there are multiple
+Fission installations in different namespaces within the same
+Kubernetes cluster.
+
+``` bash
+$ export FISSION_NAMESPACE <namespace>
+```
+
+## Fission Router Address
+
+It's convenient to set the `FISSION_ROUTER` environment variable to the
+externally-visible address of the Fission router.
 
 ### Minikube
 
@@ -18,7 +30,9 @@ $ export FISSION_ROUTER=$(minikube ip):$(kubectl -n fission get svc router -o js
 
 #### Cloud Provider
 
-The service type of router service must be `LoadBalancer`. 
+If you want to expose the router to the internet, the service type of
+router service must be set to `LoadBalancer`.  This is the default in
+the helm chart.
 
 ```bash
 $ kubectl --namespace fission get svc
@@ -27,7 +41,9 @@ NAME             TYPE           CLUSTER-IP       EXTERNAL-IP   PORT(S)          
 router           LoadBalancer   10.107.80.21     <pending>     80:31314/TCP     11d
 ```
 
-If the field `EXTERNAL-IP` shows `<pending>`, it means that kubernetes is waiting for cloud provider to allocate the public IP address. It often takes couple minutes to get IP address. Then:
+If the field `EXTERNAL-IP` shows `<pending>`, it means that kubernetes
+is waiting for cloud provider to allocate the public IP address. It
+often takes a few minutes to get an IP address. Then:
 
 ``` bash
 # AWS
@@ -37,7 +53,7 @@ $ export FISSION_ROUTER=$(kubectl --namespace fission get svc router -o=jsonpath
 $ export FISSION_ROUTER=$(kubectl --namespace fission get svc router -o=jsonpath='{..ip}')
 ```
 
-### Test
+### Using FISSION_ROUTER env var
 
 ```bash
 $ curl http://${FISSION_ROUTER}/<url-path>
@@ -53,10 +69,14 @@ NAME      TYPE           CLUSTER-IP     EXTERNAL-IP   PORT(S)        AGE
 router    LoadBalancer   10.39.253.73   <pending>   80:31377/TCP   27d
 ```
 
-In this case, you can access function using the service NodePort above, or using Port-forward method instead.
+In this case, you can use the port-forward method instead:
 
 ``` bash
 # Port-forward
-$ kubectl --namespace fission port-forward $(kubectl --namespace fission get pod -l svc=router -o name) <local port>:80
+$ kubectl --namespace fission port-forward $(kubectl --namespace fission get pod -l svc=router -o name) <local port>:80 &
 $ export FISSION_ROUTER=127.0.0.1:<local port>
 ```
+
+Now, `curl http://${FISSION_ROUTER}/` will open a connection that goes
+through the port forward you just created.  This is useful for local
+testing of your function.

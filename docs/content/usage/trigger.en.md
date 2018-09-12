@@ -1,12 +1,12 @@
 ---
 title: "Triggers"
 draft: false
-weight: 34
+weight: 43
 ---
 
 ### Create a HTTP Trigger
 
-An HTTP trigger invokes a function when there is an HTTP request.  
+An HTTP trigger invokes a function when there is an HTTP request.
 
 You can specify the relative URL and HTTP method for a trigger:
 
@@ -19,10 +19,14 @@ Hello World!
 ```
 
 {{% notice tip %}} 
-For how to set up environment variable `FISSION_ROUTER` please visit [Setting FISSION_ROUTER for HTTP Trigger](../../fission-env/fission_router)
+FISSION_ROUTER is the externally-visible address of your
+Fission router service.  For how to set up environment variable
+`FISSION_ROUTER`, see [here](../installation/env_vars)
 {{% /notice %}}
 
-If you want to create a ingress for the HTTP trigger, you can provide the flag along with the hostname. Hostname is the host field as per HTTP1.1 specifications. If the hostname is not provided, it defaults to "*" which indicates wildcard host.
+If you want to use Kubernetes Ingress for the HTTP Trigger, you can
+provide the `--createingress` flag and a hostname.  If the hostname is
+not provided, it defaults to "*", which indicates a wildcard host.
 
 ```  bash
 $ fission httptrigger create --url /hello --method GET --function hello --createingress --host acme.com
@@ -38,7 +42,8 @@ Please note that for ingress to work, you will have to deploy an ingress control
 - [Nginx Ingress Controller](https://github.com/kubernetes/ingress-nginx)
 - [GCE Ingress Controller](https://github.com/kubernetes/ingress-gce)
 
-[F5 networks](http://clouddocs.f5.com/products/connectors/k8s-bigip-ctlr/v1.5/) and [Kong](https://konghq.com/blog/kubernetes-ingress-controller-for-kong/) also offer ingress controllers which are supported and maintained by them.
+Other Ingress controllers exist, such as [F5 networks](http://clouddocs.f5.com/products/connectors/k8s-bigip-ctlr/v1.5/) and [Kong](https://konghq.com/blog/kubernetes-ingress-controller-for-kong/).
+
 
 ### Create a Time Trigger
 
@@ -67,7 +72,9 @@ halfhourly 0 30 * * * * hello
 minute     @every 1m    hello
 ```
 
-After 0.8.0, you can also use `showschedule` to show schedule for given cron spec.
+You can also use `showschedule` to show the upcoming schedule for a
+given cron spec.  Use this to test your cron strings.  And note that
+the server's time is used to invoke functions, not your laptop's time!
 
 ``` bash
 $ fission tt showschedule --cron "0 30 * * * *" --round 5

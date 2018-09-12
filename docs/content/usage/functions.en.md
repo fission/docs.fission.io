@@ -1,14 +1,16 @@
 ---
-title: "Function"
+title: "Functions"
 draft: false
-weight: 32
+weight: 42
 ---
 
 ### Create a function
 
-Before creating a function the environment should be created, we will assume that you have already created environment named `node`. 
+Before creating a function, you'll need an environment; read
+[environments](environments) if you haven't already.
 
-Let's create a simple code snippet in nodejs which will output Hello world:
+Let's create a simple code snippet in NodeJS which will output the
+string "Hello, world!":
 
 ```js
 module.exports = async function(context) {
@@ -19,27 +21,29 @@ module.exports = async function(context) {
 }
 ```
 
-Let's create a route for the function which can be used for making HTTP requests:
+Let's create this function on the cluster.  This only registers the
+function with Fission, it doesn't run it yet.
+
+```bash
+$ fission fn create --name hello --code hello.js --env node
+```
+
+Next, let's create a route for the function which can be used for making HTTP requests:
 
 ```bash
 $ fission route create --function hello --url /hello
 trigger '5327e9a7-6d87-4533-a4fb-c67f55b1e492' created
 ```
 
-Let's create a function based on pool based executor.
-
-```bash
-$ fission fn create --name hello --code hello.js --env node --executortype poolmgr
-```
-
-When you hit this function's URL , you get a response:
+When you hit this function's URL, you get the expected response:
 
 ```bash
 $ curl http://${FISSION_ROUTER}/hello
 Hello, world!
 ```
 
-Similarly you can create a new deployment executor type function and provide minmum and maximum scale for the function. 
+You can also create a function with executor type "newdeploy" and
+provide the minimum and maximum number of instances of the function.
 
 ```bash
 $ fission fn create --name hello --code hello.js --env node --minscale 1 --maxscale 5  --executortype newdeploy
@@ -67,7 +71,8 @@ package 'hello-js-ku9s' updated
 function 'hello' updated
 ```
 
-Let's verify that the function now respond with a different output than earlier:
+Let's verify that the function now responds with a different output
+than it did earlier:
 
 ```bash
 $ curl http://${FISSION_ROUTER}/hello
@@ -76,13 +81,13 @@ Hello, Fission!
 
 ### Test and debug function
 
-You can directly test a function using test command. If the function call succeeds, it will output the function's response. 
+You can run a function using the test command. If the function call succeeds, it will output the function's response. 
 ```bash
 $ fission fn test --name hello
 Hello, Fission!
 ```
 
-But if there is an error in function execution then the logs of function execution are displayed:
+But if there is an error in the function's execution (it returns HTTP >= 300), then the logs of function execution are displayed:
 ```bash
 $ fission fn test --name hello
 Error calling function hello: 500 Internal server error (fission)
@@ -116,7 +121,7 @@ Most real world functions will require more than one source files. It is also ea
 
 You can attach the source/deployment packages to a function or explicitly create packages and use them across functions. Check documentation for [package](../package) for more information.
 
-#### Building function from source
+#### Building functions from source
 
 Let's take a simple python function which has dependency on a python pyyaml module. We can specify the dependencies in requirements.txt and a simple command to build from source. The tree structure of directory looks like:
 
@@ -198,6 +203,9 @@ $curl http://$FISSION_ROUTER/hellopy
 a: 1
 b: {c: 3, d: 4}
 ```
+
+If you're using Fission with source code, be sure to read about the
+recommended [development workflow](developer-workflow).
 
 #### Using compiled artifacts with Fission
 
