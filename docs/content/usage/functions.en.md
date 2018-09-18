@@ -7,7 +7,8 @@ weight: 42
 ### Create a function
 
 Before creating a function, you'll need an environment; read
-[environments](environments) if you haven't already.
+[environments]({{%relref "usage/environments.en.md" %}}) if you
+haven't already.
 
 Let's create a simple code snippet in NodeJS which will output the
 string "Hello, world!":
@@ -205,7 +206,7 @@ b: {c: 3, d: 4}
 ```
 
 If you're using Fission with source code, be sure to read about the
-recommended [development workflow](developer-workflow).
+recommended [development workflow]({{%relref "usage/developer-workflow.md" %}}).
 
 #### Using compiled artifacts with Fission
 

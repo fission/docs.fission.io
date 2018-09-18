@@ -21,7 +21,7 @@ Hello World!
 {{% notice tip %}} 
 FISSION_ROUTER is the externally-visible address of your
 Fission router service.  For how to set up environment variable
-`FISSION_ROUTER`, see [here](../installation/env_vars)
+`FISSION_ROUTER`, see [here]({{< ref "/installation/env_vars" >}})
 {{% /notice %}}
 
 If you want to use Kubernetes Ingress for the HTTP Trigger, you can

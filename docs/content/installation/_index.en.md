@@ -12,7 +12,7 @@ Kubernetes cluster.
 ### Cluster preliminaries
 
 If you don't have a Kubernetes cluster, [here's a quick guide to set
-one up](../kubernetessetup).
+one up]({{%relref "installation/kubernetessetup.en.md" %}}).
 
 First, let's ensure you have the Kubernetes CLI and Helm installed and
 ready.  If you already have helm, [skip ahead to the fission install](#install-fission).
