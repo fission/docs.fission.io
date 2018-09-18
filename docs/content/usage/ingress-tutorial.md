@@ -9,7 +9,7 @@ This tutorial will walk you through exposing a function using an ingress control
 ## Setup & pre-requisites
 
 You will need a Kubernetes cluster with Fission installed (Please
-check [installation page]({{% relref "installation/_index.en.md" %}}) for details). This tutorial uses a cloud load balancer, but if you are using Minikube you might want [to take a look at details here](https://github.com/kubernetes/minikube/issues/496)
+check [installation page](../installation/) for details). This tutorial uses a cloud load balancer, but if you are using Minikube you might want [to take a look at details here](https://github.com/kubernetes/minikube/issues/496)
 
 Later parts of this tutorial use a FQDN to reach the function. If you plan to go along in this section, you will need a domain name setup and access to modify the NS records and create A record in the zone of the domain name you have. The tutorial uses Google cloud to walk through the tutorial but you can use any cloud you prefer to. Also the changes in name server can take 24-48 hours so you may want to use an already created domain name.
 
