@@ -10,7 +10,7 @@ When you create a function, you can specify an executor for a function. An execu
 
 A pool based executor (Refered to as poolmgr) creates a pool of generic environment pods as soon as you create an environment. The pool size of initial "warm" containers can be configured based on user needs. These warm containers contain a small dynamic loader for loading the function. Resource requirements are specified at environment level and are inherited by specialized function pods.
 
-Once you create a function and invoke it, one of pods from the pool is taken out and "specialized" and used for execution. This pod is used for subseqnent requests for that function. If there are no more requests for a certain idle duration, then this pod is cleaned up. If a new requests come after the earlier specialized pod was cleaned up, then a new pod is specialised from the pool and used for execution.
+Once you create a function and invoke it, one of pods from the pool is taken out and "specialized" and used for execution. This pod is used for subsequent requests for that function. If there are no more requests for a certain idle duration, then this pod is cleaned up. If a new requests come after the earlier specialized pod was cleaned up, then a new pod is specialised from the pool and used for execution.
 
 Poolmgr executortype is great for functions where lower latency is a requirement. Poolmgr executortype has certain limitations: for example, you can not autoscale them based on demand.
 
