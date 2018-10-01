@@ -114,7 +114,7 @@ cluster-admin   44d
 Install fission with helm
 
 ```sh
-$ helm install --namespace fission --set serviceType=NodePort,routerServiceType=NodePort https://github.com/fission/fission/releases/download/0.10.0/fission-all-0.10.0.tgz
+$ helm install --name fission --namespace fission --set serviceType=NodePort,routerServiceType=NodePort https://github.com/fission/fission/releases/download/0.10.0/fission-all-0.10.0.tgz
 ```
 
 The serviceType variable allows configuring the type of Kubernetes
@@ -124,7 +124,7 @@ want to expose anything outside the cluster.
 #### Cloud hosted clusters (GKE, AWS, Azure etc.)
 
 ```sh
-$ helm install --namespace fission https://github.com/fission/fission/releases/download/0.10.0/fission-all-0.10.0.tgz
+$ helm install --name fission --namespace fission https://github.com/fission/fission/releases/download/0.10.0/fission-all-0.10.0.tgz
 ```
 
 #### Minimal version
@@ -134,7 +134,7 @@ the NATS message queue, influxDB for logs, etc. If you want a more
 minimal setup, you can install the fission-core chart instead:
 
 ```sh
-$ helm install --namespace fission https://github.com/fission/fission/releases/download/0.10.0/fission-core-0.10.0.tgz
+$ helm install --name fission --namespace fission https://github.com/fission/fission/releases/download/0.10.0/fission-core-0.10.0.tgz
 ```
 
 ### Install Fission -- alternative method without helm
