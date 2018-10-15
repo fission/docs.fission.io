@@ -4,15 +4,14 @@ draft: false
 weight: 49
 ---
 
-This tutorial will walk you through setting up a canary config such that a new version of a function can be deployed in production with minimal risk in a way that it gradually receives 
-user traffic all the way from 0% to 100% eventually.
+This tutorial will walk you through setting up a canary config to deploy a new version of a function on your cluster with minimal risk in a way that it gradually serves user traffic starting from 0% going all the way to 100% eventually.
 
 ## Setup & pre-requisites
 
-This feature is dependent on Prometheus metrics to check the health of the new version of the function before incrementing 
-the percentage of user traffic to the new version of the function can be incremented at every interval that is configured.
-
-Hence, Prometheus needs to be deployed and is listed as a dependency for fission chart. Issuing a `helm dependency update` before `helm install` of fission ensures the prometheus chart is fetched and installed alongside fission.
+This feature is dependent on Prometheus metrics to check the health of the new version of the function. Hence, Prometheus is listed as a dependency for fission chart. 
+TBD : 
+1. Write about how to enable canary feature once new code gets in
+2. Write about how users can opt for prometheus installation along with fission or just ensure prometheus is already deployed on the cluster and it's service is accessible from fission controller.
 
 ### Canary Config parameters
 
@@ -45,15 +44,17 @@ spec:
   duration: 1m
   failureType: status-code
   failurethreshold: 10
-  newfunction: fn-a-v2
-  oldfunction: fn-a-v1
-  trigger: route-fna
+  funcn: fn-a-v2
+  funcn-1: fn-a-v1
+  trigger: route-fn-a
   weightincrement: 30
 ```
 
+What happens is that every 1m, the percentage of failed requests to fn-a-v2 gets calculated from prometheus metrics. If it is under the configured failure threshold of 10%, then the percentage traffic to fn-a-v2 gets incremented by 30% and this cycle repeats until - either the failure threshold has reached at which point the deployment is rolled back, or, fn-v2 is receiving 100% of the user traffic.   
+
 ### Steps to setup a canary config
 
-1. Create environment for fission function :
+1. Create an environment :
 
 ```bash
 $ fission env create --name nodejs --image fission/node-env
@@ -64,6 +65,7 @@ $ fission env create --name nodejs --image fission/node-env
 ```bash
 $ fission fn create --name fna-v1 --code hello.js --env nodejs
 $ fission fn create --name fna-v2 --code hello2.js --env nodejs
+
 ```
 
 3. Create an http trigger to these functions :
@@ -85,10 +87,10 @@ $ fission canary-config get --name canary-1
 ```
 
 This prints the status of the canary deployment of the new version of the function. 
-The status is "Pending" if the canary deployment is in progress.
-The status is "Succeeded" if the new version of the function is receiving 100% of the user traffic.
-The status is "Failed" if the failure threshold reached for the new version of the function and as a result 100% of the traffic gets routed to the old version of the function(rollback).
-The status is "Aborted" if there were some failures during the canary deployment.
+1. The status is "Pending" if the canary deployment is in progress.
+2. The status is "Succeeded" if the new version of the function is receiving 100% of the user traffic.
+3. The status is "Failed" if the failure threshold reached for the new version of the function and as a result 100% of the traffic gets routed to the old version of the function(rollback).
+4. The status is "Aborted" if there were some failures during the canary deployment.
 
 ### Note
 
