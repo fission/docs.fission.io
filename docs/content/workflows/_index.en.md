@@ -15,10 +15,10 @@ Fission Workflows requires the following components to be installed on your loca
 
 Fission Workflows is deployed on top of a Kubernetes cluster.
 If you don't have a Kubernetes cluster, [here's a quick guide to set one up]({{% relref "installation/kubernetessetup.en.md" %}}).
-It also requires a [Fission](https://github.com/fission/fission) deployment to be present on your Kubernetes cluster. 
+It also requires a [Fission](https://github.com/fission/fission) deployment to be present on your Kubernetes cluster.
 If you do not have a Fission deployment, follow [Fission's installation guide](../installation/).
 
-**(Note that Fission Workflows 0.5.0 requires Fission 0.4.1 or higher, with the NATS component installed!)**
+**(Note that Fission Workflows 0.6.0 requires Fission 0.4.1 or higher, with the NATS component installed!)**
 
 ### Installing Fission Workflows
 
@@ -34,7 +34,7 @@ $ helm repo add fission-charts https://fission.github.io/fission-charts/
 $ helm repo update
 
 # Install Fission Workflows
-$ helm install --wait -n fission-workflows fission-charts/fission-workflows --version 0.5.0
+$ helm install --wait -n fission-workflows fission-charts/fission-workflows --version 0.6.0
 ```
 
 ### Creating your first workflow
@@ -45,11 +45,11 @@ With the following code snippet you will be able to deploy and run a small workf
 
 ```bash
 # Fetch the required files, alternatively you could clone the fission-workflow repo
-$ curl https://raw.githubusercontent.com/fission/fission-workflows/0.5.0/examples/whales/fortune.sh > fortune.sh
+$ curl https://raw.githubusercontent.com/fission/fission-workflows/0.6.0/examples/whales/fortune.sh > fortune.sh
 
-$ curl https://raw.githubusercontent.com/fission/fission-workflows/0.5.0/examples/whales/whalesay.sh > whalesay.sh
+$ curl https://raw.githubusercontent.com/fission/fission-workflows/0.6.0/examples/whales/whalesay.sh > whalesay.sh
 
-$ curl https://raw.githubusercontent.com/fission/fission-workflows/0.5.0/examples/whales/fortunewhale.wf.yaml > fortunewhale.wf.yaml
+$ curl https://raw.githubusercontent.com/fission/fission-workflows/0.6.0/examples/whales/fortunewhale.wf.yaml > fortunewhale.wf.yaml
 
 #
 # Add binary environment and create two test functions on your Fission setup:
@@ -75,9 +75,9 @@ $ fission route create --method GET --url /fortunewhale --function fortunewhale
 # Invoke the workflow with an HTTP request:
 #
 $ curl ${FISSION_ROUTER}/fortunewhale
-``` 
+```
 
-This last command, the invocation of the workflow, should return a whale saying something wise 
+This last command, the invocation of the workflow, should return a whale saying something wise
 
 ```
  ______________________________________
@@ -99,7 +99,7 @@ This last command, the invocation of the workflow, should return a whale saying 
 ```
 
 So what happened here?
-Let's see what the workflow consists of (for example by running `cat fortunewhale.wf.yaml`): 
+Let's see what the workflow consists of (for example by running `cat fortunewhale.wf.yaml`):
 
 ```yaml
 # This whale shows off a basic workflow that combines both Fission Functions (fortune, whalesay) and internal functions (noop)
@@ -124,9 +124,9 @@ tasks:
 What you see is the [YAML](http://yaml.org/)-based workflow definition of the `fortunewhale` workflow.
 A workflow consists of multiple tasks, which are steps that it needs to complete.
 Each task has a unique identifier, such as `GenerateFortune`, a reference to a Fission function in the `run` field.
-Optionally, it can contain `inputs` which allows you to specify inputs to the task, 
+Optionally, it can contain `inputs` which allows you to specify inputs to the task,
 as well as contain `requires` which allows you to specify which tasks need to complete before this task can start.
-Finally, at the top you will find the `output` field, which specifies the task whose output is used as the workflow's output. 
+Finally, at the top you will find the `output` field, which specifies the task whose output is used as the workflow's output.
 
 In this case, the `fortunewhale` workflow consists of a sequence of 3 tasks:
 ```
@@ -152,7 +152,6 @@ This means that you could use this workflow as a function in the `run` in other 
 ### What's next?
 To learn more about the Fission Workflows system and its advanced concepts, see the [documentation on Github](https://github.com/fission/fission-workflows/tree/master/Docs).
 
-Or, check out the [examples](https://github.com/fission/fission-workflows/tree/0.5.0/examples) for more example workflows.
+Or, check out the [examples](https://github.com/fission/fission-workflows/tree/0.6.0/examples) for more example workflows.
 
 If something went wrong, we'd love to help -- please [drop by the slack channel](http://slack.fission.io) and ask for help.
-
