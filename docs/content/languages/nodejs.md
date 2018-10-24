@@ -15,14 +15,14 @@ to the [install guide]().  Verify your Fission setup with:
 fission --version
 ```
 
-## Add the Nodejs environment to your cluster
+## Add the Nodejs runtime environment to your cluster
 
 Fission language support is enabled by creating an _Environment_.  An
 environment is the language-specific part of Fission.  It has a
 container image in which your function will run.
 
 ```
-fission environment create --name nodejs --image fission/node-env --builder fission/node-builder
+fission environment create --name nodejs --image fission/node-env
 ```
 
 ## Write a simple function in Nodejs
@@ -281,42 +281,136 @@ hello world!
 
 #### Setting Status Codes 
 
-Create a file error-handling.js with the following content. Here the function tries to validate input parameters and sends a HTTP response code 400 when validation fails.   
+Create a file error-handling.js with the following content. Here the function tries to validate an input parameter "job_id" and sends a HTTP response code 400 when validation fails.   
 
 ```
+module.exports = async function(context) {
+    const stringBody = JSON.stringify(context.request.body);
+    const body = JSON.parse(stringBody);
+    console.log(body);
 
+    const job = body.job_id;
+    const jobStatus = body.job_status;
+
+    console.log("Received CI job id: " + job + " job status: " + jobStatus );
+
+    if (!job) {
+        return {
+            status: 400,
+            body: "job_id cannot be empty"
+        };
+    }
+
+    return {
+        status: 200,
+        body: "Successfully saved CI job status for job ID: " + job
+    };
+}
 ```
 
 Create a function with the following command. 
 
 ```
+fission function create --name error-handling --code error-handling.js --env nodejs
 ```
 
 Create an http trigger to invoke the function
 
 ```
+fission httptrigger create --url /error-handling --function error-handling --method POST 
 ```
 
-Invoke the function with a '-v' flag on curl command to display all headers
+Invoke the function with this curl command where job_id is empty and you should see "job_id cannot be empty"
 
 ```
+curl -XPOST http://$FISSION_ROUTER/error-handling -d '{"job_status": "Passed"}'
 ```
 
 ## Working with dependencies
 
-### requirements.txt
+There may be instances where functions need to require node modules that are not packed into the nodejs runtime environment. In such instances, nodejs builder image could be used to `npm install` those modules.
+This section describes ways in which this can be achieved.
 
-quick intro + link to more info in pip docs
+### Using fission nodejs builder image
 
-### Custom builds
+#### Example of using the nodejs builder image
 
-TODO show how to provide a build.sh and what it needs to do
+fission docker hub has a nodejs builder image `fission/node-builder`. Here's an example of using this image.
 
-TODO you can also add any other stuff to the image, see the next section
+First, create an environment with runtime image and builder image as follows 
+ 
+```
+fission environment create --name nodejs --image fission/node-env --builder fission/node-builder
+```
 
-## Modifying the environment images
+Next, create a file moment-example.js with the following content. This file requires 'moment' node_module that is not packed into the fission runtime image. Also create a package.json with 'moment' listed in dependencies section.
 
-TODO -- link to source code and instructions for rebuilding
+```
+const momentpackage = require('moment')
+
+module.exports = async function(context) {
+
+    return {
+        status: 200,
+        body: momentpackage().format()
+    };
+}  
+```
+
+Next, create a zip archive of these 2 files, let's call it node-source-example.zip
+
+Now create a fission source package with the zip file just created. This command outputs the name of the package created. 
+
+```
+fission package create --src node-source-example.zip --env nodejs
+```
+
+Next, create a fission function with the package created above, let's assume the package name is 'node-source-example-abcd'
+
+```
+fission function create --name node-builder-example --pkg node-source-example-abcd --env nodejs --entrypoint moment-example
+```
+
+If everything was successful so far, then, build status of the source package will be set to 'succeeded'. This can be checked with the following command.
+
+```
+fission package info --name node-source-example-abcd
+```
+
+Next, test your function with the following and the output should have the current time.
+
+```
+fission fn test --name node-builder-example
+```
+
+#### Details of the fission nodejs builder image
+
+The builder has a build.sh script that performs an `npm install` of the node modules listed in user provided package.json. The builder image runs this script and packages the result into an archive.   
+When the function is invoked, one of the pods running the runtime image is specialized. What this means is that the archive created by the builder is fetched and extracted in the file system.
+Next, the user function is loaded according to the entry point specified with `fission fn create command`
+
+### Creating a custom nodejs builder image 
+
+If you'd like to do more than just `npm install` in the build step, you could customize the build.sh.
+Here's the link to the source code of fission nodejs builder TODO : Provide a link to source code of fission nodejs builder image
+
+As you can see, the build.sh performs a `npm install` inside a directory defined by the environment variable SRC_PKG and copies the built archive into a directory defined by environment variable DEPLOY_PKG 
+You could create a customized version of this build.sh with whatever additional commands needed to be run during the build step.
+
+Finally the image can be built with `docker build -t <USER>/nodejs-custom-builder .` and pushed to docker hub with `docker push <USER>/nodejs-custom-builder`
+
+Now you are ready to create a nodejs env with your custom builder image with your builder image supplied to `--builder` flag
+
+## Modifying the nodejs runtime image
+
+If you wish to modify the nodejs runtime image to add more dependencies without using/creating a builder image, you can do so too.
+
+TODO -- link to source code
+
+As you can see, there is a package.json in the directory with a list of node modules listed under dependencies section. 
+You can add the node modules required to this list and then build the docker image with `docker build -t <USER>/nodejs-custom-runtime .` and push the image `docker push <USER>/nodejs-custom-runtime`
+
+You are now ready to create a nodejs env with your image supplied to `--image` flag
 
 ## Resource usage 
 
