@@ -3,13 +3,11 @@ title: "Fission functions with Nodejs"
 weight: 10
 ---
 
-Fission supports functions written in Nodejs. In this usage guide we'll cover how to use
-this environment, write functions, and work with dependencies.
+Fission supports functions written in Nodejs. Current fission nodejs runtime environment supports node version greater than 7.6.0. In this usage guide we'll cover how to use this environment, write functions, and work with dependencies.
 
 ## Before you start
 
-We'll assume you have Fission and Kubernetes setup. If not, head over
-to the [install guide]().  Verify your Fission setup with:
+We'll assume you have Fission and Kubernetes setup. If not, head over to the [install guide](../installation/_index.en.md).  Verify your Fission setup with:
 
 ```
 fission --version
@@ -54,7 +52,8 @@ fission fn test --name hello-world
 
 ### Accessing HTTP Requests
 
-This section gives a few examples of invoking nodejs functions with http requests and how http request components can be extracted inside the function
+This section gives a few examples of invoking nodejs functions with http requests and how http request components can be extracted inside the function.
+While these examples give you a rough idea of the usage, there are more real world example [here](https://github.com/fission/fission/tree/master/examples/nodejs)
 
 #### Headers
 
@@ -132,7 +131,7 @@ Create an http trigger to invoke the function
 fission httptrigger create --url /hello-user --function hello-user
 ```
 
-Test the function with the below command and you should see "hello, world!" in the output
+Test the function with the below command and you should see "hello, foo!" in the output
 
 ```
 curl http://$FISSION_ROUTER/header-example?user=foo
@@ -140,7 +139,7 @@ curl http://$FISSION_ROUTER/header-example?user=foo
 
 #### Body 
 
-First lets see an example of writing a function which extracts a request body in Plain text format and returns the word count
+First lets see an example of a function which extracts a request body in JSON format.
 
 Create a file job-status.js with the following content. Here the function tries to extract the 'job_id' and the 'job_status' from the http request body and could potentially persist the status somewhere.   
 
@@ -392,20 +391,20 @@ Next, the user function is loaded according to the entry point specified with `f
 ### Creating a custom nodejs builder image 
 
 If you'd like to do more than just `npm install` in the build step, you could customize the build.sh.
-Here's the link to the source code of fission nodejs builder TODO : Provide a link to source code of fission nodejs builder image
+Here's the link to the source code of fission [nodejs builder](https://github.com/fission/fission/tree/master/environments/nodejs/builder)
 
 As you can see, the build.sh performs a `npm install` inside a directory defined by the environment variable SRC_PKG and copies the built archive into a directory defined by environment variable DEPLOY_PKG 
 You could create a customized version of this build.sh with whatever additional commands needed to be run during the build step.
 
 Finally the image can be built with `docker build -t <USER>/nodejs-custom-builder .` and pushed to docker hub with `docker push <USER>/nodejs-custom-builder`
 
-Now you are ready to create a nodejs env with your custom builder image with your builder image supplied to `--builder` flag
+Now you are ready to create a nodejs env with your custom builder image supplied to `--builder` flag
 
 ## Modifying the nodejs runtime image
 
 If you wish to modify the nodejs runtime image to add more dependencies without using/creating a builder image, you can do so too.
 
-TODO -- link to source code
+Here's the link to the source code of fission [nodejs runtime](https://github.com/fission/fission/tree/master/environments/nodejs)
 
 As you can see, there is a package.json in the directory with a list of node modules listed under dependencies section. 
 You can add the node modules required to this list and then build the docker image with `docker build -t <USER>/nodejs-custom-runtime .` and push the image `docker push <USER>/nodejs-custom-runtime`
@@ -414,9 +413,8 @@ You are now ready to create a nodejs env with your image supplied to `--image` f
 
 ## Resource usage 
 
-TODO recommend using min memory and cpu requests. 
+Currently the nodejs environment containers are run with default memory limit of 512 MiB and a memory request of 256 MiB. Also, a default CPU limit of 1 and a CPU request of 0.5 cores.
 
-TODO -- run hello world with 128m, 256m and find a reasonable minimum
-to recommend to people
+If you wish to create functions with higher resource requirements, you could supply `--mincpu`, `--maxcpu`, `--minmemory` and `--maxmemory` flags during `fission fn create`. Also supply `--executortype newdeploy` to the CLI.
 
 
