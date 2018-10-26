@@ -4,6 +4,14 @@ draft: false
 weight: 45
 ---
 
+### Eliminating cold start
+
+If you want to eliminate the cold start for a function, you can run the function with executortype as "newdeploy" and minscale set to 1. This will ensure that at least one replica of function is always running and there is no cold start in request path.
+
+```
+$ fission fn create --name hello --env node --code hello.js --minscale 1 --executortype newdeploy
+```
+
 ### Autoscaling
 
 Let's create a function to demonstrate the autoscaling behaviour in Fission. We create a simple function which outputs "Hello World" in using NodeJS. We have kept the CPU request and limit purposefully low to simulate the load and also kept the target CPU percent to 50%. 
