@@ -11,7 +11,7 @@ We'll assume you have Fission and Kubernetes setup.  If not, head over
 to the [install guide](../installation/_index.en.md).  Verify your Fission setup with:
 
 ```
-fission --version
+$ fission --version
 ```
 
 ## Add JVM environment to your cluster
@@ -19,20 +19,14 @@ fission --version
 Fission language support is enabled by creating an _Environment_.  An environment is the language-specific part of Fission.  It has a container image in which your function will run.
 
 ```
-fission environment create --name python --image fission/jvm-env --builder fission/jvm-builder
+$ fission environment create --name java --image fission/jvm-env --builder fission/jvm-builder
 ```
 
 ## Write a simple function in Java
 
-A function needs to implement the `io.fission.Function` class and override the `call` method. The call method receives the `RequestEntity` and `Context` as inputs and needs to return `ResponseEntity` object. Both `RequestEntity` and `ResponseEntity` are from `org.springframework.http` package and provide a fairly high level and rich API to interact with request and response objects.
+A function needs to implement the `io.fission.Function` class and override the `call` method. The call method receives the `RequestEntity` and `Context` as inputs and needs to return `ResponseEntity` object. Both `RequestEntity` and `ResponseEntity` are from `org.springframework.http` package and provide a fairly high level and rich API to interact with request and response objects. The function code responds with "Hello World" in response body looks as shown below:
 
-```
-ResponseEntity call(RequestEntity req, Context context);
-```
-
-The function code responds with "Hello World" in response body looks as shown below:
-
-```
+```java
 package io.fission;
 
 import org.springframework.http.RequestEntity;
@@ -61,31 +55,33 @@ Java function provides easy access to the Request and Response using Spring fram
 
 You can access headers object from the request object and then use various methods on header object to retrieve a specific header or get a collection of all headers.
 
-```
-    HttpHeaders headers = req.getHeaders();
-    List<String> values = headers.get("keyname");
+```java
+	HttpHeaders headers = req.getHeaders();
+	List<String> values = headers.get("keyname");
 ```
 
 #### Query string
 
 You can use the URI object in request object and parse the query parameters as shown below.
 
-```
-        Map<String, String> query_pairs = new LinkedHashMap<String, String>();
-		URI url = req.getUrl();
-		String query = url.getQuery();
-		String[] pairs = query.split("&");
-		for (String pair : pairs) {
-	        int idx = pair.indexOf("=");
-	        query_pairs.put(URLDecoder.decode(pair.substring(0, idx), "UTF-8"), URLDecoder.decode(pair.substring(idx + 1), "UTF-8"));
-	    }
+```java
+	Map<String, String> query_pairs = new LinkedHashMap<String, String>();
+	URI url = req.getUrl();
+	String query = url.getQuery();
+	String[] pairs = query.split("&");
+	for (String pair : pairs) {
+		int idx = pair.indexOf("=");
+		query_pairs.put(URLDecoder.decode(pair.substring(0, idx), "UTF-8"), URLDecoder.decode(pair.substring(idx + 1), "UTF-8"));
+	}
 ```
 
 #### Body 
 
-The body of the request object can be accessed as a map. You can use the map to convert to a value object using Jackson library's `ObjectMappper`.
+The body of the request object can be accessed as a map. You can use the map to convert to a value object using Jackson library's `ObjectMappper`. You will need to add the Jackson library to dependencies and import appropriate classes.
 
-```
+```java
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 final ObjectMapper mapper = new ObjectMapper();
 HashMap data = (HashMap) req.getBody();
 Data iotData = mapper.convertValue(data, Data.class);
@@ -97,20 +93,21 @@ Data iotData = mapper.convertValue(data, Data.class);
 
 The response object allows adding headers before sending the response back to the user. You can also set status code, body etc. on response object
 
-```
-        HttpHeaders headers = new HttpHeaders();
-		headers.add("Access-Control-Allow-Origin", "*");
-		return ResponseEntity.status(HttpStatus.OK).headers(headers).build();
+```java
+	HttpHeaders headers = new HttpHeaders();
+	headers.add("Access-Control-Allow-Origin", "*");
+	return ResponseEntity.status(HttpStatus.OK).headers(headers).build();
 ```
 
 ## Working with dependencies
 
-### Maven
+### Dependencies
 
 JVM environment can accept any executable JAR with entrypoint method that implements the interface of `io.fission.Function`. Currently the dependencies in the JVM environment are managed with Maven so we will take that as an example but you can use the others tools as well such as Gradle.
 
 JVM environment already has the spring-boot-starter-web and fission-java-core as dependencies so you need to declare them at provided scope. You can add additional dependencies that your application needs.
-```
+
+```maven
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
@@ -125,7 +122,7 @@ JVM environment already has the spring-boot-starter-web and fission-java-core as
 		</dependency>
 ```
 
-### Custom builds
+### Building the function
 
 The current build environment for Java has support for Maven builds. You can upload the source code and the JVM builder will build the source code into a jar. Let's take [Java example from here](https://github.com/fission/fission/tree/master/examples/jvm/java) and build using Fission builder.
 
@@ -136,9 +133,10 @@ fission env create --name java --image fission/jvm-env --builder fission/jvm-bui
 ```
 
 Next create a package with the builder environment by providing the source package.  This will kick off the build process.
+
 ```
-$zip java-src-pkg.zip -r *
-$fission package create --env java --src java-src-pkg.zip 
+$ zip java-src-pkg.zip -r *
+$ fission package create --env java --src java-src-pkg.zip 
 Package 'java-src-pkg-zip-dqo5' created
 ```
 
@@ -177,18 +175,28 @@ Build Logs:
 Finally let's create a function with package created earlier and provide an entrypoint. The function can be tested with `fission fn test` command.
 
 ```
-$fission fn create --name javatest --pkg  java-src-pkg-zip-dqo5 --env java --entrypoint io.fission.HelloWorld --executortype newdeploy --minscale 1 --maxscale 1
-$fission fn test --name javatest
+$ fission fn create --name javatest --pkg  java-src-pkg-zip-dqo5 --env java --entrypoint io.fission.HelloWorld --executortype newdeploy --minscale 1 --maxscale 1
+$ fission fn test --name javatest
 Hello World!
 ```
 
-You might have noticed that we did not provide any build command to package for building from source. The build still worked because the builder used the default built in command to build the source. You can override this build command to suit your needs. The only requirement is to instruct the builder on how to copy resulting Jar file to function by using the environment variables `$SRC_PKG` and  `$DEPLOY_PKG`. The `$SRC_PKG` is the root from where build will be run so you can form a relative oath to Jar file and copy the file to `$DEPLOY_PKG` Fission will at runtime inject these variables and copy the Jar file.
+### Custom builds
 
-```
+You might have noticed that we did not provide any build command to package for building from source in previous section. The build still worked because the builder used the default built in command to build the source. You can override this build command to suit your needs. The only requirement is to instruct the builder on how to copy resulting Jar file to function by using the environment variables `$SRC_PKG` and  `$DEPLOY_PKG`. The `$SRC_PKG` is the root from where build will be run so you can form a relative oath to Jar file and copy the file to `$DEPLOY_PKG` Fission will at runtime inject these variables and copy the Jar file.
+
+```bash
+$ cat build.sh
 #!/bin/sh
 set -eou pipefail
 mvn clean package
 cp ${SRC_PKG}/target/*with-dependencies.jar ${DEPLOY_PKG}
+```
+
+You can pass the custom build script when creating package or function using the `buildcmd` flag:
+
+```
+$ fission package create --env java --src java-src-pkg.zip --buildcmd custom_build.sh
+Package 'java-src-pkg-zip-dqo5' created
 ```
 
 ## Modifying the environment images
@@ -199,7 +207,17 @@ The JVM builder image source code is [available here](https://github.com/fission
 
 ## Resource usage 
 
-A minimum memory of 128MB is needed for JVM environment.
+A minimum memory of 128MB is needed for JVM environment. You can specify CPU and memory when you create an environment as shown below. The min and max for resources correspond to resource request and resource limits of Kubernetes pods.
+
+```
+fission env create --name java --image fission/jvm-env --builder fission/jvm-builder --keeparchive --version 2 --mincpu 100 --maxcpu 500 --minmemory 128 --maxmemory 512
+```
+
+For function of executor type "newdeploy" you can also override the resource values when creating a function. For functions of type "poolmgr", the resources can only be specified at environment level.
+
+```
+$ fission fn create --name javatest --pkg  java-src-pkg-zip-dqo5 --env java --entrypoint io.fission.HelloWorld --executortype newdeploy --minscale 1 --maxscale 1  --mincpu 100 --maxcpu 500 --minmemory 128 --maxmemory 512
+```
 
 ## Samples
 
