@@ -4,6 +4,8 @@ draft: false
 weight: 42
 ---
 
+This section walks through working with functions, for controlling execution of functions please refer to [Controlling Function Execution](executor.en.md)
+
 ### Create a function
 
 Before creating a function, you'll need an environment; read
