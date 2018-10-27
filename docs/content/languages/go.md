@@ -1,9 +1,9 @@
 ---
-title: "Using Golang with Fission"
+title: "Using Go with Fission"
 weight: 10
 ---
 
-With Golang plugin mechanism, fission supports Golang as one of function languages.
+With Go plugin mechanism, fission supports Go as one of function languages.
 
 In this usage guide we'll cover how to use this environment, write functions, and work with dependencies.
 
@@ -16,25 +16,25 @@ to the [install guide](../../installation/).  Verify your Fission setup with:
 $ fission --version
 ```
 
-## Add the Golang environment to your cluster
+## Add the Go environment to your cluster
 
-Unlike Python, Golang is a compiled language that means we need to compile source code before running it.
+Unlike Python, Go is a compiled language that means we need to compile source code before running it.
 
-Fortunately, builder manager within fission does all these hard works automatically when a Golang function/package is created.
-The Golang builder will convert a source package into a deployable package. 
+Fortunately, builder manager within fission does all this hard work automatically when a Go function/package is created.
+The Go builder will convert a source package into a deployable package. 
 
-To enable Golang builder, we need to assign a function builder with flag `--builder`. 
+To enable Go builder, we need to assign a function builder with flag `--builder`. 
 
 ```
 $ fission environment create --name go --image fission/go-env --builder fission/go-builder
 ```
 
-## Write a simple function in Golang
+## Write a simple function in Go
 
-Here is a hello world example (hw.go) in Golang:
+Here is a hello world example (hw.go) in Go:
 
 ```go
-// Due to golang plugin mechanism,
+// Due to go plugin mechanism,
 // the package of function handler must be main package
 package main
 
@@ -63,14 +63,14 @@ Before accessing function, need to ensure deploy package of function is in _succ
 $ fission pkg info --name <pkg-name>
 ```
 
-Now, let's test our first Golang function with `test` command
+Now, let's test our first Go function with `test` command
 
 ```bash
 $ fission fn test --name <function-name>
 ```
 
 {{% notice tip %}} 
-See [here](../../usage/trigger) for how to setup different trigger for Golang function. 
+See [here](../../usage/trigger) for how to setup different trigger for Go function. 
 {{% /notice %}} 
 
 ## HTTP requests and HTTP responses
@@ -113,8 +113,14 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 }
 ```
 
+Let's create a HTTP trigger for the function we created above.
+
 ```bash
-$ curl -X GET http://route-to-function -H 'HEADER_KEY_1: foo' -H 'HEADER_KEY_2: bar'
+$ fission httptrigger create --method GET --url "/<url>" --function <fn-namne>
+```
+
+```bash
+$ curl -X GET http://$FISSION_ROUTER/<url> -H 'HEADER_KEY_1: foo' -H 'HEADER_KEY_2: bar'
 v1: foo, v2: [bar]
 ```
 
@@ -138,7 +144,7 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 ```
 
 ```bash
-$ curl -X GET http://route-to-function?key-name=123
+$ curl -X GET http://$FISSION_ROUTER/<url>?key-name=123
 123
 ```
 
@@ -168,7 +174,7 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 ```
 
 ```bash
-$ curl -X POST http://route-to-function -d foobar
+$ curl -X POST http://$FISSION_ROUTER/<url> -d foobar
 foobar
 ```
 
@@ -213,7 +219,7 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 ```
 
 ```bash
-curl -X POST http://route-to-function -d '{"content": "foobar"}'
+curl -X POST http://$FISSION_ROUTER/<url> -d '{"content": "foobar"}'
 {"content":"foobar"}
 ```
 
@@ -244,27 +250,16 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 ```
 
 ```bash
-$ curl -vvv -X GET "http://route-to-function"
-Note: Unnecessary use of -X or --request, GET is already inferred.
-*   Trying 192.168.99.100...
-* TCP_NODELAY set
-* Connected to 192.168.99.100 (192.168.99.100) port 31314 (#0)
-> GET /g1 HTTP/1.1
-> Host: 192.168.99.100:31314
-> User-Agent: curl/7.54.0
-> Accept: */*
->
-< HTTP/1.1 200 OK
-< Access-Control-Allow-Credentials: true
-< Access-Control-Allow-Headers: *
-< Access-Control-Allow-Methods: *
-< Access-Control-Allow-Origin: *
-< Access-Control-Expose-Headers: *
-< Content-Length: 0
-< Content-Type: text/plain; charset=utf-8
-< Date: Fri, 26 Oct 2018 08:48:15 GMT
-<
-* Connection #0 to host 192.168.99.100 left intact
+$ curl -i -X GET "http://$FISSION_ROUTER/<url>"
+HTTP/1.1 200 OK
+Access-Control-Allow-Credentials: true
+Access-Control-Allow-Headers: *
+Access-Control-Allow-Methods: *
+Access-Control-Allow-Origin: *
+Access-Control-Expose-Headers: *
+Content-Length: 0
+Content-Type: text/plain; charset=utf-8
+Date: Sat, 27 Oct 2018 15:00:14 GMT
 ```
 
 #### Setting Status Codes 
@@ -290,7 +285,7 @@ func Handler(w http.ResponseWriter, r *http.Request) {
     // w.WriteHeader(http.StatusBadRequest)
 
     // DO
-    http.Error(w, "", http.StatusBadRequest)
+    http.Error(w, "dummy error", http.StatusBadRequest)
 
     // or DO
     // w.WriteHeader(http.StatusBadRequest)
@@ -302,8 +297,8 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 
 ### Add dependencies
 
-Unlike pip for Python has been widely adopted by community, there are various dependency management tools for Golang like *gb*, *dep* and *glide*.
-Hence fission Golang builder image doesn't contain a default tool for downloading dependencies during build processes. 
+Unlike pip for Python has been widely adopted by community, there are various dependency management tools for Go like *gb*, *dep* and *glide*.
+Hence fission Go builder image doesn't contain a default tool for downloading dependencies during build processes. 
 
 In order to support 3rd party dependencies, users need to put all necessary packages to `vendor` directory and archive it into source archive.
 
@@ -466,7 +461,7 @@ $ fission fn create --name g1 --env go --src example.zip --entrypoint Handler --
 
 So what's the reasonable resource setting for a function? It really depends on what type of your function is. 
 
-Here's a tip, use `kubectl top` to get actual resource consumption when doing benchmarking. Then you will know what's the best setting for a Golang function.
+Here's a tip, use `kubectl top` to get actual resource consumption of pod when doing benchmarking. Then you will know what's the best setting for a Go function.
 
 ```bash
 $ kubectl -n fission-function top pod -l functionName=g1
