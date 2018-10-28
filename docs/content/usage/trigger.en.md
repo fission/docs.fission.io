@@ -24,6 +24,24 @@ Fission router service.  For how to set up environment variable
 `FISSION_ROUTER`, see [here]({{< ref "/installation/env_vars" >}})
 {{% /notice %}}
 
+Also, we can create a trigger contains URL parameter by putting placeholders in value of `--url` flag.
+
+```bash
+$ fission httptrigger create --method GET \
+    --url "/guestbook/messages/{id}" --function restapi-get
+```
+
+Since fission uses gorilla/mux as underlying URL router, you can write regular expression to filter out illegal API requests.
+
+```bash
+$ fission httptrigger create --method GET \
+    --url "/guestbook/messages/{id:[0-9]+}" --function restapi-get
+```
+
+{{% notice tip %}} 
+Learn how to access URL parameters in function to develop a **REST API**, please visit [here](../accessing-url-params)
+{{% /notice %}}
+
 If you want to use Kubernetes Ingress for the HTTP Trigger, you can
 provide the `--createingress` flag and a hostname.  If the hostname is
 not provided, it defaults to "*", which indicates a wildcard host.
@@ -43,7 +61,6 @@ Please note that for ingress to work, you will have to deploy an ingress control
 - [GCE Ingress Controller](https://github.com/kubernetes/ingress-gce)
 
 Other Ingress controllers exist, such as [F5 networks](http://clouddocs.f5.com/products/connectors/k8s-bigip-ctlr/v1.5/) and [Kong](https://konghq.com/blog/kubernetes-ingress-controller-for-kong/).
-
 
 ### Create a Time Trigger
 
