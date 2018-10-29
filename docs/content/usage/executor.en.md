@@ -4,6 +4,87 @@ draft: false
 weight: 45
 ---
 
+[Fission Concepts/Function Executors]({{%relref "concepts/executor.en.md" %}}) describes the major difference between executors. 
+In this guide, we will go through how to set up/config different executors for function.  
+
+### Poolmgr (Pool-based executor)
+
+You can create a function like following to use poolmgr as backend executor.
+
+```bash
+# The default executor type for function is poolmgr, 
+$ fission fn create --name foobar --env nodejs --code hello.js
+
+# Or, set executor type to poolmgr explicitly
+$ fission fn create --name foobar --env nodejs --code hello.js --executortype poolmgr
+```
+
+When an environment is created, poolmgr creates a pool of generic pods with **default pool size 3**. 
+We may want to adjust the size of pools based on our need (e.g. resource efficiency), for some 
+[historic reason](https://github.com/fission/fission/issues/506) fission now only supports to adjust pool size 
+by giving `--version 3` flag when creating an environment.
+
+```bash
+$ fission env create --name python --version 3 --poolsize 1 --image fission/python-env:0.11.0
+
+$ kubectl -n fission-function get pod -l environmentName=test
+```
+
+Now, you shall see only one pod for the environment we just created.
+
+{{% notice warning %}}
+With `--poolsize 0`, the executor will not be able to special any function due to no generic pod in pool.
+{{% /notice %}}
+
+If you want to set resource requests/limits for all functions use the same environment, you can provide extra min/max cpu & memory flags to set them
+at **environment-level**. For example, we want to limit an environment's min/max cpu to 100m/200m and min/max memory to 128Mi/256Mi.   
+
+```bash
+$ fission env create --name python --version 3 --poolsize 1 --image fission/python-env \
+    --mincpu 100 --maxcpu 200 --minmemory 128 --maxmemory 256
+    
+$ fission env list
+NAME     UID               IMAGE              POOLSIZE MINCPU MAXCPU MINMEMORY MAXMEMORY EXTNET GRACETIME
+python   73e4e8a3-db49-... fission/python-env 1        100m   200m   128Mi     256Mi     false  360
+```
+
+### Newdeploy (New-deployment executor)
+
+Newdeploy provides autoscaling and min/max scale setting for functions, allow a functions to handle spikes in workloads.
+To create a function with newdeploy, you have to set executor type explicitly.
+
+```bash
+$ fission fn create --name foobar --env nodejs --code hello.js --executortype newdeploy
+```
+
+Unlike Poolmgr sets all configs at the environment-level. Newdeploy provides more **fine grained** configuration at the **function-level**.
+Here are some flags for Newdeploy:
+
+```bash
+--mincpu value         Minimum CPU to be assigned to pod (In millicore, minimum 1)
+--maxcpu value         Maximum CPU to be assigned to pod (In millicore, minimum 1)
+--minmemory value      Minimum memory to be assigned to pod (In megabyte)
+--maxmemory value      Maximum memory to be assigned to pod (In megabyte)
+--minscale value       Minimum number of pods (Uses resource inputs to configure HPA)
+--maxscale value       Maximum number of pods (Uses resource inputs to configure HPA)
+--targetcpu value      Target average CPU usage percentage across pods for scaling (default: 80)
+```
+
+So if we want to limit a function's min/max cpu to 100m/200m and min/max memory to 128Mi/256Mi.
+
+```bash
+$ fission fn create --name foobar --env nodejs --code hello.js --executortype newdeploy \
+    --minscale 1 --maxscale 3 --mincpu 100 --maxcpu 200 --minmemory 128 --maxmemory 256
+
+$ fission fn list
+NAME       UID                   ENV    EXECUTORTYPE MINSCALE MAXSCALE MINCPU MAXCPU MINMEMORY MAXMEMORY TARGETCPU
+foobar     afe7666a-db51-11e8... nodejs newdeploy    1        3        100m   200m   128Mi     256Mi     80
+
+$ kubectl -n fission-function get deploy -l functionName=foobar
+NAME              DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
+foobar-hhytbcx4   1         1         1            1           51s
+```
+
 ### Eliminating cold start
 
 If you want to eliminate the cold start for a function, you can run the function with executortype as "newdeploy" and minscale set to 1. This will ensure that at least one replica of function is always running and there is no cold start in request path.
@@ -12,12 +93,13 @@ If you want to eliminate the cold start for a function, you can run the function
 $ fission fn create --name hello --env node --code hello.js --minscale 1 --executortype newdeploy
 ```
 
-### Autoscaling
+#### Autoscaling
 
 Let's create a function to demonstrate the autoscaling behaviour in Fission. We create a simple function which outputs "Hello World" in using NodeJS. We have kept the CPU request and limit purposefully low to simulate the load and also kept the target CPU percent to 50%. 
 
 ```bash
-$ fission fn create --name hello --env node --code hello.js --minmemory 64 --maxmemory 128 --minscale 1 --maxscale 6 --executortype newdeploy --targetcpu 50
+$ fission fn create --name hello --env node --code hello.js --executortype newdeploy \
+    --minmemory 64 --maxmemory 128 --minscale 1 --maxscale 6  --targetcpu 50
 function 'hello' created
 ```
 

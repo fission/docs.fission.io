@@ -1,5 +1,5 @@
 ---
-title: "Fission Function Executors"
+title: "Function Executors"
 draft: false
 weight: 23
 ---
@@ -8,16 +8,19 @@ When you create a function, you can specify an executor for a function. An execu
 
 ## Pool-based executor
 
-A pool based executor (Refered to as poolmgr) creates a pool of generic environment pods as soon as you create an environment. The pool size of initial "warm" containers can be configured based on user needs. These warm containers contain a small dynamic loader for loading the function. Resource requirements are specified at environment level and are inherited by specialized function pods.
+![poolmgr](../images/fission.svg)
+
+A pool based executor (Refered to as Poolmgr) creates `a pool of generic environment pods` as soon as you create an environment. The pool size of initial "warm" containers can be configured based on user needs. These warm containers contain a small dynamic loader for loading the function. Resource requirements are specified at environment level and are inherited by specialized function pods.
 
 Once you create a function and invoke it, one of pods from the pool is taken out and "specialized" and used for execution. This pod is used for subsequent requests for that function. If there are no more requests for a certain idle duration, then this pod is cleaned up. If a new requests come after the earlier specialized pod was cleaned up, then a new pod is specialised from the pool and used for execution.
 
 Poolmgr executortype is great for functions where lower latency is a requirement. Poolmgr executortype has certain limitations: for example, you can not autoscale them based on demand.
 
-
 ## New-deployment executor
 
-New-Deployment executor (Newdeploy) creates a Kubernetes Deployment along with a Service and HorizontalPodAutoscaler for function execution. This enables autoscaling of function pods and load balancing the requests between pods. In future additional capabilities will be added for newdeploy executortype such as support for volume etc.  In the new-deploy executor, resource requirements can be specified at the function level. These requirements override those specified in the environment.
+![newdeploy](../images/newdeploy.svg)
+
+New-Deployment executor (Refered to as Newdeploy) creates `a Kubernetes Deployment` along with `a Service and HorizontalPodAutoscaler(HPA)` for function execution. This enables autoscaling of function pods and load balancing the requests between pods. In future additional capabilities will be added for newdeploy executortype such as support for volume etc.  In the new-deploy executor, resource requirements can be specified at the function level. These requirements override those specified in the environment.
 
 Newdeploy executortype can be used for requests with no particular low-latency requirements, such as those invoked asynchronously, minscale can be set to zero. In this case the Kubernetes deployment and other objects will be created on first invocation of the function. Subsequent requests can be served by the same deployment. If there are no requests for certain duration then the idle objects are cleaned up. This mechanism ensures resource consumption only on demand and is a good fit for asynchronous requests.
 
@@ -36,3 +39,7 @@ The executors allow you as a user to decide between latency and a small idle cos
 ### Autoscaling
 
 The new deployment based executor provides autoscaling for functions based on CPU usage. In future custom metrics will be also supported for scaling the functions. You can set the intial and maximum CPU for a function and target CPU at which autoscaling will be trigerred. Autoscaling is useful for workloads where you expect intermittant spikes in workloads. It also enables optimal usage of resources to execute functions, by using a baseline capacity with minimum scale and ability to burst up to maximum scale based on spikes in demand.
+
+{{% notice tip %}}
+Learn more further usage/setup of **executor type** for functions, please see [here]({{%relref "usage/executor.en.md" %}})
+{{% /notice %}}
