@@ -3,14 +3,14 @@ title: "Using Java with Fission JVM environment"
 weight: 10
 ---
 
-Fission supports functions written in Java and runs then on JVM. Current JVM environment is based on openjdk8 and uses Spring boot as framework.
+Fission supports functions written in Java and runs then on JVM. Current JVM environment is based on openjdk8 and uses Spring Boot as framework.
 
 ## Before you start
 
 We'll assume you have Fission and Kubernetes setup.  If not, head over
 to the [install guide](../installation/_index.en.md).  Verify your Fission setup with:
 
-```
+``` sh
 $ fission --version
 ```
 
@@ -18,7 +18,7 @@ $ fission --version
 
 Fission language support is enabled by creating an _Environment_.  An environment is the language-specific part of Fission.  It has a container image in which your function will run.
 
-```
+``` sh
 $ fission environment create --name java --image fission/jvm-env --builder fission/jvm-builder
 ```
 
@@ -84,6 +84,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 final ObjectMapper mapper = new ObjectMapper();
 HashMap data = (HashMap) req.getBody();
+// The Data object is a POJO representation of JSON from request
 Data iotData = mapper.convertValue(data, Data.class);
 ```
 
@@ -128,13 +129,21 @@ The current build environment for Java has support for Maven builds. You can upl
 
 Let's first create a JVM environment with builder. For JVM environment you need to pass `--keeparchive` so that the jar file built from source is not extracted for running the function. You also need to use version 2 or higher of environment.
 
-```
+``` sh
 fission env create --name java --image fission/jvm-env --builder fission/jvm-builder --keeparchive --version 2
 ```
 
 Next create a package with the builder environment by providing the source package.  This will kick off the build process.
 
-```
+``` sh
+$ tree -L 1
+.
+├── README.md
+├── build.sh
+├── pom.xml
+└── src
+
+2 directories, 3 files
 $ zip java-src-pkg.zip -r *
 $ fission package create --env java --src java-src-pkg.zip 
 Package 'java-src-pkg-zip-dqo5' created
@@ -142,7 +151,7 @@ Package 'java-src-pkg-zip-dqo5' created
 
 You can check the status of build by running the `info` command on package. After the build succeeds, the status will turn to `succeeded` and the build logs will be visible.
 
-```
+``` sh
 $ fission package info --name java-src-pkg-zip-dqo5
 Name:        java-src-pkg-zip-dqo5
 Environment: java
@@ -174,7 +183,7 @@ Build Logs:
 
 Finally let's create a function with package created earlier and provide an entrypoint. The function can be tested with `fission fn test` command.
 
-```
+``` sh
 $ fission fn create --name javatest --pkg  java-src-pkg-zip-dqo5 --env java --entrypoint io.fission.HelloWorld --executortype newdeploy --minscale 1 --maxscale 1
 $ fission fn test --name javatest
 Hello World!
@@ -184,7 +193,7 @@ Hello World!
 
 You might have noticed that we did not provide any build command to package for building from source in previous section. The build still worked because the builder used the default built in command to build the source. You can override this build command to suit your needs. The only requirement is to instruct the builder on how to copy resulting Jar file to function by using the environment variables `$SRC_PKG` and  `$DEPLOY_PKG`. The `$SRC_PKG` is the root from where build will be run so you can form a relative oath to Jar file and copy the file to `$DEPLOY_PKG` Fission will at runtime inject these variables and copy the Jar file.
 
-```bash
+```sh
 $ cat build.sh
 #!/bin/sh
 set -eou pipefail
@@ -194,7 +203,7 @@ cp ${SRC_PKG}/target/*with-dependencies.jar ${DEPLOY_PKG}
 
 You can pass the custom build script when creating package or function using the `buildcmd` flag:
 
-```
+``` sh
 $ fission package create --env java --src java-src-pkg.zip --buildcmd custom_build.sh
 Package 'java-src-pkg-zip-dqo5' created
 ```
@@ -209,13 +218,13 @@ The JVM builder image source code is [available here](https://github.com/fission
 
 A minimum memory of 128MB is needed for JVM environment. You can specify CPU and memory when you create an environment as shown below. The min and max for resources correspond to resource request and resource limits of Kubernetes pods.
 
-```
+``` sh
 fission env create --name java --image fission/jvm-env --builder fission/jvm-builder --keeparchive --version 2 --mincpu 100 --maxcpu 500 --minmemory 128 --maxmemory 512
 ```
 
 For function of executor type "newdeploy" you can also override the resource values when creating a function. For functions of type "poolmgr", the resources can only be specified at environment level.
 
-```
+``` sh
 $ fission fn create --name javatest --pkg  java-src-pkg-zip-dqo5 --env java --entrypoint io.fission.HelloWorld --executortype newdeploy --minscale 1 --maxscale 1  --mincpu 100 --maxcpu 500 --minmemory 128 --maxmemory 512
 ```
 
