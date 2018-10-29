@@ -76,15 +76,15 @@ an illustration.
 
 ### Make an empty directory
 
-```
-mkdir spec-tutorial
-cd spec-tutorial
+```bash
+$ mkdir spec-tutorial
+$ cd spec-tutorial
 ```
 
 ### Initialize the specs directory
 
-```
-fission spec init
+```bash
+$ fission spec init
 ```
 
 This creates a `specs/` directory.  You'll see a `fission-config.yaml`
@@ -93,8 +93,8 @@ cluster from these specs will be annotated with that unique ID.
 
 ### Setup a Python environment
 
-```
-fission env create --spec --name python --image fission/python-env:0.11.0 --builder fission/python-builder:0.11.0
+```bash
+$ fission env create --spec --name python --image fission/python-env:0.11.0 --builder fission/python-builder:0.11.0
 ```
 
 This command creates a YAML file under specs called `specs/env-python.yaml`.
@@ -104,14 +104,13 @@ This command creates a YAML file under specs called `specs/env-python.yaml`.
 One function simply returns a simple web form.  You can download the
 code or copy paste from the contents below:
 
-```
-  curl -Lo form.py http://xxx
+```bash
+$ curl -Lo form.py http://xxx
 ```
 
 Here are its contents:
 
 ```python
-
 def main():
     return """
        <html>
@@ -133,8 +132,8 @@ the expression entered.
 
 Here's the calculator function:
 
-```
-   curl -Lo calc.py http://yyy
+```bash
+$ curl -Lo calc.py http://yyy
 ```
 
 That function is pretty simple too:
@@ -159,10 +158,10 @@ Let's create a specification for each of these functions.  This
 specifies the function name, where the code lives, and associates the
 function with the python environment:
 
-```
-fission function create --spec --name calc-form --env python --src form.py --entrypoint form.main
+```bash
+$ fission function create --spec --name calc-form --env python --src form.py --entrypoint form.main
 
-fission function create --spec --name calc-eval --env python --src calc.py --entrypoint calc.main
+$ fission function create --spec --name calc-eval --env python --src calc.py --entrypoint calc.main
 ```
 
 You can see the generated YAML files in
@@ -170,9 +169,9 @@ You can see the generated YAML files in
 
 ### Create HTTP trigger specs
 
-```
-fission route create --spec --method GET --url /form --function calc-form
-fission route create --spec --method GET --url /eval --function calc-eval
+```bash
+$ fission route create --spec --method GET --url /form --function calc-form
+$ fission route create --spec --method GET --url /eval --function calc-eval
 ```
 
 This creates YAML files specifying that GET requests on /form and /eval
@@ -184,8 +183,8 @@ Spec validation does some basic checks: it makes sure there are no
 duplicate functions with the same name, and that references between
 various resources are correct.
 
-```
-fission spec validate
+```bash
+$ fission spec validate
 ```
 
 You should see no errors.
@@ -195,8 +194,8 @@ You should see no errors.
 You can simply use apply to deploy the environment, functions and HTTP
 triggers to the cluster.
 
-```
-fission spec apply --wait
+```bash
+$ fission spec apply --wait
 ```
 
 (This uses your kubeconfig to connect to Fission, just like kubectl.
@@ -206,8 +205,8 @@ See Usage Reference below for options.)
 
 Make sure your function is working:
 
-```
-fission function test --name calc-form
+```bash
+$ fission function test --name calc-form
 ```
 
 You should see the output of the calc-form function.
@@ -235,14 +234,14 @@ to support multiplication, too.
 You can add the above lines to `calc.py`, or just download the
 modified function:
 
-```
-curl -Lo calc.py http://zzz
+```bash
+bash curl -Lo calc.py http://zzz
 ```
 
 To deploy your changes, simply apply the specs again:
 
-```
-fission spec apply --wait
+```bash
+$ fission spec apply --wait
 ```
 
 This should output something like:
@@ -273,8 +272,8 @@ Modify the ArchiveUploadSpec inside specs/function-<name>.yaml
 
 Once again, deploying is the same:
 
-```
-fission spec apply --wait
+```bash
+$ fission spec apply --wait
 ```
 
 This command figures out that one function has changed, uploads the
@@ -312,7 +311,7 @@ their checksum has changed.
 
 ## Usage Reference
 
-```
+```bash
 NAME:
    fission spec - Manage a declarative app specification
 
@@ -333,7 +332,7 @@ OPTIONS:
 
 ### fission spec init
 
-```
+```bash
 NAME:
    fission spec init - Create an initial declarative app specification
 
@@ -348,7 +347,7 @@ OPTIONS:
 
 ### fission spec validate
 
-```
+```bash
 NAME:
    fission spec validate - Validate Fission app specification
 
@@ -361,7 +360,7 @@ OPTIONS:
 
 ### fission spec apply
 
-```
+```bash
 NAME:
    fission spec apply - Create, update, or delete Fission resources from app specification
 
@@ -377,7 +376,7 @@ OPTIONS:
 
 ### fission spec destroy
 
-```
+```bash
 NAME:
    fission spec destroy - Delete all Fission resources in the app specification
 

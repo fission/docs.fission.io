@@ -1,1 +1,1 @@
-![fission](http://fission.io/img/fission-logo-whitebg.png)
+![fission](/0.11.0/images/fission-logo.png)
