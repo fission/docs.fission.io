@@ -85,6 +85,10 @@ NAME              DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
 foobar-hhytbcx4   1         1         1            1           51s
 ```
 
+{{% notice warning %}}
+With `--minscale 0`, a function will experience **long** cold-start time since it takes time for executor to create/scale deployment to 1 replica.
+{{% /notice %}}
+
 ### Eliminating cold start
 
 If you want to eliminate the cold start for a function, you can run the function with executortype as "newdeploy" and minscale set to 1. This will ensure that at least one replica of function is always running and there is no cold start in request path.
