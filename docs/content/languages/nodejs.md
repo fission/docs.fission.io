@@ -25,7 +25,7 @@ fission environment create --name nodejs --image fission/node-env
 
 ## Write a simple function in Nodejs
 
-Create a file hello-world.js with the following content
+Create a file helloWorld.js with the following content
 
 ```
 module.exports = async function(context) {
@@ -64,7 +64,7 @@ Create a file hello.js with the following content. Here the function tries to ac
 ```
 module.exports = async function(context) {
     console.log(context.request.headers);
-    let token = context.request.headers['x-internal-token'];
+    var token = context.request.headers['x-internal-token'];
     console.log("Token presented : ", token);
 
     // do some authn and authz based on token received
@@ -98,13 +98,12 @@ curl http://$FISSION_ROUTER/hello-world -H "X-Internal-Token: abcdefghtsdfjsldjf
 
 Here's an example of extracting the query string from the http request.
 
-Create a file hello-user.js with the following content. Here the function tries to read the value of query parameter user and returns "hello <value supplied as user parameter>". 
+Create a file helloUser.js with the following content. Here the function tries to read the value of query parameter user and returns "hello <value supplied as user parameter>". 
 
 ```
 var url = require('url');
 
 module.exports = async function(context) {
-    console.log(context.request.headers);
     console.log(context.request.url)
 
     var url_parts = url.parse(context.request.url, true);
@@ -141,14 +140,12 @@ curl http://$FISSION_ROUTER/header-example?user=foo
 
 First lets see an example of a function which extracts a request body in JSON format.
 
-Create a file job-status.js with the following content. Here the function tries to extract the 'job_id' and the 'job_status' from the http request body and could potentially persist the status somewhere.   
+Create a file jobStatus.js with the following content. Here the function tries to extract the 'job_id' and the 'job_status' from the http request body and could potentially persist the status somewhere.   
 
 ```
 module.exports = async function(context) {
-    const stringBody = JSON.stringify(context.request.body);
-    const body = JSON.parse(stringBody);
-    const job = body.job_id;
-    const jobStatus = body.job_status;
+    const job = context.request.body.job_id;
+    const jobStatus = context.request.body.job_status;
 
     // do some db write if required to save the status
 
@@ -183,10 +180,7 @@ Create a file word-count.js with the following content. Here the function tries 
 
 ```
 module.exports = async function(context) {
-    const stringBody = context.request.body;
-    console.log("Received stringBody : " + stringBody);
-
-    var splitStringArray = stringBody.split(" ");
+    var splitStringArray = context.request.body.split(" ");
 
     return {
         status: 200,
@@ -219,7 +213,7 @@ This section gives a few examples of invoking nodejs functions with http request
 
 #### Setting Response Headers
 
-Create a file function-metadata.js with the following content. Here the function returns the fission function metadata added by Fission Router as part of the HTTP response header to the user.   
+Create a file functionMetadata.js with the following content. Here the function returns the fission function metadata added by Fission Router as part of the HTTP response header to the user.   
 
 ```
 module.exports = async function(context) {
@@ -280,16 +274,12 @@ hello world!
 
 #### Setting Status Codes 
 
-Create a file error-handling.js with the following content. Here the function tries to validate an input parameter "job_id" and sends a HTTP response code 400 when validation fails.   
+Create a file validateInput.js with the following content. Here the function tries to validate an input parameter "job_id" and sends a HTTP response code 400 when validation fails.   
 
 ```
 module.exports = async function(context) {
-    const stringBody = JSON.stringify(context.request.body);
-    const body = JSON.parse(stringBody);
-    console.log(body);
-
-    const job = body.job_id;
-    const jobStatus = body.job_status;
+    const job = context.request.body.job_id;
+    const jobStatus = context.request.body.job_status;
 
     console.log("Received CI job id: " + job + " job status: " + jobStatus );
 
