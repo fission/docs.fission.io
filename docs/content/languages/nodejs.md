@@ -7,7 +7,7 @@ Fission supports functions written in Nodejs. Current fission nodejs runtime env
 
 ## Before you start
 
-We'll assume you have Fission and Kubernetes setup. If not, head over to the [install guide](../installation/_index.en.md).  Verify your Fission setup with:
+We assume you have Fission and Kubernetes setup. If not, head over to the [install guide](../installation/_index.en.md).  Verify your Fission setup with:
 
 ```
 fission --version
@@ -52,12 +52,12 @@ fission fn test --name hello-world
 
 ### Accessing HTTP Requests
 
-This section gives a few examples of invoking nodejs functions with http requests and how http request components can be extracted inside the function.
-While these examples give you a rough idea of the usage, there are more real world example [here](https://github.com/fission/fission/tree/master/examples/nodejs)
+This section gives a few examples of invoking nodejs functions with HTTP requests and how HTTP request components can be extracted inside the function.
+While these examples give you a rough idea of the usage, there are more real world examples [here](HTTPs://github.com/fission/fission/tree/master/examples/nodejs)
 
 #### Headers
 
-Here's an example of extracting http headers from the http request.
+Here's an example of extracting HTTP headers from the HTTP request.
 
 Create a file hello.js with the following content. Here the function tries to access the value associated with header with name 'x-internal-token' and it could potentially do some authentication and authorization on the token before returning the response.
 
@@ -79,24 +79,24 @@ module.exports = async function(context) {
 Create a function with the following command.
 
 ```
-fission function create --name hello-world --code hello-world.js --env nodejs
+fission function create --name hello-world --code helloWorld.js --env nodejs
 ```
 
-Create an http trigger to invoke the function
+Create an HTTP trigger to invoke the function
 
 ```
-fission httptrigger create --url /hello-world --function hello-world
+fission HTTPtrigger create --url /hello-world --function hello-world
 ```
 
 Test the function with the below command and you should see "hello, world!" in the output
 
 ```
-curl http://$FISSION_ROUTER/hello-world -H "X-Internal-Token: abcdefghtsdfjsldjf123"
+curl HTTP://$FISSION_ROUTER/hello-world -H "X-Internal-Token: abcdefghtsdfjsldjf123"
 ```
 
 #### Query string
 
-Here's an example of extracting the query string from the http request.
+Here's an example of extracting the query string from the HTTP request.
 
 Create a file helloUser.js with the following content. Here the function tries to read the value of query parameter user and returns "hello <value supplied as user parameter>". 
 
@@ -121,26 +121,26 @@ module.exports = async function(context) {
 Create a function with the following command.
 
 ```
-fission function create --name hello-user --code hello-user.js --env nodejs
+fission function create --name hello-user --code helloUser.js --env nodejs
 ```
 
-Create an http trigger to invoke the function
+Create an HTTP trigger to invoke the function
 
 ```
-fission httptrigger create --url /hello-user --function hello-user
+fission HTTPtrigger create --url /hello-user --function hello-user
 ```
 
 Test the function with the below command and you should see "hello, foo!" in the output
 
 ```
-curl http://$FISSION_ROUTER/header-example?user=foo
+curl HTTP://$FISSION_ROUTER/header-example?user=foo
 ```
 
 #### Body 
 
 First lets see an example of a function which extracts a request body in JSON format.
 
-Create a file jobStatus.js with the following content. Here the function tries to extract the 'job_id' and the 'job_status' from the http request body and could potentially persist the status somewhere.   
+Create a file jobStatus.js with the following content. Here the function tries to extract the 'job_id' and the 'job_status' from the HTTP request body and could potentially persist the status somewhere.   
 
 ```
 module.exports = async function(context) {
@@ -159,24 +159,24 @@ module.exports = async function(context) {
 Create a function with the following command. 
 
 ```
-fission function create --name job-status --code job-status.js --env nodejs
+fission function create --name job-status --code jobStatus.js --env nodejs
 ```
 
-Create an http trigger to invoke the function
+Create an HTTP trigger to invoke the function
 
 ```
-fission httptrigger create --url /job-status --function job-status --method POST 
+fission HTTPtrigger create --url /job-status --function job-status --method POST 
 ```
 
 Invoke the function with a POST HTTP request with the appropriate JSON body and you will see the response "Successfully saved job status for job ID: 1234"
 
 ```
-curl -XPOST http://$FISSION_ROUTER/job-status -d '{"job_id" : "1234", "job_status": "Passed"}'
+curl -XPOST HTTP://$FISSION_ROUTER/job-status -d '{"job_id" : "1234", "job_status": "Passed"}'
 ```
 
 Next lets see an example of writing a function which extracts a request body in the Plain Text format
 
-Create a file word-count.js with the following content. Here the function tries to extract a request body and returns the word count of the input text.   
+Create a file wordCount.js with the following content. Here the function tries to extract a request body and returns the word count of the input text.   
 
 ```
 module.exports = async function(context) {
@@ -192,24 +192,24 @@ module.exports = async function(context) {
 Create a function with the following command. 
 
 ```
-fission function create --name word-count --code word-count.js --env nodejs
+fission function create --name word-count --code wordCount.js --env nodejs
 ```
 
-Create an http trigger to invoke the function
+Create an HTTP trigger to invoke the function
 
 ```
-fission httptrigger create --url /word-count --function word-count --method POST 
+fission HTTPtrigger create --url /word-count --function word-count --method POST 
 ```
 
 Invoke the function with a POST HTTP request with a text body and you will see the count of number of words in the HTTP response.
 
 ```
-curl -XPOST -H "Content-Type: text/plain" http://$FISSION_ROUTER/word-count -d '{"It's a beautiful day!"}'
+curl -XPOST -H "Content-Type: text/plain" HTTP://$FISSION_ROUTER/word-count -d '{"It's a beautiful day!"}'
 ```
 
 ### Controlling HTTP Responses 
 
-This section gives a few examples of invoking nodejs functions with http requests and how the function can return various values as part of HTTP response headers and body.
+This section gives a few examples of invoking nodejs functions with HTTP requests and how the function can return various values as part of HTTP response headers and body.
 
 #### Setting Response Headers
 
@@ -235,19 +235,19 @@ module.exports = async function(context) {
 Create a function with the following command. 
 
 ```
-fission function create --name function-metadata --code function-metadata.js --env nodejs
+fission function create --name function-metadata --code functionMetadata.js --env nodejs
 ```
 
-Create an http trigger to invoke the function
+Create an HTTP trigger to invoke the function
 
 ```
-fission httptrigger create --url /function-metadata --function word-count
+fission HTTPtrigger create --url /function-metadata --function word-count
 ```
 
 Invoke the function with a '-v' flag on curl command to display all headers
 
 ```
-curl http://$FISSION_ROUTER/function-metadata -v
+curl HTTP://$FISSION_ROUTER/function-metadata -v
 ```
 
 We can see the headers in the output as below
@@ -300,19 +300,19 @@ module.exports = async function(context) {
 Create a function with the following command. 
 
 ```
-fission function create --name error-handling --code error-handling.js --env nodejs
+fission function create --name error-handling --code validateInput.js --env nodejs
 ```
 
-Create an http trigger to invoke the function
+Create an HTTP trigger to invoke the function
 
 ```
-fission httptrigger create --url /error-handling --function error-handling --method POST 
+fission HTTPtrigger create --url /error-handling --function error-handling --method POST 
 ```
 
 Invoke the function with this curl command where job_id is empty and you should see "job_id cannot be empty"
 
 ```
-curl -XPOST http://$FISSION_ROUTER/error-handling -d '{"job_status": "Passed"}'
+curl -XPOST HTTP://$FISSION_ROUTER/error-handling -d '{"job_status": "Passed"}'
 ```
 
 ## Working with dependencies
@@ -332,7 +332,7 @@ First, create an environment with runtime image and builder image as follows
 fission environment create --name nodejs --image fission/node-env --builder fission/node-builder
 ```
 
-Next, create a file moment-example.js with the following content. This file requires 'moment' node_module that is not packed into the fission runtime image. Also create a package.json with 'moment' listed in dependencies section.
+Next, create a file momentExample.js with the following content. This file requires 'moment' node_module that is not packed into the fission runtime image. Also create a package.json with 'moment' listed in dependencies section.
 
 ```
 const momentpackage = require('moment')
@@ -346,7 +346,21 @@ module.exports = async function(context) {
 }  
 ```
 
-Next, create a zip archive of these 2 files, let's call it node-source-example.zip
+Sample package.json 
+
+```
+{
+  "name": "fission-nodejs-runtime",
+  "engines": {
+    "node": ">=7.6.0"
+  },
+  "dependencies": {
+    "moment": "*"
+  }
+}
+```
+
+Next, create a zip archive of these 2 files with `zip momentExample.js package.json` , let's call it node-source-example.zip
 
 Now create a fission source package with the zip file just created. This command outputs the name of the package created. 
 
@@ -381,7 +395,7 @@ Next, the user function is loaded according to the entry point specified with `f
 ### Creating a custom nodejs builder image 
 
 If you'd like to do more than just `npm install` in the build step, you could customize the build.sh.
-Here's the link to the source code of fission [nodejs builder](https://github.com/fission/fission/tree/master/environments/nodejs/builder)
+Here's the link to the source code of fission [nodejs builder](HTTPs://github.com/fission/fission/tree/master/environments/nodejs/builder)
 
 As you can see, the build.sh performs a `npm install` inside a directory defined by the environment variable SRC_PKG and copies the built archive into a directory defined by environment variable DEPLOY_PKG 
 You could create a customized version of this build.sh with whatever additional commands needed to be run during the build step.
@@ -394,7 +408,7 @@ Now you are ready to create a nodejs env with your custom builder image supplied
 
 If you wish to modify the nodejs runtime image to add more dependencies without using/creating a builder image, you can do so too.
 
-Here's the link to the source code of fission [nodejs runtime](https://github.com/fission/fission/tree/master/environments/nodejs)
+Here's the link to the source code of fission [nodejs runtime](HTTPs://github.com/fission/fission/tree/master/environments/nodejs)
 
 As you can see, there is a package.json in the directory with a list of node modules listed under dependencies section. 
 You can add the node modules required to this list and then build the docker image with `docker build -t <USER>/nodejs-custom-runtime .` and push the image `docker push <USER>/nodejs-custom-runtime`
