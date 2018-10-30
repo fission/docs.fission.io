@@ -53,7 +53,7 @@ Java function provides easy access to the Request and Response using Spring fram
 
 #### Headers
 
-You can access headers object from the request object and then use various methods on header object to retrieve a specific header or get a collection of all headers.
+You can access headers object from the request object and then use various methods on header object to retrieve a specific header or get a collection of all headers. Please note that the header keys will be converted to canonical MIME format header key.
 
 ```java
 	HttpHeaders headers = req.getHeaders();
