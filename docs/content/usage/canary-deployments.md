@@ -75,7 +75,7 @@ fission route create --name route-fna --function fna-v1 --weight 100 --function 
 4. Create a canary config :
 
 ```bash
-fission canary-config create --name canary-1 --funcN fna-v2 --funcN-1 fna-v1 --trigger route-fna --increment-step 30 --increment-interval 1m --failure-threshold 10
+fission canary-config create --name canary-1 --funcN fna-v2 --funcN-1 fna-v1 --httptrigger route-fna --increment-step 30 --increment-interval 1m --failure-threshold 10
 ```
 
 ### Steps to verify the status of a canary deployment
