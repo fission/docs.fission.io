@@ -53,18 +53,18 @@ To install Helm, first you'll need the helm CLI:
 
 On __OS X__:
 ```sh
-$ curl -LO https://storage.googleapis.com/kubernetes-helm/helm-v2.7.0-darwin-amd64.tar.gz
+$ curl -LO https://storage.googleapis.com/kubernetes-helm/helm-v2.11.0-darwin-amd64.tar.gz
 
-$ tar xzf helm-v2.7.0-darwin-amd64.tar.gz
+$ tar xzf helm-v2.11.0-darwin-amd64.tar.gz
 
 $ mv darwin-amd64/helm /usr/local/bin
 ```
 
 On __Linux__:
 ```sh
-$ curl -LO https://storage.googleapis.com/kubernetes-helm/helm-v2.7.0-linux-amd64.tar.gz
+$ curl -LO https://storage.googleapis.com/kubernetes-helm/helm-v2.11.0-linux-amd64.tar.gz
 
-$ tar xzf helm-v2.7.0-linux-amd64.tar.gz
+$ tar xzf helm-v2.11.0-linux-amd64.tar.gz
 
 $ mv linux-amd64/helm /usr/local/bin
 ```
