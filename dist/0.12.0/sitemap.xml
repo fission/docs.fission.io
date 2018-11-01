@@ -3,141 +3,141 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://docs.fission.io/0.11.0/</loc>
+    <loc>https://docs.fission.io/0.12.0/</loc>
     <lastmod>2017-12-01T18:01:57-08:00</lastmod>
   </url>
   
   <url>
-    <loc>https://docs.fission.io/0.11.0/languages/nodejs/</loc>
+    <loc>https://docs.fission.io/0.12.0/languages/nodejs/</loc>
   </url>
   
   <url>
-    <loc>https://docs.fission.io/0.11.0/languages/go/</loc>
+    <loc>https://docs.fission.io/0.12.0/languages/go/</loc>
   </url>
   
   <url>
-    <loc>https://docs.fission.io/0.11.0/languages/java/</loc>
+    <loc>https://docs.fission.io/0.12.0/languages/java/</loc>
   </url>
   
   <url>
-    <loc>https://docs.fission.io/0.11.0/installation/kubernetessetup/</loc>
+    <loc>https://docs.fission.io/0.12.0/installation/kubernetessetup/</loc>
   </url>
   
   <url>
-    <loc>https://docs.fission.io/0.11.0/concepts/basic-concept/</loc>
+    <loc>https://docs.fission.io/0.12.0/concepts/basic-concept/</loc>
   </url>
   
   <url>
-    <loc>https://docs.fission.io/0.11.0/installation/</loc>
+    <loc>https://docs.fission.io/0.12.0/installation/</loc>
   </url>
   
   <url>
-    <loc>https://docs.fission.io/0.11.0/concepts/executor/</loc>
+    <loc>https://docs.fission.io/0.12.0/concepts/executor/</loc>
   </url>
   
   <url>
-    <loc>https://docs.fission.io/0.11.0/concepts/</loc>
+    <loc>https://docs.fission.io/0.12.0/concepts/</loc>
   </url>
   
   <url>
-    <loc>https://docs.fission.io/0.11.0/installation/upgrade/</loc>
+    <loc>https://docs.fission.io/0.12.0/installation/upgrade/</loc>
   </url>
   
   <url>
-    <loc>https://docs.fission.io/0.11.0/usage/package/</loc>
+    <loc>https://docs.fission.io/0.12.0/usage/package/</loc>
   </url>
   
   <url>
-    <loc>https://docs.fission.io/0.11.0/usage/access-secret-cfgmap-in-function/</loc>
+    <loc>https://docs.fission.io/0.12.0/usage/access-secret-cfgmap-in-function/</loc>
   </url>
   
   <url>
-    <loc>https://docs.fission.io/0.11.0/usage/</loc>
+    <loc>https://docs.fission.io/0.12.0/usage/</loc>
     <lastmod>2017-12-01T18:01:57-08:00</lastmod>
   </url>
   
   <url>
-    <loc>https://docs.fission.io/0.11.0/usage/environments/</loc>
+    <loc>https://docs.fission.io/0.12.0/usage/environments/</loc>
   </url>
   
   <url>
-    <loc>https://docs.fission.io/0.11.0/usage/functions/</loc>
+    <loc>https://docs.fission.io/0.12.0/usage/functions/</loc>
   </url>
   
   <url>
-    <loc>https://docs.fission.io/0.11.0/usage/trigger/</loc>
+    <loc>https://docs.fission.io/0.12.0/usage/trigger/</loc>
   </url>
   
   <url>
-    <loc>https://docs.fission.io/0.11.0/usage/executor/</loc>
+    <loc>https://docs.fission.io/0.12.0/usage/executor/</loc>
   </url>
   
   <url>
-    <loc>https://docs.fission.io/0.11.0/installation/env_vars/</loc>
+    <loc>https://docs.fission.io/0.12.0/installation/env_vars/</loc>
   </url>
   
   <url>
-    <loc>https://docs.fission.io/0.11.0/usage/developer-workflow/</loc>
+    <loc>https://docs.fission.io/0.12.0/usage/developer-workflow/</loc>
     <lastmod>2017-12-01T18:01:57-08:00</lastmod>
   </url>
   
   <url>
-    <loc>https://docs.fission.io/0.11.0/usage/ingress-tutorial/</loc>
+    <loc>https://docs.fission.io/0.12.0/usage/ingress-tutorial/</loc>
   </url>
   
   <url>
-    <loc>https://docs.fission.io/0.11.0/usage/canary-deployments/</loc>
+    <loc>https://docs.fission.io/0.12.0/usage/canary-deployments/</loc>
   </url>
   
   <url>
-    <loc>https://docs.fission.io/0.11.0/languages/</loc>
+    <loc>https://docs.fission.io/0.12.0/languages/</loc>
   </url>
   
   <url>
-    <loc>https://docs.fission.io/0.11.0/tutorial/</loc>
+    <loc>https://docs.fission.io/0.12.0/tutorial/</loc>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="https://docs.fission.io/0.11.0/tutorial/"
+                href="https://docs.fission.io/0.12.0/tutorial/"
                 />
   </url>
   
   <url>
-    <loc>https://docs.fission.io/0.11.0/tutorial/enabling-istio-on-fission/</loc>
+    <loc>https://docs.fission.io/0.12.0/tutorial/enabling-istio-on-fission/</loc>
   </url>
   
   <url>
-    <loc>https://docs.fission.io/0.11.0/tutorial/java-example/</loc>
+    <loc>https://docs.fission.io/0.12.0/tutorial/java-example/</loc>
   </url>
   
   <url>
-    <loc>https://docs.fission.io/0.11.0/tutorial/</loc>
+    <loc>https://docs.fission.io/0.12.0/tutorial/</loc>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="https://docs.fission.io/0.11.0/tutorial/"
+                href="https://docs.fission.io/0.12.0/tutorial/"
                 />
   </url>
   
   <url>
-    <loc>https://docs.fission.io/0.11.0/workflows/</loc>
+    <loc>https://docs.fission.io/0.12.0/workflows/</loc>
   </url>
   
   <url>
-    <loc>https://docs.fission.io/0.11.0/contributing/</loc>
+    <loc>https://docs.fission.io/0.12.0/contributing/</loc>
   </url>
   
   <url>
-    <loc>https://docs.fission.io/0.11.0/_header/</loc>
+    <loc>https://docs.fission.io/0.12.0/_header/</loc>
   </url>
   
   <url>
-    <loc>https://docs.fission.io/0.11.0/categories/</loc>
+    <loc>https://docs.fission.io/0.12.0/categories/</loc>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://docs.fission.io/0.11.0/tags/</loc>
+    <loc>https://docs.fission.io/0.12.0/tags/</loc>
     <priority>0</priority>
   </url>
   
