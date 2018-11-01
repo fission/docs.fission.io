@@ -13,7 +13,7 @@ upgrade`:
 $ helm list
 
 # Upgrade it 
-$ helm upgrade <release_name> https://github.com/fission/fission/releases/download/0.11.0/fission-all-0.11.0.tgz
+$ helm upgrade <release_name> https://github.com/fission/fission/releases/download/0.12.0/fission-all-0.12.0.tgz
 ```
 
 Replace `fission-all` with `fission-core` if you're using the minimal
@@ -26,7 +26,7 @@ If you installed using `kubectl apply` of a YAML file, you can simply
 
 ```bash
 
-$ kubectl apply -f https://github.com/fission/fission/releases/download/0.11.0/fission-all-0.11.0.yaml
+$ kubectl apply -f https://github.com/fission/fission/releases/download/0.12.0/fission-all-0.12.0.yaml
 
 ```
 
@@ -36,7 +36,7 @@ install.
 Use the `-minikube` suffix if you're on minikube, as follows:
 ```bash
 
-$ kubectl apply -f https://github.com/fission/fission/releases/download/0.11.0/fission-all-0.11.0-minikube.yaml
+$ kubectl apply -f https://github.com/fission/fission/releases/download/0.12.0/fission-all-0.12.0-minikube.yaml
 
 ```
 
@@ -48,5 +48,5 @@ $ kubectl apply -f https://github.com/fission/fission/releases/download/0.11.0/f
 Please see older documentation versions to upgrade version prior to
 0.4.x:
 
-https://docs.fission.io/0.11.0/installation/upgrade/
+https://docs.fission.io/0.12.0/installation/upgrade/
 
