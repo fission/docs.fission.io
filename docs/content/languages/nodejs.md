@@ -39,7 +39,7 @@ module.exports = async function(context) {
 Create a function with the following command. Note that the value for `--env` flag is `nodejs` which was created with `fission env create` command above.
 
 ```
-fission function create --name hello-world --code hello-world.js --env nodejs
+fission function create --name hello-world --code helloWorld.js --env nodejs
 ```
 
 Test the function with the below command and you should see "hello, world!" in the output
@@ -79,13 +79,13 @@ module.exports = async function(context) {
 Create a function with the following command.
 
 ```
-fission function create --name hello-world --code helloWorld.js --env nodejs
+fission function create --name hello-world --code hello.js --env nodejs
 ```
 
 Create an HTTP trigger to invoke the function
 
 ```
-fission HTTPtrigger create --url /hello-world --function hello-world
+fission httptrigger create --url /hello-world --function hello-world
 ```
 
 Test the function with the below command and you should see "hello, world!" in the output
@@ -127,7 +127,7 @@ fission function create --name hello-user --code helloUser.js --env nodejs
 Create an HTTP trigger to invoke the function
 
 ```
-fission HTTPtrigger create --url /hello-user --function hello-user
+fission httptrigger create --url /hello-user --function hello-user
 ```
 
 Test the function with the below command and you should see "hello, foo!" in the output
@@ -165,7 +165,7 @@ fission function create --name job-status --code jobStatus.js --env nodejs
 Create an HTTP trigger to invoke the function
 
 ```
-fission HTTPtrigger create --url /job-status --function job-status --method POST 
+fission httptrigger create --url /job-status --function job-status --method POST 
 ```
 
 Invoke the function with a POST HTTP request with the appropriate JSON body and you will see the response "Successfully saved job status for job ID: 1234"
@@ -198,7 +198,7 @@ fission function create --name word-count --code wordCount.js --env nodejs
 Create an HTTP trigger to invoke the function
 
 ```
-fission HTTPtrigger create --url /word-count --function word-count --method POST 
+fission httptrigger create --url /word-count --function word-count --method POST 
 ```
 
 Invoke the function with a POST HTTP request with a text body and you will see the count of number of words in the HTTP response.
@@ -241,7 +241,7 @@ fission function create --name function-metadata --code functionMetadata.js --en
 Create an HTTP trigger to invoke the function
 
 ```
-fission HTTPtrigger create --url /function-metadata --function word-count
+fission httptrigger create --url /function-metadata --function function-metadata --method GET
 ```
 
 Invoke the function with a '-v' flag on curl command to display all headers
@@ -306,7 +306,7 @@ fission function create --name error-handling --code validateInput.js --env node
 Create an HTTP trigger to invoke the function
 
 ```
-fission HTTPtrigger create --url /error-handling --function error-handling --method POST 
+fission httptrigger create --url /error-handling --function error-handling --method POST 
 ```
 
 Invoke the function with this curl command where job_id is empty and you should see "job_id cannot be empty"
@@ -371,7 +371,7 @@ fission package create --src node-source-example.zip --env nodejs
 Next, create a fission function with the package created above, let's assume the package name is 'node-source-example-abcd'
 
 ```
-fission function create --name node-builder-example --pkg node-source-example-abcd --env nodejs --entrypoint moment-example
+fission function create --name node-builder-example --pkg node-source-example-abcd --env nodejs --entrypoint "momentExample"
 ```
 
 If everything was successful so far, then, build status of the source package will be set to 'succeeded'. This can be checked with the following command.
