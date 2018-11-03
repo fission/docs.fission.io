@@ -26,11 +26,15 @@ directory (if you want to build the image with the docker inside
 minikube, you'll need to set the proper environment variables with
 `eval $(minikube docker-env)`):
 
-```
-  # Get dependencies
-  $ glide install
+Install dependencies with glide:
 
-  # Build fission server and an image
+```bash
+  $ glide install
+```
+
+Build fission server:
+
+```bash
   $ pushd fission-bundle
   $ ./build.sh
 ```
@@ -39,32 +43,31 @@ You now need to build the docker image for fission. You can use
 `push.sh` and push it to a docker hub account. But it's easiest to use
 minikube and its built-in docker daemon:
 
-```
+```bash
   $ eval $(minikube docker-env)
   $ docker build -t minikube/fission-bundle .
 ```
 
 Next, pull in the dependencies for the Helm chart:
 
-```
+```bash
   $ helm dep update charts/fission-all
 ```
 
 Next, install fission with this image on your kubernetes cluster using the helm chart:
 
-```
+```bash
   $ helm install --set "image=minikube/fission-bundle,pullPolicy=IfNotPresent,analytics=false" charts/fission-all
 ```
 
 And if you're changing the CLI too, you can build it with:
 
-```
-  # Build Fission CLI
+```bash
   $ cd fission && go install
 ```
 
 Finally, reset to the original current working directory
 
-```
+```bash
   $ popd
 ```
