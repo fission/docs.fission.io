@@ -44,6 +44,12 @@ minikube and its built-in docker daemon:
   $ docker build -t minikube/fission-bundle .
 ```
 
+Next, pull in the dependencies for the Helm chart:
+
+```
+  $ helm dep update charts/fission-all
+```
+
 Next, install fission with this image on your kubernetes cluster using the helm chart:
 
 ```
@@ -55,4 +61,10 @@ And if you're changing the CLI too, you can build it with:
 ```
   # Build Fission CLI
   $ cd fission && go install
+```
+
+Finally, reset to the original current working directory
+
+```
+  $ popd
 ```
