@@ -47,7 +47,7 @@ X-Fission-Params-Id: 12345
 
 The header with key prefix `X-Fission-Params-` are the actual fields contain value of URL parameters we want to access to.
 
-One thing worth to notice is the header key will be displayed as `MIME canonical format`. For example,
+One thing worth to notice is in some language like Go the header key will be displayed as `MIME canonical format`. For example,
 
 ```bash
 url: /guestbook/messages/{id}
@@ -57,7 +57,7 @@ url: /guestbook/messages/{FooBar}
 header key: X-Fission-Params-Foobar
 ```
 
-You have to do conversion in order to get the right parameter value. 
+You have to check the letter case of header key and do conversion if necessary in order to get the right parameter value. 
 
 (In Go, you can call `request.Header.Get()` to get header value without worrying key cases.) 
 
