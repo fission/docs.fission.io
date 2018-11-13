@@ -653,7 +653,7 @@ pre {
 pre code {
     color: whitesmoke;
     background: inherit;
-    white-space: inherit;
+    white-space: pre;
     border: 0;
     padding: 0;
     margin: 0;
