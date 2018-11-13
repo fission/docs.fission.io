@@ -61,7 +61,7 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 }
 ```
 
-Since the go program uses sarama library, we need provide that package for building & running the program. We use glide tool with simple glide.yaml declaration below to download the package.
+Since the go program uses sarama library, we need to provide that package for building & running the program. We use glide tool with simple glide.yaml declaration below to download the package.
 
 ```
 import:
@@ -120,7 +120,7 @@ $ fission fn create --name consumerfunc --env nodeenv --code hellokafka.js
 
 ### Connecting via trigger
 
-We have both the functions ready but the connection between them is the missing glue. Let's create mq trigger which will invoke the consumerfunc every time there is a message in `input` topic. The  response will be sent to `output` topic and in case of consumerfunc invocation fails, the error is written to `error` topic.
+We have both the functions ready but the connection between them is the missing glue. Let's create a message queue trigger which will invoke the consumerfunc every time there is a message in `input` topic. The  response will be sent to `output` topic and in case of consumerfunc invocation fails, the error is written to `error` topic.
 
 ``` sh
 $ fission mqt create --name kafkatest --function consumerfunc --mqtype kafka --topic input --resptopic output --errortopic error
