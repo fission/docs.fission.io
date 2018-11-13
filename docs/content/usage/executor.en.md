@@ -33,7 +33,7 @@ $ kubectl -n fission-function get pod -l environmentName=test
 Now, you shall see only one pod for the environment we just created.
 
 {{% notice warning %}}
-With `--poolsize 0`, the executor will not be able to special any function due to no generic pod in pool.
+With `--poolsize 0`, the executor will not be able to specialize any function due to no generic pod in pool.
 {{% /notice %}}
 
 If you want to set resource requests/limits for all functions use the same environment, you can provide extra min/max cpu & memory flags to set them
@@ -50,8 +50,8 @@ python   73e4e8a3-db49-... fission/python-env 1        100m   200m   128Mi     2
 
 ### Newdeploy (New-deployment executor)
 
-Newdeploy provides autoscaling and min/max scale setting for functions, allow a functions to handle spikes in workloads.
-To create a function with newdeploy, you have to set executor type explicitly.
+Newdeploy provides autoscaling and min/max scale setting for functions, and allow a function to handle spikes in workloads.
+To create a function with newdeploy, you have to set executor type to `newdeploy` explicitly.
 
 ```bash
 $ fission fn create --name foobar --env nodejs --code hello.js --executortype newdeploy
@@ -153,9 +153,9 @@ Status code distribution:
   [200]	10000 responses
 
 ```
-While the load is being generated, we will watch the HorizontalPodAutoscaler and how it scales over period of time. As you can notice, the number of pods is scaled from 1 to 3 after the load rises from 8 - 103%. After the load generator stops, it takes a few iterations to scale down from 3 to 1 pod.
+While the load is being generated, we will watch the HorizontalPodAutoscaler and how it scales over a period of time. As you can notice, the number of pods is scaled from 1 to 3 after the load rises from 8 - 103%. After the load generator stops, it takes a few iterations to scale down from 3 to 1 pod.
 
-When testing the scaling behaviour, do keep in mind that the scaling event has an initial delay of uptp a minute and waits for the average CPU to reach 110% above the threshold before scaling up. It is best to maintain a minimum number of pods which can handle initial load and scale as needed.
+When testing the scaling behaviour, do keep in mind that the scaling event has an initial delay of up to a minute and waits for the average CPU to reach 110% above the threshold before scaling up. It is best to maintain a minimum number of pods which can handle initial load and scale as needed.
 
 You will notice that the scaling up and down has different behaviour in terms of response time. This behaviour is governed by the frequency at which the controller watches (which defaults to 30s) and parameters set on controller-manager for upscale/downscale delay. More details can be found [here](https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/#support-for-cooldowndelay)
 
