@@ -93,7 +93,7 @@ With `--minscale 0`, a function will experience **long** cold-start time since i
 
 If you want to eliminate the cold start for a function, you can run the function with executortype as "newdeploy" and minscale set to 1. This will ensure that at least one replica of function is always running and there is no cold start in request path.
 
-```
+```bash
 $ fission fn create --name hello --env node --code hello.js --minscale 1 --executortype newdeploy
 ```
 
