@@ -3,7 +3,7 @@ languageCode = "en-US"
 defaultContentLanguage = "en"
 
 title = "Fission: Serverless Functions for Kubernetes"
-theme = "learn"
+theme = "hugo-theme-docdock"
 metaDataFormat = "yaml"
 defaultContentLanguageInSubdir= true
 
@@ -33,3 +33,5 @@ weight = 10
 name = "<i class='fa fa-fw fa-bullhorn'></i> Credits"
 url = "https://github.com/fission/fission/graphs/contributors"
 weight = 11
+
+staticDir = ["static"]

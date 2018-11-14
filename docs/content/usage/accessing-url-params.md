@@ -27,7 +27,7 @@ Next step is to access the value of URL parameters.
 
 Due to some internal mechanism, the value of URL parameters will be attached to the HTTP request header like following.
 
-```text
+```plaintext
 Accept-Encoding: gzip
 Host: 172.17.0.25:8888
 Connection: close

@@ -19,8 +19,8 @@ First thing we will need is an ingress controller and we will use Nginx ingress 
 
 Let's verify that the installation succeeded:
 
-```
-kubectl get all -n ingress-nginx
+```bash
+$ kubectl get all -n ingress-nginx
 NAME                                           READY     STATUS    RESTARTS   AGE
 po/default-http-backend-66b447d9cf-4q8f7       1/1       Running   0          19d
 po/nginx-ingress-controller-58fcfdc6fd-2cwts   1/1       Running   0          19d
@@ -45,8 +45,8 @@ Following are key points to validate that ingress controller installation succee
 - The ingress-nginx service has a external IP address populated
 - If you hit the external IP address of the ingress-nginx, you get the default backend page:
 
-```
-curl http://35.200.150.175
+```bash
+$ curl http://35.200.150.175
 
 default backend - 404
 ```
@@ -59,7 +59,7 @@ An ingress resource allows traffic from outside the cluster to reach the service
 
 We will create an environment, a function and test that it works:
 
-```
+```bash
 $ fission env create --name nodejs --image fission/node-env
 environment 'nodejs' created
 
@@ -76,7 +76,6 @@ function 'hello' created
 
 $ fission fn test --name hello
 Hello, Fission!
-
 ```
 
 ### Create a internal route
@@ -85,9 +84,10 @@ Let's create a route which is not exposed via the ingress controller so that it 
 
 Currently since functions are also exposed via the Fission router, the function can be accessed from outside the cluster but in future the router may not expose all functions outside the cluster.
 
-```
+```bash
 $ fission route create --url /ihello --function hello
 trigger '249838c9-9ae3-492a-bba1-b0464ae65671' created
+
 $ fission route list
 NAME                                 METHOD HOST URL     INGRESS FUNCTION_NAME
 249838c9-9ae3-492a-bba1-b0464ae65671 GET         /ihello false   hello
@@ -99,20 +99,18 @@ This route will be accessible at `http://$FISSION_ROUTER/ihello` but if tried to
 
 Now let's create a route which we will expose over ingress controller. We will create a route with `createingress` flag enabled:
 
-```
+```bash
 $ fission route create --url /hello --function hello --createingress
 trigger '301b3cb0-5ac1-4211-a1ed-2b0ad9143e34' created
-$ 
+
 $ fission route list
 NAME                                 METHOD HOST URL     INGRESS FUNCTION_NAME
 249838c9-9ae3-492a-bba1-b0464ae65671 GET         /ihello false   hello
 301b3cb0-5ac1-4211-a1ed-2b0ad9143e34 GET         /hello  true    hello
-$ 
-
 ```
 If you check the ingress controller pod logs, you will notice that the ingress controller has re-loaded the configuration for the newly created ingress resource:
 
-```
+```plaintext
 I0604 12:47:08.983567       5 controller.go:168] backend reload required
 I0604 12:47:08.985535       5 event.go:218] Event(v1.ObjectReference{Kind:"Ingress", Namespace:"fission", Name:"301b3cb0-5ac1-4211-a1ed-2b0ad9143e34", UID:"64bffe8c-67f5-11e8-98e8-42010aa00018", APIVersion:"extensions", ResourceVersion:"18017617", FieldPath:""}): type: 'Normal' reason: 'CREATE' Ingress fission/301b3cb0-5ac1-4211-a1ed-2b0ad9143e34
 I0604 12:47:09.117629       5 controller.go:177] ingress backend successfully reloaded...
@@ -120,10 +118,9 @@ I0604 12:47:09.117629       5 controller.go:177] ingress backend successfully re
 
 If you now hit the function at ingress controller's IP and the path (`http://<INGRESS-CONTROLLER-EXTERNAL-IP>/hello`), you will get function's response. Depending on your setup and settings, you will have to try HTTP or HTTPS. Some ingress controllers enable SSL redirect by default and hence the HTTPS URL has to be accessed.
 
-```
+```bash
 $ curl -k  https://35.200.150.175/hello
 Hello, Fission!
-
 ```
 
 ### Create a FQDN route
@@ -138,8 +135,7 @@ This is an optional step and pre-requisites should be fulfilled before proceedin
 
 - If all these steps are configured properly, we can hit the function at FQDN like below:
 
-```
+```bash
 $ curl -k  https://ing.fission.sh/hello
 Hello, Fission!
-
 ```

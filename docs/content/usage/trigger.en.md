@@ -10,7 +10,7 @@ An HTTP trigger invokes a function when there is an HTTP request.
 
 You can specify the relative URL and HTTP method for a trigger:
 
-``` bash
+```bash
 $ fission httptrigger create --url /hello --method GET --function hello
 trigger '94cd5163-30dd-4fb2-ab3c-794052f70841' created
 
@@ -46,7 +46,7 @@ If you want to use Kubernetes Ingress for the HTTP Trigger, you can
 provide the `--createingress` flag and a hostname.  If the hostname is
 not provided, it defaults to "*", which indicates a wildcard host.
 
-```  bash
+```bash
 $ fission httptrigger create --url /hello --method GET --function hello --createingress --host acme.com
 trigger '94cd5163-30dd-4fb2-ab3c-794052f70841' created
 
@@ -68,21 +68,21 @@ Time-based triggers invoke functions based on time.  They can run once
 or repeatedly.  They're specified using [cron string
 specifications](https://en.wikipedia.org/wiki/Cron):
 
-``` bash
+```bash
 $ fission tt create --name halfhourly --function hello --cron "*/30 * * * *"
 trigger 'halfhourly' created
 ```
 
 You can also use a friendlier syntax such "@every 1m" or "@hourly":
 
-``` bash
+```bash
 $ fission tt create --name minute --function hello --cron "@every 1m"
 trigger 'minute' created
 ```
 
 And you can list time triggers to see their associated function and cron strings:
 
-``` bash
+```bash
 $ fission tt list
 NAME       CRON         FUNCTION_NAME
 halfhourly 0 30 * * * * hello
@@ -93,7 +93,7 @@ You can also use `showschedule` to show the upcoming schedule for a
 given cron spec.  Use this to test your cron strings.  And note that
 the server's time is used to invoke functions, not your laptop's time!
 
-``` bash
+```bash
 $ fission tt showschedule --cron "0 30 * * * *" --round 5
 Current Server Time: 	2018-06-12T05:07:41Z
 Next 1 invocation: 	2018-06-12T05:30:00Z
@@ -111,7 +111,7 @@ onto another queue.
 
 NATS and Azure Storage Queue are supported queues:
 
-``` bash
+```bash
 $ fission mqt create --name hellomsg --function hello --mqtype nats-streaming --topic newfile --resptopic newfileresponse 
 trigger 'hellomsg' created
 ```

@@ -14,7 +14,7 @@ This is the very first step for fission to integrate with [Istio](https://istio.
 
 Enable both RBAC & initializer features on kubernetes cluster.
 
-``` bash
+```bash
 $ export ZONE=<zone name>
 $ gcloud container clusters create istio-demo-1 \
     --machine-type=n1-standard-2 \
@@ -28,7 +28,7 @@ $ gcloud container clusters create istio-demo-1 \
 
 Grant admin permission for `system:serviceaccount:kube-system:default` and current user.
 
-``` bash
+```bash
 # for system:serviceaccount:kube-system:default
 $ kubectl create clusterrolebinding --user system:serviceaccount:kube-system:default kube-system-cluster-admin --clusterrole cluster-admin
 
@@ -43,7 +43,7 @@ For Istio 0.5.1 you can follow the installation tutorial below. Also, you can fo
 
 Download Istio 0.5.1
 
-``` bash
+```bash
 $ export ISTIO_VERSION=0.5.1
 $ curl -L https://git.io/getLatestIstio | sh -
 $ cd istio-0.5.1
@@ -51,13 +51,13 @@ $ cd istio-0.5.1
 
 Apply istio related YAML files
 
-``` bash
+```bash
 $ kubectl apply -f install/kubernetes/istio.yaml
 ```
 
 Automatic sidecar injection
 
-``` bash
+```bash
 $ kubectl api-versions | grep admissionregistration
 admissionregistration.k8s.io/v1beta1
 ```
@@ -66,7 +66,7 @@ Installing the webhook
 
 Download the missing files in istio release 0.5.1
 
-``` bash
+```bash
 $ wget https://raw.githubusercontent.com/istio/istio/master/install/kubernetes/webhook-create-signed-cert.sh -P install/kubernetes/
 $ wget https://raw.githubusercontent.com/istio/istio/master/install/kubernetes/webhook-patch-ca-bundle.sh -P install/kubernetes/
 $ chmod +x install/kubernetes/webhook-create-signed-cert.sh install/kubernetes/webhook-patch-ca-bundle.sh
@@ -74,7 +74,7 @@ $ chmod +x install/kubernetes/webhook-create-signed-cert.sh install/kubernetes/w
 
 Install the sidecar injection configmap.
 
-``` bash
+```bash
 $ ./install/kubernetes/webhook-create-signed-cert.sh \
     --service istio-sidecar-injector \
     --namespace istio-system \
@@ -85,7 +85,7 @@ $ kubectl apply -f install/kubernetes/istio-sidecar-injector-configmap-release.y
 
 Install the sidecar injector
 
-``` bash
+```bash
 $ cat install/kubernetes/istio-sidecar-injector.yaml | \
      ./install/kubernetes/webhook-patch-ca-bundle.sh > \
      install/kubernetes/istio-sidecar-injector-with-ca-bundle.yaml
@@ -101,13 +101,13 @@ istio-sidecar-injector   1         1         1            1           26s
 ### Install fission
 
 Set default namespace for helm installation, here we use `fission` as example namespace.
-``` bash
+```bash
 $ export FISSION_NAMESPACE=fission
 ```
 
 Create namespace & add label for Istio sidecar injection.
 
-``` bash
+```bash
 $ kubectl create namespace $FISSION_NAMESPACE
 $ kubectl label namespace $FISSION_NAMESPACE istio-injection=enabled
 $ kubectl config set-context $(kubectl config current-context) --namespace=$FISSION_NAMESPACE
@@ -115,7 +115,7 @@ $ kubectl config set-context $(kubectl config current-context) --namespace=$FISS
 
 Follow the [installation guide](../../installation/) to install fission with flag `enableIstio` true.
 
-``` bash
+```bash
 $ helm install --namespace $FISSION_NAMESPACE --set enableIstio=true --name istio-demo <chart-fission-all-url>
 ```
 
@@ -123,14 +123,14 @@ $ helm install --namespace $FISSION_NAMESPACE --set enableIstio=true --name isti
 
 Set environment
 
-``` bash
+```bash
 $ export FISSION_URL=http://$(kubectl --namespace fission get svc controller -o=jsonpath='{..ip}')
 $ export FISSION_ROUTER=$(kubectl --namespace fission get svc router -o=jsonpath='{..ip}')
 ```
 
 Let's create a simple function with Node.js.
 
-``` js
+```js
 # hello.js
 module.exports = async function(context) {
     console.log(context.request.headers);
@@ -143,25 +143,25 @@ module.exports = async function(context) {
 
 Create environment
 
-``` bash
+```bash
 $ fission env create --name nodejs --image fission/node-env:latest
 ```
 
 Create function
 
-``` bash
+```bash
 $ fission fn create --name h1 --env nodejs --code hello.js --method GET
 ```
 
 Create route
 
-``` bash
+```bash
 $ fission route create --method GET --url /h1 --function h1
 ```
 
 Access function
 
-``` bash
+```bash
 $ curl http://$FISSION_ROUTER/h1
 Hello, World!
 ```
@@ -171,7 +171,7 @@ Hello, World!
 
 * Prometheus
 
-``` bash
+```bash
 $ kubectl apply -f istio-0.5.1/install/kubernetes/addons/prometheus.yaml
 $ kubectl -n istio-system port-forward $(kubectl -n istio-system get pod -l app=prometheus -o jsonpath='{.items[0].metadata.name}') 9090:9090
 ```
@@ -184,7 +184,7 @@ Please install Prometheus first.
 
 ![grafana min](https://user-images.githubusercontent.com/202578/33528556-639493e2-d89d-11e7-9768-976fb9208646.png)
 
-``` bash
+```bash
 $ kubectl apply -f istio-0.5.1/install/kubernetes/addons/grafana.yaml
 $ kubectl -n istio-system port-forward $(kubectl -n istio-system get pod -l app=grafana -o jsonpath='{.items[0].metadata.name}') 3000:3000
 ```
@@ -195,7 +195,7 @@ Web Link: [http://127.0.0.1:3000/dashboard/db/istio-dashboard](http://127.0.0.1:
 
 ![jaeger min](https://user-images.githubusercontent.com/202578/33528554-572c4f28-d89d-11e7-8a01-1543fc2aa064.png)
 
-``` bash
+```bash
 $ kubectl apply -n istio-system -f https://raw.githubusercontent.com/jaegertracing/jaeger-kubernetes/master/all-in-one/jaeger-all-in-one-template.yml
 $ kubectl port-forward -n istio-system $(kubectl get pod -n istio-system -l app=jaeger -o jsonpath='{.items[0].metadata.name}') 16686:16686
 ```

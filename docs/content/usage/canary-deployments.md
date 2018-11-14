@@ -18,24 +18,24 @@ Hence, Prometheus needs to be deployed and is listed as a dependency for fission
 
 A Canary Config has the following parameters :
 
-  duration: Specifies how frequently user traffic needs to be incremented for the new version of function
+* **duration**: Specifies how frequently user traffic needs to be incremented for the new version of function
   
-  failurethreshold: Specifies the threshold in percentage beyond which the new version of a function is declared unhealthy
+* **failurethreshold**: Specifies the threshold in percentage beyond which the new version of a function is declared unhealthy
   
-  funcn: Specifies the name of the latest version of the function
+* **funcn**: Specifies the name of the latest version of the function
   
-  funcn-1: Specifies the name of the current stable version of the function
+* **funcn-1**: Specifies the name of the current stable version of the function
   
-  trigger: Specifies the name of the http trigger object 
+* **trigger**: Specifies the name of the http trigger object 
   
-  weightincrement: Specifies the percentage increase of user traffic towards the new version of the function
+* **weightincrement**: Specifies the percentage increase of user traffic towards the new version of the function
   
-  failureType: Specifies the parameter for checking the health of the new version of a function. For now, the only supported type is `status-code` which is the http status code. So if a function returns a status code other than 200, its considered to be unhealthy.  
+* **failureType**: Specifies the parameter for checking the health of the new version of a function. For now, the only supported type is `status-code` which is the http status code. So if a function returns a status code other than 200, its considered to be unhealthy.  
 
 For example, let's say the current stable version of a function is fna-v1 and the latest version of a function is fna-v2. Let's suppose we want to increment the traffic towards the new version in steps of 30% every 1m with a failure threshold of 10%. For such a scenario, the sample canary config is given below.
 What happens is that every 1m, the percentage of failed requests to fna-v2 gets calculated from prometheus metrics. If it is under the configured failure threshold of 10%, then the percentage traffic to fn-v2 gets incremented by 30% and this cycle repeats until either the failure threshold has reached at which point, the deployment is rolled back or fn-v2 is receiving 100% of the user traffic.   
 
-```bash
+```yaml
 apiVersion: fission.io/v1
 kind: CanaryConfig
 metadata:
@@ -56,32 +56,32 @@ spec:
 1. Create environment for fission function :
 
 ```bash
-fission env create --name nodejs --image fission/node-env
+$ fission env create --name nodejs --image fission/node-env
 ```
 
 2. Create fission functions :
 
 ```bash
-fission fn create --name fna-v1 --code hello.js --env nodejs
-fission fn create --name fna-v2 --code hello2.js --env nodejs
+$ fission fn create --name fna-v1 --code hello.js --env nodejs
+$ fission fn create --name fna-v2 --code hello2.js --env nodejs
 ```
 
 3. Create an http trigger to these functions :
 
 ```bash
-fission route create --name route-fna --function fna-v1 --weight 100 --function fna-v2 --weight 0
+$ fission route create --name route-fna --function fna-v1 --weight 100 --function fna-v2 --weight 0
 ```
 
 4. Create a canary config :
 
 ```bash
-fission canary-config create --name canary-1 --funcN fna-v2 --funcN-1 fna-v1 --httptrigger route-fna --increment-step 30 --increment-interval 1m --failure-threshold 10
+$ fission canary-config create --name canary-1 --funcN fna-v2 --funcN-1 fna-v1 --httptrigger route-fna --increment-step 30 --increment-interval 1m --failure-threshold 10
 ```
 
 ### Steps to verify the status of a canary deployment
 
 ```bash
-fission canary-config get --name canary-1
+$ fission canary-config get --name canary-1
 ```
 
 This prints the status of the canary deployment of the new version of the function. 

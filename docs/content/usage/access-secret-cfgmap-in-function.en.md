@@ -19,7 +19,7 @@ secret.
 
 You can create a Secret or ConfigMap with the Kubernetes CLI:
 
-``` bash
+```bash
 $ kubectl -n default create secret generic my-secret --from-literal=TEST_KEY="TESTVALUE"
 
 $ kubectl -n default create configmap my-configmap --from-literal=TEST_KEY="TESTVALUE"
@@ -27,7 +27,7 @@ $ kubectl -n default create configmap my-configmap --from-literal=TEST_KEY="TEST
 
 Or, use `kubectl create -f <filename.yaml>` to create these from a YAML file.
 
-``` yaml
+```yaml
 apiVersion: v1
 kind: Secret
 metadata:
@@ -53,7 +53,7 @@ Secrets and configmaps are accessed similarly.  Each secret or
 configmap is a set of key value pairs. Fission sets these up as files
 you can read from your function.
 
-``` bash
+```bash
 # Secret path
 /secrets/<namespace>/<name>/<key>
 
@@ -63,7 +63,7 @@ you can read from your function.
 
 From the previous example, the paths are:
 
-``` bash
+```bash
 # secret my-secret
 /secrets/default/my-secret/TEST_KEY
 
@@ -74,7 +74,7 @@ From the previous example, the paths are:
 Now, let's create a simple python function (leaker.py) that returns
 the value of Secret `my-secret` and ConfigMap `my-configmap`.
 
-``` python
+```python
 # leaker.py
 
 def main():
@@ -94,7 +94,7 @@ def main():
 
 Create an environment and a function:
 
-``` bash
+```bash
 # create python env
 $ fission env create --name python --image fission/python-env
 
@@ -105,7 +105,7 @@ $ fission fn create --name leaker --env python --code leaker.py --secret my-secr
 
 Run the function, and the output should look like this:
 
-``` bash
+```bash
 $ fission function test --name leaker
 ConfigMap: TESTVALUE
 Secret: TESTVALUE

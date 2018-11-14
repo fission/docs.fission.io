@@ -130,7 +130,7 @@ The current build environment for Java has support for Maven builds. You can upl
 Let's first create a JVM environment with builder. For JVM environment you need to pass `--keeparchive` so that the jar file built from source is not extracted for running the function. You also need to use version 2 or higher of environment.
 
 ``` sh
-fission env create --name java --image fission/jvm-env --builder fission/jvm-builder --keeparchive --version 2
+$ fission env create --name java --image fission/jvm-env --builder fission/jvm-builder --keeparchive --version 2
 ```
 
 Next create a package with the builder environment by providing the source package.  This will kick off the build process.
@@ -219,7 +219,7 @@ The JVM builder image source code is [available here](https://github.com/fission
 A minimum memory of 128MB is needed for JVM environment. You can specify CPU and memory when you create an environment as shown below. The min and max for resources correspond to resource request and resource limits of Kubernetes pods.
 
 ``` sh
-fission env create --name java --image fission/jvm-env --builder fission/jvm-builder --keeparchive --version 2 --mincpu 100 --maxcpu 500 --minmemory 128 --maxmemory 512
+$ fission env create --name java --image fission/jvm-env --builder fission/jvm-builder --keeparchive --version 2 --mincpu 100 --maxcpu 500 --minmemory 128 --maxmemory 512
 ```
 
 For function of executor type "newdeploy" you can also override the resource values when creating a function. For functions of type "poolmgr", the resources can only be specified at environment level.

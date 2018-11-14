@@ -79,7 +79,6 @@ Usage
 -----
 
 ```bash
-
   # Add the stock NodeJS env to your Fission deployment
   $ fission env create --name nodejs --image fission/node-env
 

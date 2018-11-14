@@ -102,7 +102,6 @@ Codepath defaulting to  /userfunc/user
 Port defaulting to 8888
 user code load error: SyntaxError: Unexpected token function
 ::ffff:10.8.1.181 - - [16/Feb/2018:08:44:33 +0000] "POST /specialize HTTP/1.1" 500 2 "-" "Go-http-client/1.1"
-
 ```
 
 You can also look at function execution logs explicitly:
@@ -128,7 +127,7 @@ You can attach the source/deployment packages to a function or explicitly create
 
 Let's take a simple python function which has dependency on a python pyyaml module. We can specify the dependencies in requirements.txt and a simple command to build from source. The tree structure of directory looks like:
 
-```
+```plaintext
 sourcepkg/
 ├── __init__.py
 ├── build.sh
