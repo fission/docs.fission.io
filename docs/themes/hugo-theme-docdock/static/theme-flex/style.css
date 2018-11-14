@@ -45,7 +45,7 @@ header {
   top: 0;
   z-index: 100; }
   header:after {
-    background: url(ribbon.png) 0 0/100% no-repeat;
+    background: #8451a1;
     content: '';
     height: .35rem;
     left: 0;
@@ -367,14 +367,16 @@ article section.page {
       display: inline !important;
       margin: 0 !important;
       vertical-align: bottom; }
+
   code {
     border-radius: 2px;
     white-space: nowrap;
     color: #5e5e5e;
-    background: #FFF7DD;
-    border: 1px solid #fbf0cb;
     padding: 0px 2px;
-    font-family: "RobotoMono", monospace; }
+    font-family: "RobotoMono", monospace;}
+  p code, li code {
+    border: 1px solid #fbf0cb;
+    background: #FFF7DD;}
   pre code {
     border: 0px;}
   article section.page p > code,
@@ -571,6 +573,8 @@ footer {
   padding: 1rem 4rem; }
   footer p {
     margin: 0px; }
+  footer a {
+    color: #2980b9; }
   footer .footline {
     /*border-top: 1px solid #e6e6e6;*/
     margin: 0rem;
@@ -737,5 +741,9 @@ ul.children.children-card {
   article img {
     margin-left: -1rem;
     margin-right: -1rem; } }
+
+ol li {
+  line-height: 2em;
+}
 
 /*# sourceMappingURL=style.css.map */

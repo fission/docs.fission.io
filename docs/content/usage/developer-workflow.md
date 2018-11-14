@@ -235,7 +235,7 @@ You can add the above lines to `calc.py`, or just download the
 modified function:
 
 ```bash
-bash curl -Lo calc.py http://zzz
+$ curl -Lo calc.py http://zzz
 ```
 
 To deploy your changes, simply apply the specs again:

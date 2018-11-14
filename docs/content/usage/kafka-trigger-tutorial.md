@@ -15,7 +15,7 @@ Before we dive into details, let's walk through overall flow of event and functi
 1. A Go lang producer function (producerfunc) acts as a producer and drops a message in a Kafka topic named `input`.
 2. Fission kafka trigger activates and invokes another function (consumerfunc) with body of Kafka message.
 3. The consumer function (consumerfunc) gets body of message and returns a response.
-4. Fission Kafka trigger takes the response of consumer function (consumerfunc) and drops the message in a response topic named `output` and if there is an error, the message is dropped in error topic named `error`.
+4. Fission Kafka trigger takes the response of consumer function (consumerfunc) and drops the message in a response topic named `output`. If there is an error, the message is dropped in error topic named `error`.
 
 ## Building the app
 

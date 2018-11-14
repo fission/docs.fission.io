@@ -63,7 +63,7 @@ $ curl http://${FISSION_ROUTER}/<url-path>
 
 If your cluster is running in an environment that does not support external load balancer (e.g., minikube), the EXTERNAL-IP of fission router will stay in pending state.
 
-```
+```bash
 $ kubectl --namespace fission get svc router
 NAME      TYPE           CLUSTER-IP     EXTERNAL-IP   PORT(S)        AGE
 router    LoadBalancer   10.39.253.73   <pending>   80:31377/TCP   27d

@@ -1,0 +1,1 @@
+Fission is a project by [Platform9 Systems](https://platform9.com/fission/) and [many contributors](https://github.com/fission/fission/graphs/contributors). Reach us on [Slack](http://slack.fission.io) or [Twitter](https://twitter.com/fissionio).

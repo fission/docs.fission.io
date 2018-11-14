@@ -110,7 +110,7 @@ NAME                                 METHOD HOST URL     INGRESS FUNCTION_NAME
 ```
 If you check the ingress controller pod logs, you will notice that the ingress controller has re-loaded the configuration for the newly created ingress resource:
 
-```text
+```plaintext
 I0604 12:47:08.983567       5 controller.go:168] backend reload required
 I0604 12:47:08.985535       5 event.go:218] Event(v1.ObjectReference{Kind:"Ingress", Namespace:"fission", Name:"301b3cb0-5ac1-4211-a1ed-2b0ad9143e34", UID:"64bffe8c-67f5-11e8-98e8-42010aa00018", APIVersion:"extensions", ResourceVersion:"18017617", FieldPath:""}): type: 'Normal' reason: 'CREATE' Ingress fission/301b3cb0-5ac1-4211-a1ed-2b0ad9143e34
 I0604 12:47:09.117629       5 controller.go:177] ingress backend successfully reloaded...

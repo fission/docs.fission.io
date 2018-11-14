@@ -159,7 +159,7 @@ When testing the scaling behaviour, do keep in mind that the scaling event has a
 
 You will notice that the scaling up and down has different behaviour in terms of response time. This behaviour is governed by the frequency at which the controller watches (which defaults to 30s) and parameters set on controller-manager for upscale/downscale delay. More details can be found [here](https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/#support-for-cooldowndelay)
 
-```
+```bash
 $ kubectl -n fission-function get hpa -w
 NAME             REFERENCE                   TARGETS    MINPODS   MAXPODS   REPLICAS   AGE
 hello-qoxmothj   Deployment/hello-qoxmothj   5% / 50%   1         6         1          3m
