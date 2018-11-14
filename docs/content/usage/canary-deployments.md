@@ -15,7 +15,6 @@ Either an existing prometheus deployment in the cluster can be used or Prometheu
 To install prometheus with fission, the flag prometheusDeploy can be set to True in the helm chart.
 In order to re-use existing Prometheus deployment, fission checks the value of Prometheus server service environment variable in its controller pod. If that cant be accessed, fission proceeds without enabling the canary feature.
 
-
 ### Canary Config parameters
 
 A Canary Config has the following parameters :
