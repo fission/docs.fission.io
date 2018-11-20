@@ -63,7 +63,7 @@ $zip -jr demo-src-pkg.zip sourcepkg/
   adding: requirements.txt (stored 0%)
   adding: user.py (deflated 25%)
 ```
-Using the source archive creared in previous step, you can create a package in Fission:
+Using the source archive created in previous step, you can create a package in Fission:
 
 ```bash
 $ fission package create --sourcearchive demo-src-pkg.zip --env pythonsrc --buildcmd "./build.sh"
