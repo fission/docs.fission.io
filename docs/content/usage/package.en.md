@@ -56,7 +56,11 @@ pyyaml
 ```bash
 #!/bin/sh
 pip3 install -r ${SRC_PKG}/requirements.txt -t ${SRC_PKG} && cp -r ${SRC_PKG} ${DEPLOY_PKG}
+```
 
+Now create an archive before creating the package:
+
+```
 $zip -jr demo-src-pkg.zip sourcepkg/
   adding: __init__.py (stored 0%)
   adding: build.sh (deflated 24%)
