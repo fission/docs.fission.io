@@ -22,9 +22,9 @@ A Canary Config has the following parameters :
   
 * **failurethreshold**: Specifies the threshold in percentage beyond which the new version of a function is declared unhealthy
   
-* **funcn**: Specifies the name of the latest version of the function
+* **newfunction**: Specifies the name of the latest version of the function
   
-* **funcn-1**: Specifies the name of the current stable version of the function
+* **oldfunction**: Specifies the name of the current stable version of the function
   
 * **trigger**: Specifies the name of the http trigger object 
   
@@ -45,8 +45,8 @@ spec:
   duration: 1m
   failureType: status-code
   failurethreshold: 10
-  funcn: fn-a-v2
-  funcn-1: fn-a-v1
+  newfunction: fn-a-v2
+  oldfunction: fn-a-v1
   trigger: route-fna
   weightincrement: 30
 ```
@@ -75,7 +75,7 @@ $ fission route create --name route-fna --function fna-v1 --weight 100 --functio
 4. Create a canary config :
 
 ```bash
-$ fission canary-config create --name canary-1 --funcN fna-v2 --funcN-1 fna-v1 --httptrigger route-fna --increment-step 30 --increment-interval 1m --failure-threshold 10
+$ fission canary-config create --name canary-1 --newfunction fna-v2 --oldfunction fna-v1 --httptrigger route-fna --increment-step 30 --increment-interval 1m --failure-threshold 10
 ```
 
 ### Steps to verify the status of a canary deployment
