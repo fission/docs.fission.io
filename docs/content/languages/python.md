@@ -24,12 +24,8 @@ environment is the language-specific part of Fission.  It has a
 container image in which your function will run.
 
 ```
-$ fission environment create --name python --image fission/python-env --builder fission/python-builder --version 3
+$ fission environment create --name python --image fission/python-env 
 ```
-
-(The version argument controls some Fission-internal features.  Don't
-worry about it much; the right version varies across different
-language environments but is fixed for each language.)
 
 ## Write a simple function in Python
 
@@ -176,33 +172,185 @@ def main():
 
 #### HTTP Redirects
 
+```python
+import flask
+
+def main():
+    r = flask.redirect('/new-url', code=303)
+    
+    # Optional; set this to False to force a relative URL redirect.
+    # Defaults to True, which converts the redirect to an absolute URL.
+    r.autocorrect_location_header = False
+    
+    return r
+```
+
 ### Logging
 
-TODO
+```python
+from flask import current_app
+
+def main():
+    current_app.logger.info("This is a log message")
+    return "Hello, world"
+```
 
 ## Working with dependencies
 
-### Specifying dependencies and building your source on the cluster
+The examples above show simple one-file functions with no
+dependencies.  You can package dependencies with your function, and
+even use Fission to download and package up the dependencies.
 
-quick intro + link to more info in pip docs
+### Using the Python environment with the builder
 
-### What to do if your build fails
+Fission supports _builders_, which are language-specific containers
+that know how to gather dependencies and build from a source zip file,
+into a deployment zip file. 
 
-### Custom builds
+To use a builder with your environment, create the environment with
+with the --builder flag:
 
-TODO show how to provide a build.sh and what it needs to do
+```sh
+fission env create --name python --image fission/python-env --builder fission/python-builder
+```
 
-TODO you can also add any other stuff to the image, see the next section
+### A function with depedencies
 
-## Modifying the environment images
+Let's take a simple python function which has a dependency on the
+`pyyaml` module. We can specify the dependencies in `requirements.txt`
+and a simple command to build from source. The tree structure of
+directory and contents of the file would look like:
 
-TODO -- link to source code and instructions for rebuilding
+```bash
+sourcepkg/
+├── __init__.py
+├── build.sh
+├── requirements.txt
+└── user.py
+```
+And the file contents:
 
-## Resource usage 
+* user.py
 
-TODO recommend using min memory and cpu requests. 
+```python 
+import sys
+import yaml
 
-TODO -- run hello world with 128m, 256m and find a reasonable minimum
-to recommend to people
+document = """
+  a: 1
+  b:
+    c: 3
+    d: 4
+"""
 
+def main():
+    return yaml.dump(yaml.load(document))
+```
 
+* requirements.txt
+
+```python 
+pyyaml
+```
+
+* build.sh
+
+```bash
+#!/bin/sh
+pip3 install -r ${SRC_PKG}/requirements.txt -t ${SRC_PKG} && cp -r ${SRC_PKG} ${DEPLOY_PKG}
+
+$zip -jr demo-src-pkg.zip sourcepkg/
+  adding: __init__.py (stored 0%)
+  adding: build.sh (deflated 24%)
+  adding: requirements.txt (stored 0%)
+  adding: user.py (deflated 25%)
+```
+Using the source archive creared in previous step, you can create a package in Fission:
+
+```bash
+$ fission package create --sourcearchive demo-src-pkg.zip --env pythonsrc --buildcmd "./build.sh"
+Package 'demo-src-pkg-zip-8lwt' created
+```
+
+Since we are working with a source package, we provided the build
+command. Once you create the package, the build process will start and
+you can see the build logs with the `fission package info` command:
+
+```bash
+$ fission pkg info --name demo-src-pkg-zip-8lwt
+Name:        demo-src-pkg-zip-8lwt
+Environment: pythonsrc
+Status:      succeeded
+Build Logs:
+Collecting pyyaml (from -r /packages/demo-src-pkg-zip-8lwt-v57qil/requirements.txt (line 1))
+  Using cached PyYAML-3.12.tar.gz
+Installing collected packages: pyyaml
+  Running setup.py install for pyyaml: started
+    Running setup.py install for pyyaml: finished with status 'done'
+Successfully installed pyyaml-3.12
+```
+
+Using the package above you can create the function. Since package
+already is associated with a source package, environment and build
+command, these will be ignored when creating a function. 
+
+The only additional thing you'll need to provide is the Function's
+entrypoint:
+
+```bash
+$ fission fn create --name srcpy --pkg demo-src-pkg-zip-8lwt --entrypoint "user.main"
+function 'srcpy' created
+
+# Run the function:
+$ fission fn test --name srcpy
+a: 1
+b: {c: 3, d: 4}
+```
+
+## Modifying the runtime environment image
+
+The base runtime image of the Python can also be modified to include
+dependencies.  You can do this for dependencies that all your
+functions need, thus reducing the size of your function packages (and
+improving cold-start times).
+
+First, get a copy of the Fission source, which includes the
+Python environment:
+
+```sh
+$ git clone github.com/fission/fission
+```
+
+Get to the Python environment:
+
+```sh
+$ cd fission/environments/python
+```
+
+To add package dependencies, edit `requirements.txt` to add what you
+need, and rebuild this image as follows:
+
+Next, build and push the container image.  To push your image you'll
+need access to a Docker registry.  Let's assume you have a DockerHub
+account called "USER".  (You could use any other registry too.)
+
+```sh
+$ docker build -t USER/python-env .
+$ docker push USER/python-env 
+```
+
+Now you can use this image as your function runtime.  You can
+re-create the environment, pointing the runtime at this image:
+
+```sh
+$ fission env create --name python --image USER/python-env ...
+```
+
+Or just update it, if you already have an image:
+
+```
+$ fission env update --name python --image USER/python-env ...
+```
+
+After this, functions that have the env parameter set to "python" will
+use this new customized image for running the functions.
