@@ -27,7 +27,7 @@ container image in which your function will run.
 $ fission environment create --name python --image fission/python-env 
 ```
 
-## Write a simple function in Python
+## Create a simple function in Python
 
 Create a file named `hello.py`:
 
