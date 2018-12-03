@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Serverless Functions for Kubernetes</title>
+    
+      <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="google-site-verification" content="5AvQfeDvIx0ldE9uSKVsoikqgFknd_CT18caf9TNoVg" />
+<meta name="generator" content="Hugo 0.49" />
+<title>Source Code Organization and Your Development Workflow :: Serverless Functions for Kubernetes</title>
+<link rel="shortcut icon" href="/0.12.0/images/favicon.png" type="image/x-icon" />
+<link href="/0.12.0/css/font-awesome.min.css" rel="stylesheet">
+<link href="/0.12.0/css/nucleus.css" rel="stylesheet">
+<link href="/0.12.0/theme-flex/style.css" rel="stylesheet">
+
+	
+
+
+<link rel="stylesheet" href="/0.12.0/css/hybrid.css?1540653045">
+<script src="/0.12.0/syntax-highlight/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+<link rel="stylesheet" href="/0.12.0/css/bootstrap.min.css">
+<script src="/0.12.0/js/jquery-2.x.min.js"></script>
+<script type="text/javascript">
+      var baseurl = "https:\/\/docs.fission.io\/0.12.0";
+</script>
+<meta name="description" content="Documentation for Fission">
+<meta name="author" content="Fission">
+
+
+    
+  </head>
+  <body data-url="/0.12.0/usage/developer-workflow/">
+    
+      <header>
+  <div class="logo">
+    
+	
+	
+	
+  
+    
+  
+    
+  
+
+
+<img src="/0.12.0/images/fission-logo.png"/>
+
+  </div>
+  <div class="burger"><a href="javascript:void(0);" style="font-size:15px;">&#9776;</a></div>
+    <nav class="shortcuts">
+            <li class="" role="">
+                <a href="https://github.com/fission/fission"  rel="noopener">
+                  <i class='fa fa-fw fa-github'></i> Github repo
+                </a>
+            </li>
+            <li class="" role="">
+                <a href="https://github.com/fission/fission/graphs/contributors"  rel="noopener">
+                  <i class='fa fa-fw fa-bullhorn'></i> Credits
+                </a>
+            </li>
+    </nav>
+</header>
+<article>
+  <aside>
+    <ul class="menu">
+          <li data-nav-id="/0.12.0/" class="dd-item">
+          <a href="/0.12.0/">
+            <i class="fa fa-fw fa-home"></i>
+          </a>
+          </li>
+    <li data-nav-id="/0.12.0/installation/" class="dd-item alwaysopen haschildren
+        ">
+      <div>
+      <a href="/0.12.0/installation/">Installing Fission</a>
+            <i class="fa fa-angle-down fa-lg category-icon"></i>
+      </div>
+        <ul>
+      <li data-nav-id="/0.12.0/installation/kubernetessetup/" class="dd-item">
+        <div>
+          <a href="/0.12.0/installation/kubernetessetup/">
+            Kubernetes Quick Install
+          </a>
+        </div>
+    </li>
+    <li data-nav-id="/0.12.0/installation/upgrade/" class="dd-item
+        ">
+      <div>
+      <a href="/0.12.0/installation/upgrade/">Upgrading Fission</a>
+      </div>
+    </li>
+      <li data-nav-id="/0.12.0/installation/env_vars/" class="dd-item">
+        <div>
+          <a href="/0.12.0/installation/env_vars/">
+            Environment Variables
+          </a>
+        </div>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="/0.12.0/concepts/" class="dd-item alwaysopen haschildren
+        ">
+      <div>
+      <a href="/0.12.0/concepts/">Fission Concepts</a>
+            <i class="fa fa-angle-down fa-lg category-icon"></i>
+      </div>
+        <ul>
+      <li data-nav-id="/0.12.0/concepts/basic-concept/" class="dd-item">
+        <div>
+          <a href="/0.12.0/concepts/basic-concept/">
+            Basic Concepts
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/0.12.0/concepts/executor/" class="dd-item">
+        <div>
+          <a href="/0.12.0/concepts/executor/">
+            Function Executors
+          </a>
+        </div>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="/0.12.0/usage/" class="dd-item parent alwaysopen haschildren
+        ">
+      <div>
+      <a href="/0.12.0/usage/">Using Fission</a>
+            <i class="fa fa-angle-down fa-lg category-icon"></i>
+      </div>
+        <ul>
+      <li data-nav-id="/0.12.0/usage/accessing-url-params/" class="dd-item">
+        <div>
+          <a href="/0.12.0/usage/accessing-url-params/">
+            Accessing URL parameters
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/0.12.0/usage/package/" class="dd-item">
+        <div>
+          <a href="/0.12.0/usage/package/">
+            Packaging source code
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/0.12.0/usage/access-secret-cfgmap-in-function/" class="dd-item">
+        <div>
+          <a href="/0.12.0/usage/access-secret-cfgmap-in-function/">
+            Accessing Secrets in Functions
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/0.12.0/usage/environments/" class="dd-item">
+        <div>
+          <a href="/0.12.0/usage/environments/">
+            Environments
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/0.12.0/usage/functions/" class="dd-item">
+        <div>
+          <a href="/0.12.0/usage/functions/">
+            Functions
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/0.12.0/usage/trigger/" class="dd-item">
+        <div>
+          <a href="/0.12.0/usage/trigger/">
+            Triggers
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/0.12.0/usage/executor/" class="dd-item">
+        <div>
+          <a href="/0.12.0/usage/executor/">
+            Controlling Function Execution
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/0.12.0/usage/developer-workflow/" class="dd-item active">
+        <div>
+          <a href="/0.12.0/usage/developer-workflow/">
+            Source Code Organization and Your Development Workflow
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/0.12.0/usage/ingress-tutorial/" class="dd-item">
+        <div>
+          <a href="/0.12.0/usage/ingress-tutorial/">
+            Exposing functions with Ingress
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/0.12.0/usage/canary-deployments/" class="dd-item">
+        <div>
+          <a href="/0.12.0/usage/canary-deployments/">
+            Supporting Canary Deployments for Fission Functions
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/0.12.0/usage/kafka-trigger-tutorial/" class="dd-item">
+        <div>
+          <a href="/0.12.0/usage/kafka-trigger-tutorial/">
+            Using Kafka trigger to invoke a Function
+          </a>
+        </div>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="/0.12.0/languages/" class="dd-item alwaysopen haschildren
+        ">
+      <div>
+      <a href="/0.12.0/languages/">Languages</a>
+            <i class="fa fa-angle-down fa-lg category-icon"></i>
+      </div>
+        <ul>
+      <li data-nav-id="/0.12.0/languages/nodejs/" class="dd-item">
+        <div>
+          <a href="/0.12.0/languages/nodejs/">
+            Fission functions with Nodejs
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/0.12.0/languages/go/" class="dd-item">
+        <div>
+          <a href="/0.12.0/languages/go/">
+            Using Go with Fission
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/0.12.0/languages/java/" class="dd-item">
+        <div>
+          <a href="/0.12.0/languages/java/">
+            Using Java with Fission JVM environment
+          </a>
+        </div>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="/0.12.0/tutorial/" class="dd-item alwaysopen haschildren
+        ">
+      <div>
+      <a href="/0.12.0/tutorial/">Tutorials</a>
+            <i class="fa fa-angle-down fa-lg category-icon"></i>
+      </div>
+        <ul>
+      <li data-nav-id="/0.12.0/tutorial/enabling-istio-on-fission/" class="dd-item">
+        <div>
+          <a href="/0.12.0/tutorial/enabling-istio-on-fission/">
+            Enabling Istio on Fission
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/0.12.0/tutorial/java-example/" class="dd-item">
+        <div>
+          <a href="/0.12.0/tutorial/java-example/">
+            Building Java Functions
+          </a>
+        </div>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="/0.12.0/workflows/" class="dd-item
+        ">
+      <div>
+      <a href="/0.12.0/workflows/">Fission Workflows</a>
+      </div>
+    </li>
+    <li data-nav-id="/0.12.0/contributing/" class="dd-item alwaysopen
+        ">
+      <div>
+      <a href="/0.12.0/contributing/">Contributing to Fission</a>
+      </div>
+    </li>
+
+
+
+
+    </ul>
+    <section>
+    </section>
+  </aside>
+  <section class="page">
+    
+    <div class="nav-select">
+      <center>Navigation : 
+        <select onchange="javascript:location.href = this.value;">
+          
+    <option value="/0.12.0/installation/" >
+   Installing Fission</option> 
+      <option value="/0.12.0/installation/kubernetessetup/" >- Kubernetes Quick Install</option>
+    <option value="/0.12.0/installation/upgrade/" >
+  - 
+   Upgrading Fission</option>
+      <option value="/0.12.0/installation/env_vars/" >- Environment Variables</option>
+  
+    <option value="/0.12.0/concepts/" >
+   Fission Concepts</option> 
+      <option value="/0.12.0/concepts/basic-concept/" >- Basic Concepts</option>
+      <option value="/0.12.0/concepts/executor/" >- Function Executors</option>
+  
+    <option value="/0.12.0/usage/" >
+   Using Fission</option> 
+      <option value="/0.12.0/usage/accessing-url-params/" >- Accessing URL parameters</option>
+      <option value="/0.12.0/usage/package/" >- Packaging source code</option>
+      <option value="/0.12.0/usage/access-secret-cfgmap-in-function/" >- Accessing Secrets in Functions</option>
+      <option value="/0.12.0/usage/environments/" >- Environments</option>
+      <option value="/0.12.0/usage/functions/" >- Functions</option>
+      <option value="/0.12.0/usage/trigger/" >- Triggers</option>
+      <option value="/0.12.0/usage/executor/" >- Controlling Function Execution</option>
+      <option value="/0.12.0/usage/developer-workflow/"  selected>- Source Code Organization and Your Development Workflow</option>
+      <option value="/0.12.0/usage/ingress-tutorial/" >- Exposing functions with Ingress</option>
+      <option value="/0.12.0/usage/canary-deployments/" >- Supporting Canary Deployments for Fission Functions</option>
+      <option value="/0.12.0/usage/kafka-trigger-tutorial/" >- Using Kafka trigger to invoke a Function</option>
+  
+    <option value="/0.12.0/languages/" >
+   Languages</option> 
+      <option value="/0.12.0/languages/nodejs/" >- Fission functions with Nodejs</option>
+      <option value="/0.12.0/languages/go/" >- Using Go with Fission</option>
+      <option value="/0.12.0/languages/java/" >- Using Java with Fission JVM environment</option>
+  
+    <option value="/0.12.0/tutorial/" >
+   Tutorials</option> 
+      <option value="/0.12.0/tutorial/enabling-istio-on-fission/" >- Enabling Istio on Fission</option>
+      <option value="/0.12.0/tutorial/java-example/" >- Building Java Functions</option>
+  
+    <option value="/0.12.0/workflows/" >
+   Fission Workflows</option>
+    <option value="/0.12.0/contributing/" >
+   Contributing to Fission</option> 
+  
+
+
+
+        </select>
+      </center>
+    </div>
+      <div>
+        <div class="searchbox">
+          <input data-search-input id="search-by" type="text" placeholder="Search...">
+        </div>
+        <script type="text/javascript" src="/0.12.0/js/lunr.min.js"></script>
+        <script type="text/javascript" src="/0.12.0/js/auto-complete.js"></script>
+        <link href="/0.12.0/css/auto-complete.css" rel="stylesheet">
+        <script type="text/javascript">
+          
+              var baseurl = "https:\/\/docs.fission.io\/0.12.0";
+          
+        </script>
+        <script type="text/javascript" src="/0.12.0/js/search.js"></script>
+      </div>
+
+
+    <h1>Source Code Organization and Your Development Workflow</h1>
+
+    
+    
+    
+    
+
+<p>You&rsquo;ve made a Hello World function in your favourite language, and
+you&rsquo;ve run it on your Fission deployment.  What&rsquo;s next?</p>
+
+<p>How should you organize source code when you have lots of functions?
+How should you automate deployment into the cluster?  What about
+version control?  How do you test before deploying?</p>
+
+<p>The answers to these questions start from a common first step: how do
+you <em>specify an application</em>?</p>
+
+<h2 id="declarative-specifications">Declarative Specifications</h2>
+
+<p>Instead of invoking the Fission CLI commands, you can specify your
+functions in a set of YAML files.  This is better than scripting the
+<code>fission</code> CLI, which is meant as a user interface, not a programming
+interface.</p>
+
+<p>You&rsquo;ll usually want to track these YAML files in version control along
+with your source code.  Fission provides CLI tools for generating
+these specification files, validating them, and &ldquo;applying&rdquo; them to a
+Fission installation.</p>
+
+<p>What does it mean to <em>apply</em> a specification?  It means putting
+specification to effect: figuring out the things that need to be
+changed on the cluster, and updating them to make them the same as the
+specification.</p>
+
+<p>Applying a Fission spec goes through these steps:</p>
+
+<ul>
+<li><p>Resources (functions, triggers, etc) that are in the specification
+but don&rsquo;t exist on the cluster are created.  Local source files are
+packaged and uploaded.</p></li>
+
+<li><p>Resources that are both in the specs and on the cluster are
+compared.  If they&rsquo;re different, the ones on the cluster are
+changed to match the spec.</p></li>
+
+<li><p>Resources present only on the cluster and not in the spec are
+destroyed.  (This deletion is limited to resources that were
+created by a previous <em>apply</em>; this makes sure that Fission doesn&rsquo;t
+delete unrelated resources.  See below for how this calculation
+works.)</p></li>
+</ul>
+
+<p>Note that running <em>apply</em> more than once is equivalent to running it
+once: in other words, it&rsquo;s idempotent.</p>
+
+<h2 id="usage-summary">Usage Summary</h2>
+
+<p>Start using Fission&rsquo;s declarative application specifications in 3 steps:</p>
+
+<ol>
+<li>Initialize a directory of specs: <code>fission spec init</code></li>
+<li>Generate some YAMLs: <code>fission function create --spec ...</code></li>
+<li>Apply them to a cluster: <code>fission spec apply --wait</code></li>
+</ol>
+
+<p>You can also deploy continuously with <code>fission spec apply --watch</code>.</p>
+
+<p>We&rsquo;ll see examples of all these commands in the tutorial below.</p>
+
+<h2 id="tutorial">Tutorial</h2>
+
+<p>This tutorial assumes you&rsquo;ve already set up Fission, and tested a
+simple hello world function to make sure everything&rsquo;s working.  To
+learn how to do that, head over to the <a href="/latest/installation/installation">installation
+guide</a>.</p>
+
+<p>We&rsquo;ll make a small calculator app with one python environment and two
+functions, all of which will be declaratively specified using YAML
+files.  This is a somewhat contrived example, but it is just meant as
+an illustration.</p>
+
+<h3 id="make-an-empty-directory">Make an empty directory</h3>
+
+<pre><code class="language-bash">$ mkdir spec-tutorial
+$ cd spec-tutorial
+</code></pre>
+
+<h3 id="initialize-the-specs-directory">Initialize the specs directory</h3>
+
+<pre><code class="language-bash">$ fission spec init
+</code></pre>
+
+<p>This creates a <code>specs/</code> directory.  You&rsquo;ll see a <code>fission-config.yaml</code>
+in there.  This file has a unique ID in it; everything created on the
+cluster from these specs will be annotated with that unique ID.</p>
+
+<h3 id="setup-a-python-environment">Setup a Python environment</h3>
+
+<pre><code class="language-bash">$ fission env create --spec --name python --image fission/python-env:0.11.0 --builder fission/python-builder:0.11.0
+</code></pre>
+
+<p>This command creates a YAML file under specs called <code>specs/env-python.yaml</code>.</p>
+
+<h3 id="code-two-functions">Code two functions</h3>
+
+<p>One function simply returns a simple web form.  You can download the
+code or copy paste from the contents below:</p>
+
+<pre><code class="language-bash">$ curl -Lo form.py http://xxx
+</code></pre>
+
+<p>Here are its contents:</p>
+
+<pre><code class="language-python">def main():
+    return &quot;&quot;&quot;
+       &lt;html&gt;
+         &lt;body&gt;
+           &lt;form action=&quot;/calculate&quot; method=&quot;GET&quot;&gt;
+             &lt;input name=&quot;num_1&quot;/&gt;
+             &lt;input name=&quot;num_2&quot;/&gt;
+             &lt;input name=&quot;operator&quot;/&gt;
+             &lt;button&gt;Calculate&lt;/button&gt;
+           &lt;/form&gt;
+         &lt;/body&gt;
+       &lt;/html&gt;
+    &quot;&quot;&quot;
+</code></pre>
+
+<p>The form accepts a simple arithmetic expression.  When it is
+submitted, it makes a request to the second function, which calculates
+the expression entered.</p>
+
+<p>Here&rsquo;s the calculator function:</p>
+
+<pre><code class="language-bash">$ curl -Lo calc.py http://yyy
+</code></pre>
+
+<p>That function is pretty simple too:</p>
+
+<pre><code class="language-python">def main():
+    num_1 = int(request.form['num_1'])
+    num_2 = int(request.form['num_2'])
+    operator = request.form['operator']
+
+    if operator == '+':
+        result = num_1 + num_2
+    elsif operator == '-':
+        result = num_1 - num_2
+        
+    return &quot;%s %s %s = %s&quot; % (num_1, operator, num_2, result)
+</code></pre>
+
+<h3 id="create-specs-for-these-functions">Create specs for these functions</h3>
+
+<p>Let&rsquo;s create a specification for each of these functions.  This
+specifies the function name, where the code lives, and associates the
+function with the python environment:</p>
+
+<pre><code class="language-bash">$ fission function create --spec --name calc-form --env python --src form.py --entrypoint form.main
+
+$ fission function create --spec --name calc-eval --env python --src calc.py --entrypoint calc.main
+</code></pre>
+
+<p>You can see the generated YAML files in
+<code>specs/function-calc-form.yaml</code> and <code>specs/function-calc-eval.yaml</code>.</p>
+
+<h3 id="create-http-trigger-specs">Create HTTP trigger specs</h3>
+
+<pre><code class="language-bash">$ fission route create --spec --method GET --url /form --function calc-form
+$ fission route create --spec --method GET --url /eval --function calc-eval
+</code></pre>
+
+<p>This creates YAML files specifying that GET requests on /form and /eval
+invoke the functions calc-form and calc-eval respectively.</p>
+
+<h3 id="validate-your-specs">Validate your specs</h3>
+
+<p>Spec validation does some basic checks: it makes sure there are no
+duplicate functions with the same name, and that references between
+various resources are correct.</p>
+
+<pre><code class="language-bash">$ fission spec validate
+</code></pre>
+
+<p>You should see no errors.</p>
+
+<h3 id="apply-deploy-your-functions-to-fission">Apply: deploy your functions to Fission</h3>
+
+<p>You can simply use apply to deploy the environment, functions and HTTP
+triggers to the cluster.</p>
+
+<pre><code class="language-bash">$ fission spec apply --wait
+</code></pre>
+
+<p>(This uses your kubeconfig to connect to Fission, just like kubectl.
+See Usage Reference below for options.)</p>
+
+<h3 id="test-a-function">Test a function</h3>
+
+<p>Make sure your function is working:</p>
+
+<pre><code class="language-bash">$ fission function test --name calc-form
+</code></pre>
+
+<p>You should see the output of the calc-form function.</p>
+
+<p>To test the other function, open the URL of the Fission router service
+in a browser, enter two numbers and an operator, and click submit.</p>
+
+<p>(If you don&rsquo;t know the address of the Fission router, you can find it
+with kubectl: <code>kubectl -n fission get service router</code>.)</p>
+
+<h3 id="modify-the-function-and-re-deploy-it">Modify the function and re-deploy it</h3>
+
+<p>Let&rsquo;s try modifying a function: let&rsquo;s change the <code>calc-eval</code> function
+to support multiplication, too.</p>
+
+<pre><code>    ...
+    
+    elsif operator == '*':
+        result = num_1 * num_2
+
+    ...
+</code></pre>
+
+<p>You can add the above lines to <code>calc.py</code>, or just download the
+modified function:</p>
+
+<pre><code class="language-bash">$ curl -Lo calc.py http://zzz
+</code></pre>
+
+<p>To deploy your changes, simply apply the specs again:</p>
+
+<pre><code class="language-bash">$ fission spec apply --wait
+</code></pre>
+
+<p>This should output something like:</p>
+
+<pre><code>1 archive updated: calc-eval-xyz
+1 package updated: calc-eval-xyz
+1 function updated: calc-eval
+</code></pre>
+
+<p>Your new updated function is deployed!</p>
+
+<p>Test it out by entering a <code>*</code> for the operator in the form!</p>
+
+<h3 id="add-dependencies-to-the-function">Add dependencies to the function</h3>
+
+<p>Let&rsquo;s say you&rsquo;d like to add a pip <code>requirements.txt</code> to your function,
+and include some libraries in it, so you can <code>import</code> them in your
+functions.</p>
+
+<p>Create a <code>requirements.txt</code>, and add something to it:</p>
+
+<pre><code>xxx
+</code></pre>
+
+<p>Modify the ArchiveUploadSpec inside specs/function-<name>.yaml</p>
+
+<p>Once again, deploying is the same:</p>
+
+<pre><code class="language-bash">$ fission spec apply --wait
+</code></pre>
+
+<p>This command figures out that one function has changed, uploads the
+source to the cluster, and waits until the Fission builder on the
+cluster finishes rebuilding this updated source code.</p>
+
+<h2 id="a-bit-about-how-this-works">A bit about how this works</h2>
+
+<p>Kubernetes manages its state as a set of <em>resources</em>.  Deployments,
+Pod, Services are examples of resources.  They represent a target
+state, and Kubernetes then does the work to ensure this target state
+is met.</p>
+
+<p>Kubernetes resources can be extended, using <em>Custom Resources</em>.
+Fission runs on top of Kubernetes and sets up your functions,
+environments and triggers as Custom Resources.  You can see even these
+custom resources from <code>kubectl</code>: try <code>kubectl get
+customeresourcedefinitions</code> or <code>kubectl get function.fission.io</code></p>
+
+<p>Your specs directory is, basically, set of resources plus a bit of
+configuration.  Each YAML file contains one or more resources.  They
+are separated by a &ldquo;&mdash;&rdquo; separator.  The resources are functions,
+environments, triggers.</p>
+
+<p>There&rsquo;s a special resource there, <em>ArchiveUploadSpec</em>.  This is in
+fact not a resource, just looks like one in the YAML files.  It is
+used to specify and name a set of files that will be uploaded to the
+cluster.  <code>fission spec apply</code> uses these <code>ArchiveUploadSpec</code>s to
+create archives locally and upload them.  The specs reference these
+archives using <code>archive://</code> URLs.  These aren&rsquo;t &ldquo;real&rdquo; URLs; they are
+replaced by http URLs by the <code>fission spec</code> implementation after the
+archives are uploaded to the cluster.  On the cluster, Archives are
+tracked with checksums; the Fission CLI only uploads archives when
+their checksum has changed.</p>
+
+<h2 id="usage-reference">Usage Reference</h2>
+
+<pre><code class="language-bash">NAME:
+   fission spec - Manage a declarative app specification
+
+USAGE:
+   fission spec command [command options] [arguments...]
+
+COMMANDS:
+     init      Create an initial declarative app specification
+     validate  Validate Fission app specification
+     apply     Create, update, or delete Fission resources from app specification
+     destroy   Delete all Fission resources in the app specification
+     helm      Create a helm chart from the app specification
+
+OPTIONS:
+   --help, -h  show help
+   
+</code></pre>
+
+<h3 id="fission-spec-init">fission spec init</h3>
+
+<pre><code class="language-bash">NAME:
+   fission spec init - Create an initial declarative app specification
+
+USAGE:
+   fission spec init [command options] [arguments...]
+
+OPTIONS:
+   --specdir value  Directory to store specs, defaults to ./specs
+   --name value     (optional) Name for the app, applied to resources as a Kubernetes annotation
+   
+</code></pre>
+
+<h3 id="fission-spec-validate">fission spec validate</h3>
+
+<pre><code class="language-bash">NAME:
+   fission spec validate - Validate Fission app specification
+
+USAGE:
+   fission spec validate [command options] [arguments...]
+
+OPTIONS:
+   --specdir value  Directory to store specs, defaults to ./specs
+</code></pre>
+
+<h3 id="fission-spec-apply">fission spec apply</h3>
+
+<pre><code class="language-bash">NAME:
+   fission spec apply - Create, update, or delete Fission resources from app specification
+
+USAGE:
+   fission spec apply [command options] [arguments...]
+
+OPTIONS:
+   --specdir value  Directory to store specs, defaults to ./specs
+   --delete         Allow apply to delete resources that no longer exist in the specification
+   --wait           Wait for package builds
+   --watch          Watch local files for change, and re-apply specs as necessary
+</code></pre>
+
+<h3 id="fission-spec-destroy">fission spec destroy</h3>
+
+<pre><code class="language-bash">NAME:
+   fission spec destroy - Delete all Fission resources in the app specification
+
+USAGE:
+   fission spec destroy [command options] [arguments...]
+
+OPTIONS:
+   --specdir value  Directory to store specs, defaults to ./specs
+
+</code></pre>
+
+
+    
+    
+        <div class="chevrons">
+    <div id="navigation">
+<a class="nav nav-prev" href="/0.12.0/usage/executor/" title="Controlling Function Execution"> <i class="fa fa-chevron-left"></i><label>Controlling Function Execution</label></a>
+    <a class="nav nav-next" href="/0.12.0/usage/ingress-tutorial/" title="Exposing functions with Ingress" style="margin-right: 0px;"><label>Exposing functions with Ingress</label><i class="fa fa-chevron-right"></i></a></div>
+  </div>
+
+  </section>
+</article>
+
+<footer>
+
+<div class="footline">
+    
+
+    
+
+    
+    <div class="date">
+        <i class='fa fa-calendar'></i> Last update on 01/12/2017
+    </div>
+    
+
+    
+    <div class="github-link">
+      <a href="https://github.com/fission/docs.fission.io/edit/master/docs/content/usage/developer-workflow.md" target="blank"><i class="fa fa-code-fork"></i>
+        Improve this page</a>
+    </div>
+    
+  </div>
+
+
+	<div>
+
+
+  <p>Fission is a project by <a href="https://platform9.com/fission/">Platform9 Systems</a> and <a href="https://github.com/fission/fission/graphs/contributors">many contributors</a>. Reach us on <a href="http://slack.fission.io">Slack</a> or <a href="https://twitter.com/fissionio">Twitter</a>.</p>
+ 
+
+
+
+	</div>
+</footer>
+
+<script src="/0.12.0/js/clipboard.min.js"></script>
+
+<link href="/0.12.0/css/featherlight.min.css" rel="stylesheet">
+<script src="/0.12.0/js/featherlight.min.js"></script>
+
+
+
+<script src="/0.12.0/theme-flex/script.js"></script>
+
+
+    
+
+    
+    
+
+    
+  </body>
+</html>

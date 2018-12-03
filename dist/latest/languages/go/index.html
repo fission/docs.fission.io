@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Serverless Functions for Kubernetes</title>
+    
+      <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="google-site-verification" content="5AvQfeDvIx0ldE9uSKVsoikqgFknd_CT18caf9TNoVg" />
+<meta name="generator" content="Hugo 0.49" />
+<title>Using Go with Fission :: Serverless Functions for Kubernetes</title>
+<link rel="shortcut icon" href="/0.12.0/images/favicon.png" type="image/x-icon" />
+<link href="/0.12.0/css/font-awesome.min.css" rel="stylesheet">
+<link href="/0.12.0/css/nucleus.css" rel="stylesheet">
+<link href="/0.12.0/theme-flex/style.css" rel="stylesheet">
+
+	
+
+
+<link rel="stylesheet" href="/0.12.0/css/hybrid.css?1540653045">
+<script src="/0.12.0/syntax-highlight/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+<link rel="stylesheet" href="/0.12.0/css/bootstrap.min.css">
+<script src="/0.12.0/js/jquery-2.x.min.js"></script>
+<script type="text/javascript">
+      var baseurl = "https:\/\/docs.fission.io\/0.12.0";
+</script>
+<meta name="description" content="Documentation for Fission">
+<meta name="author" content="Fission">
+
+
+    
+  </head>
+  <body data-url="/0.12.0/languages/go/">
+    
+      <header>
+  <div class="logo">
+    
+	
+	
+	
+  
+    
+  
+    
+  
+
+
+<img src="/0.12.0/images/fission-logo.png"/>
+
+  </div>
+  <div class="burger"><a href="javascript:void(0);" style="font-size:15px;">&#9776;</a></div>
+    <nav class="shortcuts">
+            <li class="" role="">
+                <a href="https://github.com/fission/fission"  rel="noopener">
+                  <i class='fa fa-fw fa-github'></i> Github repo
+                </a>
+            </li>
+            <li class="" role="">
+                <a href="https://github.com/fission/fission/graphs/contributors"  rel="noopener">
+                  <i class='fa fa-fw fa-bullhorn'></i> Credits
+                </a>
+            </li>
+    </nav>
+</header>
+<article>
+  <aside>
+    <ul class="menu">
+          <li data-nav-id="/0.12.0/" class="dd-item">
+          <a href="/0.12.0/">
+            <i class="fa fa-fw fa-home"></i>
+          </a>
+          </li>
+    <li data-nav-id="/0.12.0/installation/" class="dd-item alwaysopen haschildren
+        ">
+      <div>
+      <a href="/0.12.0/installation/">Installing Fission</a>
+            <i class="fa fa-angle-down fa-lg category-icon"></i>
+      </div>
+        <ul>
+      <li data-nav-id="/0.12.0/installation/kubernetessetup/" class="dd-item">
+        <div>
+          <a href="/0.12.0/installation/kubernetessetup/">
+            Kubernetes Quick Install
+          </a>
+        </div>
+    </li>
+    <li data-nav-id="/0.12.0/installation/upgrade/" class="dd-item
+        ">
+      <div>
+      <a href="/0.12.0/installation/upgrade/">Upgrading Fission</a>
+      </div>
+    </li>
+      <li data-nav-id="/0.12.0/installation/env_vars/" class="dd-item">
+        <div>
+          <a href="/0.12.0/installation/env_vars/">
+            Environment Variables
+          </a>
+        </div>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="/0.12.0/concepts/" class="dd-item alwaysopen haschildren
+        ">
+      <div>
+      <a href="/0.12.0/concepts/">Fission Concepts</a>
+            <i class="fa fa-angle-down fa-lg category-icon"></i>
+      </div>
+        <ul>
+      <li data-nav-id="/0.12.0/concepts/basic-concept/" class="dd-item">
+        <div>
+          <a href="/0.12.0/concepts/basic-concept/">
+            Basic Concepts
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/0.12.0/concepts/executor/" class="dd-item">
+        <div>
+          <a href="/0.12.0/concepts/executor/">
+            Function Executors
+          </a>
+        </div>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="/0.12.0/usage/" class="dd-item alwaysopen haschildren
+        ">
+      <div>
+      <a href="/0.12.0/usage/">Using Fission</a>
+            <i class="fa fa-angle-down fa-lg category-icon"></i>
+      </div>
+        <ul>
+      <li data-nav-id="/0.12.0/usage/accessing-url-params/" class="dd-item">
+        <div>
+          <a href="/0.12.0/usage/accessing-url-params/">
+            Accessing URL parameters
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/0.12.0/usage/package/" class="dd-item">
+        <div>
+          <a href="/0.12.0/usage/package/">
+            Packaging source code
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/0.12.0/usage/access-secret-cfgmap-in-function/" class="dd-item">
+        <div>
+          <a href="/0.12.0/usage/access-secret-cfgmap-in-function/">
+            Accessing Secrets in Functions
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/0.12.0/usage/environments/" class="dd-item">
+        <div>
+          <a href="/0.12.0/usage/environments/">
+            Environments
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/0.12.0/usage/functions/" class="dd-item">
+        <div>
+          <a href="/0.12.0/usage/functions/">
+            Functions
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/0.12.0/usage/trigger/" class="dd-item">
+        <div>
+          <a href="/0.12.0/usage/trigger/">
+            Triggers
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/0.12.0/usage/executor/" class="dd-item">
+        <div>
+          <a href="/0.12.0/usage/executor/">
+            Controlling Function Execution
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/0.12.0/usage/developer-workflow/" class="dd-item">
+        <div>
+          <a href="/0.12.0/usage/developer-workflow/">
+            Source Code Organization and Your Development Workflow
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/0.12.0/usage/ingress-tutorial/" class="dd-item">
+        <div>
+          <a href="/0.12.0/usage/ingress-tutorial/">
+            Exposing functions with Ingress
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/0.12.0/usage/canary-deployments/" class="dd-item">
+        <div>
+          <a href="/0.12.0/usage/canary-deployments/">
+            Supporting Canary Deployments for Fission Functions
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/0.12.0/usage/kafka-trigger-tutorial/" class="dd-item">
+        <div>
+          <a href="/0.12.0/usage/kafka-trigger-tutorial/">
+            Using Kafka trigger to invoke a Function
+          </a>
+        </div>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="/0.12.0/languages/" class="dd-item parent alwaysopen haschildren
+        ">
+      <div>
+      <a href="/0.12.0/languages/">Languages</a>
+            <i class="fa fa-angle-down fa-lg category-icon"></i>
+      </div>
+        <ul>
+      <li data-nav-id="/0.12.0/languages/nodejs/" class="dd-item">
+        <div>
+          <a href="/0.12.0/languages/nodejs/">
+            Fission functions with Nodejs
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/0.12.0/languages/go/" class="dd-item active">
+        <div>
+          <a href="/0.12.0/languages/go/">
+            Using Go with Fission
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/0.12.0/languages/java/" class="dd-item">
+        <div>
+          <a href="/0.12.0/languages/java/">
+            Using Java with Fission JVM environment
+          </a>
+        </div>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="/0.12.0/tutorial/" class="dd-item alwaysopen haschildren
+        ">
+      <div>
+      <a href="/0.12.0/tutorial/">Tutorials</a>
+            <i class="fa fa-angle-down fa-lg category-icon"></i>
+      </div>
+        <ul>
+      <li data-nav-id="/0.12.0/tutorial/enabling-istio-on-fission/" class="dd-item">
+        <div>
+          <a href="/0.12.0/tutorial/enabling-istio-on-fission/">
+            Enabling Istio on Fission
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/0.12.0/tutorial/java-example/" class="dd-item">
+        <div>
+          <a href="/0.12.0/tutorial/java-example/">
+            Building Java Functions
+          </a>
+        </div>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="/0.12.0/workflows/" class="dd-item
+        ">
+      <div>
+      <a href="/0.12.0/workflows/">Fission Workflows</a>
+      </div>
+    </li>
+    <li data-nav-id="/0.12.0/contributing/" class="dd-item alwaysopen
+        ">
+      <div>
+      <a href="/0.12.0/contributing/">Contributing to Fission</a>
+      </div>
+    </li>
+
+
+
+
+    </ul>
+    <section>
+    </section>
+  </aside>
+  <section class="page">
+    
+    <div class="nav-select">
+      <center>Navigation : 
+        <select onchange="javascript:location.href = this.value;">
+          
+    <option value="/0.12.0/installation/" >
+   Installing Fission</option> 
+      <option value="/0.12.0/installation/kubernetessetup/" >- Kubernetes Quick Install</option>
+    <option value="/0.12.0/installation/upgrade/" >
+  - 
+   Upgrading Fission</option>
+      <option value="/0.12.0/installation/env_vars/" >- Environment Variables</option>
+  
+    <option value="/0.12.0/concepts/" >
+   Fission Concepts</option> 
+      <option value="/0.12.0/concepts/basic-concept/" >- Basic Concepts</option>
+      <option value="/0.12.0/concepts/executor/" >- Function Executors</option>
+  
+    <option value="/0.12.0/usage/" >
+   Using Fission</option> 
+      <option value="/0.12.0/usage/accessing-url-params/" >- Accessing URL parameters</option>
+      <option value="/0.12.0/usage/package/" >- Packaging source code</option>
+      <option value="/0.12.0/usage/access-secret-cfgmap-in-function/" >- Accessing Secrets in Functions</option>
+      <option value="/0.12.0/usage/environments/" >- Environments</option>
+      <option value="/0.12.0/usage/functions/" >- Functions</option>
+      <option value="/0.12.0/usage/trigger/" >- Triggers</option>
+      <option value="/0.12.0/usage/executor/" >- Controlling Function Execution</option>
+      <option value="/0.12.0/usage/developer-workflow/" >- Source Code Organization and Your Development Workflow</option>
+      <option value="/0.12.0/usage/ingress-tutorial/" >- Exposing functions with Ingress</option>
+      <option value="/0.12.0/usage/canary-deployments/" >- Supporting Canary Deployments for Fission Functions</option>
+      <option value="/0.12.0/usage/kafka-trigger-tutorial/" >- Using Kafka trigger to invoke a Function</option>
+  
+    <option value="/0.12.0/languages/" >
+   Languages</option> 
+      <option value="/0.12.0/languages/nodejs/" >- Fission functions with Nodejs</option>
+      <option value="/0.12.0/languages/go/"  selected>- Using Go with Fission</option>
+      <option value="/0.12.0/languages/java/" >- Using Java with Fission JVM environment</option>
+  
+    <option value="/0.12.0/tutorial/" >
+   Tutorials</option> 
+      <option value="/0.12.0/tutorial/enabling-istio-on-fission/" >- Enabling Istio on Fission</option>
+      <option value="/0.12.0/tutorial/java-example/" >- Building Java Functions</option>
+  
+    <option value="/0.12.0/workflows/" >
+   Fission Workflows</option>
+    <option value="/0.12.0/contributing/" >
+   Contributing to Fission</option> 
+  
+
+
+
+        </select>
+      </center>
+    </div>
+      <div>
+        <div class="searchbox">
+          <input data-search-input id="search-by" type="text" placeholder="Search...">
+        </div>
+        <script type="text/javascript" src="/0.12.0/js/lunr.min.js"></script>
+        <script type="text/javascript" src="/0.12.0/js/auto-complete.js"></script>
+        <link href="/0.12.0/css/auto-complete.css" rel="stylesheet">
+        <script type="text/javascript">
+          
+              var baseurl = "https:\/\/docs.fission.io\/0.12.0";
+          
+        </script>
+        <script type="text/javascript" src="/0.12.0/js/search.js"></script>
+      </div>
+
+
+    <h1>Using Go with Fission</h1>
+
+    
+    
+    
+    
+
+<p>With Go plugin mechanism, fission supports Go as one of function languages.</p>
+
+<p>In this usage guide we&rsquo;ll cover how to use this environment, write functions, and work with dependencies.</p>
+
+<h2 id="before-you-start">Before you start</h2>
+
+<p>We&rsquo;ll assume you have Fission and Kubernetes setup.  If not, head over
+to the <a href="../../installation/">install guide</a>.  Verify your Fission setup with:</p>
+
+<pre><code class="language-bash">$ fission --version
+</code></pre>
+
+<h2 id="add-the-go-environment-to-your-cluster">Add the Go environment to your cluster</h2>
+
+<p>Unlike Python, Go is a compiled language that means we need to compile source code before running it.</p>
+
+<p>Fortunately, builder manager within fission does all this hard work automatically when a Go function/package is created.
+The Go builder will convert a source package into a deployable package.</p>
+
+<p>To enable Go builder, we need to assign a function builder with flag <code>--builder</code>.</p>
+
+<pre><code>$ fission environment create --name go --image fission/go-env --builder fission/go-builder
+</code></pre>
+
+<h2 id="write-a-simple-function-in-go">Write a simple function in Go</h2>
+
+<p>Here is a hello world example (hw.go) in Go:</p>
+
+<pre><code class="language-go">// Due to go plugin mechanism,
+// the package of function handler must be main package
+package main
+
+import (
+    &quot;net/http&quot;
+)
+
+// Handler is the entry point for this fission function
+func Handler(w http.ResponseWriter, r *http.Request) {
+    msg := &quot;Hello, world!\n&quot;
+    w.Write([]byte(msg))
+}
+</code></pre>
+
+<p>The entrypoint of function let go server to know how to load-in plugin file correctly.
+Here, our first hello world function&rsquo;s entrypoint is simply the name of function: <code>Handler</code>.</p>
+
+<pre><code class="language-bash"># Create golang env with builder image to build go plugin
+$ fission fn create --name helloworld --env go --src hw.go --entrypoint Handler
+</code></pre>
+
+<p>Before accessing function, need to ensure deploy package of function is in <em>succeeded</em> state.</p>
+
+<pre><code class="language-bash">$ fission pkg info --name &lt;pkg-name&gt;
+</code></pre>
+
+<p>Now, let&rsquo;s test our first Go function with <code>test</code> command</p>
+
+<pre><code class="language-bash">$ fission fn test --name &lt;function-name&gt;
+</code></pre>
+
+<div class="notices tip" ><p>See <a href="../../usage/trigger">here</a> for how to setup different trigger for Go function.</p>
+</div>
+
+
+<h2 id="http-requests-and-http-responses">HTTP requests and HTTP responses</h2>
+
+<p>From the sample above we know that go server passes HTTP <code>Request</code> and <code>ResponseWriter</code> to user function for
+further processing.</p>
+
+<pre><code class="language-go">func Handler(w http.ResponseWriter, r *http.Request) {
+    ...
+}
+</code></pre>
+
+<p>Following we will go through steps for how to accessing/controlling the requests/responses.</p>
+
+<h3 id="accessing-http-requests">Accessing HTTP Requests</h3>
+
+<h4 id="headers">Headers</h4>
+
+<pre><code class="language-go">package main
+
+import (
+    &quot;fmt&quot;
+    &quot;net/http&quot;
+    &quot;net/textproto&quot;
+)
+
+func Handler(w http.ResponseWriter, r *http.Request) {
+
+    // recommend
+    v1 := r.Header.Get(&quot;HEADER_KEY_1&quot;)
+
+    // need to convert string cases manually
+    key := textproto.CanonicalMIMEHeaderKey(&quot;HEADER_KEY_2&quot;)
+    // v2 type is []string
+    v2, _ := r.Header[key]
+
+    w.Write([]byte(fmt.Sprintf(&quot;v1: %s, v2: %v&quot;, v1, v2)))
+}
+</code></pre>
+
+<p>Let&rsquo;s create a HTTP trigger for the function we created above.</p>
+
+<pre><code class="language-bash">$ fission httptrigger create --method GET --url &quot;/&lt;url&gt;&quot; --function &lt;fn-namne&gt;
+</code></pre>
+
+<pre><code class="language-bash">$ curl -X GET http://$FISSION_ROUTER/&lt;url&gt; -H 'HEADER_KEY_1: foo' -H 'HEADER_KEY_2: bar'
+v1: foo, v2: [bar]
+</code></pre>
+
+<p>One thing worth to notice is all header key will be converted to the canonical format of the MIME header key.
+You can access to header value by calling <code>request.Header.Get()</code>. However, if you prefer to access
+the value by map index you must convert key format with <code>textproto.CanonicalMIMEHeaderKey()</code>.</p>
+
+<h4 id="query-string">Query string</h4>
+
+<pre><code class="language-go">package main
+
+import (
+    &quot;net/http&quot;
+)
+
+func Handler(w http.ResponseWriter, r *http.Request) {
+    v := r.URL.Query().Get(&quot;key-name&quot;)
+    w.Write([]byte(v))
+}
+</code></pre>
+
+<pre><code class="language-bash">$ curl -X GET http://$FISSION_ROUTER/&lt;url&gt;?key-name=123
+123
+</code></pre>
+
+<h4 id="request-body">Request Body</h4>
+
+<p><strong>PLAIN TEXT</strong></p>
+
+<pre><code class="language-go">package main
+
+import (
+    &quot;io/ioutil&quot;
+    &quot;net/http&quot;
+)
+
+func Handler(w http.ResponseWriter, r *http.Request) {
+    reqBody, err := ioutil.ReadAll(r.Body)
+    if err != nil {
+        w.WriteHeader(http.StatusBadRequest)
+        w.Write([]byte(err.Error()))
+    }
+
+    body := string(reqBody)
+
+    w.Write([]byte(body))
+}
+</code></pre>
+
+<pre><code class="language-bash">$ curl -X POST http://$FISSION_ROUTER/&lt;url&gt; -d foobar
+foobar
+</code></pre>
+
+<p><strong>JSON</strong></p>
+
+<pre><code class="language-go">package main
+
+import (
+    &quot;encoding/json&quot;
+    &quot;net/http&quot;
+    &quot;io/ioutil&quot;
+)
+
+type msg struct {
+    Content string `json:&quot;content&quot;`
+}
+
+func Handler(w http.ResponseWriter, r *http.Request) {
+    reqBody, err := ioutil.ReadAll(r.Body)
+    if err != nil {
+        w.WriteHeader(http.StatusBadRequest)
+        w.Write([]byte(err.Error()))
+    }
+
+    m := msg{}
+    err = json.Unmarshal(reqBody, &amp;m)
+    if err != nil {
+        w.WriteHeader(http.StatusBadRequest)
+        w.Write([]byte(err.Error()))
+    }
+
+    respBody, err := json.Marshal(m)
+    if err != nil {
+        w.WriteHeader(http.StatusInternalServerError)
+        w.Write([]byte(err.Error()))
+    }
+
+    w.Write([]byte(respBody))
+}
+</code></pre>
+
+<pre><code class="language-bash">curl -X POST http://$FISSION_ROUTER/&lt;url&gt; -d '{&quot;content&quot;: &quot;foobar&quot;}'
+{&quot;content&quot;:&quot;foobar&quot;}
+</code></pre>
+
+<h3 id="controlling-http-responses">Controlling HTTP Responses</h3>
+
+<h4 id="setting-response-headers">Setting Response Headers</h4>
+
+<pre><code class="language-go">package main
+
+import (
+    &quot;net/http&quot;
+)
+
+func setCORS(w http.ResponseWriter) http.ResponseWriter {
+    w.Header().Set(&quot;Access-Control-Allow-Origin&quot;, &quot;*&quot;)
+    w.Header().Set(&quot;Access-Control-Allow-Headers&quot;, &quot;*&quot;)
+    w.Header().Set(&quot;Access-Control-Allow-Credentials&quot;, &quot;true&quot;)
+    w.Header().Set(&quot;Access-Control-Allow-Methods&quot;, &quot;*&quot;)
+    w.Header().Set(&quot;Access-Control-Expose-Headers&quot;, &quot;*&quot;)
+    return w
+}
+
+func Handler(w http.ResponseWriter, r *http.Request) {
+    w = setCORS(w)
+    w.WriteHeader(http.StatusOK)
+}
+</code></pre>
+
+<pre><code class="language-bash">$ curl -i -X GET &quot;http://$FISSION_ROUTER/&lt;url&gt;&quot;
+HTTP/1.1 200 OK
+Access-Control-Allow-Credentials: true
+Access-Control-Allow-Headers: *
+Access-Control-Allow-Methods: *
+Access-Control-Allow-Origin: *
+Access-Control-Expose-Headers: *
+Content-Length: 0
+Content-Type: text/plain; charset=utf-8
+Date: Sat, 27 Oct 2018 15:00:14 GMT
+</code></pre>
+
+<h4 id="setting-status-codes">Setting Status Codes</h4>
+
+<div class="notices warning" ><p><strong>Always write response status code before writing response body!</strong> Otherwise, the client may receive unexpected status code.</p>
+</div>
+
+
+<p>You can set response status code by calling function <code>writer.WriteHeader()</code>. However, one thing wroth to notice is
+if a function writes response body before status code, the client will receive HTTP 200 OK no matter what actual status code
+is.</p>
+
+<pre><code class="language-go">package main
+
+import (
+    &quot;net/http&quot;
+)
+
+func Handler(w http.ResponseWriter, r *http.Request) {
+    // DONT
+    // w.Write([]byte(&quot;foobar&quot;))
+    // w.WriteHeader(http.StatusBadRequest)
+
+    // DO
+    http.Error(w, &quot;dummy error&quot;, http.StatusBadRequest)
+
+    // or DO
+    // w.WriteHeader(http.StatusBadRequest)
+    // w.Write([]byte(&quot;foobar&quot;))
+}
+</code></pre>
+
+<h2 id="working-with-dependencies">Working with dependencies</h2>
+
+<h3 id="add-dependencies">Add dependencies</h3>
+
+<p>Unlike pip for Python has been widely adopted by community, there are various dependency management tools for Go like <em>gb</em>, <em>dep</em> and <em>glide</em>.
+Hence fission Go builder image doesn&rsquo;t contain a default tool for downloading dependencies during build processes.</p>
+
+<p>In order to support 3rd party dependencies, users need to put all necessary packages to <code>vendor</code> directory and archive it into source archive.</p>
+
+<p>Following I will use <strong>glide</strong> to demonstrate how to add dependencies to source archive.</p>
+
+<pre><code class="language-bash">$ mkdir example
+$ pushd example
+$ glide init --non-interactive
+$ glide get &quot;github.com/golang/example/stringutil&quot;
+$ curl https://raw.githubusercontent.com/fission/fission/master/examples/go/vendor-example/main.go &gt; main.go
+$ zip -r example.zip .
+$ fission fn create --name foobar --src example.zip --entrypoint Handler
+# wait for package build process
+$ fission fn test --name foobar
+</code></pre>
+
+<h3 id="custom-builds">Custom builds</h3>
+
+<p>If no custom build script included in source archive, by default builder manager will execute the <a href="https://github.com/fission/fission/tree/master/environments/go/builder">build.sh</a>
+in go builder image. In this part, we will go through how to run custom build script during the build process.</p>
+
+<p>Before we write our own script, we need to dive into the original build script to see what&rsquo;s useful inside.</p>
+
+<pre><code class="language-bash">#!/bin/sh
+
+set -eux
+
+srcDir=${GOPATH}/src/$(basename ${SRC_PKG})
+
+trap &quot;rm -rf ${srcDir}&quot; EXIT
+
+if [ -d ${SRC_PKG} ]
+then
+    echo &quot;Building in directory ${srcDir}&quot;
+    ln -sf ${SRC_PKG} ${srcDir}
+elif [ -f ${SRC_PKG} ]
+then
+    echo &quot;Building file ${SRC_PKG} in ${srcDir}&quot;
+    mkdir -p ${srcDir}
+    cp ${SRC_PKG} ${srcDir}/function.go
+fi
+
+cd ${srcDir}
+go build -buildmode=plugin -i -o ${DEPLOY_PKG} .
+</code></pre>
+
+<p>There are environment variables as shown above:</p>
+
+<ol>
+<li>$SRC_PKG: The path to the source code directory/file.</li>
+<li>$DEPLOY_PKG: The path to the deploy directory/executable binary.</li>
+</ol>
+
+<p>The steps of build script are:</p>
+
+<ol>
+<li>Check the $SRC_PKG is a file or directory</li>
+<li>Copy/Link source code to $GOPATH</li>
+<li>Change location to $SRC_PKG, build source code into plugin file then output to $DEPLOY_PKG</li>
+</ol>
+
+<p>For example, we want to add git commit SHA or build timestamp to go binaries like following.</p>
+
+<pre><code class="language-go">package main
+
+import (
+    &quot;fmt&quot;
+    &quot;net/http&quot;
+)
+
+var (
+    Timestamp string
+)
+
+// Handler is the entry point for this fission function
+func Handler(w http.ResponseWriter, r *http.Request) {
+    msg := fmt.Sprintf(&quot;Build timestamp: %v&quot;, Timestamp)
+    w.Write([]byte(msg))
+}
+</code></pre>
+
+<p>To set build timestamp we can set it through <code>ldflags</code> during build process. But it&rsquo;s not supported with original build script.</p>
+
+<p>Since we understand how a build script (customBuild.sh) works, let&rsquo;s try to modify it a little bit.</p>
+
+<pre><code class="language-bash">#!/bin/sh
+
+set -eux
+
+srcDir=${GOPATH}/src/$(basename ${SRC_PKG})
+
+trap &quot;rm -rf ${srcDir}&quot; EXIT
+
+if [ -d ${SRC_PKG} ]
+then
+    echo &quot;Building in directory ${srcDir}&quot;
+    ln -sf ${SRC_PKG} ${srcDir}
+elif [ -f ${SRC_PKG} ]
+then
+    echo &quot;Building file ${SRC_PKG} in ${srcDir}&quot;
+    mkdir -p ${srcDir}
+    cp ${SRC_PKG} ${srcDir}/function.go
+fi
+
+
+pkgpath=$(basename ${SRC_PKG})
+timestamp=$(date +%s)
+
+cd ${srcDir}
+go build -ldflags &quot;-X ${pkgpath}.Timestamp=$timestamp&quot; -buildmode=plugin -i -o ${DEPLOY_PKG} .
+</code></pre>
+
+<p>At this moment, the directory structure would be like</p>
+
+<pre><code class="language-bash">.
+├── customBuild.sh
+└── main.go
+</code></pre>
+
+<p>Archive source package.</p>
+
+<pre><code class="language-bash">$ chmod +x customBuild.sh
+$ zip -r example.zip .
+
+</code></pre>
+
+<p>After editing custom build script, next step is to assign a build command for builder to know what command to run with.</p>
+
+<pre><code class="language-bash">$ fission fn create --name foobar --env go --src example.zip --entrypoint Handler --buildcmd &quot;./customBuild.sh&quot;
+$ fission fn test --name foobar
+Build timestamp: 1540566887
+</code></pre>
+
+<h2 id="modifying-rebuild-the-environment-images">Modifying/Rebuild the environment images</h2>
+
+<p>For how to rebuild environment image, please visit <a href="https://github.com/fission/fission/blob/master/environments/go/README.md">here</a></p>
+
+<h2 id="resource-usage">Resource usage</h2>
+
+<p>By default, a function can use all resource on node it run on, however, other functions will be affected once a function
+takes too much resources. To prevent this, Fission allows users to specify a resource limitation for function.</p>
+
+<p>Following are flags to manage function resource usage limitation.</p>
+
+<pre><code class="language-bash">--mincpu value                         Minimum CPU to be assigned to pod (In millicore, minimum 1)
+--maxcpu value                         Maximum CPU to be assigned to pod (In millicore, minimum 1)
+--minmemory value                      Minimum memory to be assigned to pod (In megabyte)
+--maxmemory value                      Maximum memory to be assigned to pod (In megabyte)
+</code></pre>
+
+<p>And you can specify them when creating/updating a function.</p>
+
+<pre><code class="language-bash">$ fission fn create --name g1 --env go --src example.zip --entrypoint Handler --mincpu 20 --maxcpu 100 --minmemory 128 --maxmemory 256
+</code></pre>
+
+<p>So what&rsquo;s the reasonable resource setting for a function? It really depends on what type of your function is.</p>
+
+<p>Here&rsquo;s a tip, use <code>kubectl top</code> to get actual resource consumption of pod when doing benchmarking. Then you will know what&rsquo;s the best setting for a Go function.</p>
+
+<pre><code class="language-bash">$ kubectl -n fission-function top pod -l functionName=g1
+NAME                                                              CPU(cores)   MEMORY(bytes)
+go-1ef65ed0-d5eb-11e8-91e8-080027114863-9x7y4xmh-569bfdd9bhmlrf   112m           6Mi
+</code></pre>
+
+
+    
+    
+        <div class="chevrons">
+    <div id="navigation">
+<a class="nav nav-prev" href="/0.12.0/languages/nodejs/" title="Fission functions with Nodejs"> <i class="fa fa-chevron-left"></i><label>Fission functions with Nodejs</label></a>
+    <a class="nav nav-next" href="/0.12.0/languages/java/" title="Using Java with Fission JVM environment" style="margin-right: 0px;"><label>Using Java with Fission JVM environment</label><i class="fa fa-chevron-right"></i></a></div>
+  </div>
+
+  </section>
+</article>
+
+<footer>
+
+<div class="footline">
+    
+
+    
+
+    
+
+    
+    <div class="github-link">
+      <a href="https://github.com/fission/docs.fission.io/edit/master/docs/content/languages/go.md" target="blank"><i class="fa fa-code-fork"></i>
+        Improve this page</a>
+    </div>
+    
+  </div>
+
+
+	<div>
+
+
+  <p>Fission is a project by <a href="https://platform9.com/fission/">Platform9 Systems</a> and <a href="https://github.com/fission/fission/graphs/contributors">many contributors</a>. Reach us on <a href="http://slack.fission.io">Slack</a> or <a href="https://twitter.com/fissionio">Twitter</a>.</p>
+ 
+
+
+
+	</div>
+</footer>
+
+<script src="/0.12.0/js/clipboard.min.js"></script>
+
+<link href="/0.12.0/css/featherlight.min.css" rel="stylesheet">
+<script src="/0.12.0/js/featherlight.min.js"></script>
+
+
+
+<script src="/0.12.0/theme-flex/script.js"></script>
+
+
+    
+
+    
+    
+
+    
+  </body>
+</html>
