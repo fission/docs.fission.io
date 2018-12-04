@@ -8,22 +8,22 @@
 <meta name="google-site-verification" content="5AvQfeDvIx0ldE9uSKVsoikqgFknd_CT18caf9TNoVg" />
 <meta name="generator" content="Hugo 0.49" />
 <title>Function Executors :: Serverless Functions for Kubernetes</title>
-<link rel="shortcut icon" href="/0.12.0/images/favicon.png" type="image/x-icon" />
-<link href="/0.12.0/css/font-awesome.min.css" rel="stylesheet">
-<link href="/0.12.0/css/nucleus.css" rel="stylesheet">
-<link href="/0.12.0/theme-flex/style.css" rel="stylesheet">
+<link rel="shortcut icon" href="/latest/images/favicon.png" type="image/x-icon" />
+<link href="/latest/css/font-awesome.min.css" rel="stylesheet">
+<link href="/latest/css/nucleus.css" rel="stylesheet">
+<link href="/latest/theme-flex/style.css" rel="stylesheet">
 
 	
 
 
-<link rel="stylesheet" href="/0.12.0/css/hybrid.css?1540653045">
-<script src="/0.12.0/syntax-highlight/highlight.pack.js"></script>
+<link rel="stylesheet" href="/latest/css/hybrid.css?1540653045">
+<script src="/latest/syntax-highlight/highlight.pack.js"></script>
 <script>hljs.initHighlightingOnLoad();</script>
 
-<link rel="stylesheet" href="/0.12.0/css/bootstrap.min.css">
-<script src="/0.12.0/js/jquery-2.x.min.js"></script>
+<link rel="stylesheet" href="/latest/css/bootstrap.min.css">
+<script src="/latest/js/jquery-2.x.min.js"></script>
 <script type="text/javascript">
-      var baseurl = "https:\/\/docs.fission.io\/0.12.0";
+      var baseurl = "https:\/\/docs.fission.io\/latest";
 </script>
 <meta name="description" content="Documentation for Fission">
 <meta name="author" content="Fission">
@@ -31,7 +31,7 @@
 
     
   </head>
-  <body data-url="/0.12.0/concepts/executor/">
+  <body data-url="/latest/concepts/executor/">
     
       <header>
   <div class="logo">
@@ -46,7 +46,7 @@
   
 
 
-<img src="/0.12.0/images/fission-logo.png"/>
+<img src="/latest/images/fission-logo.png"/>
 
   </div>
   <div class="burger"><a href="javascript:void(0);" style="font-size:15px;">&#9776;</a></div>
@@ -66,212 +66,212 @@
 <article>
   <aside>
     <ul class="menu">
-          <li data-nav-id="/0.12.0/" class="dd-item">
-          <a href="/0.12.0/">
+          <li data-nav-id="/latest/" class="dd-item">
+          <a href="/latest/">
             <i class="fa fa-fw fa-home"></i>
           </a>
           </li>
-    <li data-nav-id="/0.12.0/installation/" class="dd-item alwaysopen haschildren
+    <li data-nav-id="/latest/installation/" class="dd-item alwaysopen haschildren
         ">
       <div>
-      <a href="/0.12.0/installation/">Installing Fission</a>
+      <a href="/latest/installation/">Installing Fission</a>
             <i class="fa fa-angle-down fa-lg category-icon"></i>
       </div>
         <ul>
-      <li data-nav-id="/0.12.0/installation/kubernetessetup/" class="dd-item">
+      <li data-nav-id="/latest/installation/kubernetessetup/" class="dd-item">
         <div>
-          <a href="/0.12.0/installation/kubernetessetup/">
+          <a href="/latest/installation/kubernetessetup/">
             Kubernetes Quick Install
           </a>
         </div>
     </li>
-    <li data-nav-id="/0.12.0/installation/upgrade/" class="dd-item
+    <li data-nav-id="/latest/installation/upgrade/" class="dd-item
         ">
       <div>
-      <a href="/0.12.0/installation/upgrade/">Upgrading Fission</a>
+      <a href="/latest/installation/upgrade/">Upgrading Fission</a>
       </div>
     </li>
-      <li data-nav-id="/0.12.0/installation/env_vars/" class="dd-item">
+      <li data-nav-id="/latest/installation/env_vars/" class="dd-item">
         <div>
-          <a href="/0.12.0/installation/env_vars/">
+          <a href="/latest/installation/env_vars/">
             Environment Variables
           </a>
         </div>
     </li>
         </ul>
     </li>
-    <li data-nav-id="/0.12.0/concepts/" class="dd-item parent alwaysopen haschildren
+    <li data-nav-id="/latest/concepts/" class="dd-item parent alwaysopen haschildren
         ">
       <div>
-      <a href="/0.12.0/concepts/">Fission Concepts</a>
+      <a href="/latest/concepts/">Fission Concepts</a>
             <i class="fa fa-angle-down fa-lg category-icon"></i>
       </div>
         <ul>
-      <li data-nav-id="/0.12.0/concepts/basic-concept/" class="dd-item">
+      <li data-nav-id="/latest/concepts/basic-concept/" class="dd-item">
         <div>
-          <a href="/0.12.0/concepts/basic-concept/">
+          <a href="/latest/concepts/basic-concept/">
             Basic Concepts
           </a>
         </div>
     </li>
-      <li data-nav-id="/0.12.0/concepts/executor/" class="dd-item active">
+      <li data-nav-id="/latest/concepts/executor/" class="dd-item active">
         <div>
-          <a href="/0.12.0/concepts/executor/">
+          <a href="/latest/concepts/executor/">
             Function Executors
           </a>
         </div>
     </li>
         </ul>
     </li>
-    <li data-nav-id="/0.12.0/usage/" class="dd-item alwaysopen haschildren
+    <li data-nav-id="/latest/usage/" class="dd-item alwaysopen haschildren
         ">
       <div>
-      <a href="/0.12.0/usage/">Using Fission</a>
+      <a href="/latest/usage/">Using Fission</a>
             <i class="fa fa-angle-down fa-lg category-icon"></i>
       </div>
         <ul>
-      <li data-nav-id="/0.12.0/usage/accessing-url-params/" class="dd-item">
+      <li data-nav-id="/latest/usage/accessing-url-params/" class="dd-item">
         <div>
-          <a href="/0.12.0/usage/accessing-url-params/">
+          <a href="/latest/usage/accessing-url-params/">
             Accessing URL parameters
           </a>
         </div>
     </li>
-      <li data-nav-id="/0.12.0/usage/package/" class="dd-item">
+      <li data-nav-id="/latest/usage/package/" class="dd-item">
         <div>
-          <a href="/0.12.0/usage/package/">
+          <a href="/latest/usage/package/">
             Packaging source code
           </a>
         </div>
     </li>
-      <li data-nav-id="/0.12.0/usage/access-secret-cfgmap-in-function/" class="dd-item">
+      <li data-nav-id="/latest/usage/access-secret-cfgmap-in-function/" class="dd-item">
         <div>
-          <a href="/0.12.0/usage/access-secret-cfgmap-in-function/">
+          <a href="/latest/usage/access-secret-cfgmap-in-function/">
             Accessing Secrets in Functions
           </a>
         </div>
     </li>
-      <li data-nav-id="/0.12.0/usage/environments/" class="dd-item">
+      <li data-nav-id="/latest/usage/environments/" class="dd-item">
         <div>
-          <a href="/0.12.0/usage/environments/">
+          <a href="/latest/usage/environments/">
             Environments
           </a>
         </div>
     </li>
-      <li data-nav-id="/0.12.0/usage/functions/" class="dd-item">
+      <li data-nav-id="/latest/usage/functions/" class="dd-item">
         <div>
-          <a href="/0.12.0/usage/functions/">
+          <a href="/latest/usage/functions/">
             Functions
           </a>
         </div>
     </li>
-      <li data-nav-id="/0.12.0/usage/trigger/" class="dd-item">
+      <li data-nav-id="/latest/usage/trigger/" class="dd-item">
         <div>
-          <a href="/0.12.0/usage/trigger/">
+          <a href="/latest/usage/trigger/">
             Triggers
           </a>
         </div>
     </li>
-      <li data-nav-id="/0.12.0/usage/executor/" class="dd-item">
+      <li data-nav-id="/latest/usage/executor/" class="dd-item">
         <div>
-          <a href="/0.12.0/usage/executor/">
+          <a href="/latest/usage/executor/">
             Controlling Function Execution
           </a>
         </div>
     </li>
-      <li data-nav-id="/0.12.0/usage/developer-workflow/" class="dd-item">
+      <li data-nav-id="/latest/usage/developer-workflow/" class="dd-item">
         <div>
-          <a href="/0.12.0/usage/developer-workflow/">
+          <a href="/latest/usage/developer-workflow/">
             Source Code Organization and Your Development Workflow
           </a>
         </div>
     </li>
-      <li data-nav-id="/0.12.0/usage/ingress-tutorial/" class="dd-item">
+      <li data-nav-id="/latest/usage/ingress-tutorial/" class="dd-item">
         <div>
-          <a href="/0.12.0/usage/ingress-tutorial/">
+          <a href="/latest/usage/ingress-tutorial/">
             Exposing functions with Ingress
           </a>
         </div>
     </li>
-      <li data-nav-id="/0.12.0/usage/canary-deployments/" class="dd-item">
+      <li data-nav-id="/latest/usage/canary-deployments/" class="dd-item">
         <div>
-          <a href="/0.12.0/usage/canary-deployments/">
+          <a href="/latest/usage/canary-deployments/">
             Supporting Canary Deployments for Fission Functions
           </a>
         </div>
     </li>
-      <li data-nav-id="/0.12.0/usage/kafka-trigger-tutorial/" class="dd-item">
+      <li data-nav-id="/latest/usage/kafka-trigger-tutorial/" class="dd-item">
         <div>
-          <a href="/0.12.0/usage/kafka-trigger-tutorial/">
+          <a href="/latest/usage/kafka-trigger-tutorial/">
             Using Kafka trigger to invoke a Function
           </a>
         </div>
     </li>
         </ul>
     </li>
-    <li data-nav-id="/0.12.0/languages/" class="dd-item alwaysopen haschildren
+    <li data-nav-id="/latest/languages/" class="dd-item alwaysopen haschildren
         ">
       <div>
-      <a href="/0.12.0/languages/">Languages</a>
+      <a href="/latest/languages/">Languages</a>
             <i class="fa fa-angle-down fa-lg category-icon"></i>
       </div>
         <ul>
-      <li data-nav-id="/0.12.0/languages/nodejs/" class="dd-item">
+      <li data-nav-id="/latest/languages/nodejs/" class="dd-item">
         <div>
-          <a href="/0.12.0/languages/nodejs/">
+          <a href="/latest/languages/nodejs/">
             Fission functions with Nodejs
           </a>
         </div>
     </li>
-      <li data-nav-id="/0.12.0/languages/go/" class="dd-item">
+      <li data-nav-id="/latest/languages/go/" class="dd-item">
         <div>
-          <a href="/0.12.0/languages/go/">
+          <a href="/latest/languages/go/">
             Using Go with Fission
           </a>
         </div>
     </li>
-      <li data-nav-id="/0.12.0/languages/java/" class="dd-item">
+      <li data-nav-id="/latest/languages/java/" class="dd-item">
         <div>
-          <a href="/0.12.0/languages/java/">
+          <a href="/latest/languages/java/">
             Using Java with Fission JVM environment
           </a>
         </div>
     </li>
         </ul>
     </li>
-    <li data-nav-id="/0.12.0/tutorial/" class="dd-item alwaysopen haschildren
+    <li data-nav-id="/latest/tutorial/" class="dd-item alwaysopen haschildren
         ">
       <div>
-      <a href="/0.12.0/tutorial/">Tutorials</a>
+      <a href="/latest/tutorial/">Tutorials</a>
             <i class="fa fa-angle-down fa-lg category-icon"></i>
       </div>
         <ul>
-      <li data-nav-id="/0.12.0/tutorial/enabling-istio-on-fission/" class="dd-item">
+      <li data-nav-id="/latest/tutorial/enabling-istio-on-fission/" class="dd-item">
         <div>
-          <a href="/0.12.0/tutorial/enabling-istio-on-fission/">
+          <a href="/latest/tutorial/enabling-istio-on-fission/">
             Enabling Istio on Fission
           </a>
         </div>
     </li>
-      <li data-nav-id="/0.12.0/tutorial/java-example/" class="dd-item">
+      <li data-nav-id="/latest/tutorial/java-example/" class="dd-item">
         <div>
-          <a href="/0.12.0/tutorial/java-example/">
+          <a href="/latest/tutorial/java-example/">
             Building Java Functions
           </a>
         </div>
     </li>
         </ul>
     </li>
-    <li data-nav-id="/0.12.0/workflows/" class="dd-item
+    <li data-nav-id="/latest/workflows/" class="dd-item
         ">
       <div>
-      <a href="/0.12.0/workflows/">Fission Workflows</a>
+      <a href="/latest/workflows/">Fission Workflows</a>
       </div>
     </li>
-    <li data-nav-id="/0.12.0/contributing/" class="dd-item alwaysopen
+    <li data-nav-id="/latest/contributing/" class="dd-item alwaysopen
         ">
       <div>
-      <a href="/0.12.0/contributing/">Contributing to Fission</a>
+      <a href="/latest/contributing/">Contributing to Fission</a>
       </div>
     </li>
 
@@ -288,47 +288,47 @@
       <center>Navigation : 
         <select onchange="javascript:location.href = this.value;">
           
-    <option value="/0.12.0/installation/" >
+    <option value="/latest/installation/" >
    Installing Fission</option> 
-      <option value="/0.12.0/installation/kubernetessetup/" >- Kubernetes Quick Install</option>
-    <option value="/0.12.0/installation/upgrade/" >
+      <option value="/latest/installation/kubernetessetup/" >- Kubernetes Quick Install</option>
+    <option value="/latest/installation/upgrade/" >
   - 
    Upgrading Fission</option>
-      <option value="/0.12.0/installation/env_vars/" >- Environment Variables</option>
+      <option value="/latest/installation/env_vars/" >- Environment Variables</option>
   
-    <option value="/0.12.0/concepts/" >
+    <option value="/latest/concepts/" >
    Fission Concepts</option> 
-      <option value="/0.12.0/concepts/basic-concept/" >- Basic Concepts</option>
-      <option value="/0.12.0/concepts/executor/"  selected>- Function Executors</option>
+      <option value="/latest/concepts/basic-concept/" >- Basic Concepts</option>
+      <option value="/latest/concepts/executor/"  selected>- Function Executors</option>
   
-    <option value="/0.12.0/usage/" >
+    <option value="/latest/usage/" >
    Using Fission</option> 
-      <option value="/0.12.0/usage/accessing-url-params/" >- Accessing URL parameters</option>
-      <option value="/0.12.0/usage/package/" >- Packaging source code</option>
-      <option value="/0.12.0/usage/access-secret-cfgmap-in-function/" >- Accessing Secrets in Functions</option>
-      <option value="/0.12.0/usage/environments/" >- Environments</option>
-      <option value="/0.12.0/usage/functions/" >- Functions</option>
-      <option value="/0.12.0/usage/trigger/" >- Triggers</option>
-      <option value="/0.12.0/usage/executor/" >- Controlling Function Execution</option>
-      <option value="/0.12.0/usage/developer-workflow/" >- Source Code Organization and Your Development Workflow</option>
-      <option value="/0.12.0/usage/ingress-tutorial/" >- Exposing functions with Ingress</option>
-      <option value="/0.12.0/usage/canary-deployments/" >- Supporting Canary Deployments for Fission Functions</option>
-      <option value="/0.12.0/usage/kafka-trigger-tutorial/" >- Using Kafka trigger to invoke a Function</option>
+      <option value="/latest/usage/accessing-url-params/" >- Accessing URL parameters</option>
+      <option value="/latest/usage/package/" >- Packaging source code</option>
+      <option value="/latest/usage/access-secret-cfgmap-in-function/" >- Accessing Secrets in Functions</option>
+      <option value="/latest/usage/environments/" >- Environments</option>
+      <option value="/latest/usage/functions/" >- Functions</option>
+      <option value="/latest/usage/trigger/" >- Triggers</option>
+      <option value="/latest/usage/executor/" >- Controlling Function Execution</option>
+      <option value="/latest/usage/developer-workflow/" >- Source Code Organization and Your Development Workflow</option>
+      <option value="/latest/usage/ingress-tutorial/" >- Exposing functions with Ingress</option>
+      <option value="/latest/usage/canary-deployments/" >- Supporting Canary Deployments for Fission Functions</option>
+      <option value="/latest/usage/kafka-trigger-tutorial/" >- Using Kafka trigger to invoke a Function</option>
   
-    <option value="/0.12.0/languages/" >
+    <option value="/latest/languages/" >
    Languages</option> 
-      <option value="/0.12.0/languages/nodejs/" >- Fission functions with Nodejs</option>
-      <option value="/0.12.0/languages/go/" >- Using Go with Fission</option>
-      <option value="/0.12.0/languages/java/" >- Using Java with Fission JVM environment</option>
+      <option value="/latest/languages/nodejs/" >- Fission functions with Nodejs</option>
+      <option value="/latest/languages/go/" >- Using Go with Fission</option>
+      <option value="/latest/languages/java/" >- Using Java with Fission JVM environment</option>
   
-    <option value="/0.12.0/tutorial/" >
+    <option value="/latest/tutorial/" >
    Tutorials</option> 
-      <option value="/0.12.0/tutorial/enabling-istio-on-fission/" >- Enabling Istio on Fission</option>
-      <option value="/0.12.0/tutorial/java-example/" >- Building Java Functions</option>
+      <option value="/latest/tutorial/enabling-istio-on-fission/" >- Enabling Istio on Fission</option>
+      <option value="/latest/tutorial/java-example/" >- Building Java Functions</option>
   
-    <option value="/0.12.0/workflows/" >
+    <option value="/latest/workflows/" >
    Fission Workflows</option>
-    <option value="/0.12.0/contributing/" >
+    <option value="/latest/contributing/" >
    Contributing to Fission</option> 
   
 
@@ -341,15 +341,15 @@
         <div class="searchbox">
           <input data-search-input id="search-by" type="text" placeholder="Search...">
         </div>
-        <script type="text/javascript" src="/0.12.0/js/lunr.min.js"></script>
-        <script type="text/javascript" src="/0.12.0/js/auto-complete.js"></script>
-        <link href="/0.12.0/css/auto-complete.css" rel="stylesheet">
+        <script type="text/javascript" src="/latest/js/lunr.min.js"></script>
+        <script type="text/javascript" src="/latest/js/auto-complete.js"></script>
+        <link href="/latest/css/auto-complete.css" rel="stylesheet">
         <script type="text/javascript">
           
-              var baseurl = "https:\/\/docs.fission.io\/0.12.0";
+              var baseurl = "https:\/\/docs.fission.io\/latest";
           
         </script>
-        <script type="text/javascript" src="/0.12.0/js/search.js"></script>
+        <script type="text/javascript" src="/latest/js/search.js"></script>
       </div>
 
 
@@ -424,7 +424,7 @@
 
 <p>The new deployment based executor provides autoscaling for functions based on CPU usage. In future custom metrics will be also supported for scaling the functions. You can set the initial and maximum CPU for a function and target CPU at which autoscaling will be triggered. Autoscaling is useful for workloads where you expect intermittant spikes in workloads. It also enables optimal the usage of resources to execute functions, by using a baseline capacity with minimum scale and ability to burst up to maximum scale based on spikes in demand.</p>
 
-<div class="notices tip" ><p>Learn more further usage/setup of <strong>executor type</strong> for functions, please see <a href="/0.12.0/usage/executor/">here</a></p>
+<div class="notices tip" ><p>Learn more further usage/setup of <strong>executor type</strong> for functions, please see <a href="/latest/usage/executor/">here</a></p>
 </div>
 
 
@@ -433,8 +433,8 @@
     
         <div class="chevrons">
     <div id="navigation">
-<a class="nav nav-prev" href="/0.12.0/concepts/basic-concept/" title="Basic Concepts"> <i class="fa fa-chevron-left"></i><label>Basic Concepts</label></a>
-    <a class="nav nav-next" href="/0.12.0/usage/" title="Using Fission" style="margin-right: 0px;"><label>Using Fission</label><i class="fa fa-chevron-right"></i></a></div>
+<a class="nav nav-prev" href="/latest/concepts/basic-concept/" title="Basic Concepts"> <i class="fa fa-chevron-left"></i><label>Basic Concepts</label></a>
+    <a class="nav nav-next" href="/latest/usage/" title="Using Fission" style="margin-right: 0px;"><label>Using Fission</label><i class="fa fa-chevron-right"></i></a></div>
   </div>
 
   </section>
@@ -469,14 +469,14 @@
 	</div>
 </footer>
 
-<script src="/0.12.0/js/clipboard.min.js"></script>
+<script src="/latest/js/clipboard.min.js"></script>
 
-<link href="/0.12.0/css/featherlight.min.css" rel="stylesheet">
-<script src="/0.12.0/js/featherlight.min.js"></script>
+<link href="/latest/css/featherlight.min.css" rel="stylesheet">
+<script src="/latest/js/featherlight.min.js"></script>
 
 
 
-<script src="/0.12.0/theme-flex/script.js"></script>
+<script src="/latest/theme-flex/script.js"></script>
 
 
     

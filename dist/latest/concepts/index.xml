@@ -2,20 +2,20 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Fission Concepts on Serverless Functions for Kubernetes</title>
-    <link>https://docs.fission.io/0.12.0/concepts/</link>
+    <link>https://docs.fission.io/latest/concepts/</link>
     <description>Recent content in Fission Concepts on Serverless Functions for Kubernetes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-US</language>
     
-	<atom:link href="https://docs.fission.io/0.12.0/concepts/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://docs.fission.io/latest/concepts/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Basic Concepts</title>
-      <link>https://docs.fission.io/0.12.0/concepts/basic-concept/</link>
+      <link>https://docs.fission.io/latest/concepts/basic-concept/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://docs.fission.io/0.12.0/concepts/basic-concept/</guid>
+      <guid>https://docs.fission.io/latest/concepts/basic-concept/</guid>
       <description>There are three basic concepts/elements of fission:
 Function A snippet of code write in specific programming language and will be invoked when requests come to fission router.
 Following is a simple nodejs helloworld sample
@@ -24,10 +24,10 @@ module.exports = async function(context) { return { status: 200, body: &amp;quot
     
     <item>
       <title>Function Executors</title>
-      <link>https://docs.fission.io/0.12.0/concepts/executor/</link>
+      <link>https://docs.fission.io/latest/concepts/executor/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://docs.fission.io/0.12.0/concepts/executor/</guid>
+      <guid>https://docs.fission.io/latest/concepts/executor/</guid>
       <description>When you create a function, you can specify an executor for a function. An executor controls how function pods are created and what capabilities are available for that executor type.
 Pool-based executor A pool based executor (Refered to as Poolmgr) creates a pool of generic environment pods as soon as you create an environment. The pool size of initial &amp;ldquo;warm&amp;rdquo; containers can be configured based on user needs. These warm containers contain a small dynamic loader for loading the function.</description>
     </item>
