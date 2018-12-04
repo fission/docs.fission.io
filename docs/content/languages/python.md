@@ -53,7 +53,7 @@ Hello, world!
 You can also invoke this function by creating an HTTP trigger and
 making an HTTP request to the Fission router.  Ensure you have your
 router's address in the `FISSION_ROUTER` environment variable as 
-[this guide describes](https://docs.fission.io/0.11.0/installation/env_vars/#fission-router-address).
+[this guide describes](https://docs.fission.io/latest/installation/env_vars/#fission-router-address).
 Then,
 
 ```bash
@@ -80,7 +80,10 @@ Write a simple `headers.py` with something like this:
 from flask import request
 
 def main():
-    myHeader = request.headers['x-my-header']
+    try:
+        myHeader = request.headers['x-my-header']
+    except KeyError:
+        return "Header 'x-my-header' not found"
     return "The header's value is '%s'" % myHeader
 ```
 
@@ -89,7 +92,7 @@ Create that function, assign it a route, and invoke it with an HTTP header:
 ```bash
 $ fission function create --name headers --env python --code headers.py
 
-$ fission route create --name /headers --function headers
+$ fission route create --url /headers --function headers
 
 $ curl -H "X-My-Header: Hello" $FISSION_ROUTER/headers 
 The header's value is 'Hello'
@@ -115,7 +118,7 @@ Create that function, assign it a route, and invoke it with a query parameter:
 ```bash
 $ fission function create --name query --env python --code query.py
 
-$ fission route create --name /query --function query
+$ fission route create --url /query --function query 
 
 $ curl $FISSION_ROUTER/query?myKey=myValue
 Value for myKey: myValue
@@ -179,7 +182,8 @@ def main():
     r = flask.redirect('/new-url', code=303)
     
     # Optional; set this to False to force a relative URL redirect.
-    # Defaults to True, which converts the redirect to an absolute URL.
+    # Defaults to True, which converts the redirect to an absolute URL
+    # that's only accessible within the cluster.
     r.autocorrect_location_header = False
     
     return r
@@ -211,7 +215,7 @@ To use a builder with your environment, create the environment with
 with the --builder flag:
 
 ```sh
-fission env create --name python --image fission/python-env --builder fission/python-builder
+$ fission env create --name python --image fission/python-env --builder fission/python-builder
 ```
 
 ### A function with depedencies
@@ -258,8 +262,12 @@ pyyaml
 ```bash
 #!/bin/sh
 pip3 install -r ${SRC_PKG}/requirements.txt -t ${SRC_PKG} && cp -r ${SRC_PKG} ${DEPLOY_PKG}
+```
 
-$zip -jr demo-src-pkg.zip sourcepkg/
+* Archive these files:
+
+```bash
+$ zip -jr demo-src-pkg.zip sourcepkg/
   adding: __init__.py (stored 0%)
   adding: build.sh (deflated 24%)
   adding: requirements.txt (stored 0%)
@@ -290,9 +298,10 @@ Installing collected packages: pyyaml
 Successfully installed pyyaml-3.12
 ```
 
-Using the package above you can create the function. Since package
-already is associated with a source package, environment and build
-command, these will be ignored when creating a function. 
+Using the package above you can create the function. Since this package
+is already associated with a source archive, an environment and a
+build command, you don't need to provide these while creating a
+function from this package.
 
 The only additional thing you'll need to provide is the Function's
 entrypoint:
