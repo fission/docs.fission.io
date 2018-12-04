@@ -5,3 +5,4 @@
 # build.sh replaces "version" below with the actual version, and
 # places it in _dist/redirects.
 
+/0.12.0/* /latest/:splat 302
