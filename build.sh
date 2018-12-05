@@ -17,6 +17,7 @@ rm -rf dist/$VERSION
 echo "Moving new site into dist"
 mv docs/public dist/$VERSION
 
+### Keepting this for future refence, not in use ATM
 #echo "Making _redirects"
 #echo "# Generated from _redirects.template" > dist/_redirects
 #cat _redirects.template | sed -e "s/VERSION/$VERSION/g" >> dist/_redirects
