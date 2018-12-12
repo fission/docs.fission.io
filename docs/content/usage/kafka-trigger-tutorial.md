@@ -126,6 +126,8 @@ We have both the functions ready but the connection between them is the missing 
 $ fission mqt create --name kafkatest --function consumerfunc --mqtype kafka --topic input --resptopic output --errortopic error
 ```
 
+If your Kafka in running somewhere else (in some other machine), you will have to provide custom configuration for Kafka broker host while installing fission. You can do that by creating a config file, set the value of `kafka.brokers` to you broker URL and provide this config file while installing fission through helm using -f flag. You can refer this [link](https://github.com/fission/fission/blob/master/charts/fission-all/values.yaml) to find out more about this config parameter.
+
 ### Testing it out
 
 Let's invoke the producer function so that the topic `input` gets some messages and we can see the consumer function in action.
