@@ -6,4 +6,4 @@
 # and git add/commit/push the resulting dist/$VERSION directory.  This
 # ensures that links to the docs of older versions don't break.
 #
-VERSION=0.12.0
+VERSION=1.0-rc1
