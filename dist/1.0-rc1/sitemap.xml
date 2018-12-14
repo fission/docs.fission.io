@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  
+  <url>
+    <loc>https://docs.fission.io/1.0-rc1/</loc>
+    <lastmod>2018-10-25T17:39:41+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://docs.fission.io/1.0-rc1/usage/accessing-url-params/</loc>
+    <lastmod>2018-10-25T17:39:41+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://docs.fission.io/1.0-rc1/languages/nodejs/</loc>
+  </url>
+  
+  <url>
+    <loc>https://docs.fission.io/1.0-rc1/languages/go/</loc>
+  </url>
+  
+  <url>
+    <loc>https://docs.fission.io/1.0-rc1/languages/java/</loc>
+  </url>
+  
+  <url>
+    <loc>https://docs.fission.io/1.0-rc1/languages/python/</loc>
+  </url>
+  
+  <url>
+    <loc>https://docs.fission.io/1.0-rc1/installation/kubernetessetup/</loc>
+  </url>
+  
+  <url>
+    <loc>https://docs.fission.io/1.0-rc1/concepts/basic-concept/</loc>
+  </url>
+  
+  <url>
+    <loc>https://docs.fission.io/1.0-rc1/installation/</loc>
+  </url>
+  
+  <url>
+    <loc>https://docs.fission.io/1.0-rc1/concepts/executor/</loc>
+  </url>
+  
+  <url>
+    <loc>https://docs.fission.io/1.0-rc1/concepts/</loc>
+  </url>
+  
+  <url>
+    <loc>https://docs.fission.io/1.0-rc1/installation/upgrade/</loc>
+  </url>
+  
+  <url>
+    <loc>https://docs.fission.io/1.0-rc1/usage/package/</loc>
+  </url>
+  
+  <url>
+    <loc>https://docs.fission.io/1.0-rc1/usage/access-secret-cfgmap-in-function/</loc>
+  </url>
+  
+  <url>
+    <loc>https://docs.fission.io/1.0-rc1/usage/</loc>
+    <lastmod>2018-10-25T17:39:41+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://docs.fission.io/1.0-rc1/usage/environments/</loc>
+  </url>
+  
+  <url>
+    <loc>https://docs.fission.io/1.0-rc1/usage/functions/</loc>
+  </url>
+  
+  <url>
+    <loc>https://docs.fission.io/1.0-rc1/usage/trigger/</loc>
+  </url>
+  
+  <url>
+    <loc>https://docs.fission.io/1.0-rc1/usage/executor/</loc>
+  </url>
+  
+  <url>
+    <loc>https://docs.fission.io/1.0-rc1/installation/env_vars/</loc>
+  </url>
+  
+  <url>
+    <loc>https://docs.fission.io/1.0-rc1/usage/developer-workflow/</loc>
+    <lastmod>2017-12-01T18:01:57-08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://docs.fission.io/1.0-rc1/usage/ingress-tutorial/</loc>
+  </url>
+  
+  <url>
+    <loc>https://docs.fission.io/1.0-rc1/usage/canary-deployments/</loc>
+  </url>
+  
+  <url>
+    <loc>https://docs.fission.io/1.0-rc1/languages/</loc>
+  </url>
+  
+  <url>
+    <loc>https://docs.fission.io/1.0-rc1/tutorial/</loc>
+  </url>
+  
+  <url>
+    <loc>https://docs.fission.io/1.0-rc1/tutorial/enabling-istio-on-fission/</loc>
+  </url>
+  
+  <url>
+    <loc>https://docs.fission.io/1.0-rc1/tutorial/java-example/</loc>
+  </url>
+  
+  <url>
+    <loc>https://docs.fission.io/1.0-rc1/workflows/</loc>
+  </url>
+  
+  <url>
+    <loc>https://docs.fission.io/1.0-rc1/usage/kafka-trigger-tutorial/</loc>
+  </url>
+  
+  <url>
+    <loc>https://docs.fission.io/1.0-rc1/contributing/</loc>
+  </url>
+  
+  <url>
+    <loc>https://docs.fission.io/1.0-rc1/_footer/</loc>
+  </url>
+  
+  <url>
+    <loc>https://docs.fission.io/1.0-rc1/_header/</loc>
+  </url>
+  
+  <url>
+    <loc>https://docs.fission.io/1.0-rc1/categories/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://docs.fission.io/1.0-rc1/tags/</loc>
+    <priority>0</priority>
+  </url>
+  
+</urlset>

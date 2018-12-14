@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Languages on Serverless Functions for Kubernetes</title>
+    <link>https://docs.fission.io/1.0-rc1/languages/</link>
+    <description>Recent content in Languages on Serverless Functions for Kubernetes</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-US</language>
+    
+	<atom:link href="https://docs.fission.io/1.0-rc1/languages/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Fission functions with Nodejs</title>
+      <link>https://docs.fission.io/1.0-rc1/languages/nodejs/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://docs.fission.io/1.0-rc1/languages/nodejs/</guid>
+      <description>Fission supports functions written in Nodejs. Current fission nodejs runtime environment supports node version greater than 7.6.0. In this usage guide we&amp;rsquo;ll cover how to use this environment, write functions, and work with dependencies.
+Before you start We assume you have Fission and Kubernetes setup. If not, head over to the install guide. Verify your Fission setup with:
+$ fission --version  Add the Nodejs runtime environment to your cluster Fission language support is enabled by creating an Environment.</description>
+    </item>
+    
+    <item>
+      <title>Using Go with Fission</title>
+      <link>https://docs.fission.io/1.0-rc1/languages/go/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://docs.fission.io/1.0-rc1/languages/go/</guid>
+      <description>With Go plugin mechanism, fission supports Go as one of function languages.
+In this usage guide we&amp;rsquo;ll cover how to use this environment, write functions, and work with dependencies.
+Before you start We&amp;rsquo;ll assume you have Fission and Kubernetes setup. If not, head over to the install guide. Verify your Fission setup with:
+$ fission --version  Add the Go environment to your cluster Unlike Python, Go is a compiled language that means we need to compile source code before running it.</description>
+    </item>
+    
+    <item>
+      <title>Using Java with Fission JVM environment</title>
+      <link>https://docs.fission.io/1.0-rc1/languages/java/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://docs.fission.io/1.0-rc1/languages/java/</guid>
+      <description>Fission supports functions written in Java and runs then on JVM. Current JVM environment is based on openjdk8 and uses Spring Boot as framework.
+Before you start We&amp;rsquo;ll assume you have Fission and Kubernetes setup. If not, head over to the install guide. Verify your Fission setup with:
+$ fission --version  Add JVM environment to your cluster Fission language support is enabled by creating an Environment. An environment is the language-specific part of Fission.</description>
+    </item>
+    
+    <item>
+      <title>Using Python with Fission</title>
+      <link>https://docs.fission.io/1.0-rc1/languages/python/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://docs.fission.io/1.0-rc1/languages/python/</guid>
+      <description>Fission supports functions written in Python. Both Python 2.x and Python 3.x are supported. In this usage guide we&amp;rsquo;ll cover how to set up and use a Python environment on Fission, write functions, and work with dependencies. We&amp;rsquo;ll also cover basic troubleshooting.
+Before you start We&amp;rsquo;ll assume you have Fission and Kubernetes setup. If not, head over to the installation guide. Verify your Fission setup with:
+$ fission --version  Add the Python environment to your cluster Fission language support is enabled by creating an Environment.</description>
+    </item>
+    
+  </channel>
+</rss>

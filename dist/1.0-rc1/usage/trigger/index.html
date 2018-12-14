@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Serverless Functions for Kubernetes</title>
+    
+      <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="google-site-verification" content="5AvQfeDvIx0ldE9uSKVsoikqgFknd_CT18caf9TNoVg" />
+<meta name="generator" content="Hugo 0.52" />
+<title>Triggers :: Serverless Functions for Kubernetes</title>
+<link rel="shortcut icon" href="/1.0-rc1/images/favicon.png" type="image/x-icon" />
+<link href="/1.0-rc1/css/font-awesome.min.css" rel="stylesheet">
+<link href="/1.0-rc1/css/nucleus.css" rel="stylesheet">
+<link href="/1.0-rc1/theme-flex/style.css" rel="stylesheet">
+
+	
+
+
+<link rel="stylesheet" href="/1.0-rc1/css/hybrid.css?1540653045">
+<script src="/1.0-rc1/syntax-highlight/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+<link rel="stylesheet" href="/1.0-rc1/css/bootstrap.min.css">
+<script src="/1.0-rc1/js/jquery-2.x.min.js"></script>
+<script type="text/javascript">
+      var baseurl = "https:\/\/docs.fission.io\/1.0-rc1";
+</script>
+<meta name="description" content="Documentation for Fission">
+<meta name="author" content="Fission">
+
+
+    
+  </head>
+  <body data-url="/1.0-rc1/usage/trigger/">
+    
+      <header>
+  <div class="logo">
+    
+	
+	
+	
+  
+    
+  
+    
+  
+
+
+<img src="/1.0-rc1/images/fission-logo.png"/>
+
+  </div>
+  <div class="burger"><a href="javascript:void(0);" style="font-size:15px;">&#9776;</a></div>
+    <nav class="shortcuts">
+            <li class="" role="">
+                <a href="https://github.com/fission/fission"  rel="noopener">
+                  <i class='fa fa-fw fa-github'></i> Github repo
+                </a>
+            </li>
+            <li class="" role="">
+                <a href="https://github.com/fission/fission/graphs/contributors"  rel="noopener">
+                  <i class='fa fa-fw fa-bullhorn'></i> Credits
+                </a>
+            </li>
+    </nav>
+</header>
+<article>
+  <aside>
+    <ul class="menu">
+          <li data-nav-id="/1.0-rc1/" class="dd-item">
+          <a href="/1.0-rc1/">
+            <i class="fa fa-fw fa-home"></i>
+          </a>
+          </li>
+    <li data-nav-id="/1.0-rc1/installation/" class="dd-item alwaysopen haschildren
+        ">
+      <div>
+      <a href="/1.0-rc1/installation/">Installing Fission</a>
+            <i class="fa fa-angle-down fa-lg category-icon"></i>
+      </div>
+        <ul>
+      <li data-nav-id="/1.0-rc1/installation/kubernetessetup/" class="dd-item">
+        <div>
+          <a href="/1.0-rc1/installation/kubernetessetup/">
+            Kubernetes Quick Install
+          </a>
+        </div>
+    </li>
+    <li data-nav-id="/1.0-rc1/installation/upgrade/" class="dd-item
+        ">
+      <div>
+      <a href="/1.0-rc1/installation/upgrade/">Upgrading Fission</a>
+      </div>
+    </li>
+      <li data-nav-id="/1.0-rc1/installation/env_vars/" class="dd-item">
+        <div>
+          <a href="/1.0-rc1/installation/env_vars/">
+            Environment Variables
+          </a>
+        </div>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="/1.0-rc1/concepts/" class="dd-item alwaysopen haschildren
+        ">
+      <div>
+      <a href="/1.0-rc1/concepts/">Fission Concepts</a>
+            <i class="fa fa-angle-down fa-lg category-icon"></i>
+      </div>
+        <ul>
+      <li data-nav-id="/1.0-rc1/concepts/basic-concept/" class="dd-item">
+        <div>
+          <a href="/1.0-rc1/concepts/basic-concept/">
+            Basic Concepts
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/1.0-rc1/concepts/executor/" class="dd-item">
+        <div>
+          <a href="/1.0-rc1/concepts/executor/">
+            Function Executors
+          </a>
+        </div>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="/1.0-rc1/usage/" class="dd-item parent alwaysopen haschildren
+        ">
+      <div>
+      <a href="/1.0-rc1/usage/">Using Fission</a>
+            <i class="fa fa-angle-down fa-lg category-icon"></i>
+      </div>
+        <ul>
+      <li data-nav-id="/1.0-rc1/usage/accessing-url-params/" class="dd-item">
+        <div>
+          <a href="/1.0-rc1/usage/accessing-url-params/">
+            Accessing URL parameters
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/1.0-rc1/usage/package/" class="dd-item">
+        <div>
+          <a href="/1.0-rc1/usage/package/">
+            Packaging source code
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/1.0-rc1/usage/access-secret-cfgmap-in-function/" class="dd-item">
+        <div>
+          <a href="/1.0-rc1/usage/access-secret-cfgmap-in-function/">
+            Accessing Secrets in Functions
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/1.0-rc1/usage/environments/" class="dd-item">
+        <div>
+          <a href="/1.0-rc1/usage/environments/">
+            Environments
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/1.0-rc1/usage/functions/" class="dd-item">
+        <div>
+          <a href="/1.0-rc1/usage/functions/">
+            Functions
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/1.0-rc1/usage/trigger/" class="dd-item active">
+        <div>
+          <a href="/1.0-rc1/usage/trigger/">
+            Triggers
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/1.0-rc1/usage/executor/" class="dd-item">
+        <div>
+          <a href="/1.0-rc1/usage/executor/">
+            Controlling Function Execution
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/1.0-rc1/usage/developer-workflow/" class="dd-item">
+        <div>
+          <a href="/1.0-rc1/usage/developer-workflow/">
+            Source Code Organization and Your Development Workflow
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/1.0-rc1/usage/ingress-tutorial/" class="dd-item">
+        <div>
+          <a href="/1.0-rc1/usage/ingress-tutorial/">
+            Exposing functions with Ingress
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/1.0-rc1/usage/canary-deployments/" class="dd-item">
+        <div>
+          <a href="/1.0-rc1/usage/canary-deployments/">
+            Supporting Canary Deployments for Fission Functions
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/1.0-rc1/usage/kafka-trigger-tutorial/" class="dd-item">
+        <div>
+          <a href="/1.0-rc1/usage/kafka-trigger-tutorial/">
+            Using Kafka trigger to invoke a Function
+          </a>
+        </div>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="/1.0-rc1/languages/" class="dd-item alwaysopen haschildren
+        ">
+      <div>
+      <a href="/1.0-rc1/languages/">Languages</a>
+            <i class="fa fa-angle-down fa-lg category-icon"></i>
+      </div>
+        <ul>
+      <li data-nav-id="/1.0-rc1/languages/nodejs/" class="dd-item">
+        <div>
+          <a href="/1.0-rc1/languages/nodejs/">
+            Fission functions with Nodejs
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/1.0-rc1/languages/go/" class="dd-item">
+        <div>
+          <a href="/1.0-rc1/languages/go/">
+            Using Go with Fission
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/1.0-rc1/languages/java/" class="dd-item">
+        <div>
+          <a href="/1.0-rc1/languages/java/">
+            Using Java with Fission JVM environment
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/1.0-rc1/languages/python/" class="dd-item">
+        <div>
+          <a href="/1.0-rc1/languages/python/">
+            Using Python with Fission
+          </a>
+        </div>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="/1.0-rc1/tutorial/" class="dd-item alwaysopen haschildren
+        ">
+      <div>
+      <a href="/1.0-rc1/tutorial/">Tutorials</a>
+            <i class="fa fa-angle-down fa-lg category-icon"></i>
+      </div>
+        <ul>
+      <li data-nav-id="/1.0-rc1/tutorial/enabling-istio-on-fission/" class="dd-item">
+        <div>
+          <a href="/1.0-rc1/tutorial/enabling-istio-on-fission/">
+            Enabling Istio on Fission
+          </a>
+        </div>
+    </li>
+      <li data-nav-id="/1.0-rc1/tutorial/java-example/" class="dd-item">
+        <div>
+          <a href="/1.0-rc1/tutorial/java-example/">
+            Building Java Functions
+          </a>
+        </div>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="/1.0-rc1/workflows/" class="dd-item
+        ">
+      <div>
+      <a href="/1.0-rc1/workflows/">Fission Workflows</a>
+      </div>
+    </li>
+    <li data-nav-id="/1.0-rc1/contributing/" class="dd-item alwaysopen
+        ">
+      <div>
+      <a href="/1.0-rc1/contributing/">Contributing to Fission</a>
+      </div>
+    </li>
+
+
+
+
+    </ul>
+    <section>
+    </section>
+  </aside>
+  <section class="page">
+    
+    <div class="nav-select">
+      <center>Navigation : 
+        <select onchange="javascript:location.href = this.value;">
+          
+    <option value="/1.0-rc1/installation/" >
+   Installing Fission</option> 
+      <option value="/1.0-rc1/installation/kubernetessetup/" >- Kubernetes Quick Install</option>
+    <option value="/1.0-rc1/installation/upgrade/" >
+  - 
+   Upgrading Fission</option>
+      <option value="/1.0-rc1/installation/env_vars/" >- Environment Variables</option>
+  
+    <option value="/1.0-rc1/concepts/" >
+   Fission Concepts</option> 
+      <option value="/1.0-rc1/concepts/basic-concept/" >- Basic Concepts</option>
+      <option value="/1.0-rc1/concepts/executor/" >- Function Executors</option>
+  
+    <option value="/1.0-rc1/usage/" >
+   Using Fission</option> 
+      <option value="/1.0-rc1/usage/accessing-url-params/" >- Accessing URL parameters</option>
+      <option value="/1.0-rc1/usage/package/" >- Packaging source code</option>
+      <option value="/1.0-rc1/usage/access-secret-cfgmap-in-function/" >- Accessing Secrets in Functions</option>
+      <option value="/1.0-rc1/usage/environments/" >- Environments</option>
+      <option value="/1.0-rc1/usage/functions/" >- Functions</option>
+      <option value="/1.0-rc1/usage/trigger/"  selected>- Triggers</option>
+      <option value="/1.0-rc1/usage/executor/" >- Controlling Function Execution</option>
+      <option value="/1.0-rc1/usage/developer-workflow/" >- Source Code Organization and Your Development Workflow</option>
+      <option value="/1.0-rc1/usage/ingress-tutorial/" >- Exposing functions with Ingress</option>
+      <option value="/1.0-rc1/usage/canary-deployments/" >- Supporting Canary Deployments for Fission Functions</option>
+      <option value="/1.0-rc1/usage/kafka-trigger-tutorial/" >- Using Kafka trigger to invoke a Function</option>
+  
+    <option value="/1.0-rc1/languages/" >
+   Languages</option> 
+      <option value="/1.0-rc1/languages/nodejs/" >- Fission functions with Nodejs</option>
+      <option value="/1.0-rc1/languages/go/" >- Using Go with Fission</option>
+      <option value="/1.0-rc1/languages/java/" >- Using Java with Fission JVM environment</option>
+      <option value="/1.0-rc1/languages/python/" >- Using Python with Fission</option>
+  
+    <option value="/1.0-rc1/tutorial/" >
+   Tutorials</option> 
+      <option value="/1.0-rc1/tutorial/enabling-istio-on-fission/" >- Enabling Istio on Fission</option>
+      <option value="/1.0-rc1/tutorial/java-example/" >- Building Java Functions</option>
+  
+    <option value="/1.0-rc1/workflows/" >
+   Fission Workflows</option>
+    <option value="/1.0-rc1/contributing/" >
+   Contributing to Fission</option> 
+  
+
+
+
+        </select>
+      </center>
+    </div>
+      <div>
+        <div class="searchbox">
+          <input data-search-input id="search-by" type="text" placeholder="Search...">
+        </div>
+        <script type="text/javascript" src="/1.0-rc1/js/lunr.min.js"></script>
+        <script type="text/javascript" src="/1.0-rc1/js/auto-complete.js"></script>
+        <link href="/1.0-rc1/css/auto-complete.css" rel="stylesheet">
+        <script type="text/javascript">
+          
+              var baseurl = "https:\/\/docs.fission.io\/1.0-rc1";
+          
+        </script>
+        <script type="text/javascript" src="/1.0-rc1/js/search.js"></script>
+      </div>
+
+
+    <h1>Triggers</h1>
+
+    
+    
+    
+    
+
+<h3 id="create-a-http-trigger">Create a HTTP Trigger</h3>
+
+<p>An HTTP trigger invokes a function when there is an HTTP request.</p>
+
+<p>You can specify the relative URL and HTTP method for a trigger:</p>
+
+<pre><code class="language-bash">$ fission httptrigger create --url /hello --method GET --function hello
+trigger '94cd5163-30dd-4fb2-ab3c-794052f70841' created
+
+$ curl http://$FISSION_ROUTER/hello
+Hello World!
+</code></pre>
+
+<div class="notices tip" ><p>FISSION_ROUTER is the externally-visible address of your
+Fission router service.  For how to set up environment variable
+<code>FISSION_ROUTER</code>, see <a href="https://docs.fission.io/1.0-rc1/installation/env_vars/">here</a></p>
+</div>
+
+
+<p>Also, we can create a trigger contains URL parameter by putting placeholders in value of <code>--url</code> flag.</p>
+
+<pre><code class="language-bash">$ fission httptrigger create --method GET \
+    --url &quot;/guestbook/messages/{id}&quot; --function restapi-get
+</code></pre>
+
+<p>Since fission uses gorilla/mux as underlying URL router, you can write regular expression to filter out illegal API requests.</p>
+
+<pre><code class="language-bash">$ fission httptrigger create --method GET \
+    --url &quot;/guestbook/messages/{id:[0-9]+}&quot; --function restapi-get
+</code></pre>
+
+<div class="notices tip" ><p>Learn how to access URL parameters in function to develop a <strong>REST API</strong>, please visit <a href="../accessing-url-params">here</a></p>
+</div>
+
+
+<p>If you want to use Kubernetes Ingress for the HTTP Trigger, you can
+provide the <code>--createingress</code> flag and a hostname.  If the hostname is
+not provided, it defaults to &ldquo;*&ldquo;, which indicates a wildcard host.</p>
+
+<pre><code class="language-bash">$ fission httptrigger create --url /hello --method GET --function hello --createingress --host acme.com
+trigger '94cd5163-30dd-4fb2-ab3c-794052f70841' created
+
+$ fission route list
+NAME                                 METHOD HOST     URL      INGRESS FUNCTION_NAME
+94cd5163-30dd-4fb2-ab3c-794052f70841 GET    acme.com /hello   true    hello
+</code></pre>
+
+<p>Please note that for ingress to work, you will have to deploy an ingress controller in Kubernetes cluster. Kubernetes currently supports and maintains the following ingress controllers:</p>
+
+<ul>
+<li><a href="https://github.com/kubernetes/ingress-nginx">Nginx Ingress Controller</a></li>
+<li><a href="https://github.com/kubernetes/ingress-gce">GCE Ingress Controller</a></li>
+</ul>
+
+<p>Other Ingress controllers exist, such as <a href="http://clouddocs.f5.com/products/connectors/k8s-bigip-ctlr/v1.5/">F5 networks</a> and <a href="https://konghq.com/blog/kubernetes-ingress-controller-for-kong/">Kong</a>.</p>
+
+<h3 id="create-a-time-trigger">Create a Time Trigger</h3>
+
+<p>Time-based triggers invoke functions based on time.  They can run once
+or repeatedly.  They&rsquo;re specified using <a href="https://en.wikipedia.org/wiki/Cron">cron string
+specifications</a>:</p>
+
+<pre><code class="language-bash">$ fission tt create --name halfhourly --function hello --cron &quot;*/30 * * * *&quot;
+trigger 'halfhourly' created
+</code></pre>
+
+<p>You can also use a friendlier syntax such &ldquo;@every 1m&rdquo; or &ldquo;@hourly&rdquo;:</p>
+
+<pre><code class="language-bash">$ fission tt create --name minute --function hello --cron &quot;@every 1m&quot;
+trigger 'minute' created
+</code></pre>
+
+<p>And you can list time triggers to see their associated function and cron strings:</p>
+
+<pre><code class="language-bash">$ fission tt list
+NAME       CRON         FUNCTION_NAME
+halfhourly 0 30 * * * * hello
+minute     @every 1m    hello
+</code></pre>
+
+<p>You can also use <code>showschedule</code> to show the upcoming schedule for a
+given cron spec.  Use this to test your cron strings.  And note that
+the server&rsquo;s time is used to invoke functions, not your laptop&rsquo;s time!</p>
+
+<pre><code class="language-bash">$ fission tt showschedule --cron &quot;0 30 * * * *&quot; --round 5
+Current Server Time: 	2018-06-12T05:07:41Z
+Next 1 invocation: 	2018-06-12T05:30:00Z
+Next 2 invocation: 	2018-06-12T06:30:00Z
+Next 3 invocation: 	2018-06-12T07:30:00Z
+Next 4 invocation: 	2018-06-12T08:30:00Z
+Next 5 invocation: 	2018-06-12T09:30:00Z
+</code></pre>
+
+<h3 id="create-a-message-queue-trigger">Create a Message Queue Trigger</h3>
+
+<p>A message queue trigger invokes a function based on messages from an
+message queue.  Optionally, it can place the response of a function
+onto another queue.</p>
+
+<p>NATS and Azure Storage Queue are supported queues:</p>
+
+<pre><code class="language-bash">$ fission mqt create --name hellomsg --function hello --mqtype nats-streaming --topic newfile --resptopic newfileresponse 
+trigger 'hellomsg' created
+</code></pre>
+
+<p>You can list or update message queue triggers with <code>fission mqt list</code>,
+or <code>fission mqt update</code>.</p>
+
+
+    
+    
+        <div class="chevrons">
+    <div id="navigation">
+<a class="nav nav-prev" href="/1.0-rc1/usage/functions/" title="Functions"> <i class="fa fa-chevron-left"></i><label>Functions</label></a>
+    <a class="nav nav-next" href="/1.0-rc1/usage/executor/" title="Controlling Function Execution" style="margin-right: 0px;"><label>Controlling Function Execution</label><i class="fa fa-chevron-right"></i></a></div>
+  </div>
+
+  </section>
+</article>
+
+<footer>
+
+<div class="footline">
+    
+
+    
+
+    
+
+    
+    <div class="github-link">
+      <a href="https://github.com/fission/docs.fission.io/edit/master/docs/content/usage/trigger.en.md" target="blank"><i class="fa fa-code-fork"></i>
+        Improve this page</a>
+    </div>
+    
+  </div>
+
+
+	<div>
+
+
+  <p>Fission is a project by <a href="https://platform9.com/fission/">Platform9 Systems</a> and <a href="https://github.com/fission/fission/graphs/contributors">many contributors</a>. Reach us on <a href="http://slack.fission.io">Slack</a> or <a href="https://twitter.com/fissionio">Twitter</a>.</p>
+ 
+
+
+
+	</div>
+</footer>
+
+<script src="/1.0-rc1/js/clipboard.min.js"></script>
+
+<link href="/1.0-rc1/css/featherlight.min.css" rel="stylesheet">
+<script src="/1.0-rc1/js/featherlight.min.js"></script>
+
+
+
+<script src="/1.0-rc1/theme-flex/script.js"></script>
+
+
+    
+
+    
+    
+
+    
+  </body>
+</html>

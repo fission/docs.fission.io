@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Tutorials on Serverless Functions for Kubernetes</title>
+    <link>https://docs.fission.io/1.0-rc1/tutorial/</link>
+    <description>Recent content in Tutorials on Serverless Functions for Kubernetes</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-US</language>
+    
+	<atom:link href="https://docs.fission.io/1.0-rc1/tutorial/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Enabling Istio on Fission</title>
+      <link>https://docs.fission.io/1.0-rc1/tutorial/enabling-istio-on-fission/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://docs.fission.io/1.0-rc1/tutorial/enabling-istio-on-fission/</guid>
+      <description>This is the very first step for fission to integrate with Istio. For those interested in trying to integrate fission with istio, following is the set up tutorial.
+Test Environment  Google Kubernetes Engine: 1.9.2-gke.1  Set Up Create Kubernetes v1.9+ cluster Enable both RBAC &amp;amp; initializer features on kubernetes cluster.
+$ export ZONE=&amp;lt;zone name&amp;gt; $ gcloud container clusters create istio-demo-1 \ --machine-type=n1-standard-2 \ --num-nodes=1 \ --no-enable-legacy-authorization \ --zone=$ZONE \ --cluster-version=1.</description>
+    </item>
+    
+    <item>
+      <title>Building Java Functions</title>
+      <link>https://docs.fission.io/1.0-rc1/tutorial/java-example/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://docs.fission.io/1.0-rc1/tutorial/java-example/</guid>
+      <description>With the JVM environment there is now support to use Java functions in Fission. This tutorial explains about the working and some inner details of the way Java functions work in Fission.
+To see this Java support in action, we are going to build a simple &amp;ldquo;Hello World&amp;rdquo; function with the JVM environment. This example can also be found in examples directory on GitHub.
+JVM Environment The JVM environment in Fission is based on Spring boot and Spring web frameworks.</description>
+    </item>
+    
+  </channel>
+</rss>
