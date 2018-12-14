@@ -94,6 +94,8 @@ $ helm init
 
 ### Install Fission (if you have helm)
 
+List of all supported configurations for the charts `fission-all` and `fission-core` can be found [here](https://github.com/fission/fission/tree/master/charts#configuration)
+
 #### Minikube
 
 Since minikube 0.26.0 the default bootstrapper is kubeadm which enables RBAC by default. For those who work on versions before 0.26.0, please follow the steps below to enable RBAC.
