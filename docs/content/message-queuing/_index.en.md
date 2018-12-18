@@ -7,7 +7,7 @@ chapter: false
 ---
 
 Message queuing allows users to invoke function in an asynchronous way by sending messages. Following, 
-we will see how Fission supports message queue and how your functions being invoked. 
+we will see how Fission supports message queuing and how your functions getting invoked. 
 
 ### Message Queuing in Fission 
 
