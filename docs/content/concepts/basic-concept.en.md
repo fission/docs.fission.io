@@ -32,7 +32,9 @@ The environment(language) container which runs user function to serve HTTP reque
 ## Trigger
 
 A fission object maps incoming requests to the backend functions. When a trigger receives requests/events, 
-it will invoke the target function defined in trigger object by sending a HTTP request to function pod. 
+it will invoke the target function defined in trigger object by sending a HTTP request through router to function pod. 
+
+![fission http call](../images/fission-http-call.svg)
 
 Currently, fission supports following types of trigger:
 
