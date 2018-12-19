@@ -4,7 +4,7 @@ date: 2017-12-01T18:01:57-08:00
 weight: 48
 ---
 
-You've made a Hello World function in your favourite language, and
+You've made a Hello World function in your favorite language, and
 you've run it on your Fission deployment.  What's next?
 
 How should you organize source code when you have lots of functions?
@@ -101,9 +101,9 @@ This command creates a YAML file under specs called `specs/env-python.yaml`.
 
 ### Code two functions
 
-We will create two functions in python along with an empty `requirements.txt` file so that builder builds the code.
+We will create two functions in python along with an empty `requirements.txt` file so that builder is able to build the code. We will put the functions in their own directory with the requirements.txt file.
 
-```
+```bash
 .
 ├── eval
 │   ├── eval.py
@@ -220,10 +220,10 @@ You can check the function is working with `fission fn test` but since this func
 $ fission function test --name calc-form
 ```
 
-Open the URL of the Fission router service suffixed by the name of route at which form function is exposed.
+Open the URL of the Fission router service suffixed by the name of route at which form function is exposed. For more details on getting the address of Fission router please check [the link](https://docs.fission.io/latest/installation/env_vars/#fission-router-address)
 
 ```
-http://$ROUTER_IP/form
+http://$FISSION_ROUTER/form
 ```
 
 You can enter two number and operator and see the results. Currently this function only supports addition and subtraction.
@@ -236,7 +236,7 @@ with kubectl: `kubectl -n fission get service router`.)
 Let's try modifying a function: let's change the `calc-eval` function
 to support multiplication, too.
 
-```
+```python
     ...
     
     elsif operator == '*':
