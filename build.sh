@@ -10,10 +10,10 @@ hugo
 cd ..
 
 echo "Removing old site"
-rm -rf dist/$VERSION
+rm -rf dist/public
 
 echo "Moving new site into dist"
-mv docs/public dist/$VERSION
+mv docs/public dist/public
 
 ### Keepting this for future refence, not in use ATM
 #echo "Making _redirects"

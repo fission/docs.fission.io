@@ -1,7 +1,6 @@
 [build]
 base = "docs/"
-publish = "dist/public/"
-command = "hugo"
+command = "./build.sh"
 
 [context.production.environment]
 HUGO_VERSION = "0.37.1"
