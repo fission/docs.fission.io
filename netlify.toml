@@ -1,5 +1,5 @@
 [build]
-base = "docs/"
+publish = "dist/public"
 command = "./build.sh"
 
 [context.production.environment]
