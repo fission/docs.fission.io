@@ -1,4 +1,4 @@
-baseURL = "https://docs.fission.io/1.0-rc1"
+baseURL = "https://docs.fission.io"
 languageCode = "en-US"
 defaultContentLanguage = "en"
 
