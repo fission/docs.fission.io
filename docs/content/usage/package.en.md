@@ -114,7 +114,7 @@ b: {c: 3, d: 4}
 Before you create a package you need to create an environment with the builder image:
 ```bash
 $ fission env create --name pythondeploy --image fission/python-env:latest --builder fission/python-builder:latest --mincpu 40 --maxcpu 80 --minmemory 64 --maxmemory 128 --poolsize 2
-environment 'pythonsrc' created
+environment 'pythondeploy' created
 ```
 
 We will use a simple Python example which outputs "Hello World!" in a directory to create a deployment archive:
