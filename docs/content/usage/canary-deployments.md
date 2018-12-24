@@ -8,9 +8,9 @@ This tutorial will walk you through setting up a canary config to deploy a new v
 
 ## Setup & pre-requisites
 
-Canary feature can be enabled or disabled by setting a feature flag in helm chart canaryDeployment.enabled to true or false during fission installation.
+Canary feature can be enabled or disabled by setting a feature flag in helm chart `canaryDeployment.enabled` to true or false during fission installation.
 
-This feature is dependent on Prometheus metrics to check the health of the new version of the function. Hence, Prometheus is listed as a dependency for fission chart. 
+This feature is dependent on **Prometheus** metrics to check the health of the new version of the function. Hence, Prometheus is listed as a dependency for fission chart. 
 Either an existing prometheus deployment in the cluster can be used or Prometheus could be installed alon with fission.
 To install prometheus with fission, the flag prometheusDeploy can be set to True in the helm chart.
 In order to re-use existing Prometheus deployment, fission checks the value of Prometheus server service environment variable in its controller pod. If that cant be accessed, fission proceeds without enabling the canary feature.
@@ -67,7 +67,6 @@ $ fission env create --name nodejs --image fission/node-env
 ```bash
 $ fission fn create --name fna-v1 --code hello.js --env nodejs
 $ fission fn create --name fna-v2 --code hello2.js --env nodejs
-
 ```
 
 3. Create an http trigger to these functions :
