@@ -14,12 +14,17 @@ intended to give you something quickly so you can try Fission on it.)
 
 Minikube is the usual way to run Kubernetes on your laptop:
 
+### Prerequisites
+
+Minikube depends on virtualization tools on the host. For more information, please visit [minikube requirements](https://github.com/kubernetes/minikube#requirements).
+Here we use the Oracle VM VirtualBox as example. Download and install from: https://www.virtualbox.org/wiki/Downloads 
+
 ### Install and start Kubernetes on OSX:
 
 ```bash
 $ curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/darwin/amd64/kubectl && chmod +x kubectl && sudo mv kubectl /usr/local/bin
 
-$ curl -Lo minikube https://storage.googleapis.com/minikube/releases/v0.26.1/minikube-darwin-amd64 && chmod +x minikube && sudo mv minikube /usr/local/bin/
+$ curl -Lo minikube https://storage.googleapis.com/minikube/releases/latest/minikube-darwin-amd64 && chmod +x minikube && sudo mv minikube /usr/local/bin/
 
 $ minikube start
 ```
@@ -29,7 +34,7 @@ $ minikube start
 ```bash
 $ curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl && chmod +x kubectl && sudo mv kubectl /usr/local/bin
 
-$ curl -Lo minikube https://storage.googleapis.com/minikube/releases/v0.26.1/minikube-linux-amd64 && chmod +x minikube && sudo mv minikube /usr/local/bin/
+$ curl -Lo minikube https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64 && chmod +x minikube && sudo mv minikube /usr/local/bin/
 
 $ minikube start
 ```
