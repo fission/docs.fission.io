@@ -19,17 +19,10 @@ netlify (see netlify.toml and build.sh).
    * `docs/content` this is where the documentation content lives.
    * `docs/config.toml` is some hugo configuration, such as the base URL of the website, the theme etc.
  * `dist/` is the directory that's actually served at https://docs.fission.io
-   * `dist/<VERSION>` older versions of the docs are archived here. See the versioning section below.
- * `version.sh` contains the version
+   * `dist/archive` has older versions of the docs are archived here. These are kept for reference purpose and will be eventually removed. All older versions are redirected to current version of docs
+   * `dist/public` is the root of latest/live documentation
  * `build.sh` is run by netlify. It runs hugo and places the generated
-   site under `dist/`
-
-
-## Versioning
-
-All the docs are under a version directory. On releasing a new
-version, we archive the dist/$VERSION directory for the old version,
-and commit it.  Netlify only builds the latest version on each push.
+   site under `dist/public`
 
 ## Making changes
 
@@ -56,9 +49,6 @@ hugo serve -D
 ## Publishing your changes
 
 Make a pull request with your changes to the source.  There should be
-no changes under the `dist` directory. (Unless you're making a new
-release, or fixing something in an old version of the docs.)
-
-When the pull request is merged the site will automatically be updated
+no changes under the `dist` directory. When the pull request is merged the site will automatically be updated
 by netlify.
 
