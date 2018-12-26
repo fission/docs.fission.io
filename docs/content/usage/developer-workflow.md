@@ -4,7 +4,7 @@ date: 2017-12-01T18:01:57-08:00
 weight: 48
 ---
 
-You've made a Hello World function in your favourite language, and
+You've made a Hello World function in your favorite language, and
 you've run it on your Fission deployment.  What's next?
 
 How should you organize source code when you have lots of functions?
@@ -94,32 +94,41 @@ cluster from these specs will be annotated with that unique ID.
 ### Setup a Python environment
 
 ```bash
-$ fission env create --spec --name python --image fission/python-env:0.11.0 --builder fission/python-builder:0.11.0
+$ fission env create --spec --name python --image fission/python-env --builder fission/python-builder
 ```
 
 This command creates a YAML file under specs called `specs/env-python.yaml`.
 
 ### Code two functions
 
-One function simply returns a simple web form.  You can download the
-code or copy paste from the contents below:
+We will create two functions in python along with an empty `requirements.txt` file so that builder is able to build the code. We will put the functions in their own directory with the requirements.txt file.
 
 ```bash
-$ curl -Lo form.py http://xxx
+.
+├── eval
+│   ├── eval.py
+│   └── requirements.txt
+├── form
+│   ├── form.py
+│   └── requirements.txt
+└── specs
+
 ```
 
-Here are its contents:
+First function simply returns a simple web form, here are the contents of the file `form.py`:
 
 ```python
 def main():
     return """
        <html>
          <body>
-           <form action="/calculate" method="GET">
-             <input name="num_1"/>
-             <input name="num_2"/>
-             <input name="operator"/>
-             <button>Calculate</button>
+           <form action="/eval" method="GET">
+             Number 1 : <input name="num_1"/>
+             <br>
+             Number 2: <input name="num_2"/>
+             <br>
+             Operator: <input name="operator"/>
+             <input type="submit" value="submit">
            </form>
          </body>
        </html>
@@ -130,23 +139,19 @@ The form accepts a simple arithmetic expression.  When it is
 submitted, it makes a request to the second function, which calculates
 the expression entered.
 
-Here's the calculator function:
-
-```bash
-$ curl -Lo calc.py http://yyy
-```
-
-That function is pretty simple too:
+The second function `eval.py` is pretty simple too:
 
 ```python
+from flask import request
+
 def main():
-    num_1 = int(request.form['num_1'])
-    num_2 = int(request.form['num_2'])
-    operator = request.form['operator']
+    num_1 = int(request.args.get('num_1'))
+    num_2 = int(request.args.get('num_2'))
+    operator = request.args.get('operator')
 
     if operator == '+':
         result = num_1 + num_2
-    elsif operator == '-':
+    elif operator == '-':
         result = num_1 - num_2
         
     return "%s %s %s = %s" % (num_1, operator, num_2, result)
@@ -159,9 +164,9 @@ specifies the function name, where the code lives, and associates the
 function with the python environment:
 
 ```bash
-$ fission function create --spec --name calc-form --env python --src form.py --entrypoint form.main
+$ fission function create --spec --name calc-form --env python --src "form/*" --entrypoint form.main
 
-$ fission function create --spec --name calc-eval --env python --src calc.py --entrypoint calc.main
+$ fission function create --spec --name calc-eval --env python --src "eval/*" --entrypoint calc.main
 ```
 
 You can see the generated YAML files in
@@ -192,27 +197,44 @@ You should see no errors.
 ### Apply: deploy your functions to Fission
 
 You can simply use apply to deploy the environment, functions and HTTP
-triggers to the cluster.
+triggers to the cluster. This command will wait for builds of both functions to complete before exiting:
 
 ```bash
 $ fission spec apply --wait
+1 environment created: python
+2 packages created: python-1543660299-o4e9, python-1543660287-byam
+2 functions created: calc-eval, calc-form
+2 HTTPTriggers created: bac55924-03a8-42e1-81b9-8079a8885f3a, f16c8459-3c23-46ad-901f-9312f38cec2a
+--- Build SUCCEEDED ---
+--- Build SUCCEEDED ---
 ```
-
 (This uses your kubeconfig to connect to Fission, just like kubectl.
 See Usage Reference below for options.)
 
+If the build fails, you can rebuild the package using rebuild command: 
+
+```
+--- Build FAILED: ---
+Build timeout due to environment builder not ready
+------
+$ fission package rebuild --name python-1543660299-o4e9
+```
+
 ### Test a function
 
-Make sure your function is working:
+You can check the function is working with `fission fn test` but since this function returns a HTML, it is best to open in browser.
 
 ```bash
 $ fission function test --name calc-form
 ```
 
-You should see the output of the calc-form function.
+Open the URL of the Fission router service suffixed by the name of route at which form function is exposed. For more details on getting the address of Fission router please check [the link](https://docs.fission.io/latest/installation/env_vars/#fission-router-address)
 
-To test the other function, open the URL of the Fission router service
-in a browser, enter two numbers and an operator, and click submit.
+```
+http://$FISSION_ROUTER/form
+```
+
+You can enter two number and operator and see the results. Currently this function only supports addition and subtraction.
 
 (If you don't know the address of the Fission router, you can find it
 with kubectl: `kubectl -n fission get service router`.)
@@ -222,7 +244,7 @@ with kubectl: `kubectl -n fission get service router`.)
 Let's try modifying a function: let's change the `calc-eval` function
 to support multiplication, too.
 
-```
+```python
     ...
     
     elsif operator == '*':
@@ -231,14 +253,7 @@ to support multiplication, too.
     ...
 ```
 
-You can add the above lines to `calc.py`, or just download the
-modified function:
-
-```bash
-$ curl -Lo calc.py http://zzz
-```
-
-To deploy your changes, simply apply the specs again:
+You can add the above lines to `calc.py`. To deploy your changes, simply apply the specs again:
 
 ```bash
 $ fission spec apply --wait
@@ -252,25 +267,13 @@ This should output something like:
 1 function updated: calc-eval
 ```
 
-Your new updated function is deployed!
-
-Test it out by entering a `*` for the operator in the form!
+Your new updated function is deployed! Test it out by entering a `*` for the operator in the form!
 
 ### Add dependencies to the function
 
-Let's say you'd like to add a pip `requirements.txt` to your function,
+Let's say you'd like to add a pip dependency in `requirements.txt` to your function,
 and include some libraries in it, so you can `import` them in your
-functions.
-
-Create a `requirements.txt`, and add something to it:
-
-```
-xxx
-```
-
-Modify the ArchiveUploadSpec inside specs/function-<name>.yaml
-
-Once again, deploying is the same:
+functions. Add a library to the requirements.txt amd modify the ArchiveUploadSpec inside specs/function-<name>.yaml. Once again, deploying is the same:
 
 ```bash
 $ fission spec apply --wait
