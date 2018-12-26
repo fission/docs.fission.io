@@ -208,9 +208,17 @@ $ fission spec apply --wait
 --- Build SUCCEEDED ---
 --- Build SUCCEEDED ---
 ```
-
 (This uses your kubeconfig to connect to Fission, just like kubectl.
 See Usage Reference below for options.)
+
+If the build fails, you can rebuild the package using rebuild command: 
+
+```
+--- Build FAILED: ---
+Build timeout due to environment builder not ready
+------
+$ fission package rebuild --name python-1543660299-o4e9
+```
 
 ### Test a function
 
