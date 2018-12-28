@@ -108,4 +108,9 @@ HUGO_ENABLEGITINFO = "true"
 [[redirects]]
   from = "/1.0-rc1/*"
   to = "/:splat"
-  force = true  
+  force = true
+
+[[redirects]]
+  from = "/installation/installation"
+  to = "/installation"
+  force = true
