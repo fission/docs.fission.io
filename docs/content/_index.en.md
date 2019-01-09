@@ -71,9 +71,11 @@ You can also extend environments or create entirely new
 ones if you want.  (An environment is essentially just a container
 with a webserver and dynamic loader.)
 
-A _trigger_ is something that maps an event to a function; Fission
-supports HTTP routes as triggers today, with upcoming support for
-other types of event triggers, such as timers and Kubernetes events.
+A _trigger_ is something that maps an event to a function; Fission as
+of today supports [HTTP request]({{% relref "usage/trigger.en.md#create-a-http-trigger" %}}),
+[timed]({{% relref "usage/trigger.en.md#create-a-time-trigger" %}}),
+and [message queue]({{% relref "usage/trigger.en.md#create-a-message-queue-trigger" %}})
+triggers.
 
 Usage
 -----
