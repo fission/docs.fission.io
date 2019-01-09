@@ -166,7 +166,7 @@ function with the python environment:
 ```bash
 $ fission function create --spec --name calc-form --env python --src "form/*" --entrypoint form.main
 
-$ fission function create --spec --name calc-eval --env python --src "eval/*" --entrypoint calc.main
+$ fission function create --spec --name calc-eval --env python --src "eval/*" --entrypoint eval.main
 ```
 
 You can see the generated YAML files in
@@ -246,14 +246,14 @@ to support multiplication, too.
 
 ```python
     ...
-    
-    elsif operator == '*':
+
+    elif operator == '*':
         result = num_1 * num_2
 
     ...
 ```
 
-You can add the above lines to `calc.py`. To deploy your changes, simply apply the specs again:
+You can add the above lines to `eval.py`. To deploy your changes, simply apply the specs again:
 
 ```bash
 $ fission spec apply --wait
