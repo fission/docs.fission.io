@@ -13,62 +13,71 @@ images.
 
 You'll need the `go` compiler and tools installed, along with the
 [glide dependency management
-tool](https://github.com/Masterminds/glide#install).  You'll also need
-docker for building images.
+tool](https://github.com/Masterminds/glide#install). You'll also need
+[docker](https://docs.docker.com/install) for building images.
 
 The server side is compiled as one binary ("fission-bundle") which
 contains controller, poolmgr and router; it invokes the right one
 based on command-line arguments.
 
-To build fission-bundle: clone this repo to
-`$GOPATH/src/github.com/fission/fission`, then from the top level
-directory (if you want to build the image with the docker inside
+To clone the repo, install dependencies and build `fission-bundle`:
+
+{{% notice tip %}}
+If you want to build the image with the docker inside
 minikube, you'll need to set the proper environment variables with
-`eval $(minikube docker-env)`):
+`eval $(minikube docker-env)`
+{{% /notice %}}
 
-Install dependencies with glide:
+```sh
+  # Clone the repo
+  $ git clone https://github.com/fission/fission.git $GOPATH/src/github.com/fission/fission
+  $ cd $GOPATH/src/github.com/fission/fission
 
-{{< highlight bash >}}
-$ glide install -v
-{{< /highlight >}}
+  # Get dependencies
+  $ glide install --strip-vendor
+
+  # Run checks on your changes
+  $ ./hack/verify-gofmt.sh
+  $ ./hack/verify-govet.sh
+```
 
 Build fission server:
 
-{{< highlight bash >}}
+```sh
 $ pushd $GOPATH/src/github.com/fission/fission/fission-bundle
 $ ./build.sh
-{{< /highlight >}}
+```
 
-You now need to build the docker image for fission. You can use
-`push.sh` and push it to a docker hub account. But it's easiest to use
-minikube and its built-in docker daemon:
+You now need to build the docker image for fission. You can push it to
+a docker hub account. But it's easier to use minikube and its
+built-in docker daemon:
 
-{{< highlight bash >}}
+```sh
 $ eval $(minikube docker-env)
 $ docker build -t minikube/fission-bundle .
-{{< /highlight >}}
+```
 
 Next, pull in the dependencies for the Helm chart:
 
-{{< highlight bash >}}
+```sh
 $ helm dep update $GOPATH/src/github.com/fisson/charts/fission-all
-{{< /highlight >}}
+```
 
 Next, install fission with this image on your kubernetes cluster using the helm chart:
 
-{{< highlight bash >}}
+```sh
 $ helm install --set "image=minikube/fission-bundle,pullPolicy=IfNotPresent,analytics=false" charts/fission-all
-{{< /highlight >}}
+```
 
 And if you're changing the CLI too, you can build it with:
 
-{{< highlight bash >}}
+```sh
 $ cd $GOPATH/src/github.com/fission/fission/fission
 $ go install
-{{< /highlight >}}
+```
 
-Finally, reset to the original current working directory
+Finally, reset to the original current working directory:
 
-{{< highlight bash >}}
+```sh
 $ popd
-{{< /highlight >}}
+```
