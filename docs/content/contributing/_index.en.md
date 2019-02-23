@@ -60,7 +60,7 @@ $ docker build -t minikube/fission-bundle .
 Next, pull in the dependencies for the Helm chart:
 
 ```sh
-$ helm dep update $GOPATH/src/github.com/fisson/charts/fission-all
+$ helm dep update $GOPATH/src/github.com/fission/fission/charts/fission-all
 ```
 
 Next, install fission with this image on your kubernetes cluster using the helm chart:
