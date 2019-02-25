@@ -27,7 +27,7 @@ Currently, fission support multiple popular language like NodeJs, Go, Python, Ja
 
 ## Environment
 
-The environment(language) container which runs user function to serve HTTP requests. When a request hit fission router, the env container will load user function into runtime conainer first, then execute the function to serve the request. 
+The environment(language) container which runs user function to serve HTTP requests. When a request hit fission router, the env container will load user function into runtime container first, then execute the function to serve the request. 
 
 ## Trigger
 
