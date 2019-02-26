@@ -6,7 +6,8 @@ weight: 64
 
 #### Installation
 
-Fission now install NATS Streaming service bt default while helm installation.
+Fission installs the NATS streaming service by default when the
+`fission-all` helm chart is used for installation.
 
 You should see a pod with `nats-streaming` prefix with following command.
 
