@@ -360,7 +360,7 @@ Sample package.json
 }
 ```
 
-Next, create a zip archive of these 2 files with `zip momentExample.js package.json` , let's call it node-source-example.zip
+Next, create a zip archive of these 2 files with `zip node-source-example.zip momentExample.js package.json`.
 
 Now create a fission source package with the zip file just created. This command outputs the name of the package created. 
 
