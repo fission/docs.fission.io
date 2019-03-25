@@ -133,7 +133,7 @@ $ fission httptrigger create --url /hello-user --function hello-user
 Test the function with the below command and you should see "hello, foo!" in the output
 
 ```bash
-$ curl HTTP://$FISSION_ROUTER/header-example?user=foo
+$ curl HTTP://$FISSION_ROUTER/hello-user?user=foo
 ```
 
 #### Body 
