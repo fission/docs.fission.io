@@ -117,32 +117,53 @@ discoveryRefreshDelay: 1s
 
 ### Install Istio Add-ons
 
-* Prometheus
 
-If you used Helm, you can also add Prometheus as an add on by using the Prometheus options in the Helm values.yaml file as [detailed here](https://istio.io/docs/reference/config/installation-options/#prometheus-options). 
+Istio comes with additional add ons for features such as monitoring, distributed tracing etc. If you have installed Istio with Helm, you can decide which addons to enable in values.yaml:
 
-Web Link: [http://127.0.0.1:9090/graph](http://127.0.0.1:9090/graph)
+```
+#
+# addon prometheus configuration
+#
+prometheus:
+  enabled: true
 
-* Grafana
+#
+# addon jaeger tracing configuration
+#
+tracing:
+  enabled: true
 
-Before using Grafana for looking at data, you need to have Prometheus installed.
+#
+# addon kiali tracing configuration
+#
+kiali:
+  enabled: true
 
-![grafana min](https://user-images.githubusercontent.com/202578/33528556-639493e2-d89d-11e7-9768-976fb9208646.png)
-
-```bash
-$ kubectl apply -f istio-0.5.1/install/kubernetes/addons/grafana.yaml
-$ kubectl -n istio-system port-forward $(kubectl -n istio-system get pod -l app=grafana -o jsonpath='{.items[0].metadata.name}') 3000:3000
 ```
 
-Web Link: [http://127.0.0.1:3000/dashboard/db/istio-dashboard](http://127.0.0.1:3000/dashboard/db/istio-dashboard)
+We will explore few add ons that we enabled and tried out in the following sections. For each of add-ons you can port-forward the service and watch the UI console of the respective service. For example for Jaeger, you can run the port-forward:
 
-* Jaegar
+```
+kubectl port-forward service/jaeger-query -nistio-system 3000:16686
+```
+
+
+#### Prometheus
+
+Prometheus can scrapes the metrics from Fission and Istio components. Assuming Prometheus installation was done correctly and Fission components are being scraped by the Prometheus instance, you can see graphs related to Fission metrics in Prometheus graph:
+
+![Prometheus](../../images/prometheus_fission.png)
+
+
+### Grafana
+
+Grafana is used for visualization of metrics and Istio installed Grafana comes with a few dashboards built in. We can see the visualization of mixer stats in below screenshot:
+
+![Grafana](../../images/grafana.png)
+
+
+### Jaegar
+
+Jaeger allows distributed tracing of requests for function calls. We can see the details of each call to it's granular detail in Jaeger. You have to enable jaeger in Fission installation and point to appropriate URL of the Jaeger collector. You can find more details on [how to configure Jaeger to work with Fission here](https://blog.fission.io/posts/fission-opentracing/)
 
 ![jaeger min](https://user-images.githubusercontent.com/202578/33528554-572c4f28-d89d-11e7-8a01-1543fc2aa064.png)
-
-```bash
-$ kubectl apply -n istio-system -f https://raw.githubusercontent.com/jaegertracing/jaeger-kubernetes/master/all-in-one/jaeger-all-in-one-template.yml
-$ kubectl port-forward -n istio-system $(kubectl get pod -n istio-system -l app=jaeger -o jsonpath='{.items[0].metadata.name}') 16686:16686
-```
-
-Web Link: [http://localhost:16686](http://localhost:16686)
