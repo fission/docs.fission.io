@@ -4,108 +4,23 @@ draft: false
 weight: 62
 ---
 
-This is the very first step for fission to integrate with [Istio](https://istio.io/). For those interested in trying to integrate fission with istio, following is the set up tutorial.
-
-## Test Environment
-* Google Kubernetes Engine: 1.9.2-gke.1
-
-## Set Up
-### Create Kubernetes v1.9+ cluster
-
-Enable both RBAC & initializer features on kubernetes cluster.
-
-```bash
-$ export ZONE=<zone name>
-$ gcloud container clusters create istio-demo-1 \
-    --machine-type=n1-standard-2 \
-    --num-nodes=1 \
-    --no-enable-legacy-authorization \
-    --zone=$ZONE \
-    --cluster-version=1.9.2-gke.1
-```
-
-### Grant cluster admin permissions
-
-Grant admin permission for `system:serviceaccount:kube-system:default` and current user.
-
-```bash
-# for system:serviceaccount:kube-system:default
-$ kubectl create clusterrolebinding --user system:serviceaccount:kube-system:default kube-system-cluster-admin --clusterrole cluster-admin
-
-# for current user
-$ kubectl create clusterrolebinding cluster-admin-binding --clusterrole=cluster-admin --user=$(gcloud config get-value core/account)
-```
-
-### Set up Istio environment
-
-For Istio 0.5.1 you can follow the installation tutorial below. Also, you can follow the latest installation guides on Istio official site: [Quick Start](https://istio.io/docs/setup/kubernetes/quick-start.html) and [Sidecar Injection](https://istio.io/docs/setup/kubernetes/sidecar-injection.html).
+This tutorial sets up Fission with [Istio](https://istio.io/) - a service mesh for Kubernetes. The tutorial was tried on GKE but should work on any equivalent setup. We will assume that you already have a Kubernetes cluster setp and working.
 
 
-Download Istio 0.5.1
+### Set up Istio
 
-```bash
-$ export ISTIO_VERSION=0.5.1
-$ curl -L https://git.io/getLatestIstio | sh -
-$ cd istio-0.5.1
-```
+For installing Istio, please follow the setup guides [here](https://istio.io/docs/setup/kubernetes/install/). You can use a setup that works for you, we used the Helm install for Istio for this tutorial as [detailed here](https://istio.io/docs/setup/kubernetes/install/helm/)
 
-Apply istio related YAML files
-
-```bash
-$ kubectl apply -f install/kubernetes/istio.yaml
-```
-
-Automatic sidecar injection
-
-```bash
-$ kubectl api-versions | grep admissionregistration
-admissionregistration.k8s.io/v1beta1
-```
-
-Installing the webhook
-
-Download the missing files in istio release 0.5.1
-
-```bash
-$ wget https://raw.githubusercontent.com/istio/istio/master/install/kubernetes/webhook-create-signed-cert.sh -P install/kubernetes/
-$ wget https://raw.githubusercontent.com/istio/istio/master/install/kubernetes/webhook-patch-ca-bundle.sh -P install/kubernetes/
-$ chmod +x install/kubernetes/webhook-create-signed-cert.sh install/kubernetes/webhook-patch-ca-bundle.sh
-```
-
-Install the sidecar injection configmap.
-
-```bash
-$ ./install/kubernetes/webhook-create-signed-cert.sh \
-    --service istio-sidecar-injector \
-    --namespace istio-system \
-    --secret sidecar-injector-certs
-
-$ kubectl apply -f install/kubernetes/istio-sidecar-injector-configmap-release.yaml
-```
-
-Install the sidecar injector
-
-```bash
-$ cat install/kubernetes/istio-sidecar-injector.yaml | \
-     ./install/kubernetes/webhook-patch-ca-bundle.sh > \
-     install/kubernetes/istio-sidecar-injector-with-ca-bundle.yaml
-
-$ kubectl apply -f install/kubernetes/istio-sidecar-injector-with-ca-bundle.yaml
-
-# Check sidecar injector status
-$ kubectl -n istio-system get deployment -listio=sidecar-injector
-NAME                     DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
-istio-sidecar-injector   1         1         1            1           26s
-```
 
 ### Install fission
 
 Set default namespace for helm installation, here we use `fission` as example namespace.
+
 ```bash
 $ export FISSION_NAMESPACE=fission
 ```
 
-Create namespace & add label for Istio sidecar injection.
+Create namespace & add label for Istio sidecar injection, this will ensure that the the Istio sidecar is auto injected with Fission pods.
 
 ```bash
 $ kubectl create namespace $FISSION_NAMESPACE
@@ -119,16 +34,15 @@ Follow the [installation guide](../../installation/) to install fission with fla
 $ helm install --namespace $FISSION_NAMESPACE --set enableIstio=true --name istio-demo <chart-fission-all-url>
 ```
 
-### Create a function
+### Create & test a function
 
-Set environment
+Let's first create the environment for nodejs function we want to create:
 
 ```bash
-$ export FISSION_URL=http://$(kubectl --namespace fission get svc controller -o=jsonpath='{..ip}')
-$ export FISSION_ROUTER=$(kubectl --namespace fission get svc router -o=jsonpath='{..ip}')
+$ fission env create --name nodejs --image fission/node-env:latest
 ```
 
-Let's create a simple function with Node.js.
+Let's create a simple function with Node.js environment and a simple hello world example below:
 
 ```js
 # hello.js
@@ -141,19 +55,11 @@ module.exports = async function(context) {
 }
 ```
 
-Create environment
-
-```bash
-$ fission env create --name nodejs --image fission/node-env:latest
-```
-
-Create function
-
 ```bash
 $ fission fn create --name h1 --env nodejs --code hello.js --method GET
 ```
 
-Create route
+Now let's create route for the function
 
 ```bash
 $ fission route create --method GET --url /h1 --function h1
@@ -166,38 +72,98 @@ $ curl http://$FISSION_ROUTER/h1
 Hello, World!
 ```
 
+### Under the hood
+
+Now that a Fission function did work with Istio, let's check under the hood see how Istio is interacting with system seamlessly. After installation, you will see that all components such as executor, router etc. now have an additional sidecar for istio-proxy and they also had a istio-init as a init container.
+
+```
+$ kubectl get pods -nfission
+NAME                                                     READY     STATUS             RESTARTS   AGE
+buildermgr-86858f4f6c-drhlv                              2/2       Running            0          7m
+controller-78cbdfc4fb-vdjsj                              2/2       Running            0          7m
+executor-97c7fc96d-9tclp                                 2/2       Running            1          7m
+
+```
+
+```
+  containers:
+    name: executor
+...
+...
+    image: docker.io/istio/proxyv2:1.0.6
+    imagePullPolicy: IfNotPresent
+    name: istio-proxy
+```
+
+Also all function pods now have 3 containers - the function container, fetcher and now additionally the the istio-proxy container and we can see the istio-proxy logs for function containers.
+
+```
+$ kubectl get pods -nfission-function
+NAME                                                READY     STATUS    RESTARTS   AGE
+newdeploy-hello-default-mmrlkoog-557678fdcd-gw7tz   3/3       Running   2          9m
+poolmgr-node-default-esibbicv-65488fbc4d-2hdzc      3/3       Running   0          9m
+
+$ kubectl $ff logs -f newdeploy-hello-default-mmrlkoog-557678fdcd-gw7tz -c istio-proxy
+2019-04-02T17:02:42.944608Z info    Version root@464fc845-2bf8-11e9-b805-0a580a2c0506-docker.io/istio-1.0.6-98598f88f6ee9c1e6b3f03b652d8e0e3cd114fa2-Clean
+2019-04-02T17:02:42.944647Z info    Proxy role: model.Proxy{ClusterID:"", Type:"sidecar", IPAddress:"10.16.62.23", ID:"newdeploy-hello-default-mmrlkoog-557678fdcd-gw7tz.fission-function", Domain:"fission-function.svc.cluster.local", Metadata:map[string]string(nil)}
+2019-04-02T17:02:42.944966Z info    Effective config: binaryPath: /usr/local/bin/envoy
+configPath: /etc/istio/proxy
+connectTimeout: 10s
+discoveryAddress: istio-pilot.istio-system:15007
+discoveryRefreshDelay: 1s
+
+```
+
 
 ### Install Istio Add-ons
 
-* Prometheus
 
-```bash
-$ kubectl apply -f istio-0.5.1/install/kubernetes/addons/prometheus.yaml
-$ kubectl -n istio-system port-forward $(kubectl -n istio-system get pod -l app=prometheus -o jsonpath='{.items[0].metadata.name}') 9090:9090
+Istio comes with additional add ons for features such as monitoring, distributed tracing etc. If you have installed Istio with Helm, you can decide which addons to enable in values.yaml:
+
+```
+#
+# addon prometheus configuration
+#
+prometheus:
+  enabled: true
+
+#
+# addon jaeger tracing configuration
+#
+tracing:
+  enabled: true
+
+#
+# addon kiali tracing configuration
+#
+kiali:
+  enabled: true
+
 ```
 
-Web Link: [http://127.0.0.1:9090/graph](http://127.0.0.1:9090/graph)
+We will explore few add ons that we enabled and tried out in the following sections. For each of add-ons you can port-forward the service and watch the UI console of the respective service. For example for Jaeger, you can run the port-forward:
 
-* Grafana
-
-Please install Prometheus first.
-
-![grafana min](https://user-images.githubusercontent.com/202578/33528556-639493e2-d89d-11e7-9768-976fb9208646.png)
-
-```bash
-$ kubectl apply -f istio-0.5.1/install/kubernetes/addons/grafana.yaml
-$ kubectl -n istio-system port-forward $(kubectl -n istio-system get pod -l app=grafana -o jsonpath='{.items[0].metadata.name}') 3000:3000
+```
+kubectl port-forward service/jaeger-query -nistio-system 3000:16686
 ```
 
-Web Link: [http://127.0.0.1:3000/dashboard/db/istio-dashboard](http://127.0.0.1:3000/dashboard/db/istio-dashboard)
 
-* Jaegar
+#### Prometheus
+
+Prometheus can scrapes the metrics from Fission and Istio components. Assuming Prometheus installation was done correctly and Fission components are being scraped by the Prometheus instance, you can see graphs related to Fission metrics in Prometheus graph:
+
+![Prometheus](../../images/prometheus_fission.png)
+
+
+### Grafana
+
+Grafana is used for visualization of metrics and Istio installed Grafana comes with a few dashboards built in. We can see the visualization of mixer stats in below screenshot:
+
+![Grafana](../../images/grafana.png)
+
+
+### Jaegar
+
+Jaeger allows distributed tracing of requests for function calls. We can see the details of each call to it's granular detail in Jaeger. You have to enable jaeger in Fission installation and point to appropriate URL of the Jaeger collector. You can find more details on [how to configure Jaeger to work with Fission here](https://blog.fission.io/posts/fission-opentracing/)
 
 ![jaeger min](https://user-images.githubusercontent.com/202578/33528554-572c4f28-d89d-11e7-8a01-1543fc2aa064.png)
-
-```bash
-$ kubectl apply -n istio-system -f https://raw.githubusercontent.com/jaegertracing/jaeger-kubernetes/master/all-in-one/jaeger-all-in-one-template.yml
-$ kubectl port-forward -n istio-system $(kubectl get pod -n istio-system -l app=jaeger -o jsonpath='{.items[0].metadata.name}') 16686:16686
-```
-
-Web Link: [http://localhost:16686](http://localhost:16686)
