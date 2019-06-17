@@ -11,16 +11,14 @@ just deploying Fission, use fission.yaml which points to prebuilt
 images.
 {{% /notice %}}
 
-You'll need the `go` compiler and tools installed, along with the
-[glide dependency management
-tool](https://github.com/Masterminds/glide#install). You'll also need
+You'll need the `go` compiler and tools installed. You'll also need
 [docker](https://docs.docker.com/install) for building images.
 
 The server side is compiled as one binary ("fission-bundle") which
-contains controller, poolmgr and router; it invokes the right one
-based on command-line arguments.
+contains controller, executor, router and all other core components; 
+it invokes the right one based on command-line arguments.
 
-To clone the repo, install dependencies and build `fission-bundle`:
+To clone the repo, install dependencies and build `fission-bundle` container image:
 
 {{% notice tip %}}
 If you want to build the image with the docker inside
@@ -33,7 +31,8 @@ minikube, you'll need to set the proper environment variables with
 $ git clone https://github.com/fission/fission.git $GOPATH/src/github.com/fission/fission
 $ cd $GOPATH/src/github.com/fission/fission
 
-# Get dependencies
+# Enable go module and get dependencies
+$ export GO111MODULE=on
 $ go mod download
 
 # Run checks on your changes
@@ -41,7 +40,7 @@ $ ./hack/verify-gofmt.sh
 $ ./hack/verify-govet.sh
 ```
 
-You now need to build the docker image for fission. You can push it to
+You now need to build the container image for fission. You can push it to
 a docker hub account. But it's easier to use minikube and its
 built-in docker daemon:
 
