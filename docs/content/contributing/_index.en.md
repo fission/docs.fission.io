@@ -29,23 +29,16 @@ minikube, you'll need to set the proper environment variables with
 {{% /notice %}}
 
 ```sh
-  # Clone the repo
-  $ git clone https://github.com/fission/fission.git $GOPATH/src/github.com/fission/fission
-  $ cd $GOPATH/src/github.com/fission/fission
+# Clone the repo
+$ git clone https://github.com/fission/fission.git $GOPATH/src/github.com/fission/fission
+$ cd $GOPATH/src/github.com/fission/fission
 
-  # Get dependencies
-  $ glide install --strip-vendor
+# Get dependencies
+$ go mod download
 
-  # Run checks on your changes
-  $ ./hack/verify-gofmt.sh
-  $ ./hack/verify-govet.sh
-```
-
-Build fission server:
-
-```sh
-$ pushd $GOPATH/src/github.com/fission/fission/fission-bundle
-$ ./build.sh
+# Run checks on your changes
+$ ./hack/verify-gofmt.sh
+$ ./hack/verify-govet.sh
 ```
 
 You now need to build the docker image for fission. You can push it to
@@ -54,7 +47,7 @@ built-in docker daemon:
 
 ```sh
 $ eval $(minikube docker-env)
-$ docker build -t minikube/fission-bundle .
+$ docker build -t minikube/fission-bundle -f cmd/fission-bundle/Dockerfile.fission-bundle .
 ```
 
 Next, pull in the dependencies for the Helm chart:
@@ -72,8 +65,8 @@ $ helm install --set "image=minikube/fission-bundle,pullPolicy=IfNotPresent,anal
 And if you're changing the CLI too, you can build it with:
 
 ```sh
-$ cd $GOPATH/src/github.com/fission/fission/fission
-$ go install
+$ cd $GOPATH/src/github.com/fission/fission/cmd/fission-cli
+$ go build -o $GOPATH/bin/fission
 ```
 
 Finally, reset to the original current working directory:
