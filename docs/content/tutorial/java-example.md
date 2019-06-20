@@ -44,31 +44,31 @@ public class HelloWorld implements Function {
 First you have to define the the basic information about the function:
 
 ```xml
-	<modelVersion>4.0.0</modelVersion>
-	<groupId>io.fission</groupId>
-	<artifactId>hello-world</artifactId>
-	<version>1.0-SNAPSHOT</version>
-	<packaging>JAR</packaging>
+<modelVersion>4.0.0</modelVersion>
+<groupId>io.fission</groupId>
+<artifactId>hello-world</artifactId>
+<version>1.0-SNAPSHOT</version>
+<packaging>JAR</packaging>
 
-	<name>hello-world</name>
+<name>hello-world</name>
 ```
 You will have to add two dependencies which are provided by the function runtime, so both them of scope as provided.
 
 ```xml
-	<dependencies>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-web</artifactId>
-			<version>2.0.1.RELEASE</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>io.fission</groupId>
-			<artifactId>fission-java-core</artifactId>
-			<version>0.0.2-SNAPSHOT</version>
-			<scope>provided</scope>
-		</dependency>
-	</dependencies>
+<dependencies>
+	<dependency>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-web</artifactId>
+		<version>2.0.1.RELEASE</version>
+		<scope>provided</scope>
+	</dependency>
+	<dependency>
+		<groupId>io.fission</groupId>
+		<artifactId>fission-java-core</artifactId>
+		<version>0.0.2-SNAPSHOT</version>
+		<scope>provided</scope>
+	</dependency>
+</dependencies>
 ```
 
 
@@ -87,13 +87,13 @@ One of the key things when packaging the Java function is to package it as a ube
 Lastly since the `fission-java-core` is currently in the snapshot release, you need to explicitely add the sonatype repository which is where it is published. 
 
 ```xml
-	<repositories>
-		<repository>
-			<id>fission-java-core</id>
-			<name>fission-java-core-snapshot</name>
-			<url>https://oss.sonatype.org/content/repositories/snapshots/</url>
-		</repository>
-	</repositories>
+<repositories>
+	<repository>
+		<id>fission-java-core</id>
+		<name>fission-java-core-snapshot</name>
+		<url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+	</repository>
+</repositories>
 ```
 ## Building the package
 
@@ -109,7 +109,7 @@ At this stage we assume that build succeeded and you have the JAR file of the fu
 First you will need to create an environment. The `extract` flag is important for Java based applications packaged as JAR file. This flag will ensure that the fetcher won't extract the JAR file into a directory. Currently JVM environment only supports version 2 & above so we specify the environment version as 2
 
 ```bash
-$ fission env create --name jvm --image fission/jvm-env --version 2 --extract=false
+$ fission env create --name jvm --image fission/jvm-env --version 2 --keeparchive
 ```
 
 When creating the function we provide the JAR file built in earlier steps and the environment. The entrypoint signifies the fully qualified name of the class which implements the Fission's `Function` interface. 
