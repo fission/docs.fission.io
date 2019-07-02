@@ -33,7 +33,7 @@ $ cd $GOPATH/src/github.com/fission/fission
 
 # Enable go module and get dependencies
 $ export GO111MODULE=on
-$ go mod download
+$ go mod vendor
 
 # Run checks on your changes
 $ ./hack/verify-gofmt.sh
