@@ -125,6 +125,12 @@ want to expose anything outside the cluster.
 
 #### Cloud hosted clusters (GKE, AWS, Azure etc.)
 
+You may need to add token to `~/.kube/config` manually or different steps for connecting kubernetes cluster based on the platform you use.
+
+1. GKE: https://cloud.google.com/kubernetes-engine/docs/how-to/cluster-access-for-kubectl
+2. AWS: https://docs.aws.amazon.com/eks/latest/userguide/create-kubeconfig.html
+3. Azure: https://docs.microsoft.com/en-us/azure/aks/kubernetes-walkthrough#connect-to-the-cluster
+
 ```sh
 $ helm install --name fission --namespace fission https://github.com/fission/fission/releases/download/1.3.0/fission-all-1.3.0.tgz
 ```
