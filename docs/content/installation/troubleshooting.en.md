@@ -27,26 +27,3 @@ underlying `docker proxy config` in your system environment.
 ```
 
 Please ensure that `localhost` and `127.0.0.1` are in the `NO_PROXY` setting in your system environment.
-
-## External IP of router stuck in pending state
-
-If your cluster is running in an environment that does not support external load balancer (e.g., minikube), 
-the EXTERNAL-IP of fission router will stay in pending state.
-
-```bash
-$ kubectl --namespace fission get svc router
-NAME      TYPE           CLUSTER-IP     EXTERNAL-IP   PORT(S)        AGE
-router    LoadBalancer   10.39.253.73   <pending>   80:31377/TCP   27d
-```
-
-In this case, you can use the port-forward method instead:
-
-``` bash
-# Port-forward
-$ kubectl --namespace fission port-forward $(kubectl --namespace fission get pod -l svc=router -o name) <local port>:80 &
-$ export FISSION_ROUTER=127.0.0.1:<local port>
-```
-
-Now, `curl http://${FISSION_ROUTER}/` will open a connection that goes
-through the port you just created.  This is useful for local
-testing of your function.
