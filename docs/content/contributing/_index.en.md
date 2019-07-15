@@ -2,7 +2,7 @@
 title: "Contributing to Fission"
 chapter: false
 weight: 250
-alwaysopen: true
+alwaysopen: false
 ---
 
 {{% notice info %}}

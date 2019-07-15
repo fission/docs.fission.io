@@ -3,7 +3,7 @@ title: "Fission Concepts"
 chapter: false
 draft: false
 weight: 30
-alwaysopen: true
+alwaysopen: false
 ---
 
 Fission has three main concepts: Functions, Environments, and

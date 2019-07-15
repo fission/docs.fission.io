@@ -2,7 +2,7 @@
 title: "Using Fission"
 draft: false
 weight: 40
-alwaysopen: true
+alwaysopen: false
 ---
 
 * [Environments]({{%relref "usage/environments.en.md" %}})
