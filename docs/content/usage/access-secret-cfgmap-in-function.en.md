@@ -4,15 +4,7 @@ draft: false
 weight: 36
 ---
 
-Functions can access Kubernetes
-[Secrets](https://kubernetes.io/docs/concepts/configuration/secret/)
-and
-[ConfigMaps](https://kubernetes.io/docs/concepts/storage/volumes/#configmap).
-
-Use secrets for things like API keys, authentication tokens, and so
-on.
-
-Use config maps for any other configuration that doesn't need to be a
+Functions can access Kubernetes [Secrets](https://kubernetes.io/docs/concepts/configuration/secret/) and [ConfigMaps](https://kubernetes.io/docs/concepts/storage/volumes/#configmap). Use secrets for things like API keys, authentication tokens, and so on. Use config maps for any other configuration that doesn't need to be a
 secret.
 
 ### Create A Secret or a ConfigMap
@@ -111,10 +103,18 @@ ConfigMap: TESTVALUE
 Secret: TESTVALUE
 ```
 
+### Updating Secrets and ConfigMaps
 
 {{% notice note %}}
-If the Secret or ConfigMap value is updated, the function may
-not get the updated value for some time; it may get a cached older
-value.
+If you have a large number of functions using a configmap or secret, updating that configmap or secret will cause a large number of pods getting re-created. Please make sure that the cluster has enough capacity to accommodate the short spike of many pods getting terminated and new once getting created.
 {{% /notice %}}
+
+
+If you update the configmap or secret - the same will be updated in the function pods and newer value of configmap/secret will be used for executing functions. The time it takes for the change to reflect depends on the time it takes for rolling update to finish.
+
+
+{{% notice note %}}
+In Fission version prior to 1.4, If the Secret or ConfigMap value is updated, the function will not get the updated and may get a cached older value.
+{{% /notice %}}
+
 
