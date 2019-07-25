@@ -94,7 +94,7 @@ List of all supported configurations for the charts `fission-all` and `fission-c
 You can install Fission with load balancer and volumes enabled (Which is the default) on Docker for desktop. If you face issues with storagesvc or controller crashing, please check the volume provisioning comments in [this GitHub issue](https://github.com/fission/fission/issues/1107)
 
 ```bash
-$ helm install --name fission --namespace fission https://github.com/fission/fission/releases/download/1.3.0/fission-all-1.3.0.tgz
+$ helm install --name fission --namespace fission https://github.com/fission/fission/releases/download/1.4.0/fission-all-1.4.0.tgz
 ```
 
 ### Install the Fission CLI
@@ -104,26 +104,26 @@ $ helm install --name fission --namespace fission https://github.com/fission/fis
 Get the CLI binary for Mac:
 
 ```bash
-$ curl -Lo fission https://github.com/fission/fission/releases/download/1.3.0/fission-cli-osx && chmod +x fission && sudo mv fission /usr/local/bin/
+$ curl -Lo fission https://github.com/fission/fission/releases/download/1.4.0/fission-cli-osx && chmod +x fission && sudo mv fission /usr/local/bin/
 ```
 
 #### Linux
 
 ```bash
-$ curl -Lo fission https://github.com/fission/fission/releases/download/1.3.0/fission-cli-linux && chmod +x fission && sudo mv fission /usr/local/bin/
+$ curl -Lo fission https://github.com/fission/fission/releases/download/1.4.0/fission-cli-linux && chmod +x fission && sudo mv fission /usr/local/bin/
 ```
 
 #### Windows
 
 For Windows, you can use the linux binary on WSL. Or you can download
-this windows executable: [fission.exe](https://github.com/fission/fission/releases/download/1.3.0/fission-cli-windows.exe)
+this windows executable: [fission.exe](https://github.com/fission/fission/releases/download/1.4.0/fission-cli-windows.exe)
 
 ### Run an example
 
 Finally, you're ready to use Fission!
 
 ```bash
-$ fission env create --name nodejs --image fission/node-env:1.3.0
+$ fission env create --name nodejs --image fission/node-env:1.4.0
 
 $ curl -LO https://raw.githubusercontent.com/fission/fission/master/examples/nodejs/hello.js
 
