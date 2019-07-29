@@ -2,7 +2,7 @@
 title: "Tutorials"
 draft: false
 weight: 60
-alwaysopen: true
+alwaysopen: false
 chapter: false
 ---
 

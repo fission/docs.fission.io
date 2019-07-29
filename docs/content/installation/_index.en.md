@@ -3,7 +3,7 @@ title: "Installing Fission"
 draft: false
 weight: 20
 chapter : false
-alwaysopen: true
+alwaysopen: false
 ---
 
 Welcome! This guide will get you up and running with Fission on a

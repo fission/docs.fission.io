@@ -2,7 +2,7 @@
 title: "Languages"
 draft: false
 weight: 50
-alwaysopen: true
+alwaysopen: false
 chapter: false
 ---
 
