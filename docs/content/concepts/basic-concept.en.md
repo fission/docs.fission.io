@@ -23,7 +23,7 @@ module.exports = async function(context) {
 }
 ```
 
-Currently, fission support multiple popular language like NodeJs, Go, Python, Java...etc. For more examples in different languages, please visit [fission language examples](https://github.com/fission/fission/tree/master/examples).
+Currently, fission supports multiple popular language like NodeJs, Go, Python, Java...etc. For more examples in different languages, please visit [fission language examples](https://github.com/fission/fission/tree/master/examples).
 
 ## Environment
 
