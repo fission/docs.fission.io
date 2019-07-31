@@ -12,6 +12,11 @@ Before creating a function, you'll need an environment; read
 [environments]({{%relref "usage/environments.en.md" %}}) if you
 haven't already.
 
+Let's create an environment for our function. 
+```bash
+$ fission env create --name node --image fission/node-env
+```
+
 Let's create a simple code snippet in NodeJS which will output the
 string "Hello, world!":
 
