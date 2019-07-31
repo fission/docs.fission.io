@@ -59,5 +59,5 @@ header key: X-Fission-Params-Foobar
 
 You have to check the letter case of header key and do conversion if necessary in order to get the right parameter value. 
 
-(In Go, you can call `request.Header.Get()` to get header value without worrying key cases.) 
+(In Go, you can call `request.Header.Get()` to get the header value without worrying about the key cases.) 
 
