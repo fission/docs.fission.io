@@ -73,10 +73,12 @@ def main():
     path = "/configs/default/my-configmap/TEST_KEY"
     f = open(path, "r")
     config = f.read()
+    f.close()
 
     path = "/secrets/default/my-secret/TEST_KEY"
     f = open(path, "r")
     secret = f.read()
+    f.close()
 
     msg = "ConfigMap: %s\nSecret: %s" % (config, secret)
 
