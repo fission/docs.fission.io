@@ -38,6 +38,14 @@ $ fission route create --function hello --url /hello
 trigger '5327e9a7-6d87-4533-a4fb-c67f55b1e492' created
 ```
 
+Setup [FISSION_ROUTER](https://docs.fission.io/installation/env_vars/) environment variable if you haven't already.
+
+If you are using Minikube, it is fairly straightforward:
+```bash
+$ export FISSION_ROUTER=$(minikube ip):$(kubectl -n fission get svc router -o jsonpath='{...nodePort}')
+```
+Above line translates to IP (from minikube):PORT (from the fission router) e.g., 192.168.99.110:30722. This address is stored in FISSION_ROUTER environment variable. 
+
 When you hit this function's URL, you get the expected response:
 
 ```bash
