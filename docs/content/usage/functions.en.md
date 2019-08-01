@@ -66,7 +66,18 @@ module.exports = async function(context) {
 }
 ```
 
-Let's say you want to update the function to output "Hello Fission" instead of "Hello world", you can update the source file and update the source code for function:
+Let's say you want to update the function to output "Hello Fission" instead of "Hello world". 
+
+```js
+$ fission fn get --name hello
+module.exports = async function(context) {
+    return {
+        status: 200,
+        body: "Hello, Fission!\n"
+    };
+}
+```
+You can update the source file and update the source code for function:
 
 ```bash
 $ fission fn update --name hello --code ../hello.js 
