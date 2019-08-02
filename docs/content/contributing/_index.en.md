@@ -58,7 +58,7 @@ $ helm dep update $GOPATH/src/github.com/fission/fission/charts/fission-all
 Next, install fission with this image on your kubernetes cluster using the helm chart:
 
 ```sh
-$ helm install --set "image=minikube/fission-bundle,pullPolicy=IfNotPresent,analytics=false" charts/fission-all
+$ helm install --set "image=minikube/fission-bundle,imageTag=latest,pullPolicy=IfNotPresent,analytics=false" charts/fission-all
 ```
 
 And if you're changing the CLI too, you can build it with:
