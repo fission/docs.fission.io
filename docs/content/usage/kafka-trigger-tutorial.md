@@ -87,7 +87,7 @@ With these two files in a directory, run the command `glide install -v`. The res
 We are now ready to package this code and create a function so that we can execute it later. Following commands will create a environment, package and function. Verify that build for package succeeded before proceeding.
 
 ``` sh
-$ fission env create --name goenv --image fission/go-env --builder fission/go-builder
+$ fission env create --name goenv --image fission/go-env --builder fission/go-builder-1.12
 $ zip -qr kafka.zip * 
 $ fission package create --env goenv --src kafka.zip
 Package 'kafka-zip-tzsu' created
