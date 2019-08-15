@@ -18,16 +18,31 @@ $ fission --version
 
 ## Add the Go environment to your cluster
 
-Unlike Python, Go is a compiled language that means we need to compile source code before running it.
-
+Unlike Python, Go is a compiled language that means we need to compile source code before running it. 
 Fortunately, builder manager within fission does all this hard work automatically when a Go function/package is created.
 The Go builder will convert a source package into a deployable package. 
 
-To enable Go builder, we need to assign a function builder with flag `--builder`. 
+Due to the Go plugin mechanism, the Go plugin can only be loaded by the server with the exact same Go 
+version. Please use the `fission release version` as image tag instead of `latest` when adding a Go environment,
+so that you won't experience the compatibility issue once we bump up the Go version.
+**(Remember, the image tag of runtime and builder should always be the same.)**
 
+```bash
+$ fission environment create --name go --image fission/go-env:<release-version> --builder fission/go-builder:<release-version>
+
+# Example
+$ fission environment create --name go --image fission/go-env-1.12:1.4.1 --builder fission/go-builder-1.12:1.4.1
 ```
-$ fission environment create --name go --image fission/go-env --builder fission/go-builder
-```
+
+You can find all images and image tags at following table.
+
+### Go environment image list
+
+| Go Version | Image | Builder Image | Go Module Support |
+|------------|------------|-----------|----------| 
+|  1.9 | [fission/go-env](https://hub.docker.com/r/fission/go-env/tags) | [fission/go-builder](https://hub.docker.com/r/fission/go-builder/tags) |  | 
+|  1.11.4 | [fission/go-env-1.11.4](https://hub.docker.com/r/fission/go-env-1.11.4/tags) | [fission/go-builder-1.11.4](https://hub.docker.com/r/fission/go-builder-1.11.4/tags) | | |
+|  1.12 | [fission/go-env-1.12](https://hub.docker.com/r/fission/go-env-1.12/tags) | [fission/go-builder-1.12](https://hub.docker.com/r/fission/go-builder-1.12) | V |
 
 ## Write a simple function in Go
 
@@ -295,7 +310,44 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 
 ## Working with dependencies
 
-### Add dependencies
+See full image list [here](#go-environment-image-list)
+
+### Go module support
+
+Please use image version equal or after `fission/go-env-1.12`.
+
+Initialize your project
+
+```bash
+$ go mod init "<module>"
+
+# Example
+$ go mod init "github.com/fission/fission/examples/go/go-module-example"
+```
+
+Follow the [official guide](https://github.com/golang/go/wiki/Modules#daily-workflow) to add project dependencies. 
+To clean and verify the dependencies you can:
+
+```bash
+$ go mod tidy
+$ go mod verify
+```
+
+Archive and create package as usual
+
+```bash
+$ zip -r go.zip .
+    adding: go.mod (deflated 26%)
+    adding: go.sum (deflated 1%)
+    adding: README.md (deflated 37%)
+    adding: main.go (deflated 30%)
+    
+$ fission pkg create --env go --src go.zip
+```
+
+### Add dependencies to vendor directory
+
+**`This part is for the old Go environment that doesn't support Go Moudle`**
 
 Unlike pip for Python has been widely adopted by community, there are various dependency management tools for Go like *gb*, *dep* and *glide*.
 Hence fission Go builder image doesn't contain a default tool for downloading dependencies during build processes. 
@@ -316,7 +368,7 @@ $ fission fn create --name foobar --src example.zip --entrypoint Handler
 $ fission fn test --name foobar
 ```
 
-### Custom builds
+## Custom builds
 
 If no custom build script included in source archive, by default builder manager will execute the [build.sh](https://github.com/fission/fission/tree/master/environments/go/builder)
 in go builder image. In this part, we will go through how to run custom build script during the build process.
@@ -424,7 +476,6 @@ Archive source package.
 ```bash
 $ chmod +x customBuild.sh
 $ zip -r example.zip .
-
 ```
 
 After editing custom build script, next step is to assign a build command for builder to know what command to run with. 
