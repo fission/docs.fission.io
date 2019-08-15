@@ -347,7 +347,7 @@ $ fission pkg create --env go --src go.zip
 
 ### Add dependencies to vendor directory
 
-**`This part is for the Go environment version that doesn't support Go Moudle`**
+**`This part is for the old Go environment that doesn't support Go Moudle`**
 
 Unlike pip for Python has been widely adopted by community, there are various dependency management tools for Go like *gb*, *dep* and *glide*.
 Hence fission Go builder image doesn't contain a default tool for downloading dependencies during build processes. 
