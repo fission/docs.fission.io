@@ -1,7 +1,7 @@
 ---
 title: Environment Variables
 draft: false
-weight: 47
+weight: 2
 ---
 
 ## Namespace
