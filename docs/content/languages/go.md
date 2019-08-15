@@ -23,8 +23,8 @@ Fortunately, builder manager within fission does all this hard work automaticall
 The Go builder will convert a source package into a deployable package. 
 
 Due to the Go plugin mechanism, the Go plugin can only be loaded by the server with the exact same Go 
-version. Please use the `release version` as image tag instead of `latest` when adding a Go environment,
-so that you won't hit the compatibility problem once we bump up the Go version.
+version. Please use the `fission release version` as image tag instead of `latest` when adding a Go environment,
+so that you won't experience the compatibility issue once we bump up the Go version.
 **(Remember, the image tag of runtime and builder should always be the same.)**
 
 ```bash
