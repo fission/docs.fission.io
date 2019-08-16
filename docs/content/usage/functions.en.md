@@ -69,7 +69,7 @@ module.exports = async function(context) {
 Let's say you want to update the function to output "Hello Fission" instead of "Hello world", you can update the source file and update the source code for function:
 
 ```bash
-$ fission fn update --name hello --code ../hello.js 
+$ fission fn update --name hello --code hello.js 
 package 'hello-js-ku9s' updated
 function 'hello' updated
 ```
