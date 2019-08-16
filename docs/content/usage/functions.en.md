@@ -49,7 +49,7 @@ You can also create a function with executor type "newdeploy" and
 provide the minimum and maximum number of instances of the function.
 
 ```bash
-$ fission fn create --name hello --code hello.js --env node --minscale 1 --maxscale 5  --executortype newdeploy
+$ fission fn create --name hello2 --code hello.js --env node --minscale 1 --maxscale 5  --executortype newdeploy
 ```
 
 ### View & update function source code
