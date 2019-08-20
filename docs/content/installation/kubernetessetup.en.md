@@ -1,13 +1,13 @@
 ---
 title: "Kubernetes Quick Install"
 draft: false
-weight: 12
+weight: 1
 ---
 
 This is a quick guide to help you get started running Kubernetes on
 your laptop (or on the cloud).
 
-(This isn't meant as a production Kuberenetes guide; it's merely
+(This isn't meant as a production Kubernetes guide; it's merely
 intended to give you something quickly so you can try Fission on it.)
 
 ## Minikube

@@ -1,7 +1,7 @@
 ---
 title: "Fission on Docker for Desktop"
 draft: false
-weight: 40
+weight: 4
 chapter : false
 alwaysopen: false
 ---
