@@ -27,6 +27,7 @@ If you're using minikube, use these commands:
 ``` bash
 $ export FISSION_ROUTER=$(minikube ip):$(kubectl -n fission get svc router -o jsonpath='{...nodePort}')
 ```
+Above line translates to IP (from minikube):PORT (from the fission router) e.g., 192.168.99.110:30722. This address is stored in FISSION_ROUTER environment variable. 
 
 #### Cloud Provider
 
