@@ -69,7 +69,6 @@ module.exports = async function(context) {
 Let's say you want to update the function to output "Hello Fission" instead of "Hello world". 
 
 ```js
-$ fission fn get --name hello
 module.exports = async function(context) {
     return {
         status: 200,
