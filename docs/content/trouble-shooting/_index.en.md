@@ -14,13 +14,19 @@ In this section, we will cover how to troubleshoot the problems related to Kuber
 
 ### Check in-cluster DNS service
 
-Since Fission utilizes in-cluster DNS to locate other components address, you have to check whether the in-DNS
+Since Fission utilizes in-cluster DNS to communicate with other components, it's important to make sure that the in-cluster DNS
 service is available.
+
+First, check we have running DNS pod(s).
 
 ```bash
 $ kubectl -n kube-system get pod|grep dns
 coredns-fb8b8dccf-bjxmj                  1/1     Running   1          65m
+```
 
+Create a pod and use `nslookup` to check availability of DNS service. 
+
+```
 $ kubectl run busybox --image=busybox --restart=Never --tty -it
 / # nslookup executor
 Server:		10.96.0.10
@@ -32,7 +38,7 @@ Address: 10.103.121.81
 
 ### Kubeconfig for connecting to Kubernetes Cluster
 
-Make sure you assign the correct value of `KUBECONFIG` or `~/.kube/config` exists.
+Make sure that `~/.kube/config` exists or assign the correct value to `KUBECONFIG`. 
 
 ```bash
 # https://github.com/fission/fission/issues/1133
@@ -81,7 +87,7 @@ If you're not running on other platforms, see [metric-server](https://github.com
 
 ### HPA shows unknown status
 
-You may see `<unknown>` status as follows. It's because it takes some time for metric server to collect enough 
+You may see `<unknown>` status as follows. It's because it takes some time for metric-server to collect enough 
 information to calculate the right number of replicas after installing metric server. 
 
 ```bash
@@ -111,7 +117,7 @@ In most cases, `Events` shows common errors like wrong image name, and can help 
 $ kubectl -n fission describe pod -f <pod>
 ```
 
-If Events doesn't provide any useful information, you then need to dump component logs
+If Events doesn't provide any information, you then need to dump component logs
 
 ```bash
 $ kubectl -n fission logs -f <pod>
