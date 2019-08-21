@@ -10,7 +10,7 @@ In this guide you will learn how to setup fission in order to serve heavy worklo
 
 By default, there is no resource requests/limits setting for fission component pods. But it's always wise set them up 
 if you're trying to running any application on Kubernetes for production. We recommend that you run benchmarks to 
-simulate real traffic and  and setup resource of components accordingly.
+simulate real traffic and setup resource request/limits of components accordingly.
 
 You can get component pods resource usage by using the following command.
 
@@ -18,7 +18,7 @@ You can get component pods resource usage by using the following command.
 $ kubectl -n fission top pod
 ```
 
-And then follow the [guide](https://kubernetes.io/docs/concepts/configuration/manage-compute-resources-container/) to setup components' deployment.
+And follow the [guide](https://kubernetes.io/docs/concepts/configuration/manage-compute-resources-container/) to setup components' deployment.
 
 ## Create HPA for router
 
@@ -59,7 +59,7 @@ env:
 Couple things worth noticing:
 
 1. This setting increases time for router(s) to switch to newer version for functions that use newdeploy as executor type. 
-You can prevent this by setting short grace period (--graceperiod) when creating environment.
+You can prevent this by setting short grace period (`--graceperiod`) when creating environment.
 2. There is an increase in memory consumption of router to keep all active connections.
 
 ## Setup SSL/TLS for functions
