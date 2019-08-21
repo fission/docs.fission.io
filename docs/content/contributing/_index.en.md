@@ -46,8 +46,9 @@ built-in docker daemon:
 
 ```sh
 $ eval $(minikube docker-env)
-$ docker build -t minikube/fission-bundle -f cmd/fission-bundle/Dockerfile.fission-bundle .
+$ docker build -t minikube/fission-bundle:<tag> -f cmd/fission-bundle/Dockerfile.fission-bundle .
 ```
+Replace the `<tag>` with any tag you want (e.g., minikube/fission-bundle:latest). 
 
 Next, pull in the dependencies for the Helm chart:
 
@@ -58,8 +59,9 @@ $ helm dep update $GOPATH/src/github.com/fission/fission/charts/fission-all
 Next, install fission with this image on your kubernetes cluster using the helm chart:
 
 ```sh
-$ helm install --set "image=minikube/fission-bundle,pullPolicy=IfNotPresent,analytics=false" charts/fission-all
+$ helm install --set "image=minikube/fission-bundle,imageTag=<tag>,pullPolicy=IfNotPresent,analytics=false" charts/fission-all
 ```
+Replace `<tag>` with the tag used to build the `minikube/fission-bundle` image. 
 
 And if you're changing the CLI too, you can build it with:
 
