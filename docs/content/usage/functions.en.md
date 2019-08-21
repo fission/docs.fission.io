@@ -43,6 +43,8 @@ $ fission route create --function hello --url /hello
 trigger '5327e9a7-6d87-4533-a4fb-c67f55b1e492' created
 ```
 
+Setup [FISSION_ROUTER](../../installation/env_vars/) environment variable if you haven't already.
+
 When you hit this function's URL, you get the expected response:
 
 ```bash
