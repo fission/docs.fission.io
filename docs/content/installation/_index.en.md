@@ -1,7 +1,7 @@
 ---
 title: "Installing Fission"
 draft: false
-weight: 20
+weight: 10
 chapter : false
 alwaysopen: false
 ---

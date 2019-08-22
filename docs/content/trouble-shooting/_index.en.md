@@ -1,7 +1,7 @@
 ---
 title: "Trouble Shooting"
 draft: false
-weight: 1
+weight: 20
 alwaysopen: false
 chapter: false
 ---
@@ -17,7 +17,7 @@ In this section, we will cover how to troubleshoot the problems related to Kuber
 Since Fission utilizes in-cluster DNS to communicate with other components, it's important to make sure that the in-cluster DNS
 service is available.
 
-First, check we have running DNS pod(s).
+First, check that we have running DNS pod(s).
 
 ```bash
 $ kubectl -n kube-system get pod|grep dns
@@ -27,7 +27,11 @@ coredns-fb8b8dccf-bjxmj                  1/1     Running   1          65m
 Create a pod and use `nslookup` to check availability of DNS service. 
 
 ```
-$ kubectl run busybox --image=busybox --restart=Never --tty -it
+$ kubectl -n fission get svc
+NAME                                       TYPE           CLUSTER-IP       EXTERNAL-IP   PORT(S)        AGE
+executor                                   ClusterIP      10.103.121.81    <none>        80/TCP         2d
+
+$ kubectl -n fission run busybox --image=busybox --restart=Never --tty -it
 / # nslookup executor
 Server:		10.96.0.10
 Address:	10.96.0.10:53
@@ -35,6 +39,9 @@ Address:	10.96.0.10:53
 Name:	executor.fission.svc.cluster.local
 Address: 10.103.121.81
 ```
+
+The DNS service will return an address which matches the address shown in the previous command. 
+For more debugging DNS resolution, see [here](https://kubernetes.io/docs/tasks/administer-cluster/dns-debugging-resolution/). 
 
 ### Kubeconfig for connecting to Kubernetes Cluster
 
