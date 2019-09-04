@@ -54,6 +54,15 @@ Fatal error: Error getting controller pod for port-forwarding
 
 See [here](../installation/#cloud-hosted-clusters-gke-aws-azure-etc) to learn how to setup config correctly on different platforms.
 
+### Error upgrading connection
+
+Please check the pod status & log when CLI prompts `error upgrading connection` error.
+
+```bash
+Fatal error: Error forwarding to port 51204: error upgrading connection: 
+unable to upgrade connection: pod not found ("controller-b87cd7857-8n75g_fission")
+```
+
 ### Dynamic volume provisioning
 
 Package storage and Prometheus services need persistent volume to store data. 
