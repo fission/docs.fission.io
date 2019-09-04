@@ -276,7 +276,7 @@ $ zip -jr demo-src-pkg.zip sourcepkg/
 Using the source archive creared in previous step, you can create a package in Fission:
 
 ```bash
-$ fission package create --sourcearchive demo-src-pkg.zip --env pythonsrc --buildcmd "./build.sh"
+$ fission package create --sourcearchive demo-src-pkg.zip --env python --buildcmd "./build.sh"
 Package 'demo-src-pkg-zip-8lwt' created
 ```
 
@@ -287,7 +287,7 @@ you can see the build logs with the `fission package info` command:
 ```bash
 $ fission pkg info --name demo-src-pkg-zip-8lwt
 Name:        demo-src-pkg-zip-8lwt
-Environment: pythonsrc
+Environment: python
 Status:      succeeded
 Build Logs:
 Collecting pyyaml (from -r /packages/demo-src-pkg-zip-8lwt-v57qil/requirements.txt (line 1))
