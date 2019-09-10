@@ -95,7 +95,14 @@ $ fission env create --name python --image fission/python-env
 # create function named "leaker"
 $ fission fn create --name leaker --env python --code leaker.py --secret my-secret --configmap my-configmap
 ```
-The fission CLI doesnt support providing two configmaps for a function for now, but it can be achieved through the [fission spec] ({{% relref "usage/developer-workflow.md"%}}). We can provide two configmaps for a function in the fission spec yaml.
+You can provide multiple configmaps or secrets while creating a fission function through command line, below syntax can be used to provide more than one configmaps or secrets.
+```
+# Provide multiple Configmaps
+$ fission fn create --name <fn-name> --env <env-name> --code <your-source> --configmap <configmap-one> --configmap <configmap-two>
+
+# Provide multiple Secrets
+$ fission fn create --name <fn-name> --env <env-name> --code <your-source> --secret <secret-one> --secret <secret-two>
+```
 
 Run the function, and the output should look like this:
 
