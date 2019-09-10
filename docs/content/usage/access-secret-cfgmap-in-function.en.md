@@ -95,7 +95,7 @@ $ fission env create --name python --image fission/python-env
 # create function named "leaker"
 $ fission fn create --name leaker --env python --code leaker.py --secret my-secret --configmap my-configmap
 ```
-You can provide multiple configmaps or secrets while creating a fission function through command line, below syntax can be used to provide more than one configmaps or secrets
+You can provide multiple configmaps or secrets while creating a fission function through command line, below syntax can be used to provide more than one configmaps or secrets.
 ```
 # Provide multiple Configmaps
 $ fission fn create --name <fn-name> --env <env-name> --code <your-source> --configmap <configmap-one> --configmap <configmap-two>
