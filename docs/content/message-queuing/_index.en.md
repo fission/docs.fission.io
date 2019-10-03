@@ -52,5 +52,5 @@ Fission now supports following kinds of message queue:
 
 ### How to Add New Message Queue Support
 
-We are always looking forward to any contribution. To add new message queue, you need to implement the [MessageQueue](https://github.com/fission/fission/blob/master/mqtrigger/messageQueue/messageQueue.go#L47-L50) interface 
-and see [here](https://github.com/fission/fission/tree/master/mqtrigger/messageQueue) for current existing implementations.
+We are always looking forward to any contribution. To add new message queue, you need to implement the [MessageQueue](https://github.com/fission/fission/blob/master/pkg/mqtrigger/messageQueue/messageQueue.go#L49-L52) interface 
+and see [here](https://github.com/fission/fission/tree/master/pkg/mqtrigger/messageQueue) for current existing implementations.
