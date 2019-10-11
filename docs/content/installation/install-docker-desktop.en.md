@@ -37,108 +37,17 @@ It should also configure Kubectl installed on your machine. For more details che
 $ kubectl version
 ```
 
-We will need at least Kubernetes 1.6.
-
-### Set up Helm
-
-Helm is an installer for Kubernetes.  If you already use helm, [skip to
-the next section](#install-fission).
-
-To install Helm, first you'll need the helm CLI:
-
-On __OS X__:
-```bash
-$ curl -LO https://storage.googleapis.com/kubernetes-helm/helm-v2.11.0-darwin-amd64.tar.gz
-
-$ tar xzf helm-v2.11.0-darwin-amd64.tar.gz
-
-$ mv darwin-amd64/helm /usr/local/bin
-```
-
-On __Linux__:
-```bash
-$ curl -LO https://storage.googleapis.com/kubernetes-helm/helm-v2.11.0-linux-amd64.tar.gz
-
-$ tar xzf helm-v2.11.0-linux-amd64.tar.gz
-
-$ mv linux-amd64/helm /usr/local/bin
-```
-
-Next, install the Helm server on your Kubernetes cluster.  Before you
-do that, you have to give helm's server privileges to install software
-on your cluster.
-
-For example, you can use the following steps to install helm using a
-dedicated service account with full cluster admin privileges.
-
-```bash
-$ kubectl create serviceaccount --namespace kube-system tiller
-
-$ kubectl create clusterrolebinding tiller-cluster-rule --clusterrole=cluster-admin --serviceaccount=kube-system:tiller
-
-$ helm init --service-account tiller
-```
-
-Or, if your cluster is already set up with a permissive service
-account (this varies by version and how your Kubernetes was
-installed), you can simply do:
-
-```bash
-$ helm init
-```
+We will need at least Kubernetes 1.9.
 
 ## Installing Fission
 
-List of all supported configurations for the charts `fission-all` and `fission-core` can be found [here](https://github.com/fission/fission/tree/master/charts#configuration)
-
-You can install Fission with load balancer and volumes enabled (Which is the default) on Docker for desktop. If you face issues with storagesvc or controller crashing, please check the volume provisioning comments in [this GitHub issue](https://github.com/fission/fission/issues/1107)
-
-```bash
-$ helm install --name fission --namespace fission https://github.com/fission/fission/releases/download/1.4.1/fission-all-1.4.1.tgz
-```
-
-### Install the Fission CLI
-
-#### OS X
-
-Get the CLI binary for Mac:
-
-```bash
-$ curl -Lo fission https://github.com/fission/fission/releases/download/1.4.1/fission-cli-osx && chmod +x fission && sudo mv fission /usr/local/bin/
-```
-
-#### Linux
-
-```bash
-$ curl -Lo fission https://github.com/fission/fission/releases/download/1.4.1/fission-cli-linux && chmod +x fission && sudo mv fission /usr/local/bin/
-```
-
-#### Windows
-
-For Windows, you can use the linux binary on WSL. Or you can download
-this windows executable: [fission.exe](https://github.com/fission/fission/releases/download/1.4.1/fission-cli-windows.exe)
-
-### Run an example
-
-Finally, you're ready to use Fission!
-
-```bash
-$ fission env create --name nodejs --image fission/node-env:1.4.1
-
-$ curl -LO https://raw.githubusercontent.com/fission/fission/master/examples/nodejs/hello.js
-
-$ fission function create --name hello --env nodejs --code hello.js
-
-$ fission function test --name hello
-Hello, world!
-```
+See [Fission installation](../../installation/) to learn more how to install fission.
 
 ## Docker for Dekstop specific differences
 
 ### Accessing Routes
 
 If you look at router service - it is exposed as NodePort on host machine at port 30657 (The port will vary on your setup).
-
 
 ```bash
 $ kubectl get svc -nfission
