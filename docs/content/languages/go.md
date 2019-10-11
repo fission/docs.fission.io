@@ -31,7 +31,7 @@ so that you won't experience the compatibility issue once we bump up the Go vers
 $ fission environment create --name go --image fission/go-env:<release-version> --builder fission/go-builder:<release-version>
 
 # Example
-$ fission environment create --name go --image fission/go-env-1.12:1.4.1 --builder fission/go-builder-1.12:1.4.1
+$ fission environment create --name go --image fission/go-env-1.12:1.6.0 --builder fission/go-builder-1.12:1.6.0
 ```
 
 You can find all images and image tags at following table.
