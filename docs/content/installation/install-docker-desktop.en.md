@@ -47,14 +47,10 @@ See [Fission installation](../../installation/) to learn more how to install fis
 
 ### Accessing Routes
 
-If you look at router service - it is exposed as NodePort on host machine at port 30657 (The port will vary on your setup).
+If you look at router service - it is exposed as random NodePort on host machine. The port can be found with the command bellow:
 
 ```bash
-$ kubectl get svc -nfission
-NAME                                    TYPE           CLUSTER-IP       EXTERNAL-IP   PORT(S)        AGE
-redis                                   ClusterIP      10.107.204.96    <none>        6379/TCP       23h
-router                                  LoadBalancer   10.107.150.176   localhost     80:30657/TCP   23h
-storagesvc                              ClusterIP      10.108.227.253   <none>        80/TCP         23h
+$ export PORT=$(kubectl get svc router -n fission -o jsonpath='{.spec.ports[0].nodePort}')
 ```
 
 So if we create a route to function, we should be able to access it as shown below:
@@ -63,20 +59,10 @@ So if we create a route to function, we should be able to access it as shown bel
 $ fission route create --name helloscale --function helloscale --url helloscale
 trigger 'helloscale' created
 
-$ curl http://localhost:30657/helloscale
-curl: (7) Failed to connect to localhost port 30657: Connection refused
+$ curl http://localhost:$PORT/helloscale
 ```
 
-But that fails because the [Docker Desktop has an issue](https://github.com/docker/for-mac/issues/2445) on Mac which does not setup routes properly. To work around this - you will have to port-forward the router and then use HTTP URL to access the function like this:
-
-```bash
-$ kubectl port-forward svc/router 9090:80
-Forwarding from 127.0.0.1:9090 -> 8888
-Forwarding from [::1]:9090 -> 8888
-
-$ curl http://localhost:9090/helloscale
-hello, world!
-```
+If you are using the `serviceType` as LoadBalancer, access router on its external IP address, by default using port `80`.
 
 ### Autoscaling
 
