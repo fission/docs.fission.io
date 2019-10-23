@@ -76,6 +76,10 @@ ul, ol {
     background-color: rgba(255,102,102,.1);
 }
 
+.notice > ul {
+    margin-bottom: 0em;
+}
+
 #docsy-search {
     background: rgba(190, 185, 185, 0.3);
 }
@@ -102,3 +106,64 @@ input[type="search"]::placeholder {
 .td-content > h5 { font-weight: 600; }
 .td-content > h6 { font-weight: 600; }
 .td-content > h7 { font-weight: 600; }
+
+// {{< tabs >}}
+// from https://github.com/alex-shpak/hugo-book
+
+.hidden {
+    display: none;
+}
+
+.book-tabs {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+
+  border: 1px solid rgba(0, 0, 0, 0.125);
+  border-radius:.15rem;
+
+  overflow: hidden;
+
+  display: flex;
+  flex-wrap: wrap;
+
+  label {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    border-bottom: 1px transparent;
+    cursor: pointer;
+  }
+
+  .book-tabs-content {
+    order: 999;
+    width: 100%;
+    border-top: 1px solid #f8f9fa;
+    padding: 1rem;
+    display: none;
+  }
+
+  input[type="radio"]:checked + label {
+    border-bottom: 2px solid #05b;
+  }
+  input[type="radio"]:checked + label + .book-tabs-content {
+    display: block;
+  }
+
+  .book-tabs-content > .highlight {
+    margin: 0;
+  }
+
+  .book-tabs-content > blockquote.notice {
+      padding: 1.2em 0em 1.2em 1em;
+      margin-bottom: 1rem;
+      color: #616161;
+      border-left: 6px solid #2D70DE;
+  }
+
+  .book-tabs-content > blockquote.notice.notice.info { border-left-color: #6bf; }
+  .book-tabs-content > blockquote.notice.notice.warning { border-left-color: #fd6; }
+  .book-tabs-content > blockquote.notice.notice.danger { border-left-color: #f66; }
+}
+
+a {
+    text-decoration: inherit;
+}

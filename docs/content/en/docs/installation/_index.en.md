@@ -25,15 +25,18 @@ Helm.](#install-without-helm).
 
 Ensure you have the Kubernetes CLI.
 
-You can get the Kubernetes CLI for OSX like this:
+{{< tabs "kubectl-cli" >}}
+{{< tab "MacOS" >}} 
 ```sh
 $ curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/darwin/amd64/kubectl && chmod +x kubectl && sudo mv kubectl /usr/local/bin
-```
-
-Or, for Linux:
+``` 
+{{< /tab >}}
+{{< tab "Linux" >}}
 ```sh
 $ curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl && chmod +x kubectl && sudo mv kubectl /usr/local/bin
 ```
+{{< /tab >}}
+{{< /tabs >}}
 
 Next, ensure you have access to a cluster.  Do this by using kubectl
 to check your Kubernetes version:
@@ -51,7 +54,8 @@ the next section](#install-fission).
 
 To install Helm, first you'll need the helm CLI:
 
-On __OS X__:
+{{< tabs "helm-cli" >}}
+{{< tab "MacOS" >}} 
 ```sh
 $ curl -LO https://storage.googleapis.com/kubernetes-helm/helm-v2.11.0-darwin-amd64.tar.gz
 
@@ -59,8 +63,8 @@ $ tar xzf helm-v2.11.0-darwin-amd64.tar.gz
 
 $ mv darwin-amd64/helm /usr/local/bin
 ```
-
-On __Linux__:
+{{< /tab >}}
+{{< tab "Linux" >}}
 ```sh
 $ curl -LO https://storage.googleapis.com/kubernetes-helm/helm-v2.11.0-linux-amd64.tar.gz
 
@@ -68,6 +72,8 @@ $ tar xzf helm-v2.11.0-linux-amd64.tar.gz
 
 $ mv linux-amd64/helm /usr/local/bin
 ```
+{{< /tab >}}
+{{< /tabs >}}
 
 Next, install the Helm server on your Kubernetes cluster.  Before you
 do that, you have to give helm's server privileges to install software
@@ -113,45 +119,63 @@ NAME            AGE
 cluster-admin   44d
 ```
 
-#### Install fission with helm 
+Install fission with helm 
 
-**NOTE**: Prometheus operator doesn't work on Kubernetes 1.16. You have to disable it when using helm to install Fission. See [issue](https://github.com/helm/charts/issues/17511).
+{{< tabs "fission-install-minikube" >}}
+{{< tab "Kubernetes 1.16+" >}}
+{{% notice warning %}}
+Prometheus operator doesn't work on Kubernetes 1.16. You have to disable it when using helm to install Fission. See [issue](https://github.com/helm/charts/issues/17511).
+{{% /notice %}}
+
+Disable prometheus deployment before the prometheus operator gets fixed.
 
 ```sh
-# Kubernetes version before 1.16
-$ helm install --name fission --namespace fission \
-    --set serviceType=NodePort,routerServiceType=NodePort \
-    https://github.com/fission/fission/releases/download/1.6.0/fission-all-1.6.0.tgz
-
-# Kubernetes version 1.16
-# Disable prometheus deployment before the prometheus operator gets fixed.
 $ helm install --name fission --namespace fission \
     --set serviceType=NodePort,routerServiceType=NodePort,prometheusDeploy=false \
     https://github.com/fission/fission/releases/download/1.6.0/fission-all-1.6.0.tgz
 ```
+{{< /tab >}}
+{{< tab "Kubernetes 1.9 - 1.15" >}}
+```sh
+$ helm install --name fission --namespace fission \
+    --set serviceType=NodePort,routerServiceType=NodePort \
+    https://github.com/fission/fission/releases/download/1.6.0/fission-all-1.6.0.tgz
+```
+{{< /tab >}}
+{{< /tabs >}}
 
 The serviceType variable allows configuring the type of Kubernetes
 service outside the cluster.  You can use `ClusterIP` if you don't
 want to expose anything outside the cluster.
 
-#### Cloud hosted clusters (GKE, AWS, Azure etc.)
+#### Cloud hosted clusters
 
-You may need to add token to `~/.kube/config` manually or different steps for connecting kubernetes cluster based on the platform you use.
+Follow the platform steps to add token to `~/.kube/config` for connecting kubernetes cluster.
 
 1. GKE: https://cloud.google.com/kubernetes-engine/docs/how-to/cluster-access-for-kubectl
 2. AWS: https://docs.aws.amazon.com/eks/latest/userguide/create-kubeconfig.html
 3. Azure: https://docs.microsoft.com/en-us/azure/aks/kubernetes-walkthrough#connect-to-the-cluster
 
-```sh
-# Kubernetes version before 1.16
-$ helm install --name fission --namespace fission \
-    https://github.com/fission/fission/releases/download/1.6.0/fission-all-1.6.0.tgz
+{{< tabs "fission-install-cloud-provider" >}}
+{{< tab "Kubernetes 1.16+" >}}
+{{% notice warning %}}
+Prometheus operator doesn't work on Kubernetes 1.16. You have to disable it when using helm to install Fission. See [issue](https://github.com/helm/charts/issues/17511).
+{{% /notice %}}
 
-# Kubernetes version 1.16
-# Disable prometheus deployment before the prometheus operator gets fixed.
+Disable prometheus deployment before the prometheus operator gets fixed.
+
+```sh
 $ helm install --name fission --namespace fission --set prometheusDeploy=false \
     https://github.com/fission/fission/releases/download/1.6.0/fission-all-1.6.0.tgz
 ```
+{{< /tab >}}
+{{< tab "Kubernetes 1.9 - 1.15" >}}
+```sh
+$ helm install --name fission --namespace fission \
+    https://github.com/fission/fission/releases/download/1.6.0/fission-all-1.6.0.tgz
+```
+{{< /tab >}}
+{{< /tabs >}}
 
 #### Minimal version
 
@@ -159,16 +183,26 @@ The fission-all helm chart installs a full set of services including
 the NATS message queue, influxDB for logs, etc. If you want a more
 minimal setup, you can install the fission-core chart instead:
 
-```sh
-# Kubernetes version before 1.16
-$ helm install --name fission --namespace fission 
-    https://github.com/fission/fission/releases/download/1.6.0/fission-core-1.6.0.tgz
+{{< tabs "fission-install-minimal" >}}
+{{< tab "Kubernetes 1.16+" >}}
+{{% notice warning %}}
+Prometheus operator doesn't work on Kubernetes 1.16. You have to disable it when using helm to install Fission. See [issue](https://github.com/helm/charts/issues/17511).
+{{% /notice %}}
 
-# Kubernetes version 1.16
-# Disable prometheus deployment before the prometheus operator gets fixed.
+Disable prometheus deployment before the prometheus operator gets fixed.
+
+```sh
 $ helm install --name fission --namespace fission --set prometheusDeploy=false \
-    https://github.com/fission/fission/releases/download/1.6.0/fission-core-1.6.0.tgz
+      https://github.com/fission/fission/releases/download/1.6.0/fission-core-1.6.0.tgz
 ```
+{{< /tab >}}
+{{< tab "Kubernetes 1.9 - 1.15" >}}
+```sh
+$ helm install --name fission --namespace fission 
+      https://github.com/fission/fission/releases/download/1.6.0/fission-core-1.6.0.tgz
+```
+{{< /tab >}}
+{{< /tabs >}}
 
 ### Install Fission -- alternative method without helm
 
@@ -181,11 +215,16 @@ Create namespace for fission installation.
 ```sh
 $ kubectl create namespace fission 
 ```
+  
+{{% notice info %}}
+* If you want to install in another namespace, please consider to use `helm`.
+{{% /notice %}}
 
-**NOTE**: If you want to install in another namespace, please consider to using `helm`.  
-**NOTE**: Prometheus operator doesn't work on Kubernetes 1.16. 
+{{% notice warning %}}
+* Prometheus operator doesn't work on Kubernetes 1.16. 
 So this alternative method may not work on kubernetes 1.16 for now. 
 Please use helm before the problem gets fixed. See [issue](https://github.com/helm/charts/issues/17511).
+{{% /notice %}}
 
 Choose _one_ of the following commands to run:
 
@@ -207,24 +246,24 @@ Next, install the Fission CLI.
 
 ### Install the Fission CLI
 
-#### OS X
-
-Get the CLI binary for Mac:
-
+{{< tabs "fission-cli-install" >}}
+{{< tab "MacOS" >}}
 ```sh
-$ curl -Lo fission https://github.com/fission/fission/releases/download/1.6.0/fission-cli-osx && chmod +x fission && sudo mv fission /usr/local/bin/
+$ curl -Lo fission https://github.com/fission/fission/releases/download/1.6.0/fission-cli-osx \
+    && chmod +x fission && sudo mv fission /usr/local/bin/
 ```
-
-#### Linux
-
+{{< /tab >}}
+{{< tab "Linux" >}}
 ```sh
-$ curl -Lo fission https://github.com/fission/fission/releases/download/1.6.0/fission-cli-linux && chmod +x fission && sudo mv fission /usr/local/bin/
+$ curl -Lo fission https://github.com/fission/fission/releases/download/1.6.0/fission-cli-linux \
+    && chmod +x fission && sudo mv fission /usr/local/bin/
 ```
-
-#### Windows
-
+{{< /tab >}}
+{{< tab "Windows" >}}
 For Windows, you can use the linux binary on WSL. Or you can download
 this windows executable: [fission.exe](https://github.com/fission/fission/releases/download/1.6.0/fission-cli-windows.exe)
+{{< /tab >}}
+{{< /tabs >}}
 
 ### Run an example
 
