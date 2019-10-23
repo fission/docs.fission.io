@@ -28,9 +28,12 @@ netlify (see netlify.toml and build.sh).
 
 ### Adding a new doc
 
+* You have to install **extended** version of Hugo in order to support SCSS/SASS.
+
 ```
-cd docs/
-hugo new usage/how-to-use-ShinyNewThing.md
+$ cd docs/
+$ npm install -D --save autoprefixer postcss-cli
+$ hugo new usage/how-to-use-ShinyNewThing.md
 ```
 
 ### Modifying an existing doc
@@ -41,8 +44,8 @@ can use Github's handy UI for editing docs.
 ## Previewing your changes
 
 ```
-cd docs/
-hugo serve -D
+$ cd docs/
+$ hugo serve -D
 # This will output a link that you can open in a browser.
 ```
 
