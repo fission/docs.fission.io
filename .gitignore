@@ -1,5 +1,5 @@
 node_modules
-docs/resources/_gen/
+docs/resources
 .DS_Store
 .idea
 *.~?~
