@@ -114,3 +114,8 @@ HUGO_ENABLEGITINFO = "true"
   from = "/installation/installation"
   to = "/installation"
   force = true
+
+[[redirects]]
+  from = "/"
+  to = "/docs/"
+  force = true
