@@ -1,7 +1,7 @@
 ---
 title: "Installing Fission"
 linkTitle: Installing Fission
-weight: 10
+weight: 20
 description: >
   Installation guide for Fission installation 
 ---
@@ -31,12 +31,7 @@ Fission requires Kubernetes 1.9 or higher
 Kubectl is a command line interface for running commands against Kubernetes clusters, 
 visit [here](https://kubernetes.io/docs/tasks/tools/install-kubectl/) to see how to install it.
 
-If you run the cluster on cloud provider, follow the platform steps to add token to `~/.kube/config` for connecting kubernetes cluster.
-
-* GKE: https://cloud.google.com/kubernetes-engine/docs/how-to/cluster-access-for-kubectl
-* AWS: https://docs.aws.amazon.com/eks/latest/userguide/create-kubeconfig.html
-* Azure: https://docs.microsoft.com/en-us/azure/aks/kubernetes-walkthrough#connect-to-the-cluster
-
+See [how to setup config correctly on different platforms]({{% relref "trouble-shooting/kubernetes.md" %}}#kubeconfig-for-connecting-to-cluster)
 Next, ensure you have access to a cluster.  Do this by using kubectl to check your Kubernetes version:
 
 ```sh

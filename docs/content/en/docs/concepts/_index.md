@@ -1,6 +1,6 @@
 ---
 title: "Concepts"
-weight: 30
+weight: 10
 description: >
   Concepts of Fission architecture and components
 ---

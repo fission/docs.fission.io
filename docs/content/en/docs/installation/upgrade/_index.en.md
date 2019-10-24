@@ -1,6 +1,6 @@
 ---
 title: "Upgrading Fission"
-weight: 1
+weight: 2
 description: >
   Upgrade guide for Fission installation 
 ---

@@ -1,6 +1,6 @@
 ---
 title: "Docker Desktop"
-weight: 4
+weight: 6
 description: >
   Docker Desktop specific setup 
 ---
