@@ -116,6 +116,51 @@ HUGO_ENABLEGITINFO = "true"
   force = true
 
 [[redirects]]
+  from = "/concepts/*"
+  to = "/docs/concepts/:splat"
+  force = true
+
+[[redirects]]
+  from = "/contributing/*"
+  to = "/docs/contributing/:splat"
+  force = true
+
+[[redirects]]
+  from = "/installation/*"
+  to = "/docs/installation/:splat"
+  force = true
+
+[[redirects]]
+  from = "/languages/*"
+  to = "/docs/languages/:splat"
+  force = true
+
+[[redirects]]
+  from = "/releases/*"
+  to = "/docs/releases/:splat"
+  force = true
+
+[[redirects]]
+  from = "/trouble-shooting/*"
+  to = "/docs/installation/trouble-shooting/:splat"
+  force = true
+
+[[redirects]]
+  from = "/tutorial/*"
+  to = "/docs/usage/:splat"
+  force = true
+
+[[redirects]]
+  from = "/usage/*"
+  to = "/docs/usage/:splat"
+  force = true
+
+[[redirects]]
+  from = "/workflows/*"
+  to = "/docs/workflows/:splat"
+  force = true
+
+[[redirects]]
   from = "/"
   to = "/docs/"
   force = true
