@@ -9,6 +9,8 @@ description: >
   Serverless Functions for Kubernetes
 ---
 
+# What is Fission?
+
 [fission.io](http://fission.io)  [@fissionio](http://twitter.com/fissionio)
 
 Fission is a fast, open source serverless framework for Kubernetes with a focus on
@@ -23,7 +25,7 @@ language-specific parts are isolated in something called
 _environments_ (more below).  Fission currently supports NodeJS, Python, Ruby, Go, 
 PHP, Bash, and any Linux executable, with more languages coming soon.
 
-### Performance: 100msec cold start
+# Performance: 100msec cold start
 
 Fission maintains a pool of "warm" containers that each contain a
 small dynamic loader.  When a function is first called,
@@ -31,7 +33,7 @@ i.e. "cold-started", a running container is chosen and the function is
 loaded.  This pool is what makes Fission fast: cold-start latencies
 are typically about 100msec.
 
-### Kubernetes is the right place for Serverless
+# Kubernetes is the right place for Serverless
 
 We're built on Kubernetes because we think any non-trivial app will
 use a combination of serverless functions and more conventional
@@ -43,44 +45,11 @@ on your Kubernetes cluster &mdash; such as monitoring or log
 aggregation &mdash; also helps with ops on your Fission deployment.
 
 
-Fission Concepts
-----------------
+# Fission Concepts
 
-A _function_ is a piece of code that follows the fission function
-interface.
+Visit [concepts](/docs/concepts/) for more details.
 
-An _environment_ contains the language- and runtime-specific parts of
-running a function.  
-
-The following environments are currently available:
- 
-
-| Environment                          | Image                     |
-| ------------------------------------ | ------------------------- |
-| Binary (for executables or scripts)  | `fission/binary-env`      |
-| Go                                   | `fission/go-env`          |
-| .NET                                 | `fission/dotnet-env`      |
-| .NET 2.0                             | `fission/dotnet20-env`    |
-| NodeJS (Alpine)                      | `fission/node-env`        |
-| NodeJS (Debian)                      | `fission/node-env-debian` |
-| Perl                                 | `fission/perl-env`        |
-| PHP 7                                | `fission/php-env`         |
-| Python 3                             | `fission/python-env`      |
-| Ruby                                 | `fission/ruby-env`        |
-
-
-You can also extend environments or create entirely new
-ones if you want.  (An environment is essentially just a container
-with a webserver and dynamic loader.)
-
-A _trigger_ is something that maps an event to a function; Fission as
-of today supports [HTTP request]({{% relref "usage/trigger.en.md#create-a-http-trigger" %}}),
-[timed]({{% relref "usage/trigger.en.md#create-a-time-trigger" %}}),
-and [message queue]({{% relref "usage/trigger.en.md#create-a-message-queue-trigger" %}})
-triggers.
-
-Usage
------
+# Usage
 
 ```bash
   # Add the stock NodeJS env to your Fission deployment
@@ -100,4 +69,7 @@ Usage
   Hello, world!
 ```
 
-See the [examples](https://github.com/fission/fission/tree/master/examples) directory for more.
+# Join Us
+
+* Slack: http://slack.fission.io/
+* Twitter: http://twitter.com/fissionio

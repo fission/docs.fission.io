@@ -78,7 +78,7 @@ the HPA scales the replicas of the deployment based on the conditions set by the
 If there are no requests for certain duration then the idle pods are cleaned up.
  
 This approach though increases the cold time of a function, but also makes NewDeploy 
-suitable for functions designed to serve massive traffic.
+suitable for functions designed to **serve massive traffic**.
 
 For requests where latency requirements are stringent, a minscale greater than zero can be set. 
 This essentially keeps a minscale number of pods ready when you create a function. When the function 
