@@ -1,51 +1,32 @@
 ---
-title: "Fission on Docker for Desktop"
-draft: false
+title: "Docker Desktop"
 weight: 4
-chapter : false
-alwaysopen: false
+description: >
+  Docker Desktop specific setup 
 ---
 
-## Cluster preliminaries
+# Docker desktop with Kubernetes
 
-### Kubernetes CLI
+[Docker desktop](https://www.docker.com/products/docker-desktop) allows you to run and manage Docker and Kubernetes on 
+workstations for local development. This tutorial will walk through setting up and using Fission on Docker for desktop 
+and known issues and workarounds.
 
-Ensure you have the Kubernetes CLI.
+You will need to enable Kubernetes by going to Kubernetes tab in preferences. If you are doing this first time then 
+the downloading of Kubernetes binaries will take a few minutes. Once Kubernetes is fully running - you should see green 
+icon and the text "Kubernetes is running" as shown in screenshot below.
 
-You can get the Kubernetes CLI for OSX like this:
-```bash
-$ curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/darwin/amd64/kubectl && chmod +x kubectl && sudo mv kubectl /usr/local/bin
-```
+![](../assets/docker-desktop.png)
 
-Or, for Linux:
-```bash
-$ curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl && chmod +x kubectl && sudo mv kubectl /usr/local/bin
-```
+It should also configure Kubectl installed on your machine. For more details check documentation 
+specific to [Docker for Windows](https://docs.docker.com/docker-for-windows/) or [Docker for Mac](https://docs.docker.com/docker-for-mac/)
 
-### Docker desktop with Kubernetes
+# Installing Fission
 
-[Docker desktop](https://www.docker.com/products/docker-desktop) allows you to run and manage Docker and Kubernetes on workstations for local development. This tutorial will walk through setting up and using Fission on Docker for desktop and known issues and workarounds.
+See [Fission installation]({{%relref "_index.en.md" %}}) to learn more how to install fission.
 
+# Docker Desktop specific differences
 
-You will need to enable Kubernetes by going to Kubernetes tab in preferences. If you are doing this first time then the downloading of Kubernetes binaries will take a few minutes. Once Kubernetes is fully running - you should see green icon and the text "Kubernetes is running" as shown in screenshot below.
-
-![](../../images/docker-desktop.png)
-
-It should also configure Kubectl installed on your machine. For more details check documentation specific to [Docker for Windows](https://docs.docker.com/docker-for-windows/) or [Docker for Mac](https://docs.docker.com/docker-for-mac/)
-
-```bash
-$ kubectl version
-```
-
-We will need at least Kubernetes 1.9.
-
-## Installing Fission
-
-See [Fission installation](../../installation/) to learn more how to install fission.
-
-## Docker for Dekstop specific differences
-
-### Accessing Routes
+## Accessing Routes
 
 If you look at router service - it is exposed as random NodePort on host machine. The port can be found with the command bellow:
 
@@ -64,7 +45,7 @@ $ curl http://localhost:$PORT/helloscale
 
 If you are using the `serviceType` as LoadBalancer, access router on its external IP address, by default using port `80`.
 
-### Autoscaling
+## Autoscaling
 
 Docker for desktop by default does not ship with metric server. So if you create a function of newdeployment executor type, you will see that autoscaling does not work as expected. This is because the HPA does not get actual consumption of pods and the value remains <unknown>. This can be fixed by installing the metric server.
 
@@ -77,18 +58,18 @@ newdeploy-helloscale-default-ql0uqiwp   Deployment/newdeploy-helloscale-default-
 To install the metric server, clone the repo https://github.com/kubernetes-incubator/metrics-server and change the metric-server's command to use insecure certificates in YAMLs in deploy directory.
 
 ``` yaml
-      containers:
-      - name: metrics-server
-        image: k8s.gcr.io/metrics-server-amd64:v0.3.3
-        command:
-          - /metrics-server
-          - --kubelet-insecure-tls
+containers:
+- name: metrics-server
+  image: k8s.gcr.io/metrics-server-amd64:v0.3.3
+  command:
+    - /metrics-server
+    - --kubelet-insecure-tls
 ```
+
 Once you have changed the command create the metric server by applying the manifests:
 
-
 ```bash
-$ kubectl apply -f 1.8+
+$ kubectl apply -f deploy/1.8+/
 clusterrole.rbac.authorization.k8s.io/system:aggregated-metrics-reader created
 clusterrolebinding.rbac.authorization.k8s.io/metrics-server:system:auth-delegator created
 rolebinding.rbac.authorization.k8s.io/metrics-server-auth-reader created

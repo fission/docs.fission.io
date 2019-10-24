@@ -9,75 +9,51 @@ description: >
 Welcome! This guide will get you up and running with Fission on a
 Kubernetes cluster.
 
-### Cluster preliminaries
-
-If you don't have a Kubernetes cluster, [here's a quick guide to set
-one up]({{%relref "kubernetessetup.en.md" %}}).
+# Cluster preliminaries
 
 First, let's ensure you have the Kubernetes CLI and Helm installed and
 ready.  If you already have helm, [skip ahead to the fission install](#install-fission).
 
 If you cannot (or don't want to) use Helm, there is an alternative
 installation method possible; see [installing without
-Helm.](#install-without-helm).
+Helm](#without-helm).
 
-#### Kubernetes CLI
+## Kubernetes Cluster
 
-Ensure you have the Kubernetes CLI.
+If you don't have a Kubernetes cluster, [here's a official guide to set one up](https://kubernetes.io/docs/setup/).
 
-{{< tabs "kubectl-cli" >}}
-{{< tab "MacOS" >}} 
-```sh
-$ curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/darwin/amd64/kubectl && chmod +x kubectl && sudo mv kubectl /usr/local/bin
-``` 
-{{< /tab >}}
-{{< tab "Linux" >}}
-```sh
-$ curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl && chmod +x kubectl && sudo mv kubectl /usr/local/bin
-```
-{{< /tab >}}
-{{< /tabs >}}
+{{% notice info %}}
+Fission requires Kubernetes 1.9 or higher
+{{% /notice %}}
 
-Next, ensure you have access to a cluster.  Do this by using kubectl
-to check your Kubernetes version:
+## Kubectl
+
+Kubectl is a command line interface for running commands against Kubernetes clusters, 
+visit [here](https://kubernetes.io/docs/tasks/tools/install-kubectl/) to see how to install it.
+
+If you run the cluster on cloud provider, follow the platform steps to add token to `~/.kube/config` for connecting kubernetes cluster.
+
+* GKE: https://cloud.google.com/kubernetes-engine/docs/how-to/cluster-access-for-kubectl
+* AWS: https://docs.aws.amazon.com/eks/latest/userguide/create-kubeconfig.html
+* Azure: https://docs.microsoft.com/en-us/azure/aks/kubernetes-walkthrough#connect-to-the-cluster
+
+Next, ensure you have access to a cluster.  Do this by using kubectl to check your Kubernetes version:
 
 ```sh
 $ kubectl version
 ```
 
-We will need at least Kubernetes 1.9.
-
-#### Set up Helm
+## Helm
 
 Helm is an installer for Kubernetes.  If you already use helm, [skip to
 the next section](#install-fission).
 
-To install Helm, first you'll need the helm CLI:
-
-{{< tabs "helm-cli" >}}
-{{< tab "MacOS" >}} 
-```sh
-$ curl -LO https://storage.googleapis.com/kubernetes-helm/helm-v2.11.0-darwin-amd64.tar.gz
-
-$ tar xzf helm-v2.11.0-darwin-amd64.tar.gz
-
-$ mv darwin-amd64/helm /usr/local/bin
-```
-{{< /tab >}}
-{{< tab "Linux" >}}
-```sh
-$ curl -LO https://storage.googleapis.com/kubernetes-helm/helm-v2.11.0-linux-amd64.tar.gz
-
-$ tar xzf helm-v2.11.0-linux-amd64.tar.gz
-
-$ mv linux-amd64/helm /usr/local/bin
-```
-{{< /tab >}}
-{{< /tabs >}}
+To install helm, first you'll need the helm CLI. Visit [here](https://helm.sh/docs/using_helm/#installing-the-helm-client) 
+to see how to install it.
 
 Next, install the Helm server on your Kubernetes cluster.  Before you
 do that, you have to give helm's server privileges to install software
-on your cluster.
+on your cluster. 
 
 For example, you can use the following steps to install helm using a
 dedicated service account with full cluster admin privileges.
@@ -98,28 +74,25 @@ installed), you can simply do:
 $ helm init
 ```
 
-### Install Fission (if you have helm)
+# Install Fission
 
-List of all supported configurations for the charts `fission-all` and `fission-core` can be found [here](https://github.com/fission/fission/tree/master/charts#configuration)
+## What version should I use: All vs Core
 
-#### Minikube
+* fission-all **(Recommend)**
+    * Install a full set of services including the NATS message queue, influxDB for logs, etc. 
+    and enable all Fission features. It's suitable for people who want to try all the cool features
+    Fission has and for companies that use features that don't include in the core version.
 
-Since minikube 0.26.0 the default bootstrapper is kubeadm which enables RBAC by default. For those who work on versions before 0.26.0, please follow the steps below to enable RBAC.
+* fission-core
+    * Install core components for creating and serving a function.
 
-```sh
-# For minikube before version 0.26.0
-$ minikube start --extra-config=apiserver.Authorization.Mode=RBAC
-```
+Following, we will use `fission-all` to demonstrate how to install Fission.
 
-Then, you should see the cluster role `cluster-admin`.
+List of all supported configurations for the charts `fission-all` and `fission-core` can be found [here](https://github.com/fission/fission/tree/master/charts#configuration).
 
-``` sh
-$ kubectl get clusterroles cluster-admin
-NAME            AGE
-cluster-admin   44d
-```
+## With Helm
 
-Install fission with helm 
+### Minikube, Docker Desktop
 
 {{< tabs "fission-install-minikube" >}}
 {{< tab "Kubernetes 1.16+" >}}
@@ -148,13 +121,9 @@ The serviceType variable allows configuring the type of Kubernetes
 service outside the cluster.  You can use `ClusterIP` if you don't
 want to expose anything outside the cluster.
 
-#### Cloud hosted clusters
+### Cloud Hosted Clusters
 
-Follow the platform steps to add token to `~/.kube/config` for connecting kubernetes cluster.
-
-1. GKE: https://cloud.google.com/kubernetes-engine/docs/how-to/cluster-access-for-kubectl
-2. AWS: https://docs.aws.amazon.com/eks/latest/userguide/create-kubeconfig.html
-3. Azure: https://docs.microsoft.com/en-us/azure/aks/kubernetes-walkthrough#connect-to-the-cluster
+* See [how to add token to kubeconfig](#kubectl) if you're not able to connect to cluster.
 
 {{< tabs "fission-install-cloud-provider" >}}
 {{< tab "Kubernetes 1.16+" >}}
@@ -177,40 +146,17 @@ $ helm install --name fission --namespace fission \
 {{< /tab >}}
 {{< /tabs >}}
 
-#### Minimal version
+## Without helm
 
-The fission-all helm chart installs a full set of services including
-the NATS message queue, influxDB for logs, etc. If you want a more
-minimal setup, you can install the fission-core chart instead:
-
-{{< tabs "fission-install-minimal" >}}
-{{< tab "Kubernetes 1.16+" >}}
 {{% notice warning %}}
-Prometheus operator doesn't work on Kubernetes 1.16. You have to disable it when using helm to install Fission. See [issue](https://github.com/helm/charts/issues/17511).
+* Prometheus operator doesn't work on Kubernetes 1.16. 
+So this alternative method may not work on kubernetes 1.16 for now. 
+Please use helm before the problem gets fixed. See [issue](https://github.com/helm/charts/issues/17511).
 {{% /notice %}}
-
-Disable prometheus deployment before the prometheus operator gets fixed.
-
-```sh
-$ helm install --name fission --namespace fission --set prometheusDeploy=false \
-      https://github.com/fission/fission/releases/download/1.6.0/fission-core-1.6.0.tgz
-```
-{{< /tab >}}
-{{< tab "Kubernetes 1.9 - 1.15" >}}
-```sh
-$ helm install --name fission --namespace fission 
-      https://github.com/fission/fission/releases/download/1.6.0/fission-core-1.6.0.tgz
-```
-{{< /tab >}}
-{{< /tabs >}}
-
-### Install Fission -- alternative method without helm
 
 This method uses `kubectl apply` to install Fission.  You can edit the
 YAML file before applying it to your cluster, if you want to change
-anything in it.
-
-Create namespace for fission installation.
+anything in it. Create namespace for fission installation.
 
 ```sh
 $ kubectl create namespace fission 
@@ -220,31 +166,26 @@ $ kubectl create namespace fission
 * If you want to install in another namespace, please consider to use `helm`.
 {{% /notice %}}
 
-{{% notice warning %}}
-* Prometheus operator doesn't work on Kubernetes 1.16. 
-So this alternative method may not work on kubernetes 1.16 for now. 
-Please use helm before the problem gets fixed. See [issue](https://github.com/helm/charts/issues/17511).
-{{% /notice %}}
-
 Choose _one_ of the following commands to run:
 
-```sh
-# Full Fission install, cloud hosted cluster:
+{{< tabs "fission-install-without-helm" >}}
+{{< tab "All" >}}
 $ kubectl -n fission apply -f https://github.com/fission/fission/releases/download/1.6.0/fission-all-1.6.0.yaml
-
-# Full install on minikube:
-$ kubectl -n fission apply -f https://github.com/fission/fission/releases/download/1.6.0/fission-all-1.6.0-minikube.yaml
-
-# Minimal install on cloud hosted cluster:
+{{< /tab >}}
+{{< tab "Core" >}}
 $ kubectl -n fission apply -f https://github.com/fission/fission/releases/download/1.6.0/fission-core-1.6.0.yaml
-
-# Minimal install on minikube:
+{{< /tab >}}
+{{< tab "All on minikube" >}}
+$ kubectl -n fission apply -f https://github.com/fission/fission/releases/download/1.6.0/fission-all-1.6.0-minikube.yaml
+{{< /tab >}}
+{{< tab "Core on minikube" >}}
 $ kubectl -n fission apply -f https://github.com/fission/fission/releases/download/1.6.0/fission-core-1.6.0-minikube.yaml
-```
+{{< /tab >}}
+{{< /tabs >}}
 
 Next, install the Fission CLI.
 
-### Install the Fission CLI
+# Install Fission CLI
 
 {{< tabs "fission-cli-install" >}}
 {{< tab "MacOS" >}}
@@ -265,7 +206,7 @@ this windows executable: [fission.exe](https://github.com/fission/fission/releas
 {{< /tab >}}
 {{< /tabs >}}
 
-### Run an example
+# Run an example
 
 Finally, you're ready to use Fission!
 
@@ -282,7 +223,7 @@ Hello, world!
 
 For more language tutorials, visit [Language](/languages/).
 
-### What's next?
+# What's next?
 
 If something went wrong, we'd love to help -- please [drop by the
 slack channel](http://slack.fission.io) and ask for help.

@@ -1,12 +1,13 @@
 ---
 title: "Upgrading Fission"
-weight: 30
+weight: 1
+description: >
+  Upgrade guide for Fission installation 
 ---
 
-## If you're using Helm 
+# With Helm 
 
-If you installed Fission using `helm`, upgrade is as simple as `helm
-upgrade`:
+If you installed Fission using `helm`, upgrade is as simple as `helm upgrade`:
 
 ```bash
 # Find the name of the release you want to upgrade
@@ -19,15 +20,13 @@ $ helm upgrade <release_name> https://github.com/fission/fission/releases/downlo
 Replace `fission-all` with `fission-core` if you're using the minimal
 Fission install.
 
-## If you're not using Helm 
+# Without Helm 
 
 If you installed using `kubectl apply` of a YAML file, you can simply
 `kubectl apply` the new file.
 
 ```bash
-
 $ kubectl apply -f https://github.com/fission/fission/releases/download/1.6.0/fission-all-1.6.0.yaml
-
 ```
 
 Replace `fission-all` with `fission-core` if you're using the minimal
@@ -35,16 +34,5 @@ install.
 
 Use the `-minikube` suffix if you're on minikube, as follows:
 ```bash
-
 $ kubectl apply -f https://github.com/fission/fission/releases/download/1.6.0/fission-all-1.6.0-minikube.yaml
-
 ```
-
-### From v0.4.x to v0.5.0
-* [Upgrade guide](upgrade-from-v0.4)
-
-### From v0.3 to v0.4.x
-* [Upgrade guide](upgrade-from-v0.3)
-
-### From v0.1 to v0.2.x
-* [Upgrade guide](upgrade-from-v0.1)

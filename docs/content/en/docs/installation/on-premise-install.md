@@ -1,7 +1,8 @@
 ---
 title: "Offline On-Premise"
-draft: false
-weight: 65
+weight: 5
+description: >
+  Installation guide for offline on-premise.  
 ---
 
 There are certain use cases where the Kubernetes cluster might be in a environment with restricted internet or no internet access at all due to business or compliance reasons. This guide explains the way to deploy and use a Fission instance in such a cluster. It is assumed that the CI/CD tooling which deploys to Kubernetes will have internet access, but not the Kubernetes cluster itself.

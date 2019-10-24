@@ -5,6 +5,9 @@ description: >
   Workflow system on top of Fission
 ---
 
+{{% notice info %}}
+Fission Workflow only supports Fission 0.4.1 ~ 0.12.0 
+{{% /notice %}}
 
 ### Prerequisites
 
@@ -13,10 +16,8 @@ Fission Workflows requires the following components to be installed on your loca
 - [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/)
 - [helm](https://github.com/kubernetes/helm)
 
-
 Fission Workflows is deployed on top of a Kubernetes cluster.
-If you don't have a Kubernetes cluster, [here's a quick guide to set one up]({{% relref "../installation/kubernetessetup.en.md" %}}).
-It also requires a [Fission](https://github.com/fission/fission) deployment to be present on your Kubernetes cluster.
+It requires a [Fission](https://github.com/fission/fission) deployment to be present on your Kubernetes cluster.
 If you do not have a Fission deployment, follow [Fission's installation guide]({{% relref "../installation/_index.en.md" %}}).
 
 **(Note that Fission Workflows 0.6.0 requires Fission 0.4.1 or higher, with the NATS component installed!)**

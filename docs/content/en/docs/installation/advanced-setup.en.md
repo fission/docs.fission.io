@@ -1,12 +1,13 @@
 ---
 title: Advanced Setup
-draft: false
-weight: 3
+weight: 2
+description: >
+  Advanced setup guide for Fission installation 
 ---
 
 In this guide you will learn how to setup fission in order to serve heavy workloads on production systems.
 
-## Define correct resource request/limits
+# Define correct resource request/limits
 
 By default, there is no resource requests/limits setting for fission component pods. But it's always wise set them up 
 if you're trying to running any application on Kubernetes for production. We recommend that you run benchmarks to 
@@ -20,7 +21,7 @@ $ kubectl -n fission top pod
 
 And follow the [guide](https://kubernetes.io/docs/concepts/configuration/manage-compute-resources-container/) to setup components' deployment.
 
-## Create HPA for router
+# Create HPA for router
 
 **NOTE**: You have to set up resource requests/limits for router before creating HPA.
 
@@ -36,9 +37,9 @@ in/out the replicas of router automatically.
 Visit [HPA documentation](https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/) 
 to know how to setup HPA for router deployment.
 
-## Enable Keep-Alive setting in router
+# Enable Keep-Alive setting in router
 
-**NOTE**: Require 1.4.0+
+**NOTE**: Require Fission 1.4.0+
 
 Keep-Alive allows to use existing connections to send requests without creating a new one and lower the latency for subsequent
 requests. However, it also limits the ability to distribute traffic to new pods since existing connections remain connected to old pods
@@ -62,7 +63,7 @@ Couple things worth noticing:
 You can prevent this by setting short grace period (`--graceperiod`) when creating environment.
 2. There is an increase in memory consumption of router to keep all active connections.
 
-## Setup SSL/TLS for functions
+# Setup SSL/TLS for functions
 
 Since fission router is not responsible to handle the encrypted traffic to functions, you should put 
 fission routers behind any existing proxy solution like [NGINX](https://www.nginx.com/blog/nginx-ssl/), 
