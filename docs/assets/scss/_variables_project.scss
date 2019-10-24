@@ -167,3 +167,12 @@ input[type="search"]::placeholder {
 a {
     text-decoration: inherit;
 }
+
+.post-img {
+    display: block;
+
+     > p {
+        text-align: center;
+        font-style: italic;
+    }
+}
