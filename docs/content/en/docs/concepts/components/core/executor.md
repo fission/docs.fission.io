@@ -5,15 +5,14 @@ description: >
   Component to spin up function pods
 ---
 
-# Role
+# Brief Intro
 
-The executor has two simple APIs; the router calls both these endpoints.
-
-* **GetFunctionService** takes function metadata and dispatches the corresponding executor 
- type to get the address of a service/pod and returns it to the router.
- 
-* **TapService** lets executor know a service/pod is being used; if it's not
- called for a few minutes the pod(s) backing the service are killed.
+Executor is the component to spin up function pods for functions. When Router receives 
+requests to a function, it checks whether a function service record exists in its cache. 
+If cache misses, the function service record was found or expired, it asks Executor to 
+provide a new one. Executor then retrieves function information from Kubernetes CRD and 
+invokes one of the executor types to spin up function pods. Once the function pods up, 
+a function service record contains the address of a service/pod will be returned.
 
 It now supports two different executor types:
 
@@ -23,7 +22,16 @@ It now supports two different executor types:
 These two executor types have different strategies to launch, specialize, and manage pod(s).
 You should choose one of the executor types wisely based on the scenario.
 
-# PoolManager 
+# Diagram
+
+{{< img "../assets/executor.png" "Fig.1 Executor" "40em" "1" >}}
+
+1. Router asks the service address of a function.
+2. Executor retrieves function information from CRD, and invokes one of executor type to get the address. 
+
+# Executor Type
+
+## PoolManager 
 
 PoolManager manages **pools of generic containers** and function containers.
 
@@ -55,7 +63,21 @@ using NewDeploy as executor type of function.
 [1] The cold start time depends on the package size of the function. If it's
 a snippet of code, the cold start time usually is less then 100ms.
 
-# New-Deployment 
+### Diagram
+
+{{< img "../assets/poolmanager.png" "Fig.2 PoolManager" "50em" "1" >}}
+
+1. PoolManager watches environment changes.
+2. It creates/deletes the pool when an environment is created/deleted. 
+3. Router asks the service address of a function.
+4. Executor retrieves function information from CRD
+5. Invoke PoolManager to spin up function pod.
+6. PoolManager selects a generic pod from the warm pool.
+7. Specialize the selected generic pod to make it a function pod.
+8. The service address is returned to the Router. In this case, the address is the IP of the pod.
+9. Router redirects requests to the address just returned.
+
+## New-Deployment 
 
 New-Deployment executor (referred to as NewDeploy) creates `a Kubernetes Deployment` along 
 with `a Service and HorizontalPodAutoscaler(HPA)` for function execution. 
@@ -86,6 +108,18 @@ is invoked, there is no delay since the pod is already created. Also minscale en
 are not cleaned up even if the function is idle. This is great for functions where lower latency is 
 more important than saving resource consumption when functions are idle.
 
+### Diagram
+
+{{< img "../assets/newdeploy.png" "Fig.3 NewDeploy" "50em" "1" >}}
+
+1. Router asks the service address of a function.
+2. Executor retrieves function information from CRD
+3. Invoke NewDeploy to spin up function pods.
+4. NewDeploy creates three Kubernetes resources: Deployment, Service, HPA.
+5. The Service's address is returned to the Router.
+6. Router redirects requests to the address just returned.
+7. Service load balance requests to pods.
+
 # The latency vs. idle-cost tradeoff
 
 The executors allow you as a user to decide between latency and a small idle cost trade-off. 
@@ -109,6 +143,5 @@ resources to execute functions, by using a baseline capacity with minimum scale 
 up to maximum scale based on spikes in demand.
 
 {{% notice info %}}
-Learn more further usage/setup of **executor type** for functions, please see [here]({{% relref "../../usage/executor.en.md" %}}).
+Learn more further usage/setup of **executor type** for functions, please see [here]({{% relref "../../../usage/executor.en.md" %}}).
 {{% /notice %}}
-
