@@ -85,7 +85,7 @@ $ fission fn test --name <function-name>
 ```
 
 {{% notice tip %}} 
-See [here](../../usage/trigger) for how to setup different trigger for Go function. 
+See [here]({{% relref "../usage/trigger.en.md" %}}) for how to setup different trigger for Go function. 
 {{% /notice %}} 
 
 ## HTTP requests and HTTP responses

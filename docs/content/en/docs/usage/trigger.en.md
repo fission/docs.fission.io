@@ -21,7 +21,7 @@ Hello World!
 {{% notice tip %}} 
 FISSION_ROUTER is the externally-visible address of your
 Fission router service.  For how to set up environment variable
-`FISSION_ROUTER`, see [here]({{< ref "../installation/env_vars" >}})
+`FISSION_ROUTER`, see [here]({{% relref "../installation/env_vars.en.md" %}})
 {{% /notice %}}
 
 Also, we can create a trigger contains URL parameter by putting placeholders in value of `--url` flag.
@@ -39,7 +39,7 @@ $ fission httptrigger create --method GET \
 ```
 
 {{% notice tip %}} 
-Learn how to access URL parameters in function to develop a **REST API**, please visit [here](../accessing-url-params)
+Learn how to access URL parameters in function to develop a **REST API**, please visit [here]({{% relref "./accessing-url-params.md" %}})
 {{% /notice %}}
 
 If you want to use Kubernetes Ingress for the HTTP Trigger, you can

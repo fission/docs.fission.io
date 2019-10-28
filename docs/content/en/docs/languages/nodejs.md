@@ -53,7 +53,7 @@ $ fission fn test --name hello-world
 ### Accessing HTTP Requests
 
 This section gives a few examples of invoking nodejs functions with HTTP requests and how HTTP request components can be extracted inside the function.
-While these examples give you a rough idea of the usage, there are more real world examples [here](HTTPs://github.com/fission/fission/tree/master/examples/nodejs)
+While these examples give you a rough idea of the usage, there are more real world examples [here](https://github.com/fission/fission/tree/master/examples/nodejs)
 
 #### Headers
 
@@ -395,7 +395,7 @@ Next, the user function is loaded according to the entry point specified with `f
 ### Creating a custom nodejs builder image 
 
 If you'd like to do more than just `npm install` in the build step, you could customize the build.sh.
-Here's the link to the source code of fission [nodejs builder](HTTPs://github.com/fission/fission/tree/master/environments/nodejs/builder)
+Here's the link to the source code of fission [nodejs builder](https://github.com/fission/fission/tree/master/environments/nodejs/builder)
 
 As you can see, the build.sh performs a `npm install` inside a directory defined by the environment variable SRC_PKG and copies the built archive into a directory defined by environment variable DEPLOY_PKG 
 You could create a customized version of this build.sh with whatever additional commands needed to be run during the build step.
@@ -408,7 +408,7 @@ Now you are ready to create a nodejs env with your custom builder image supplied
 
 If you wish to modify the nodejs runtime image to add more dependencies without using/creating a builder image, you can do so too.
 
-Here's the link to the source code of fission [nodejs runtime](HTTPs://github.com/fission/fission/tree/master/environments/nodejs)
+Here's the link to the source code of fission [nodejs runtime](https://github.com/fission/fission/tree/master/environments/nodejs)
 
 As you can see, there is a package.json in the directory with a list of node modules listed under dependencies section. 
 You can add the node modules required to this list and then build the docker image with `docker build -t <USER>/nodejs-custom-runtime .` and push the image `docker push <USER>/nodejs-custom-runtime`

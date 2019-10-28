@@ -216,7 +216,7 @@ $ fission function test --name hello
 Hello, world!
 ```
 
-For more language tutorials, visit [Language](/languages/).
+For more language tutorials, visit [Language]({{% relref "../languages/" %}}).
 
 # What's next?
 

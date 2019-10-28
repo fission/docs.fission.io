@@ -67,7 +67,7 @@ We'll see examples of all these commands in the tutorial below.
 This tutorial assumes you've already set up Fission, and tested a
 simple hello world function to make sure everything's working.  To
 learn how to do that, head over to the [installation
-guide](/latest/installation/installation).
+guide]({{% relref "../installation" %}}).
 
 We'll make a small calculator app with one python environment and two
 functions, all of which will be declaratively specified using YAML
