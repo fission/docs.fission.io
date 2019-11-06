@@ -20,6 +20,12 @@ HUGO_VERSION = "0.59.0"
 [context.next.environment]
 HUGO_ENABLEGITINFO = "true"
 
+# workaround before we are able to fix :learn more" link on fission.io
+[[redirects]]
+  from = "/latest/installation/installation/*"
+  to = "/docs/installation/"
+  force = true
+
 [[redirects]]
   from = "/latest/*"
   to = "/docs/:splat"
