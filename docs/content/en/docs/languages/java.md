@@ -11,7 +11,7 @@ We'll assume you have Fission and Kubernetes setup.  If not, head over
 to the [install guide]({{% relref "../installation/_index.en.md" %}}). Verify your Fission setup with:
 
 ``` sh
-$ fission --version
+$ fission version
 ```
 
 ## Add JVM environment to your cluster

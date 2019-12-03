@@ -88,9 +88,9 @@ github_subdir = "docs"
 gcs_engine_id = "013477323950444988730:is1ujykktrh"
 
 # current release branch - could be rc
-release_branch = "release-1.0.0"
+release_branch = "master"
 # the main version. Never is rc.
-release_version = "1.0.0"
+release_version = "1.7.0"
 
 # User interface configuration
 [params.ui]

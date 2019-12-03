@@ -1,6 +1,6 @@
 ---
 title: "Trouble Shooting"
-weight: 3
+weight: 99
 description: >
   Debug with your Fission setup
 ---

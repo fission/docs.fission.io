@@ -13,7 +13,7 @@ We'll assume you have Fission and Kubernetes setup.  If not, head over
 to the [install guide]({{% relref "../installation/_index.en.md" %}}).  Verify your Fission setup with:
 
 ``` bash
-$ fission --version
+$ fission version
 ```
 
 ## Add the Go environment to your cluster
@@ -31,7 +31,7 @@ so that you won't experience the compatibility issue once we bump up the Go vers
 $ fission environment create --name go --image fission/go-env:<release-version> --builder fission/go-builder:<release-version>
 
 # Example
-$ fission environment create --name go --image fission/go-env-1.12:1.6.0 --builder fission/go-builder-1.12:1.6.0
+$ fission environment create --name go --image fission/go-env-1.12:{{% release-version %}} --builder fission/go-builder-1.12:{{% release-version %}}
 ```
 
 You can find all images and image tags at following table.

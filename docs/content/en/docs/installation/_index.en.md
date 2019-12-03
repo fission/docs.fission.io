@@ -87,27 +87,24 @@ List of all supported configurations for the charts `fission-all` and `fission-c
 
 ## With Helm
 
-### Minikube, Docker Desktop
+### OpenShift, Minikube, Docker Desktop
 
-{{< tabs "fission-install-minikube" >}}
-{{< tab "Kubernetes 1.16+" >}}
-{{% notice warning %}}
-Prometheus operator doesn't work on Kubernetes 1.16. You have to disable it when using helm to install Fission. See [issue](https://github.com/helm/charts/issues/17511).
-{{% /notice %}}
-
-Disable prometheus deployment before the prometheus operator gets fixed.
-
-```sh
-$ helm install --name fission --namespace fission \
-    --set serviceType=NodePort,routerServiceType=NodePort,prometheusDeploy=false \
-    https://github.com/fission/fission/releases/download/1.6.0/fission-all-1.6.0.tgz
-```
-{{< /tab >}}
-{{< tab "Kubernetes 1.9 - 1.15" >}}
+{{< tabs "fission-install" >}}
+{{< tab "Minikube, Docker Desktop" >}}
 ```sh
 $ helm install --name fission --namespace fission \
     --set serviceType=NodePort,routerServiceType=NodePort \
-    https://github.com/fission/fission/releases/download/1.6.0/fission-all-1.6.0.tgz
+    https://github.com/fission/fission/releases/download/{{% release-version %}}/fission-all-{{% release-version %}}.tgz
+```
+{{< /tab >}}
+{{< tab "OpenShift" >}}
+
+Please visit [OpenShift]({{%relref "_index.en.md" %}}) for more detailed information.
+
+```sh
+$ helm install --name fission --namespace fission \
+    --set serviceType=NodePort,routerServiceType=NodePort,logger.enableSecurityContext=true,prometheus.enabled=false \
+    https://github.com/fission/fission/releases/download/{{% release-version %}}/fission-all-{{% release-version %}}.tgz
 ```
 {{< /tab >}}
 {{< /tabs >}}
@@ -118,36 +115,28 @@ want to expose anything outside the cluster.
 
 ### Cloud Hosted Clusters
 
-* See [how to add token to kubeconfig](#kubectl) if you're not able to connect to cluster.
+See [how to add token to kubeconfig](#kubectl) if you're not able to connect to cluster.
 
 {{< tabs "fission-install-cloud-provider" >}}
-{{< tab "Kubernetes 1.16+" >}}
-{{% notice warning %}}
-Prometheus operator doesn't work on Kubernetes 1.16. You have to disable it when using helm to install Fission. See [issue](https://github.com/helm/charts/issues/17511).
-{{% /notice %}}
-
-Disable prometheus deployment before the prometheus operator gets fixed.
-
-```sh
-$ helm install --name fission --namespace fission --set prometheusDeploy=false \
-    https://github.com/fission/fission/releases/download/1.6.0/fission-all-1.6.0.tgz
-```
-{{< /tab >}}
-{{< tab "Kubernetes 1.9 - 1.15" >}}
+{{< tab "GKE, AKS, EKS" >}}
 ```sh
 $ helm install --name fission --namespace fission \
-    https://github.com/fission/fission/releases/download/1.6.0/fission-all-1.6.0.tgz
+    https://github.com/fission/fission/releases/download/{{% release-version %}}/fission-all-{{% release-version %}}.tgz
+```
+{{< /tab >}}
+{{< tab "OpenShift" >}}
+
+Please visit [OpenShift]({{%relref "_index.en.md" %}}) for more detailed information.
+
+```sh
+$ helm install --name fission --namespace fission \
+    --set logger.enableSecurityContext=true,prometheus.enabled=false \
+    https://github.com/fission/fission/releases/download/{{% release-version %}}/fission-all-{{% release-version %}}.tgz
 ```
 {{< /tab >}}
 {{< /tabs >}}
 
 ## Without helm
-
-{{% notice warning %}}
-* Prometheus operator doesn't work on Kubernetes 1.16. 
-So this alternative method may not work on kubernetes 1.16 for now. 
-Please use helm before the problem gets fixed. See [issue](https://github.com/helm/charts/issues/17511).
-{{% /notice %}}
 
 This method uses `kubectl apply` to install Fission.  You can edit the
 YAML file before applying it to your cluster, if you want to change
@@ -163,41 +152,50 @@ $ kubectl create namespace fission
 
 Choose _one_ of the following commands to run:
 
+* You can choose to use `fission-all` or `fission-core`. Here, we use `fission-all` to demonstrate the installation. 
+
 {{< tabs "fission-install-without-helm" >}}
-{{< tab "All" >}}
-$ kubectl -n fission apply -f https://github.com/fission/fission/releases/download/1.6.0/fission-all-1.6.0.yaml
+{{< tab "Basic" >}}
+```bash
+$ kubectl -n fission apply -f \
+    https://github.com/fission/fission/releases/download/{{% release-version %}}/fission-all-{{% release-version %}}.yaml
+```
 {{< /tab >}}
-{{< tab "Core" >}}
-$ kubectl -n fission apply -f https://github.com/fission/fission/releases/download/1.6.0/fission-core-1.6.0.yaml
+{{< tab "Minikube" >}}
+```bash
+$ kubectl -n fission apply -f \
+    https://github.com/fission/fission/releases/download/{{% release-version %}}/fission-all-{{% release-version %}}-minikube.yaml
+```
 {{< /tab >}}
-{{< tab "All on minikube" >}}
-$ kubectl -n fission apply -f https://github.com/fission/fission/releases/download/1.6.0/fission-all-1.6.0-minikube.yaml
-{{< /tab >}}
-{{< tab "Core on minikube" >}}
-$ kubectl -n fission apply -f https://github.com/fission/fission/releases/download/1.6.0/fission-core-1.6.0-minikube.yaml
+{{< tab "OpenShift" >}}
+
+Please visit [OpenShift]({{%relref "_index.en.md" %}}) for more detailed information.
+
+```bash 
+$ kubectl -n fission apply -f \
+    https://github.com/fission/fission/releases/download/{{% release-version %}}/fission-core-{{% release-version %}}-openshift.yaml
+```
 {{< /tab >}}
 {{< /tabs >}}
-
-Next, install the Fission CLI.
 
 # Install Fission CLI
 
 {{< tabs "fission-cli-install" >}}
 {{< tab "MacOS" >}}
 ```sh
-$ curl -Lo fission https://github.com/fission/fission/releases/download/1.6.0/fission-cli-osx \
+$ curl -Lo fission https://github.com/fission/fission/releases/download/{{% release-version %}}/fission-cli-osx \
     && chmod +x fission && sudo mv fission /usr/local/bin/
 ```
 {{< /tab >}}
 {{< tab "Linux" >}}
 ```sh
-$ curl -Lo fission https://github.com/fission/fission/releases/download/1.6.0/fission-cli-linux \
+$ curl -Lo fission https://github.com/fission/fission/releases/download/{{% release-version %}}/fission-cli-linux \
     && chmod +x fission && sudo mv fission /usr/local/bin/
 ```
 {{< /tab >}}
 {{< tab "Windows" >}}
 For Windows, you can use the linux binary on WSL. Or you can download
-this windows executable: [fission.exe](https://github.com/fission/fission/releases/download/1.6.0/fission-cli-windows.exe)
+this windows executable: [fission.exe](https://github.com/fission/fission/releases/download/{{% release-version %}}/fission-cli-windows.exe)
 {{< /tab >}}
 {{< /tabs >}}
 
@@ -206,7 +204,7 @@ this windows executable: [fission.exe](https://github.com/fission/fission/releas
 Finally, you're ready to use Fission!
 
 ```sh
-$ fission env create --name nodejs --image fission/node-env:1.6.0
+$ fission env create --name nodejs --image fission/node-env:{{% release-version %}}
 
 $ curl -LO https://raw.githubusercontent.com/fission/fission/master/examples/nodejs/hello.js
 

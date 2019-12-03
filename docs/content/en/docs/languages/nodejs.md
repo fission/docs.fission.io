@@ -10,7 +10,7 @@ Fission supports functions written in Nodejs. Current fission nodejs runtime env
 We assume you have Fission and Kubernetes setup. If not, head over to the [install guide]({{% relref "../installation/_index.en.md" %}}).  Verify your Fission setup with:
 
 ```bash
-$ fission --version
+$ fission version
 ```
 
 ## Add the Nodejs runtime environment to your cluster

@@ -1,6 +1,6 @@
 ---
 title: "Docker Desktop"
-weight: 6
+weight: 7
 description: >
   Docker Desktop specific setup 
 ---
@@ -22,11 +22,9 @@ specific to [Docker for Windows](https://docs.docker.com/docker-for-windows/) or
 
 # Installing Fission
 
-See [Fission installation]({{%relref "_index.en.md" %}}) to learn more how to install fission.
+See [Fission installation]({{%relref "_index.en.md" %}}) to learn more how to install Fission.
 
-# Docker Desktop specific differences
-
-## Accessing Routes
+# Accessing Routes
 
 If you look at router service - it is exposed as random NodePort on host machine. The port can be found with the command bellow:
 
@@ -45,7 +43,7 @@ $ curl http://localhost:$PORT/helloscale
 
 If you are using the `serviceType` as LoadBalancer, access router on its external IP address, by default using port `80`.
 
-## Autoscaling
+# Autoscaling
 
 Docker for desktop by default does not ship with metric server. So if you create a function of newdeployment executor type, you will see that autoscaling does not work as expected. This is because the HPA does not get actual consumption of pods and the value remains <unknown>. This can be fixed by installing the metric server.
 
