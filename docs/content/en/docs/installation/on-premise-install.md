@@ -1,15 +1,13 @@
 ---
 title: "Offline On-Premise"
-weight: 5
+weight: 6
 description: >
   Installation guide for offline on-premise.  
 ---
 
 There are certain use cases where the Kubernetes cluster might be in a environment with restricted internet or no internet access at all due to business or compliance reasons. This guide explains the way to deploy and use a Fission instance in such a cluster. It is assumed that the CI/CD tooling which deploys to Kubernetes will have internet access, but not the Kubernetes cluster itself.
 
-# Installing Fission
-
-## Cloning Fission Images
+# Cloning Fission Images
 
 Before installing Fission you will need to make container images available in a container registry which is accessible to Kubernetes cluster. You can download and retag them or export and import image tar files based on your setup. For Fission to be installed you will need following images:
 
@@ -28,14 +26,14 @@ fission/python-env
 fission/node-env
 ```
 
-## Deploying Fission
+# Deploying Fission
 
-### With Helm
+## With Helm
 
 If Kubernetes cluster has Helm installed then you can download the charts of appropriate versions from [charts repo](https://github.com/fission/fission-charts). You can then install the chart by passing the tar file or by extracting the chart into a directory. The key here is to update the image references in values.yaml to images in your internal docker registry.
 
 ```bash
-$ helm install ./fission-all-1.6.0.tgz
+$ helm install ./fission-all-{{% release-version %}}.tgz
 ```
 
 On an on premise environment where a LoadBalancer can not be provisioned, the services should be exposed with type "NodePort" instead of default LoadBalancer.
@@ -47,7 +45,7 @@ serviceType: NodePort
 
 If you want to enable Prometheus with Fission, then you will have to download the chart for Prometheus and related images in registry before you can install Fission.
 
-### Without Helm
+## Without Helm
 
 If you are not using Helm then you can use the YAML files from [Fission releases](https://github.com/fission/fission/releases) to install Fission. Once you have downloaded the YAML you will have to change the references to Fission images and prometheus images if you want to enable prometheus.
 
