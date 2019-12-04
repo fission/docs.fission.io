@@ -87,7 +87,16 @@ List of all supported configurations for the charts `fission-all` and `fission-c
 
 ## With Helm
 
-### OpenShift, Minikube, Docker Desktop
+### Clusters without LoadBalancer support
+
+The environment like Minikube that doesn't support service type `LoadBalancer` should use `NodePort` instead.
+You can check it by creating a service with LoadBalancer type to see if it shows `<pending>` and never changes.
+
+```sh
+$ kubectl get svc
+NAME                                    TYPE           CLUSTER-IP       EXTERNAL-IP   PORT(S)        AGE
+router                                  LoadBalancer   10.109.61.85     <pending>     80:31972/TCP   25h
+```
 
 {{< tabs "fission-install" >}}
 {{< tab "Minikube, Docker Desktop" >}}
@@ -97,7 +106,7 @@ $ helm install --name fission --namespace fission \
     https://github.com/fission/fission/releases/download/{{% release-version %}}/fission-all-{{% release-version %}}.tgz
 ```
 {{< /tab >}}
-{{< tab "OpenShift" >}}
+{{< tab "OpenShift without LoadBalancer" >}}
 
 Please visit [OpenShift]({{%relref "_index.en.md" %}}) for more detailed information.
 
@@ -113,9 +122,9 @@ The serviceType variable allows configuring the type of Kubernetes
 service outside the cluster.  You can use `ClusterIP` if you don't
 want to expose anything outside the cluster.
 
-### Cloud Hosted Clusters
+### Cloud Hosted Clusters (GKE, AKS, EKS)
 
-See [how to add token to kubeconfig](#kubectl) if you're not able to connect to cluster.
+See [how to add token to kubeconfig]({{% relref "./trouble-shooting/kubernetes.md" %}}#kubeconfig-for-connecting-to-cluster) if you're not able to connect to cluster.
 
 {{< tabs "fission-install-cloud-provider" >}}
 {{< tab "GKE, AKS, EKS" >}}
