@@ -31,3 +31,33 @@ oc adm policy add-scc-to-user privileged -z fission-svc
 ```
 
 * Reference: https://github.com/fluent/fluentd-kubernetes-daemonset#running-on-openshift
+
+# Prometheus
+
+* Follow [this guide](https://docs.openshift.com/container-platform/4.2/monitoring/cluster-monitoring/configuring-the-monitoring-stack.html#creating-cluster-monitoring-configmap_configuring-monitoring) 
+to deploy Prometheus to OpenShift cluster. 
+
+* Get Prometheus server URL by following [Accessing Prometheus, Alertmanager, and Grafana](https://docs.openshift.com/container-platform/4.2/monitoring/cluster-monitoring/prometheus-alertmanager-and-grafana.html#monitoring-accessing-prometheus-alertmanager-grafana-directly_accessing-prometheus). 
+
+For example, if we have `https://prometheus-k8s-openshift-monitoring.apps._url_.openshift.com` as Prometheus server URL, encode following config with base64
+
+```sh
+$ base64 <<EOF
+canary:
+  enabled: true
+  prometheusSvc: "https://prometheus-k8s-openshift-monitoring.apps._url_.openshift.com"
+EOF
+```
+
+Patch configmap `feature-config` in `fission` namespace with output from previous step
+
+```sh
+$ kubectl -n fission patch configmap feature-config \
+    -p '{"data":{"config.yaml":"Y2FuYXJ5OgogIGVuYWJsZWQ6IHRydWUKICBwcm9tZXRoZXVzU3ZjOiAiaHR0cHM6Ly9wcm9tZXRoZXVzLWs4cy1vcGVuc2hpZnQtbW9uaXRvcmluZy5hcHBzLl91cmxfLm9wZW5zaGlmdC5jb20iCg"}}'
+```
+
+Delete controller pod to enforce it to reload the config.
+
+```sh
+$ kubectl -n fission delete pod -l svc=controller
+``` 
