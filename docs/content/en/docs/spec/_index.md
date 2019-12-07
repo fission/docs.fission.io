@@ -1,7 +1,8 @@
 ---
-title: "Source Code Organization and Your Development Workflow"
-date: 2017-12-01T18:01:57-08:00
-weight: 48
+title: "Declarative Specifications (Spec)"
+weight: 40
+description: >
+  Source Code Organization and Your Development Workflow
 ---
 
 You've made a Hello World function in your favorite language, and
@@ -12,9 +13,9 @@ How should you automate deployment into the cluster?  What about
 version control?  How do you test before deploying?
 
 The answers to these questions start from a common first step: how do
-you _specify an application_?
+you ***specify an application***?
 
-## Declarative Specifications
+# Spec
 
 Instead of invoking the Fission CLI commands, you can specify your
 functions in a set of YAML files.  This is better than scripting the
@@ -48,9 +49,9 @@ Applying a Fission spec goes through these steps:
    works.)
 
 Note that running _apply_ more than once is equivalent to running it
-once: in other words, it's idempotent.
+once: in other words, it's ***idempotent***.
 
-## Usage Summary
+# Usage Summary
 
 Start using Fission's declarative application specifications in 3 steps:
 
@@ -62,7 +63,7 @@ You can also deploy continuously with `fission spec apply --watch`.
 
 We'll see examples of all these commands in the tutorial below.
 
-## Tutorial
+# Tutorial
 
 This tutorial assumes you've already set up Fission, and tested a
 simple hello world function to make sure everything's working.  To
@@ -74,24 +75,32 @@ functions, all of which will be declaratively specified using YAML
 files.  This is a somewhat contrived example, but it is just meant as
 an illustration.
 
-### Make an empty directory
+## Make an empty directory
 
 ```bash
 $ mkdir spec-tutorial
 $ cd spec-tutorial
 ```
 
-### Initialize the specs directory
+## Initialize the specs directory
 
 ```bash
 $ fission spec init
 ```
 
 This creates a `specs/` directory.  You'll see a `fission-config.yaml`
-in there.  This file has a unique ID in it; everything created on the
-cluster from these specs will be annotated with that unique ID.
+in there.  This file has a unique ID (deployment ID) in it; everything created on the cluster from these specs 
+will be annotated with that deployment ID.
 
-### Setup a Python environment
+Note that the deployment ID is generated automatically whenever you initialized the specs directory. 
+In some cases you may want to do initialization for multiple times. In order to update
+to the same set of resources, you can specify the deployment ID by adding `--deployid`.
+
+```bash
+$ fission spec init --deployid xxxx-yyyy-zzzz
+```
+
+## Setup a Python environment
 
 ```bash
 $ fission env create --spec --name python --image fission/python-env --builder fission/python-builder
@@ -99,7 +108,7 @@ $ fission env create --spec --name python --image fission/python-env --builder f
 
 This command creates a YAML file under specs called `specs/env-python.yaml`.
 
-### Code two functions
+## Code two functions
 
 We will create two functions in python along with an empty `requirements.txt` file so that builder is able to build the code. We will put the functions in their own directory with the requirements.txt file.
 
@@ -157,7 +166,7 @@ def main():
     return "%s %s %s = %s" % (num_1, operator, num_2, result)
 ```
 
-### Create specs for these functions
+## Create specs for these functions
 
 Let's create a specification for each of these functions.  This
 specifies the function name, where the code lives, and associates the
@@ -165,14 +174,13 @@ function with the python environment:
 
 ```bash
 $ fission function create --spec --name calc-form --env python --src "form/*" --entrypoint form.main
-
 $ fission function create --spec --name calc-eval --env python --src "eval/*" --entrypoint eval.main
 ```
 
 You can see the generated YAML files in
 `specs/function-calc-form.yaml` and `specs/function-calc-eval.yaml`.
 
-### Create HTTP trigger specs
+## Create HTTP trigger specs
 
 ```bash
 $ fission route create --spec --method GET --url /form --function calc-form
@@ -182,7 +190,7 @@ $ fission route create --spec --method GET --url /eval --function calc-eval
 This creates YAML files specifying that GET requests on /form and /eval
 invoke the functions calc-form and calc-eval respectively.
 
-### Validate your specs
+## Validate your specs
 
 Spec validation does some basic checks: it makes sure there are no
 duplicate functions with the same name, and that references between
@@ -194,7 +202,7 @@ $ fission spec validate
 
 You should see no errors.
 
-### Apply: deploy your functions to Fission
+## Apply: deploy your functions to Fission
 
 You can simply use apply to deploy the environment, functions and HTTP
 triggers to the cluster. This command will wait for builds of both functions to complete before exiting:
@@ -208,8 +216,6 @@ $ fission spec apply --wait
 --- Build SUCCEEDED ---
 --- Build SUCCEEDED ---
 ```
-(This uses your kubeconfig to connect to Fission, just like kubectl.
-See Usage Reference below for options.)
 
 If the build fails, you can rebuild the package using rebuild command: 
 
@@ -220,7 +226,7 @@ Build timeout due to environment builder not ready
 $ fission package rebuild --name python-1543660299-o4e9
 ```
 
-### Test a function
+## Test a function
 
 You can check the function is working with `fission fn test` but since this function returns a HTML, it is best to open in browser.
 
@@ -239,7 +245,7 @@ You can enter two number and operator and see the results. Currently this functi
 (If you don't know the address of the Fission router, you can find it
 with kubectl: `kubectl -n fission get service router`.)
 
-### Modify the function and re-deploy it
+## Modify the function and re-deploy it
 
 Let's try modifying a function: let's change the `calc-eval` function
 to support multiplication, too.
@@ -269,7 +275,7 @@ This should output something like:
 
 Your new updated function is deployed! Test it out by entering a `*` for the operator in the form!
 
-### Add dependencies to the function
+## Add dependencies to the function
 
 Let's say you'd like to add a pip dependency in `requirements.txt` to your function,
 and include some libraries in it, so you can `import` them in your
@@ -283,7 +289,7 @@ This command figures out that one function has changed, uploads the
 source to the cluster, and waits until the Fission builder on the
 cluster finishes rebuilding this updated source code.
 
-## A bit about how this works
+# A bit about how this works
 
 Kubernetes manages its state as a set of _resources_.  Deployments,
 Pod, Services are examples of resources.  They represent a target
@@ -312,81 +318,6 @@ archives are uploaded to the cluster.  On the cluster, Archives are
 tracked with checksums; the Fission CLI only uploads archives when
 their checksum has changed.
 
-## Usage Reference
+# More Examples
 
-```bash
-NAME:
-   fission spec - Manage a declarative app specification
-
-USAGE:
-   fission spec command [command options] [arguments...]
-
-COMMANDS:
-     init      Create an initial declarative app specification
-     validate  Validate Fission app specification
-     apply     Create, update, or delete Fission resources from app specification
-     destroy   Delete all Fission resources in the app specification
-     helm      Create a helm chart from the app specification
-
-OPTIONS:
-   --help, -h  show help
-   
-```
-
-### fission spec init
-
-```bash
-NAME:
-   fission spec init - Create an initial declarative app specification
-
-USAGE:
-   fission spec init [command options] [arguments...]
-
-OPTIONS:
-   --specdir value  Directory to store specs, defaults to ./specs
-   --name value     (optional) Name for the app, applied to resources as a Kubernetes annotation
-   
-```
-
-### fission spec validate
-
-```bash
-NAME:
-   fission spec validate - Validate Fission app specification
-
-USAGE:
-   fission spec validate [command options] [arguments...]
-
-OPTIONS:
-   --specdir value  Directory to store specs, defaults to ./specs
-```
-
-### fission spec apply
-
-```bash
-NAME:
-   fission spec apply - Create, update, or delete Fission resources from app specification
-
-USAGE:
-   fission spec apply [command options] [arguments...]
-
-OPTIONS:
-   --specdir value  Directory to store specs, defaults to ./specs
-   --delete         Allow apply to delete resources that no longer exist in the specification
-   --wait           Wait for package builds
-   --watch          Watch local files for change, and re-apply specs as necessary
-```
-
-### fission spec destroy
-
-```bash
-NAME:
-   fission spec destroy - Delete all Fission resources in the app specification
-
-USAGE:
-   fission spec destroy [command options] [arguments...]
-
-OPTIONS:
-   --specdir value  Directory to store specs, defaults to ./specs
-
-```
+For more specs example, visit https://github.com/fission/fission/tree/master/examples/spec-example
