@@ -122,7 +122,7 @@ HUGO_ENABLEGITINFO = "true"
   force = true
 
 [[redirects]]
-  from = "/docs/usage/developer-workflow/"
+  from = "/docs/usage/developer-workflow/*"
   to = "/docs/spec/:splat"
   force = true
 
