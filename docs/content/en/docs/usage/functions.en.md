@@ -224,7 +224,7 @@ b: {c: 3, d: 4}
 ```
 
 If you're using Fission with source code, be sure to read about the
-recommended [development workflow]({{%relref "developer-workflow.md" %}}).
+recommended [development workflow]({{%relref "../spec/_index.md" %}}).
 
 #### Using compiled artifacts with Fission
 

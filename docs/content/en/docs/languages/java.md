@@ -268,7 +268,7 @@ $ fission fn create --name javatest --pkg  java-src-pkg-zip-dqo5 --env java --en
 
 You can provide options to JVM such as heap size or additional parameters for tuning the JVM to your needs. The Fission JVM environment supports the JVM options.
 
-You can create the JVM environment spec (For more information on using specs check [using Fission specs]({{% relref "../usage/developer-workflow.md" %}})) and then add environment variable named `JVM_OPTS`. The value of environment variable is used as options to JVM when function starts. The following is an example of Fission environment YAML with JVM_OPTS added as an environment variable.
+You can create the JVM environment spec (For more information on using specs check [using Fission specs]({{% relref "../spec/_index.md" %}})) and then add environment variable named `JVM_OPTS`. The value of environment variable is used as options to JVM when function starts. The following is an example of Fission environment YAML with JVM_OPTS added as an environment variable.
 
 ```yaml
 apiVersion: fission.io/v1
