@@ -162,7 +162,7 @@ Grafana is used for visualization of metrics and Istio installed Grafana comes w
 ![Grafana](../assets/grafana.png)
 
 
-### Jaegar
+### Jaeger
 
 Jaeger allows distributed tracing of requests for function calls. We can see the details of each call to it's granular detail in Jaeger. You have to enable jaeger in Fission installation and point to appropriate URL of the Jaeger collector. You can find more details on [how to configure Jaeger to work with Fission here](https://blog.fission.io/posts/fission-opentracing/)
 
