@@ -1,7 +1,8 @@
 ---
 title: "Triggers"
-draft: false
 weight: 43
+description: >
+  Supported event triggers
 ---
 
 Functions are invoked on the occurrence of an event; a **Trigger** is
