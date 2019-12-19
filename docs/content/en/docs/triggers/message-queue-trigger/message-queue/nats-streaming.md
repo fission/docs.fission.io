@@ -1,13 +1,19 @@
 ---
 title: "NATS Streaming"
-draft: false
-weight: 64
+weight: 1
 ---
 
-#### Installation
+{{% notice tip %}}
+Fission uses **NATS Streaming** instead of pure NATS as the default message queue service. </br>
+Please ensure you use the correct library to connect to NATS Streaming service.
+{{% /notice %}}
+
+# Installation
 
 Fission installs the NATS streaming service by default when the
 `fission-all` helm chart is used for installation.
+And you can change the default setting in [values.yaml](https://github.com/fission/fission/blob/38f96c7e46e3be8d91014dd6f0aac9965d627459/charts/fission-all/values.yaml#L120-L125)
+before installation or upgrade.
 
 You should see a pod with `nats-streaming` prefix with following command.
 
@@ -21,7 +27,7 @@ If the NATS Streaming is enabled, a kubernetes deployment called `mqtrigger-nats
 $ kubectl -n fission get deploy|grep mqtrigger-nats-streaming
 ```    
 
-The MQTrigger talks to NATS streaming through kubernetes service, you can get the service information with following command.
+The Message Queue Trigger talks to NATS Streaming through Kubernetes service, you can get the service information with command.
 
 ```bash
 $ kubectl -n fission get svc -l svc=nats-streaming
@@ -30,15 +36,15 @@ nats-streaming   ClusterIP   10.97.32.55   <none>        4222/TCP   6d
 ```
 
 {{% notice tip %}}
-For further nats-streaming configuration/operation, please visit [NATS docs](https://nats.io/documentation/streaming/nats-streaming-intro/).
+For further nats-streaming configuration/operation, please visit [NATS docs](https://docs.nats.io/).
 {{% /notice %}}
 
-#### Connection Information
+# Connection Information
 
-Following are the default configuration while helm installation. (To change default configuration, see [here](https://github.com/fission/fission/blob/master/charts/fission-all/values.yaml#L61-L64).)
+Following are the default configuration while helm installation. (To change default configuration, see nats section of [values.yaml](https://github.com/fission/fission/blob/master/charts/fission-all/values.yaml).)
 
-* **Authentication Token**: defaultFissionAuthToken
-* **NATS Streaming ClusterID**: fissionMQTrigger
+* **Authentication Token**: `defaultFissionAuthToken`
+* **NATS Streaming ClusterID**: `fissionMQTrigger`
 
 The FQDN of nats-streaming server by default is `nats-streaming:4222` or using `nats-streaming.fission:4222` if the producer is in different namespace.
 So the full connection information for NATS client is
@@ -53,7 +59,7 @@ If the connection information changed, please modify the environment variable of
 $ kubectl -n fission edit deployment mqtrigger-nats-streaming
 ```  
 
-#### Local Test
+# Local Test
 
 Create a message queue trigger that invokes any function you created before.
 
@@ -87,3 +93,15 @@ $ fission fn logs --name hello1
 [2018-12-17 07:57:44.659143091 +0000 UTC] ::ffff:172.17.0.28 - - [17/Dec/2018:07:57:44 +0000] "POST /specialize HTTP/1.1" 202 - "-" "Go-http-client/1.1"
 [2018-12-17 07:57:44.675180546 +0000 UTC] ::ffff:172.17.0.10 - - [17/Dec/2018:07:57:44 +0000] "POST / HTTP/1.1" 200 14 "-" "Go-http-client/1.1"
 ```
+
+# Example
+
+Following is the diagram of workable example. It demonstrates how to publish messages from a function and let 
+message queue trigger to invoke another function.
+
+{{< img "../assets/nats-example.png" "" "40em" "1" >}}
+
+The function `publisher` publishes a message to the target topic `foobar`. When message queue trigger receives the
+message, it then sends a POST request to the function `hello`.
+
+You can find the fully workable example source code at [here](https://github.com/fission/fission/blob/fd63f779f82f4dd922059f329853bbd1f5b79ece/examples/message-queue/nats-streaming/README.md).
