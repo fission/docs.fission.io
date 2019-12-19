@@ -75,7 +75,7 @@ There are several types of triggers:
 * **Kubernetes Watch Triggers** to invoke functions when something in your cluster changes.
 
 When a trigger receives requests/events, it invokes the target function 
-defined in trigger object by sending a HTTP request through router to a function.
+defined in trigger object by sending an HTTP request through router to a function.
 
 ## Other Concepts
 

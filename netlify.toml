@@ -172,6 +172,16 @@ HUGO_ENABLEGITINFO = "true"
   force = true
 
 [[redirects]]
+  from = "/docs/message-queuing/*"
+  to = "/docs/triggers/message-queue-trigger/:splat"
+  force = true
+
+[[redirects]]
+  from = "/docs/usage/trigger/*"
+  to = "/docs/triggers/:splat"
+  force = true
+
+[[redirects]]
   from = "/"
   to = "/docs/"
   force = true
