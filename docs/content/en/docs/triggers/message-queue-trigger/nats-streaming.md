@@ -104,4 +104,4 @@ message queue trigger to invoke another function.
 The function `publisher` publishes a message to the target topic `foobar`. When message queue trigger receives the
 message, it then sends a POST request to the function `hello`.
 
-You can find the fully workable example source code at [here](https://github.com/fission/fission/blob/fd63f779f82f4dd922059f329853bbd1f5b79ece/examples/message-queue/nats-streaming/README.md).
+You can find the fully workable example source code at [here](https://github.com/fission/fission/tree/master/examples/message-queue/nats-streaming).

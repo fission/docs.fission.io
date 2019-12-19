@@ -53,9 +53,9 @@ or `fission mqt update`.
 
 Fission now supports following kinds of message queue:
 
-* [Kafka](https://kafka.apache.org/)
-* [NATS Streaming](https://nats.io/) 
-* [Azure Queue Storage](https://azure.microsoft.com/en-us/services/storage/queues/)
+* Kafka
+* [NATS Streaming]({{% relref "nats-streaming.md" %}}) 
+* Azure Queue Storage
 
 # How to Add New Message Queue Support
 
