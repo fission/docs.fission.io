@@ -16,7 +16,7 @@ $ curl http://$FISSION_ROUTER/hello
 Hello World!
 ```
 
-{{% notice tip %}} 
+{{% notice info %}} 
 FISSION_ROUTER is the externally-visible address of your
 Fission router service.  For how to set up environment variable
 `FISSION_ROUTER`, see [here]({{% relref "../installation/env_vars.en.md" %}})
@@ -36,7 +36,7 @@ $ fission httptrigger create --method GET \
     --url "/guestbook/messages/{id:[0-9]+}" --function restapi-get
 ```
 
-{{% notice tip %}} 
+{{% notice info %}} 
 Learn how to access URL parameters in function to develop a **REST API**, please visit [here]({{% relref "../usage/accessing-url-params.md" %}})
 {{% /notice %}}
 

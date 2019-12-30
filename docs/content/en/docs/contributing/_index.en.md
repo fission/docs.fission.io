@@ -20,7 +20,7 @@ it invokes the right one based on command-line arguments.
 
 To clone the repo, install dependencies and build `fission-bundle` container image:
 
-{{% notice tip %}}
+{{% notice info %}}
 If you want to build the image with the docker inside
 minikube, you'll need to set the proper environment variables with
 `eval $(minikube docker-env)`

@@ -17,7 +17,7 @@ Before we dive into details, let's walk through overall flow of event and functi
 3. The consumer function (consumerfunc) gets body of message and returns a response.
 4. Fission Kafka trigger takes the response of consumer function (consumerfunc) and drops the message in a response topic named `output`. If there is an error, the message is dropped in error topic named `error`.
 
-{{% notice tip %}}
+{{% notice info %}}
 Fission supports Kafka [record headers](https://issues.apache.org/jira/browse/KAFKA-4208). Make sure you set correct version of Kafka to `kafka.version` in values.yaml while installing Fission. For more details please refer to Extra configuration section [here](https://github.com/fission/fission/tree/master/charts/#extra-configuration-for-fission-all).
 {{% /notice %}}
 

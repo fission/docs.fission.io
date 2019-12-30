@@ -42,21 +42,7 @@ gathering dependencies.
 You can modify any of Fission's existing environments and rebuild them,
 or you can also build a new environment from scratch.
 
-The following pre-built environments are currently available for use
-in Fission:
- 
-| Environment                          | Image                     |
-| ------------------------------------ | ------------------------- |
-| NodeJS (Alpine)                      | `fission/node-env`        |
-| NodeJS (Debian)                      | `fission/node-env-debian` |
-| Python 3                             | `fission/python-env`      |
-| Go                                   | `fission/go-env`          |
-| Ruby                                 | `fission/ruby-env`        |
-| Binary (for executables or scripts)  | `fission/binary-env`      |
-| .NET                                 | `fission/dotnet-env`      |
-| .NET 2.0                             | `fission/dotnet20-env`    |
-| Perl                                 | `fission/perl-env`        |
-| PHP 7                                | `fission/php-env`         |
+See [here]({{% relref "../languages/" %}}) for full image list.
 
 ## Triggers
  
