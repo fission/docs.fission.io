@@ -14,7 +14,7 @@ Currently, Fission support three environment interface version: v1, v2 and v3.
     * You are **NOT** allowed to specify which entrypoint to load in if there are multiple entrypoint in the file.
 
 * v2
-    * The function code can be placed in a directory or having multiple entry point in a single file.  
+    * The function code can be placed in a directory or having multiple entry points in a single file.  
     * **Load function by specific entry point**. (For the v2 interface, the function may not work if no entry point is provided.)
     * Support downloading necessary dependencies and source code compilation. (Optional)
     
