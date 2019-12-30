@@ -162,6 +162,11 @@ HUGO_ENABLEGITINFO = "true"
   force = true
 
 [[redirects]]
+  from = "/docs/usage/kafka-trigger-tutorial/*"
+  to = "/docs/triggers/message-queue-trigger/kafka/:splat"
+  force = true
+
+[[redirects]]
   from = "/usage/*"
   to = "/docs/usage/:splat"
   force = true

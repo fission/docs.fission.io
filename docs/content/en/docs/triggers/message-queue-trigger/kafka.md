@@ -1,18 +1,22 @@
 ---
-title: "Using Kafka trigger to invoke a Function"
+title: "Kafka"
 draft: false
 weight: 77
 ---
 
-This tutorial will demonstrate how to use a Kafka trigger to invoke a function. We'll assume you have Fission and Kubernetes installed with Kafka MQ integration installed.  If not, please head over to the [install guide]({{% relref "../installation/_index.en.md" %}}).
+This tutorial will demonstrate how to use a Kafka trigger to invoke a function. We'll assume you have Fission and Kubernetes installed with Kafka MQ integration installed.  If not, please head over to the [install guide]({{% relref "../../installation/_index.en.md" %}}).
 
 You will also need Kafka setup which is reachable from the Fission Kubernetes cluster. If you want to setup Kafka on the Kubernetes cluster, you can use the [information here](https://github.com/fission/fission-kafka-sample/tree/master/00_setup).
 
-## Overview
+# Installation
+
+You can install Kafka through the incubator helm chart [here](https://github.com/helm/charts/tree/master/incubator/kafka).
+
+# Overview
 
 Before we dive into details, let's walk through overall flow of event and functions involved.
 
-1. A Go lang producer function (producerfunc) acts as a producer and drops a message in a Kafka topic named `input`.
+1. A Go producer function (producerfunc) acts as a producer and drops a message in a Kafka topic named `input`.
 2. Fission kafka trigger activates and invokes another function (consumerfunc) with body of Kafka message.
 3. The consumer function (consumerfunc) gets body of message and returns a response.
 4. Fission Kafka trigger takes the response of consumer function (consumerfunc) and drops the message in a response topic named `output`. If there is an error, the message is dropped in error topic named `error`.
@@ -21,9 +25,9 @@ Before we dive into details, let's walk through overall flow of event and functi
 Fission supports Kafka [record headers](https://issues.apache.org/jira/browse/KAFKA-4208). Make sure you set correct version of Kafka to `kafka.version` in values.yaml while installing Fission. For more details please refer to Extra configuration section [here](https://github.com/fission/fission/tree/master/charts/#extra-configuration-for-fission-all).
 {{% /notice %}}
 
-## Building the app
+# Building the app
 
-### Producer Function
+## Producer Function
 
 The producer function is a go program which creates a message with timestamp and drops into a topic `input`. For brevity all values have been hard coded in the code itself.
 
@@ -100,7 +104,7 @@ Build Logs:
 Building in directory /usr/src/kafka-zip-tzsu-1bicov
 ```
 
-### Consumer function
+## Consumer function
 
 The consumer function is nodejs function which takes the body of the request, appends a "Hello" and returns the resulting string.
 
@@ -122,7 +126,7 @@ $ fission env create --name nodeenv --image fission/node-env
 $ fission fn create --name consumerfunc --env nodeenv --code hellokafka.js
 ```
 
-### Connecting via trigger
+## Connecting via trigger
 
 We have both the functions ready but the connection between them is the missing glue. Let's create a message queue trigger which will invoke the consumerfunc every time there is a message in `input` topic. The  response will be sent to `output` topic and in case of consumerfunc invocation fails, the error is written to `error` topic.
 
@@ -132,7 +136,7 @@ $ fission mqt create --name kafkatest --function consumerfunc --mqtype kafka --t
 
 If your Kafka broker is running somewhere else (not at `broker.kafka:9092`), you will have to provide custom configuration for Kafka broker host while installing fission. You can do that by creating a config file, set the value of `kafka.brokers` to your broker URL and provide this config file while installing fission through helm using -f flag. You can refer this [link](https://github.com/fission/fission/blob/master/charts/fission-all/values.yaml) to find out more about this config parameter.
 
-### Testing it out
+## Testing it out
 
 Let's invoke the producer function so that the topic `input` gets some messages and we can see the consumer function in action.
 
@@ -166,7 +170,7 @@ Hello {"name":"value 2018-10-29T10:46:12Z "}
 
 ```
 
-### Introducing an error
+## Introducing an error
 
 Let's introduce an error scenario - instead of consumer function returning a 200, you can return 400 which will cause an error:
 
@@ -206,6 +210,6 @@ Request returned failure: 400
 ```
 
 
-## More examples
+# More examples
 
 - The [Kafka sample available here](https://github.com/fission/fission-kafka-sample) uses Kafka integration to build a IoT fleet management. It also uses JVM Java environment to create functions.

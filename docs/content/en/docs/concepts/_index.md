@@ -42,7 +42,7 @@ gathering dependencies.
 You can modify any of Fission's existing environments and rebuild them,
 or you can also build a new environment from scratch.
 
-See [here]({{% relref "../languages/" %}}) for full image list.
+See [here]({{% relref "../languages/" %}}) for the full image list.
 
 ## Triggers
  
