@@ -279,7 +279,7 @@ Your new updated function is deployed! Test it out by entering a `*` for the ope
 
 Let's say you'd like to add a pip dependency in `requirements.txt` to your function,
 and include some libraries in it, so you can `import` them in your
-functions. Add a library to the requirements.txt amd modify the ArchiveUploadSpec inside specs/function-<name>.yaml. Once again, deploying is the same:
+functions. Add a library to the requirements.txt and modify the ArchiveUploadSpec inside specs/function-<name>.yaml. Once again, deploying is the same:
 
 ```bash
 $ fission spec apply --wait
