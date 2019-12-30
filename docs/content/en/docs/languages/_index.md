@@ -10,15 +10,19 @@ description: >
 Currently, Fission support three environment interface version: v1, v2 and v3.   
 
 * v1
-    * Support loading function from a **single source file** for interpreted languages like Python and JavaScript.
+    * Support loading function from a **single file**. (Mainly for interpreted languages like Python and JavaScript.)
     * You are **NOT** allowed to specify which entrypoint to load in if there are multiple entrypoint in the file.
 
-* v2
+---
+
+* v2 (**Recommend**)
     * The function code can be placed in a directory or having multiple entry points in a single file.  
     * **Load function by specific entry point**. (For the v2 interface, the function may not work if no entry point is provided.)
     * Support downloading necessary dependencies and source code compilation. (Optional)
+   
+---
     
-* v3
+* v3 (**Recommend**)
     * All features in v2 interface.
     * Pre-warmed pool size adjustment.
 
@@ -40,6 +44,7 @@ The following pre-built environments are currently available for use in Fission:
 | NodeJS                               | `fission/node-env`        | `fission/node-builder`     | O   | O   | O   |
 | Python 3                             | `fission/python-env`      | `fission/python-builder`   | O   | O   | O   |
 | Go                                   | see [here]({{% relref "go.md" %}}#add-the-go-environment-to-your-cluster) for more info | | O   | O   | O   |
+| JVM (Java)                           | `fission/jvm-env`         | `fission/jvm-builder`      | O   | O   | O   |
 | Ruby                                 | `fission/ruby-env`        | `fission/ruby-builder`     | O   | O   | O   |
 | Binary (for executables or scripts)  | `fission/binary-env`      | `fission/binary-builder`   | O   | O   | O   |
 | PHP 7                                | `fission/php-env`         | -                          | O   | O   | O   |

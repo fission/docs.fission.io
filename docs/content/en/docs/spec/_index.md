@@ -1,6 +1,6 @@
 ---
 title: "Declarative Specifications (Spec)"
-weight: 40
+weight: 60
 description: >
   Source Code Organization and Your Development Workflow
 ---
