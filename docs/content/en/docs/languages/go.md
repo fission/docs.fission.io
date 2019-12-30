@@ -84,7 +84,7 @@ Now, let's test our first Go function with `test` command
 $ fission fn test --name <function-name>
 ```
 
-{{% notice tip %}} 
+{{% notice info %}} 
 See [here]({{% relref "../triggers/_index.md" %}}) for how to setup different trigger for Go function. 
 {{% /notice %}} 
 
