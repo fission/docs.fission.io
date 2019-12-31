@@ -1,7 +1,7 @@
 ---
-title: "Functions"
+title: "Create Function"
 draft: false
-weight: 42
+weight: 2
 ---
 
 This section walks through working with functions, for controlling execution of functions please refer to [Controlling Function Execution]({{% relref "executor.en.md" %}})

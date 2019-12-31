@@ -1,5 +1,5 @@
 ---
-title: "Languages"
+title: "Environments (Languages)"
 weight: 50
 description: >
   Tutorial for supported language

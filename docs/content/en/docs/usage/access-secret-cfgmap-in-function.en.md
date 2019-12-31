@@ -1,5 +1,5 @@
 ---
-title: "Accessing Secrets in Functions"
+title: "Accessing Secrets/ConfigMaps"
 draft: false
 weight: 36
 ---

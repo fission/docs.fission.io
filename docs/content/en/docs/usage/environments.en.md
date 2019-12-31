@@ -1,10 +1,10 @@
 ---
-title: "Environments"
+title: "Create Environment"
 draft: false
-weight: 41
+weight: 1
 ---
 
-### Create an environment
+# Create an environment
 
 You can create an environment on your cluster from an image for that
 language. 
@@ -22,7 +22,7 @@ environment are used for function pod as well. In case of new
 deployment executor, you can override the resources when you create a
 function.
 
-### Using a builder
+# Using a builder
 
 When you create an environment, you can specify a builder image and
 builder command which will be used for building from source code. You
@@ -34,7 +34,7 @@ details on builder and packages, check out examples in
 $ fission env create --name python --image fission/python-env:latest --builder fission/python-builder:latest
 ```
 
-### Viewing environment information
+# Viewing environment information
 
 You can list the environments or view information of an individual environment:
 

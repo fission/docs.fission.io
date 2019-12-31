@@ -1,5 +1,5 @@
 ---
-title: "Supporting Canary Deployments for Fission Functions"
+title: "Canary Deployments for Functions"
 draft: false
 weight: 49
 ---

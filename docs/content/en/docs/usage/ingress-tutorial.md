@@ -1,5 +1,5 @@
 ---
-title: "Exposing functions with Ingress"
+title: "Exposing Functions With Ingress"
 draft: false
 weight: 49
 ---
