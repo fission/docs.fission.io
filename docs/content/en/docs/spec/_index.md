@@ -318,6 +318,11 @@ archives are uploaded to the cluster.  On the cluster, Archives are
 tracked with checksums; the Fission CLI only uploads archives when
 their checksum has changed.
 
+# Improve Portability of Spec (1.7.0+)
+
+Sometimes you may want to release spec files only without the function source code or the compiled binary. To improve
+the portability, you can specify a URL that points to the target archive by following the step described in [here]({{% relref "../usage/url-as-archive-source.md" %}}).
+
 # More Examples
 
 For more specs example, visit https://github.com/fission/fission/tree/master/examples/spec-example
