@@ -1,10 +1,11 @@
 {{ $cover := .HasShortcode "blocks/cover" }}
 <nav class="js-navbar-scroll navbar navbar-expand navbar-light {{ if not $cover }} nav-shadow {{ end }}flex-column flex-md-row td-navbar">
-
 	<a id="docsy-top" {{ if $cover }} style="display: none;" {{end}} class="navbar-brand" href="{{ .Site.Home.RelPermalink }}docs">
 		<img class="navbar-logo" src="{{ "images/logo.png" | relURL }}"/>
 	</a>
-
+	<div style="margin-bottom: -0.2em;">
+		<a style="font-size: 1.3em;font-weight: 500;color: gray;" href="https://github.com/fission/fission/releases/tag/{{ .Site.Params.release_version }}" >v{{ .Site.Params.release_version }}</a>
+	</div>
 	<div class="td-navbar-nav-scroll ml-md-auto" id="main_navbar">
 		<ul class="navbar-nav mt-2 mt-lg-0">
 			{{ $p := . }}
