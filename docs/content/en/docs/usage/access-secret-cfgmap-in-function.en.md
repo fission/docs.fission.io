@@ -1,13 +1,13 @@
 ---
 title: "Accessing Secrets/ConfigMaps"
 draft: false
-weight: 36
+weight: 4
 ---
 
 Functions can access Kubernetes [Secrets](https://kubernetes.io/docs/concepts/configuration/secret/) and [ConfigMaps](https://kubernetes.io/docs/concepts/storage/volumes/#configmap). Use secrets for things like API keys, authentication tokens, and so on. Use config maps for any other configuration that doesn't need to be a
 secret.
 
-### Create A Secret or a ConfigMap
+# Create a Secret or a Configmap
 
 You can create a Secret or ConfigMap with the Kubernetes CLI:
 
@@ -39,7 +39,7 @@ data:
   TEST_KEY: TESTVALUE
 ```
 
-### Accessing Secrets and ConfigMaps
+# Accessing Secrets and ConfigMaps
 
 Secrets and configmaps are accessed similarly.  Each secret or
 configmap is a set of key value pairs. Fission sets these up as files
@@ -112,7 +112,7 @@ ConfigMap: TESTVALUE
 Secret: TESTVALUE
 ```
 
-### Updating Secrets and ConfigMaps
+# Updating Secrets and ConfigMaps
 
 {{% notice note %}}
 If you have a large number of functions using a configmap or secret, updating that configmap or secret will cause a large number of pods getting re-created. Please make sure that the cluster has enough capacity to accommodate the short spike of many pods getting terminated and new once getting created.

@@ -1,19 +1,21 @@
 ---
 title: "Exposing Functions With Ingress"
 draft: false
-weight: 49
+weight: 5
 ---
+
+Ingress is a Kubernetes built-in resource that allows accessing Kubernetes services from outside of cluster with help of a ingress controller. There are many ingress controllers available to use [webpage](https://kubernetes.io/docs/concepts/services-networking/ingress-controllers/#additional-controllers).
 
 This tutorial will walk you through exposing a function using an ingress controller (You can read more about ingress and ingress controller [here](https://kubernetes.io/docs/concepts/services-networking/ingress/#ingress-controllers)). We will make the function available on a fully qualified domain name (FQDN) using Fission's route and ingress controller setup in a cloud environment.
 
-## Setup & pre-requisites
+# Setup & pre-requisites
 
 You will need a Kubernetes cluster with Fission installed (Please
-check [installation page]({{% relref "../installation/" %}}) for details). This tutorial uses a cloud load balancer, but if you are using Minikube you might want [to take a look at details here](https://github.com/kubernetes/minikube/issues/496)
+check [installation page]({{% relref "../../installation/" %}}) for details). This tutorial uses a cloud load balancer, but if you are using Minikube you might want [to take a look at details here](https://github.com/kubernetes/minikube/issues/496)
 
 Later parts of this tutorial use a FQDN to reach the function. If you plan to go along in this section, you will need a domain name setup and access to modify the NS records and create A record in the zone of the domain name you have. The tutorial uses Google cloud to walk through the tutorial but you can use any cloud you prefer to. Also the changes in name server can take 24-48 hours so you may want to use an already created domain name.
 
-### Setup an Ingress Controller
+# Setup an Ingress Controller
 
 First thing we will need is an ingress controller and we will use Nginx ingress controller in this tutorial. Based on your setup you can choose [one of the multiple ways to install Nginx ingress controller](https://kubernetes.github.io/ingress-nginx/deploy/). This setup should work with other ingress controllers also but has not been tested.
 
@@ -51,11 +53,11 @@ $ curl http://35.200.150.175
 default backend - 404
 ```
 
-## Deploying Function with ingress
+ Deploying Function with ingress
 
 An ingress resource allows traffic from outside the cluster to reach the services inside the cluster. The ingress is fulfilled by an ingress controller. In following sections we will create a function and enable traffic outside the cluster to reach the function.
 
-### Create a function
+# Create a function
 
 We will create an environment, a function and test that it works:
 
@@ -78,7 +80,7 @@ $ fission fn test --name hello
 Hello, Fission!
 ```
 
-### Create a internal route
+# Create a internal route
 
 Let's create a route which is not exposed via the ingress controller so that it can be consumed by resources inside the cluster only.
 
@@ -95,7 +97,7 @@ NAME                                 METHOD HOST URL     INGRESS FUNCTION_NAME
 
 This route will be accessible at `http://$FISSION_ROUTER/ihello` but if tried to access on the ingress controller address `http://<INGRESS-CONTROLLER-EXTERNAL-IP>/ihello` you will get a default backend page. This is expected result as we did not create an ingress for this route.
 
-### Create a external route
+# Create a external route
 
 Now let's create a route which we will expose over ingress controller. We will create a route with `createingress` flag enabled:
 
@@ -123,7 +125,7 @@ $ curl -k  https://35.200.150.175/hello
 Hello, Fission!
 ```
 
-### Create a FQDN route
+# Create a FQDN route
 
 This is an optional step and pre-requisites should be fulfilled before proceeding. You can map the FQDN to function if you have DNS setup and access. You need to do a few steps:
 

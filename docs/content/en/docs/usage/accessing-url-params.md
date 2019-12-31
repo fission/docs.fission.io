@@ -1,7 +1,7 @@
 +++
 title = "Accessing URL parameters"
 date =  2018-10-25T17:39:41+08:00
-weight = 5
+weight = 3
 +++
 
 To develop an application consists with REST APIs, we may want to access URL parameters in functions.

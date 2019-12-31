@@ -167,6 +167,11 @@ HUGO_ENABLEGITINFO = "true"
   force = true
 
 [[redirects]]
+  from = "/docs/usage/ingress-tutorial/*"
+  to = "/docs/usage/ingress/:splat"
+  force = true
+
+[[redirects]]
   from = "/usage/*"
   to = "/docs/usage/:splat"
   force = true
