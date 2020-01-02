@@ -43,8 +43,12 @@ $ kubectl version
 Helm is an installer for Kubernetes.  If you already use helm, [skip to
 the next section](#install-fission).
 
-To install helm, first you'll need the helm CLI. Visit [here](https://helm.sh/docs/using_helm/#installing-the-helm-client) 
+To install helm, first you'll need the helm CLI. Visit [here](https://helm.sh/docs/intro/install/) 
 to see how to install it.
+
+{{% notice info %}}
+You can skip the following and head over [Fission installation](#install-fission) if you're using Helm **v3**.
+{{% /notice %}}
 
 Next, install the Helm server on your Kubernetes cluster.  Before you
 do that, you have to give helm's server privileges to install software
@@ -55,9 +59,8 @@ dedicated service account with full cluster admin privileges.
 
 ```sh
 $ kubectl create serviceaccount --namespace kube-system tiller
-
-$ kubectl create clusterrolebinding tiller-cluster-rule --clusterrole=cluster-admin --serviceaccount=kube-system:tiller
-
+$ kubectl create clusterrolebinding tiller-cluster-rule \
+    --clusterrole=cluster-admin --serviceaccount=kube-system:tiller
 $ helm init --service-account tiller
 ```
 
@@ -100,21 +103,47 @@ router                                  LoadBalancer   10.109.61.85     <pending
 
 {{< tabs "fission-install" >}}
 {{< tab "Minikube, Docker Desktop" >}}
+
+* Helm v2
+
 ```sh
 $ helm install --name fission --namespace fission \
     --set serviceType=NodePort,routerServiceType=NodePort \
     https://github.com/fission/fission/releases/download/{{% release-version %}}/fission-all-{{% release-version %}}.tgz
 ```
+
+* Helm v3
+
+```sh
+$ export FISSION_NAMESPACE="fission"
+$ kubectl create namespace $FISSION_NAMESPACE
+$ helm install --namespace $FISSION_NAMESPACE --name-template fission \
+    https://github.com/fission/fission/releases/download/{{% release-version %}}/fission-all-{{% release-version %}}.tgz
+```
+
 {{< /tab >}}
 {{< tab "OpenShift without LoadBalancer" >}}
 
 Please visit [OpenShift]({{%relref "_index.en.md" %}}) for more detailed information.
+
+* Helm v2
 
 ```sh
 $ helm install --name fission --namespace fission \
     --set serviceType=NodePort,routerServiceType=NodePort,logger.enableSecurityContext=true,prometheus.enabled=false \
     https://github.com/fission/fission/releases/download/{{% release-version %}}/fission-all-{{% release-version %}}.tgz
 ```
+
+* Helm v3
+
+```sh
+$ export FISSION_NAMESPACE="fission"
+$ kubectl create namespace $FISSION_NAMESPACE
+$ helm install --namespace $FISSION_NAMESPACE --name-template fission \
+    --set serviceType=NodePort,routerServiceType=NodePort,logger.enableSecurityContext=true,prometheus.enabled=false \
+    https://github.com/fission/fission/releases/download/{{% release-version %}}/fission-all-{{% release-version %}}.tgz
+```
+
 {{< /tab >}}
 {{< /tabs >}}
 
@@ -128,20 +157,46 @@ See [how to add token to kubeconfig]({{% relref "./trouble-shooting/kubernetes.m
 
 {{< tabs "fission-install-cloud-provider" >}}
 {{< tab "GKE, AKS, EKS" >}}
+
+* Helm v2
+
 ```sh
 $ helm install --name fission --namespace fission \
     https://github.com/fission/fission/releases/download/{{% release-version %}}/fission-all-{{% release-version %}}.tgz
 ```
+
+* Helm v3
+
+```sh
+$ export FISSION_NAMESPACE="fission"
+$ kubectl create namespace $FISSION_NAMESPACE
+$ helm install --namespace $FISSION_NAMESPACE --name-template fission \
+    https://github.com/fission/fission/releases/download/{{% release-version %}}/fission-all-{{% release-version %}}.tgz
+```
+
 {{< /tab >}}
 {{< tab "OpenShift" >}}
 
 Please visit [OpenShift]({{%relref "_index.en.md" %}}) for more detailed information.
+
+* Helm v2
 
 ```sh
 $ helm install --name fission --namespace fission \
     --set logger.enableSecurityContext=true,prometheus.enabled=false \
     https://github.com/fission/fission/releases/download/{{% release-version %}}/fission-all-{{% release-version %}}.tgz
 ```
+
+* Helm v3
+
+```sh
+$ export FISSION_NAMESPACE="fission"
+$ kubectl create namespace $FISSION_NAMESPACE
+$ helm install --namespace $FISSION_NAMESPACE --name-template fission \
+    --set logger.enableSecurityContext=true,prometheus.enabled=false \
+    https://github.com/fission/fission/releases/download/{{% release-version %}}/fission-all-{{% release-version %}}.tgz
+```
+
 {{< /tab >}}
 {{< /tabs >}}
 
