@@ -1,6 +1,6 @@
 ---
 title: "Use URL as archive source when creating functions/packages"
-weight: 6
+weight: 7
 ---
 
 Previously, the CLI tends to download the file and upload it to internal storagsvc to persist when a 
