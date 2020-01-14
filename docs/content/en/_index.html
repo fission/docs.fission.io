@@ -1,0 +1,377 @@
+---
+title: "Fission"
+linkTitle: "Fission"
+---
+
+<html lang="en-US" class="has-offscreen" data-mutiny-loaded="true">
+<head style="">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="profile" href="http://gmpg.org/xfn/11">
+    <link type="text/css" media="all" href="css/autoptimize_77d7ea8330c1c5786714bceb67884127.css" rel="stylesheet">
+    <title>Serverless Functions for Kubernetes - Fission</title>
+    <meta name="description" content="Fission is a framework for serverless functions on Kubernetes. Write short-lived functions in any language, and map them to HTTP requests (or other event triggers). Deploy functions instantly with one command. There are no containers to build, and no Docker registries to manage.">
+    <meta name="robots" content="max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+    <link rel="canonical" href="https://fission.io/">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Serverless Functions for Kubernetes - Fission">
+    <meta property="og:description" content="Fission is a framework for serverless functions on Kubernetes. Write short-lived functions in any language, and map them to HTTP requests (or other event triggers). Deploy functions instantly with one command. There are no containers to build, and no Docker registries to manage.">
+    <meta property="og:url" content="https://fission.io/">
+    <meta property="og:site_name" content="Fission">
+    <meta property="og:image" content="images/facebook-og-default-image.png">
+    <meta property="og:image:secure_url" content="images/facebook-og-default-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:description" content="Fission is a framework for serverless functions on Kubernetes. Write short-lived functions in any language, and map them to HTTP requests (or other event triggers). Deploy functions instantly with one command. There are no containers to build, and no Docker registries to manage.">
+    <meta name="twitter:title" content="Serverless Functions for Kubernetes - Fission">
+    <meta name="twitter:site" content="@fissionio">
+    <meta name="twitter:image" content="images/facebook-og-default-image.png">
+    <meta name="twitter:creator" content="@fissionio">
+    <script type="application/ld+json" class="yoast-schema-graph yoast-schema-graph--main">{"@context":"https://schema.org","@graph":[{"@type":"WebSite","@id":"https://fission.io/#website","url":"https://fission.io/","name":"Fission","potentialAction":{"@type":"SearchAction","target":"https://fission.io/?s={search_term_string}","query-input":"required name=search_term_string"}},{"@type":"ImageObject","@id":"https://fission.io/#primaryimage","url":"/images/hp-hello-world-code.png","width":996,"height":700},{"@type":"WebPage","@id":"https://fission.io/#webpage","url":"https://fission.io/","inLanguage":"en-US","name":"Serverless Functions for Kubernetes - Fission","isPartOf":{"@id":"https://fission.io/#website"},"primaryImageOfPage":{"@id":"https://fission.io/#primaryimage"},"datePublished":"2018-01-11T23:23:01+00:00","dateModified":"2019-04-01T18:39:25+00:00","description":"Fission is a framework for serverless functions on Kubernetes. Write short-lived functions in any language, and map them to HTTP requests (or other event triggers). Deploy functions instantly with one command. There are no containers to build, and no Docker registries to manage."}]}</script>
+    <link rel="dns-prefetch" href="//s0.wp.com">
+    <link rel="dns-prefetch" href="//secure.gravatar.com">
+    <link rel="dns-prefetch" href="//fonts.googleapis.com">
+    <link rel="dns-prefetch" href="//s.w.org">
+    <link rel="alternate" type="application/rss+xml" title="Fission » Feed" href="https://fission.io/feed/">
+    <link rel="alternate" type="application/rss+xml" title="Fission » Comments Feed" href="https://fission.io/comments/feed/">
+    <link rel="stylesheet" id="mesmerize-fonts-css" data-href="https://fonts.googleapis.com/css?family=Open+Sans%3A300%2C400%2C600%2C700%2C300%2C400%2C600%2C700%7CMuli%3A300%2C600%2C700%2C900%2C300%2C300italic%2C400%2C400italic%2C600%2C600italic%2C700%2C700italic%2C900%2C900italic%7CPlayfair+Display%3A400%2C400italic%2C700%2C700italic%7CRoboto%3ARoboto&amp;subset=latin%2Clatin-ext" type="text/css" media="all" href="https://fonts.googleapis.com/css?family=Open+Sans%3A300%2C400%2C600%2C700%2C300%2C400%2C600%2C700%7CMuli%3A300%2C600%2C700%2C900%2C300%2C300italic%2C400%2C400italic%2C600%2C600italic%2C700%2C700italic%2C900%2C900italic%7CPlayfair+Display%3A400%2C400italic%2C700%2C700italic%7CRoboto%3ARoboto&amp;subset=latin%2Clatin-ext">
+    <link rel="stylesheet" id="popup-maker-site-css" href="/css/autoptimize_single_815dc22a2164202a5b4cd2da2b349aca.css" type="text/css" media="all">
+    <script type="text/javascript" src="/js/jquery.js"></script>
+    <link rel="icon" href="/images/fission-favicon.png" sizes="32x32">
+    <link rel="icon" href="/images/fission-favicon.png" sizes="192x192">
+    <link rel="apple-touch-icon-precomposed" href="/images/fission-favicon.png">
+    <meta name="msapplication-TileImage" content="/images/fission-favicon.png">
+    <link rel="stylesheet" type="text/css" id="gravatar-card-css" href="https://secure.gravatar.com/dist/css/hovercard.min.css?ver=2020Janaa">
+    <link rel="stylesheet" type="text/css" id="gravatar-card-services-css" href="https://secure.gravatar.com/dist/css/services.min.css?ver=2020Janaa">
+    <link type="text/css" rel="stylesheet" href="https://app.hushly.com/assets/widget-f5d8464715180da8c4744622880f4772.css" id="hushly-widget-styles">
+    <script src="//sleeknotestaticcontent.sleeknote.com/core.js"></script>
+</head>
+
+<body class="home page-template page-template-page-templates page-template-homepage page-template-page-templateshomepage-php page page-id-9 custom-background wp-custom-logo mesmerize-front-page mesmerize-content-no-padding " data-gr-c-s-loaded="true"> <a class="skip-link screen-reader-text" href="#page-content" style="user-select: auto;">Skip to content</a>
+<div id="page-top" class="header-top homepage" style="user-select: auto;">
+    <div class="navigation-bar homepage" style="user-select: auto;">
+        <div class="navigation-wrapper white-logo fixed-dark-logo" style="user-select: auto;">
+            <div class="row basis-auto" style="user-select: auto;">
+                <div class="logo_col col-xs col-sm-fit" style="user-select: auto;">
+                    <a href="/" class="custom-logo-link" data-type="group" data-dynamic-mod="true" rel="home" style="user-select: auto;"><img width="500" height="168" src="/images/fission-white-logo.png" class="custom-logo" alt="Fission" srcset="/images/fission-white-logo.png 500w, /images/fission-white-logo.png 300w" sizes="(max-width: 500px) 100vw, 500px" style="user-select: auto;"></a>
+                </div>
+                <div class="main_menu_col col-xs" style="user-select: auto;">
+                    <div id="mainmenu_container" class="row" style="user-select: auto;">
+                        <ul id="main_menu" class="active-line-bottom main-menu dropdown-menu" style="user-select: auto;">
+                            <li id="menu-item-451" class="menu-item menu-item-type-custom menu-item-object-custom current-menu-item current_page_item menu-item-451" style="user-select: auto;"><a href="/" aria-current="page" style="user-select: auto;">Overview</a></li>
+                            <li id="menu-item-450" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-450" style="user-select: auto;"><a href="/features/" style="user-select: auto;">Features</a></li>
+                            <li id="menu-item-371" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-371" style="user-select: auto;"><a target="_blank" rel="noopener noreferrer" href="https://docs.fission.io/" style="user-select: auto;">Docs</a></li>
+                            <li id="menu-item-448" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-448" style="user-select: auto;"><a href="/community/" style="user-select: auto;">Community</a></li>
+                            <li id="menu-item-372" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-372" style="user-select: auto;"><a target="_blank" rel="noopener noreferrer" href="https://blog.fission.io/" style="user-select: auto;">Blog</a></li>
+                            <li id="menu-item-452" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-452" style="user-select: auto;"><a target="_blank" rel="noopener noreferrer" href="https://docs.fission.io/installation/" style="user-select: auto;">Install</a></li>
+                            <li id="menu-item-453" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-453" style="user-select: auto;"><a target="_blank" rel="noopener noreferrer" href="https://github.com/fission/fission" style="user-select: auto;">Github</a></li>
+                        </ul>
+                    </div>
+                    <a href="#" data-component="offcanvas" data-target="#offcanvas-wrapper" data-direction="right" data-width="300px" data-push="false" style="user-select: auto;" data-loaded="true">
+                        <div class="bubble" style="user-select: auto;"></div> <i class="fa fa-bars" style="user-select: auto;"></i> </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="page" class="site" style="user-select: auto;">
+    <div class="header-wrapper" style="user-select: auto;">
+        <div class="header-homepage" style="background: rgb(0, 22, 35); padding-top: 141.984px; user-select: auto;">
+            <div class="header-description gridContainer content-on-center" style="user-select: auto;">
+                <div class="row header-description-row middle-sm" style="user-select: auto;">
+                    <div class="header-content header-content-centered col-md col-xs-12" style="user-select: auto;">
+                        <div class="align-holder center" style="user-select: auto;">
+                            <h1 class="hero-title" style="user-select: auto;">Open source, Kubernetes-native Serverless Framework</h1>
+                            <div data-dynamic-mod-container="" class="header-buttons-wrapper" style="user-select: auto;"><a class="button customize-unpreviewable big color1 round" target="_blank" href="https://docs.fission.io/latest/installation/installation" style="user-select: auto;">Install Fission</a></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <script style="user-select: auto;">
+                window.mesmerizeSetHeaderTopSpacing();
+            </script>
+            <div class="split-header" style="user-select: auto;"></div>
+        </div>
+    </div>
+    <div id="page-content" class="page-content" style="user-select: auto;">
+        <div class="content" style="user-select: auto;">
+            <div data-label="Cta" data-id="cta-centered-bg-section-undefined" data-export-id="cta-centered-bg-section" data-category="cta" data-section-ov="1" class="cta-centered-bg-section content-section content-section-spacing-medium white-text" data-parallax-depth="20" id="cta-1" style="background-color: rgba(255, 255, 255, 0); background-size: cover; background-position: center top; background-image: none; user-select: auto;">
+                <div class="gridContainer" style="user-select: auto;">
+                    <div class="row text-center" style="user-select: auto;">
+                        <div data-type="column" class="" style="user-select: auto;">
+                            <div data-editable="true" data-name="ope-widgets-area" data-content-shortcode="mesmerize_display_widgets_area id=&quot;mesmerize_users_custom_widgets_areas_3&quot; " class="" style="user-select: auto;">
+                                <div data-name="mesmerize-widgets-area" style="user-select: auto;">
+                                    <div id="custom_html-5" class="widget_text widget widget_custom_html" style="user-select: auto;">
+                                        <div class="textwidget custom-html-widget" style="user-select: auto;"> <span></span> &nbsp;&nbsp;&nbsp;
+                                            <a href="http://slack.fission.io/" target="_blank" rel="noopener noreferrer" style="user-select: auto;"><img src="/images/btn-slack-join.png" style="user-select: auto;" scale="0"></a> &nbsp;&nbsp;
+                                            <a href="https://twitter.com/fissionio" target="_blank" rel="noopener noreferrer" style="user-select: auto;"><img src="/images/btn-twitter-fissionio.png" alt="twitter @fissionio" style="user-select: auto;" scale="0"></a>
+                                            <script async="" defer="" src="https://buttons.github.io/buttons.js" style="user-select: auto;"></script>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div data-label="News Bar" data-id="cta-centered-bg-section" data-export-id="cta-centered-bg-section" data-category="cta" data-section-ov="1" class="cta-centered-bg-section content-section content-section-spacing-medium white-text" data-parallax-depth="20" id="news-bar" style="background-color: rgb(167, 137, 194); background-image: none; user-select: auto;">
+                <div class="gridContainer" style="user-select: auto;">
+                    <div class="row text-center" style="user-select: auto;">
+                        <div data-type="column" class="" style="user-select: auto;">
+                            <div data-editable="true" data-name="ope-widgets-area" data-content-shortcode="mesmerize_display_widgets_area id=&quot;mesmerize_users_custom_widgets_areas_1&quot; " class="" style="user-select: auto;">
+                                <div data-name="mesmerize-widgets-area" style="user-select: auto;">
+                                    <div id="custom_html-3" class="widget_text widget widget_custom_html" style="user-select: auto;">
+                                        <div class="textwidget custom-html-widget" style="user-select: auto;">
+                                            <p style="user-select: auto;"> <a href="https://blog.fission.io/posts/new-features-in-fission-for-quality-reliability/" style="text-decoration: none; font-weight: bold; user-select: auto;">New in Fission: Live-Reload, Record-Replay, Automated Canary Deployments, Prometheus Integration »</a></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div data-label="What is Fission" data-id="content-7" data-export-id="content-7" data-category="content" class="content-7 content-section content-section-spacing" id="what-is-fission" style="background-color: rgb(255, 255, 255); background-image: none; user-select: auto;">
+                <div class="gridContainer" style="user-select: auto;">
+                    <div class="row middle-sm" style="user-select: auto;">
+                        <div class="col-sm-6 space-bottom-xs" data-type="column" style="user-select: auto;">
+                            <h2 class="" style="user-select: auto;">What is Fission?</h2>
+                            <h4 class="" style="user-select: auto;">Fission is a framework for serverless functions on Kubernetes.</h4>
+                            <p class="" style="text-align: left; user-select: auto;">Write short-lived functions in any language, and map them to HTTP requests (or other event triggers).</p>
+                            <p class="" style="text-align: left; user-select: auto;">Deploy functions instantly with one command. There are no containers to build, and no Docker registries to manage.</p> <a class="button big color1 round" href="https://docs.fission.io/latest/installation/installation" target="lightbox" data-cp-link="1" data-icon="" style="user-select: auto;"> Learn More &amp; Install Fission </a></div>
+                        <div class="col-sm-6" data-type="column" style="user-select: auto;"><img class="shadow-large" src="/images/hp-hello-world-code.png" style="user-select: auto;" scale="0"></div>
+                    </div>
+                </div>
+            </div>
+            <div data-label="Benefits" data-id="team-undefined" data-export-id="team-5" data-category="team" class="team-5 content-section content-section-spacing" id="benefits" style="background-color: rgb(239, 239, 239); background-image: none; user-select: auto;">
+                <div class="gridContainer" style="user-select: auto;">
+                    <div class="row text-center" style="user-select: auto;">
+                        <div class="section-title-col" data-type="column" style="user-select: auto;">
+                            <h2 class="" style="user-select: auto;">Benefits</h2></div>
+                    </div>
+                    <div class="row spaced-cols content-center-sm" data-type="row" style="user-select: auto;">
+                        <div class="col-xs-12 col-sm-6 col-padding col-md-4 " style="user-select: auto;">
+                            <div class="row " style="user-select: auto;">
+                                <div data-type="column" class="col-xs-12 col-sm-12" style="user-select: auto;"> <img class="custom-image" src="/images/icon-benefits-coding.png" style="user-select: auto;" scale="0">
+                                    <h4 class="font-500" style="text-align: left; user-select: auto;"><span style="font-weight: bold; user-select: auto;">Focus on Code, Not Plumbing</span></h4>
+                                    <p class="" style="text-align: left; user-select: auto;">Fission lets developers run code functions easily, while automating the menial work of configuring Kubernetes micro-services concepts behind the scenes.</p>
+                                    <p class="" style="text-align: left; user-select: auto;">Just write your code functions and Fission will make it run on Kubernetes.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-6 col-padding col-md-4 " style="user-select: auto;">
+                            <div class="row " style="user-select: auto;">
+                                <div data-type="column" class="col-xs-12 col-sm-12" style="user-select: auto;"> <img class="custom-image" src="/images/icon-benefits-portable.png" style="user-select: auto;" scale="0">
+                                    <h4 class="font-500" style="text-align: left; user-select: auto;"><span style="font-weight: bold; user-select: auto;">Portable: Run your Lambda-like service, anywhere</span></h4>
+                                    <p class="" style="text-align: left; user-select: auto;"><span style="text-align: left; user-select: auto;">Fission is open source under the Apache license.</span></p>
+                                    <p class="" style="text-align: left; user-select: auto;">Fission works on a Kubernetes cluster anywhere: on your laptop, in any public cloud, or in a private data-center.</p>
+                                    <p class="" style="text-align: left; user-select: auto;">Write your application with the flexibility of deploying it anywhere.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-6 col-padding col-md-4 " style="user-select: auto;">
+                            <div class="row " style="user-select: auto;">
+                                <div data-type="column" class="col-xs-12 col-sm-12" style="user-select: auto;"> <img class="custom-image" src="/images/icon-benefits-extensible.png" style="user-select: auto;" scale="0">
+                                    <h4 class="font-500" style="text-align: left; user-select: auto;"><span style="font-weight: bold; user-select: auto;">Extensible and Customizable</span></h4>
+                                    <p class="" style="text-align: left; user-select: auto;"><span style="text-align: left; user-select: auto;">Fission is extensible to any programming language (Python, NodeJS, Go, C#, PHP are supported today).</span></p>
+                                    <p class="" style="text-align: left; user-select: auto;">It abstracts away containers by default, but you can build your own containers if you need to.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div data-label="Content" data-id="content--1" data-export-id="content-7" data-category="content" class="content-7 content-section content-section-spacing" id="content-1" style="background-color: rgb(245, 250, 253); user-select: auto;">
+                <div class="gridContainer" style="user-select: auto;">
+                    <div class="row middle-sm" style="user-select: auto;">
+                        <div class="col-sm-6 space-bottom-xs" data-type="column" style="user-select: auto;">
+                            <h2 class="" style="user-select: auto;">Serverless Workflows for Kubernetes</h2>
+                            <p class="" style="user-select: auto;">Fission Workflows make it easy to build complex serverless applications that span many functions. Fission Workflows is an open source framework that allows you to orchestrate a set of serverless functions without directly dealing with networking, message queues, etc.</p> <a class="button color1 round" href="https://fission.io/workflows" target="_self" data-cp-link="1" data-icon="" style="user-select: auto;">LEARN MORE</a></div>
+                        <div class="col-sm-6" data-type="column" style="user-select: auto;"> <img class="shadow-large" src="https://fission.io/wp-content/uploads/2018/10/serverless-functions-workflow-framework-opensource-fission.png" alt="" title="serverless-functions-workflow-framework-opensource-fission" style="user-select: auto;" scale="0"></div>
+                    </div>
+                </div>
+            </div>
+            <div data-label="Use Case 1" data-id="content-12" data-export-id="content-12" data-category="content" class="content-12 content-section content-section-spacing content-relative" id="use-case-1" style="background-image: none; background-color: rgb(255, 255, 255); user-select: auto;">
+                <div class="gridContainer" style="user-select: auto;">
+                    <div class="row text-center" style="user-select: auto;">
+                        <div class="section-title-col" data-type="column" style="user-select: auto;">
+                            <h2 class="" style="user-select: auto;">Use Cases</h2>
+                            <h3 class="" style="user-select: auto;">Build Serverless API Backends</h3></div>
+                    </div>
+                    <div class="row center-xs middle-xs" style="user-select: auto;">
+                        <div class="col-sm-9" data-type="column" style="user-select: auto;"> <img class="custom-image" src="/images/fission-rest-api.png" style="user-select: auto;" scale="0">
+                            <p class="" style="text-align: left; user-select: auto;">Create API backends for web and mobile apps without managing servers. Just write functions, and map them to HTTP routes. Fission takes care of the rest: deployment, routing, scalability, availability. Use Kubernetes’ service discovery and networking to interoperate with other services, like Redis, Postgres, Etcd etc.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div data-label="Gray bar 1" data-id="testimonials-1" data-export-id="testimonials-1" data-category="testimonials" class="testimonials-1 content-section content-section-spacing" id="gray-bar-1" style="background-color: rgb(239, 239, 239); background-image: none; user-select: auto;">
+                <div class="gridContainer" style="user-select: auto;">
+                    <div class="row spaced-cols content-center-sm" data-type="row" style="user-select: auto;">
+                        <div class="col-sm-4" style="user-select: auto;"></div>
+                    </div>
+                </div>
+            </div>
+            <div data-label="Use Case 2" data-id="content-1" data-export-id="content-12" data-category="content" class="content-12 content-section content-section-spacing content-relative" id="use-case-2" style="background-color: rgb(255, 255, 255); background-image: none; user-select: auto;">
+                <div class="gridContainer" style="user-select: auto;">
+                    <div class="row text-center" style="user-select: auto;">
+                        <div class="section-title-col" data-type="column" style="user-select: auto;">
+                            <h3 class="" style="user-select: auto;">Easily Implement Webhooks</h3></div>
+                    </div>
+                    <div class="row center-xs middle-xs" style="user-select: auto;">
+                        <div class="col-sm-9" data-type="column" style="user-select: auto;"> <img class="custom-image" src="/images/fission-slack-webhook.png" style="user-select: auto;" scale="0">
+                            <p class="" style="text-align: left; user-select: auto;">Webhooks are a popular way to integrate with third-party services. Slack provides webhooks that are triggered by certain words or messages; Github provides webhooks triggered by events in Git repositories. Fission is a great place to implement webhooks: just write the code, map it to a URL, and point the webhook at that URL.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div data-label="Gray bar 2" data-id="testimonials-undefined" data-export-id="testimonials-1" data-category="testimonials" class="testimonials-1 content-section content-section-spacing" id="gray-bar-2" style="background-color: rgb(239, 239, 239); background-image: none; user-select: auto;">
+                <div class="gridContainer" style="user-select: auto;">
+                    <div class="row spaced-cols content-center-sm" data-type="row" style="user-select: auto;">
+                        <div class="col-sm-4" style="user-select: auto;"></div>
+                    </div>
+                </div>
+            </div>
+            <div data-label="Use Case 3" data-id="content-2" data-export-id="content-12" data-category="content" class="content-12 content-section content-section-spacing" id="use-case-3" style="background-color: rgb(255, 255, 255); background-image: none; user-select: auto;">
+                <div class="gridContainer" style="user-select: auto;">
+                    <div class="row text-center" style="user-select: auto;">
+                        <div class="section-title-col" data-type="column" style="user-select: auto;">
+                            <h3 class="" style="user-select: auto;">Write Kubernetes Event Handlers</h3></div>
+                    </div>
+                    <div class="row center-xs middle-xs" style="user-select: auto;">
+                        <div class="col-sm-9" data-type="column" style="user-select: auto;"> <img class="custom-image" src="/images/fission-kube-events.png" style="user-select: auto;" scale="0">
+                            <p class="" style="text-align: left; user-select: auto;">By subscribing to Kubernetes watches, you can write custom automation for your Kubernetes infrastructure. Fission’s integration with Kubernetes watches allows you to monitor resources such as Pods and Services, and execute arbitrary functions when the watched set of resources change.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div data-label="Whats New" data-id="overlappable-undefined" data-export-id="overlappable-1" data-category="overlappable" class="overlappable-1 content-section content-section-spacing" data-overlap="true" id="whats-new" style="background-color: rgb(239, 239, 239); background-image: none; user-select: auto;">
+                <div class="gridContainer" style="user-select: auto;">
+                    <div data-section-title-area="true" class="row text-center" style="user-select: auto;">
+                        <div class="section-title-col" data-type="column" style="user-select: auto;">
+                            <h2 class="" style="user-select: auto;">What’s New</h2></div>
+                    </div>
+                    <div data-type="row" class="row shadow-medium flex-grow" style="user-select: auto;">
+                        <div data-type="column" class="col-xs-12 col-sm-4 bg-color-white col-padding col-padding-small-xs col-md-3" style="user-select: auto;">
+                            <h5 class="" style="user-select: auto;"><span style="font-weight: 400; user-select: auto;">FISSION DZONE REFCARD</span></h5>
+                            <h4 class="" style="user-select: auto;">New! Download the Fission.io Refcard</h4>
+                            <p class="" style="user-select: auto;">Get started with Serverless on Kubernetes in 5 minutes! Learn how to set up Fission, its key concepts, how to&nbsp;
+                                <br style="user-select: auto;">create and invoke a function, monitor its performance, and more.</p> <a class="button small color2 round" href="https://platform9.com/wp-content/uploads/2019/03/dzone-refcard-fissionio.pdf" target="_blank" data-cp-link="1" data-icon="" rel="noopener" style="user-select: auto;"> DOWNLOAD NOW </a></div>
+                        <div data-type="column" class="col-xs-12 col-sm-4 bg-color2 col-padding col-padding-small-xs inverted col-md-3" style="user-select: auto;">
+                            <h5 class="inverted" style="user-select: auto;"><span style="font-weight: 400; user-select: auto;"> BLOG</span></h5>
+                            <h4 class="" style="user-select: auto;">Monitor Fission serverless functions with OpenTracing</h4>
+                            <p class="" style="user-select: auto;">This post walks you through setting up OpenTracking, with a Jaeger backend, for&nbsp;tracing each request across multiple functions and invocations.</p> <a class="button inverted small color-white round" href="https://blog.fission.io/posts/fission-opentracing" target="_blank" data-cp-link="1" data-icon="" rel="noopener" style="user-select: auto;"> READ MORE </a></div>
+                        <div data-type="column" class="col-xs-12 col-sm-4 bg-color6 col-padding col-padding-small-xs inverted col-md-3" style="user-select: auto;">
+                            <h5 class="inverted" style="user-select: auto;"><span style="font-weight: 400; user-select: auto;">PODCAST</span></h5>
+                            <h4 class="" style="user-select: auto;">Talking Serverless on Kubernetes with Software Engineering Daily</h4>
+                            <p class="" style="user-select: auto;">Soam Vasani – the creator of Fission – sat down with Jeffrey Meyerson from Software Engineering Daily podcast to talk all-things serverless and Kubernetes.</p> <a class="button small color3 round" href="https://platform9.com/blog/talking-serverless-on-kubernetes-with-software-engineering-daily" target="_blank" data-cp-link="1" data-icon="" rel="noopener" style="user-select: auto;">LISTEN NOW&nbsp;</a></div>
+                    </div>
+                </div>
+            </div>
+            <div data-label="Slack Github Subscribe" data-id="team-5" data-export-id="team-5" data-category="team" class="team-5 content-section content-section-spacing" id="slack-github-subscribe" style="background-color: rgb(255, 255, 255); background-image: none; user-select: auto;">
+                <div class="gridContainer" style="user-select: auto;">
+                    <div data-section-title-area="true" class="row text-center" style="user-select: auto;">
+                        <div class="section-title-col" data-type="column" style="user-select: auto;">
+                            <h2 class="" style="user-select: auto;">Join the Community</h2></div>
+                    </div>
+                    <div class="row spaced-cols content-center-sm" data-type="row" style="user-select: auto;">
+                        <div class="col-xs-12 col-sm-6 col-padding col-md-4 " style="user-select: auto;">
+                            <div class="row " style="user-select: auto;">
+                                <div data-type="column" class="col-xs-12 col-sm-12" style="user-select: auto;">
+                                    <div data-editable="true" data-name="ope-widgets-area" data-content-shortcode="mesmerize_display_widgets_area id=&quot;mesmerize_users_custom_widgets_areas_6&quot; " class="" style="position: relative; top: 0px; left: 0px; user-select: auto;">
+                                        <div data-name="mesmerize-widgets-area" style="user-select: auto;">
+                                            <div id="custom_html-8" class="widget_text widget widget_custom_html" style="user-select: auto;">
+                                                <div class="textwidget custom-html-widget" style="user-select: auto;">
+                                                    <a href="http://slack.fission.io/" target="_blank" rel="noopener noreferrer" style="user-select: auto;"><img src="https://fission.io/wp-content/uploads/2018/02/slack-hp.png" style="user-select: auto;" scale="0"></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <h4 class="font-500" style="user-select: auto;"><span style="font-weight: 600; user-select: auto;">SLACK</span></h4>
+                                    <p class="" style="user-select: auto;">Join the Fission community to engage with the fission team, interact with other users, and contribute ideas and feedback.</p>
+                                    <div class="social-icons-group" data-type="group" style="user-select: auto;"><a href="#" target="_self" data-reiki-hidden="true" style="user-select: auto;"><i class="gray fa icon small fa-facebook-square color-black" style="user-select: auto;"></i></a> <a href="#" target="_self" data-reiki-hidden="true" style="user-select: auto;"><i class="gray fa icon small fa-twitter-square color-black" style="user-select: auto;"></i></a> <a href="#" target="_self" data-reiki-hidden="true" style="user-select: auto;"><i class="gray fa icon small fa-linkedin-square color-black" style="user-select: auto;"></i></a> <a href="#" target="_self" data-reiki-hidden="true" style="user-select: auto;"><i class="gray fa icon small fa-google-plus-square color-black" style="user-select: auto;"></i></a></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-6 col-padding col-md-4 " style="user-select: auto;">
+                            <div class="row " style="user-select: auto;">
+                                <div data-type="column" class="col-xs-12 col-sm-12" style="user-select: auto;">
+                                    <div data-editable="true" data-name="ope-widgets-area" data-content-shortcode="mesmerize_display_widgets_area id=&quot;mesmerize_users_custom_widgets_areas_5&quot; " class="" style="position: relative; top: 0px; left: 0px; user-select: auto;">
+                                        <div data-name="mesmerize-widgets-area" style="user-select: auto;">
+                                            <div id="custom_html-7" class="widget_text widget widget_custom_html" style="user-select: auto;">
+                                                <div class="textwidget custom-html-widget" style="user-select: auto;">
+                                                    <a href="https://github.com/fission/fission" target="_blank" rel="noopener noreferrer" style="user-select: auto;"><img src="https://fission.io/wp-content/uploads/2018/02/github-hp.png" style="user-select: auto;" scale="0"></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <h4 class="font-500" style="user-select: auto;"><span style="font-weight: 600; user-select: auto;">GITHUB</span></h4>
+                                    <p class="" style="user-select: auto;">Dive into the code and learn more about Fission. Submit PRs and collaborate with other like-minded contributors.</p>
+                                    <div class="social-icons-group" data-type="group" style="user-select: auto;"><a href="#" target="_self" data-reiki-hidden="true" style="user-select: auto;"><i class="gray fa icon small fa-facebook-square color-black" style="user-select: auto;"></i></a> <a href="#" target="_self" data-reiki-hidden="true" style="user-select: auto;"><i class="gray fa icon small fa-twitter-square color-black" style="user-select: auto;"></i></a> <a href="#" target="_self" data-reiki-hidden="true" style="user-select: auto;"><i class="gray fa icon small fa-linkedin-square color-black" style="user-select: auto;"></i></a> <a href="#" target="_self" data-reiki-hidden="true" style="user-select: auto;"><i class="gray fa icon small fa-google-plus-square color-black" style="user-select: auto;"></i></a></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-6 col-padding col-md-4 " style="user-select: auto;">
+                            <div class="row " style="user-select: auto;">
+                                <div data-type="column" class="col-xs-12 col-sm-12" style="user-select: auto;">
+                                    <div data-editable="true" data-name="ope-widgets-area" data-content-shortcode="mesmerize_display_widgets_area id=&quot;mesmerize_users_custom_widgets_areas_7&quot; " class="" style="position: relative; top: 0px; left: 0px; user-select: auto;">
+                                        <div data-name="mesmerize-widgets-area" style="user-select: auto;">
+                                            <div id="custom_html-9" class="widget_text widget widget_custom_html" style="user-select: auto;">
+                                                <div class="textwidget custom-html-widget" style="user-select: auto;">
+                                                    <a href="https://twitter.com/fissionio" target="_blank" rel="noopener noreferrer" style="user-select: auto;"><img src="/images/twitter-hp.png" style="user-select: auto;" scale="0"></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <h4 class="font-500" style="user-select: auto;"><span style="font-weight: 600; user-select: auto;">TWITTER</span></h4>
+                                    <div data-editable="true" data-name="ope-widgets-area" data-content-shortcode="mesmerize_display_widgets_area id=&quot;mesmerize_users_custom_widgets_areas_8&quot; " class="" style="position: relative; top: 0px; left: 0px; user-select: auto;">
+                                        <div data-name="mesmerize-widgets-area" style="user-select: auto;">
+                                            <div id="custom_html-10" class="widget_text widget widget_custom_html" style="user-select: auto;">
+                                                <div class="textwidget custom-html-widget" style="user-select: auto;">Follow us <a href="https://twitter.com/fissionio" target="_blank" rel="noopener noreferrer" style="user-select: auto;">@Fissionio</a> to stay up to date with Fission news.</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="social-icons-group" data-type="group" style="user-select: auto;"><a href="#" target="_self" data-reiki-hidden="true" style="user-select: auto;"><i class="gray fa icon small fa-facebook-square color-black" style="user-select: auto;"></i></a> <a href="#" target="_self" data-reiki-hidden="true" style="user-select: auto;"><i class="gray fa icon small fa-twitter-square color-black" style="user-select: auto;"></i></a> <a href="#" target="_self" data-reiki-hidden="true" style="user-select: auto;"><i class="gray fa icon small fa-linkedin-square color-black" style="user-select: auto;"></i></a> <a href="#" target="_self" data-reiki-hidden="true" style="user-select: auto;"><i class="gray fa icon small fa-google-plus-square color-black" style="user-select: auto;"></i></a></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer footer-simple" style="user-select: auto;">
+        <div class="footer-content center-xs" style="user-select: auto;">
+            <div class="gridContainer" style="user-select: auto;">
+                <div class="row middle-xs footer-content-row" style="user-select: auto;">
+                    <div class="footer-content-col col-xs-12" style="user-select: auto;">
+                        <p class="copyright" data-type="group" style="user-select: auto;"> Fission is an open source project maintained by many <a href="https://github.com/fission/fission/graphs/contributors" target="_blank" style="user-select: auto;">contributors</a>.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div style="display: none; user-select: auto;"></div>
+<div id="offcanvas-wrapper" class="hide  offcanvas-right offcanvas" style="user-select: auto;">
+    <div class="offcanvas-top" style="user-select: auto;">
+        <div class="logo-holder" style="user-select: auto;">
+            <a href="/" class="custom-logo-link" data-type="group" data-dynamic-mod="true" rel="home" style="user-select: auto;"><img width="500" height="168" src="/images/fission-white-logo.png" class="custom-logo" alt="Fission" srcset="/images/fission-white-logo.png 500w, /images/fission-white-logo.png 300w" sizes="(max-width: 500px) 100vw, 500px" style="user-select: auto;"></a>
+        </div>
+    </div>
+    <div id="offcanvas-menu" class="menu-main-menu-container" style="user-select: auto;">
+        <ul id="offcanvas_menu" class="offcanvas_menu" style="user-select: auto;">
+            <li class="menu-item menu-item-type-custom menu-item-object-custom current-menu-item current_page_item menu-item-451" style="user-select: auto;"><a href="/" aria-current="page" style="user-select: auto;">Overview</a></li>
+            <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-450" style="user-select: auto;"><a href="/features/" style="user-select: auto;">Features</a></li>
+            <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-371" style="user-select: auto;"><a target="_blank" rel="noopener noreferrer" href="https://docs.fission.io/" style="user-select: auto;">Docs</a></li>
+            <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-448" style="user-select: auto;"><a href="/community/" style="user-select: auto;">Community</a></li>
+            <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-372" style="user-select: auto;"><a target="_blank" rel="noopener noreferrer" href="https://blog.fission.io/" style="user-select: auto;">Blog</a></li>
+            <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-452" style="user-select: auto;"><a target="_blank" rel="noopener noreferrer" href="https://docs.fission.io/installation/" style="user-select: auto;">Install</a></li>
+            <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-453" style="user-select: auto;"><a target="_blank" rel="noopener noreferrer" href="https://github.com/fission/fission" style="user-select: auto;">Github</a></li>
+        </ul>
+    </div>
+</div><img style="display: none; user-select: auto;" src="https://cdn.bizible.com/m/ipv?_biz_r=&amp;_biz_h=898650037&amp;_biz_u=6334d2f7eeab444bb585d766de92c439&amp;_biz_s=28874e&amp;_biz_l=https%3A%2F%2Ffission.io%2F&amp;_biz_t=1578987721319&amp;_biz_i=Serverless%20Functions%20for%20Kubernetes%20-%20Fission&amp;_biz_n=0&amp;rnd=291128&amp;cdn_o=a&amp;_biz_z=1578987722280" scale="0">
+<link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700|Noto+Sans+JP:400,500,700|Noto+Sans+KR:400,500,700|Roboto:400,500,700&amp;display=swap" rel="stylesheet">
+</html>
