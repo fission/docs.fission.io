@@ -212,7 +212,7 @@ that know how to gather dependencies and build from a source zip file,
 into a deployment zip file. 
 
 To use a builder with your environment, create the environment with
-with the --builder flag:
+the --builder flag:
 
 ```sh
 $ fission env create --name python --image fission/python-env --builder fission/python-builder
