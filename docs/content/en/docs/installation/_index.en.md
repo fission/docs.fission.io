@@ -31,7 +31,7 @@ Fission requires Kubernetes 1.9 or higher
 Kubectl is a command line interface for running commands against Kubernetes clusters, 
 visit [here](https://kubernetes.io/docs/tasks/tools/install-kubectl/) to see how to install it.
 
-See [how to setup config correctly on different platforms]({{% relref "trouble-shooting/kubernetes.md" %}}#kubeconfig-for-connecting-to-cluster)
+See [how to setup config correctly on different platforms]({{% relref "../trouble-shooting/setup/kubernetes.md" %}}#kubeconfig-for-connecting-to-cluster)
 Next, ensure you have access to a cluster.  Do this by using kubectl to check your Kubernetes version:
 
 ```sh
@@ -153,7 +153,7 @@ want to expose anything outside the cluster.
 
 ### Cloud Hosted Clusters (GKE, AKS, EKS)
 
-See [how to add token to kubeconfig]({{% relref "./trouble-shooting/kubernetes.md" %}}#kubeconfig-for-connecting-to-cluster) if you're not able to connect to cluster.
+See [how to add token to kubeconfig]({{% relref "../trouble-shooting/setup/kubernetes.md" %}}#kubeconfig-for-connecting-to-cluster) if you're not able to connect to cluster.
 
 {{< tabs "fission-install-cloud-provider" >}}
 {{< tab "GKE, AKS, EKS" >}}

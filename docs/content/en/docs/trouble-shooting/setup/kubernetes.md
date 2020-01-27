@@ -2,7 +2,7 @@
 title: "Kubernetes"
 weight: 1
 description: >
-  Debug your Kubernetes cluster setup 
+  Troubleshoot your Kubernetes cluster setup 
 ---
 
 In this section, we will cover how to troubleshoot the problems related to Kubernetes cluster setup.

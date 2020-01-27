@@ -2,7 +2,7 @@
 title: "Fission"
 weight: 2
 description: >
-  Debug your Fission setup 
+  Troubleshoot your Fission setup 
 ---
 
 In this section, we will cover how to troubleshoot your functions and collect information to troubleshoot problems related to Fission.
