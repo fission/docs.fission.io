@@ -89,7 +89,7 @@ If the underlying platform the cluster running on doesn't support persistent vol
 helm install --namespace fission --set persistence.enabled=false .....
 ```
 
-# Function Doesn't Scales
+# Function Doesn't Scale
 
 Fission relies on Kubernetes autoscaling mechanism to scale replicas of function when workloads increase. To enable it,
 you have to enable/install the metric server in your cluster. 

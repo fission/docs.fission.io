@@ -283,7 +283,7 @@ For more language tutorials, visit [Language]({{% relref "../languages/" %}}).
 # What's next?
 
 If something went wrong, we'd love to help -- please [drop by the
-slack channel](http://slack.fission.io) and ask for help.
+slack channel](https://join.slack.com/t/fissionio/shared_invite/enQtOTI3NjgyMjE5NzE3LTllODJiODBmYTBiYWUwMWQxZWRhNDhiZDMyN2EyNjAzMTFiYjE2Nzc1NzE0MTU4ZTg2MzVjMDQ1NWY3MGJhZmE) and ask for help.
 
 Check out the
 [examples](https://github.com/fission/fission/tree/master/examples)

@@ -113,7 +113,7 @@ no = 'Sorry to hear that. Please <a href="https://github.com/fission/fission/iss
 # End user relevant links. These will show up on left side of footer and in the community page if you have one.
 [[params.links.user]]
 	name = "Slack"
-	url = "http://slack.fission.io/"
+	url = "https://join.slack.com/t/fissionio/shared_invite/enQtOTI3NjgyMjE5NzE3LTllODJiODBmYTBiYWUwMWQxZWRhNDhiZDMyN2EyNjAzMTFiYjE2Nzc1NzE0MTU4ZTg2MzVjMDQ1NWY3MGJhZmE"
 	icon = "fab fa-slack"
         desc = "Chat with other project users in #users"
 [[params.links.user]]

@@ -71,5 +71,5 @@ Visit [concepts]({{% relref "./concepts/" %}}) for more details.
 
 # Join Us
 
-* Slack: http://slack.fission.io/
+* [Join Slack](https://join.slack.com/t/fissionio/shared_invite/enQtOTI3NjgyMjE5NzE3LTllODJiODBmYTBiYWUwMWQxZWRhNDhiZDMyN2EyNjAzMTFiYjE2Nzc1NzE0MTU4ZTg2MzVjMDQ1NWY3MGJhZmE)
 * Twitter: http://twitter.com/fissionio
