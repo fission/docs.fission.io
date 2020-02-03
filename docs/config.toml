@@ -78,7 +78,7 @@ weight = 1
 # Everything below this are Site Params
 
 [params]
-copyright = "Copyright © 2019 Fission Project"
+copyright = "Copyright © 2020 Fission Project"
 privacy_policy = ""
 github_repo = "https://github.com/fission/fission"
 github_doc_repo = "https://github.com/fission/docs.fission.io"
@@ -90,7 +90,7 @@ gcs_engine_id = "013477323950444988730:is1ujykktrh"
 # current release branch - could be rc
 release_branch = "master"
 # the main version. Never is rc.
-release_version = "1.7.1"
+release_version = "1.8.0"
 
 # User interface configuration
 [params.ui]

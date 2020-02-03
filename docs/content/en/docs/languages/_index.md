@@ -47,7 +47,7 @@ The following pre-built environments are currently available for use in Fission:
 | JVM (Java)                           | `fission/jvm-env`         | `fission/jvm-builder`      | O   | O   | O   |
 | Ruby                                 | `fission/ruby-env`        | `fission/ruby-builder`     | O   | O   | O   |
 | Binary (for executables or scripts)  | `fission/binary-env`      | `fission/binary-builder`   | O   | O   | O   |
-| PHP 7                                | `fission/php-env`         | -                          | O   | O   | O   |
+| PHP 7                                | `fission/php-env`         | `fission/php-builder`      | O   | O   | O   |
 | .NET 2.0                             | `fission/dotnet20-env`    | `fission/dotnet20-builder` | O   | O   | O   |
 | .NET                                 | `fission/dotnet-env`      | -                          | O   | X   | X   |
 | Perl                                 | `fission/perl-env`        | -                          | O   | X   | X   |   
