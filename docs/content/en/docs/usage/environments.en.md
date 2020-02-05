@@ -49,5 +49,4 @@ node ac84d62e-001f-11e8-85c9-42010aa00010 fission/node-env:0.4.0
 
 $ kubectl get environment.fission.io -o yaml
 # Full YAML of Fission environment object
-
 ```

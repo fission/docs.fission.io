@@ -38,7 +38,7 @@ spec:
   serviceAccount: fission-svc
 ```
 
-In this tutorial we will look at various use cases that are possible with PodSpec support in Fission. 
+In this section we will look at various use cases that are possible with PodSpec support in Fission. 
 To learn more about how specs please check [this documentation link]({{% relref "_index.md"%}}).
 
 # Many More!
