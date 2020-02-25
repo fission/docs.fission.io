@@ -178,6 +178,11 @@ $ cat build.sh
 pip3 install -r ${SRC_PKG}/requirements.txt -t ${SRC_PKG} && cp -r ${SRC_PKG} ${DEPLOY_PKG}
 ```
 
+Make sure the `build.sh` file is executable:
+```bash
+$ chmod +x build.sh
+```
+
 You first need to create an environment with environment image and python-builder image specified:
 
 ```bash

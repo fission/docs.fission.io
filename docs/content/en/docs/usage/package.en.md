@@ -58,6 +58,11 @@ pyyaml
 pip3 install -r ${SRC_PKG}/requirements.txt -t ${SRC_PKG} && cp -r ${SRC_PKG} ${DEPLOY_PKG}
 ```
 
+Make sure the `build.sh` file is executable:
+```bash
+$ chmod +x build.sh
+```
+
 Now create an archive before creating the package:
 
 ```
