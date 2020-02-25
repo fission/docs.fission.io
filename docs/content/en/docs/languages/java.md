@@ -180,6 +180,7 @@ $ tree -L 1
 └── src
 
 2 directories, 3 files
+$ chmod +x build.sh
 $ zip java-src-pkg.zip -r *
 $ fission package create --env java --src java-src-pkg.zip 
 Package 'java-src-pkg-zip-dqo5' created
