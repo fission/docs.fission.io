@@ -9,7 +9,7 @@ To develop an application consists with REST APIs, we may want to access URL par
 For example, a REST API with URL parameters like following  
 
 ```bash
-http://192.168.0.1/guestbook/messages/{id}
+http://192.168.0.1/guestbook/{name}/{age}
 ```
 
 You can put parameter placeholders in value of `--url` flag. 
@@ -17,10 +17,10 @@ Since fission uses gorilla/mux as underlying URL router, you can also write regu
 
 ```bash
 $ fission httptrigger create --method GET \
-    --url "/guestbook/messages/{id}" --function restapi-get
+    --url "/guestbook/{name}/{age}" --function restapi-get
 
 $ fission httptrigger create --method GET \
-    --url "/guestbook/messages/{id:[0-9]+}" --function restapi-get
+    --url "/guestbook/{name}/{age:[0-9]+}" --function restapi-get
 ```
 
 Next step is to access the value of URL parameters. 
@@ -42,7 +42,8 @@ X-Fission-Function-Resourceversion: 480652
 X-Fission-Function-Name: reqpayload
 X-Fission-Function-Namespace: default
 
-X-Fission-Params-Id: 12345
+X-Fission-Params-Name: Alice
+X-Fission-Params-Age: 23
 ```
 
 The header with key prefix `X-Fission-Params-` are the actual fields contain value of URL parameters we want to access to.
@@ -50,10 +51,10 @@ The header with key prefix `X-Fission-Params-` are the actual fields contain val
 One thing worth to notice is in some language like Go the header key will be displayed as `MIME canonical format`. For example,
 
 ```bash
-url: /guestbook/messages/{id}
-header key: X-Fission-Params-Id
+url: /guestbook/{name}
+header key: X-Fission-Params-Name
 
-url: /guestbook/messages/{FooBar}
+url: /guestbook/{FooBar}
 header key: X-Fission-Params-Foobar
 ```
 
