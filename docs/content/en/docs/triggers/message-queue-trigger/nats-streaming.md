@@ -4,7 +4,7 @@ weight: 1
 ---
 
 {{% notice info %}}
-Fission uses **NATS Streaming** instead of pure NATS as the default message queue service. </br>
+Fission uses [**NATS Streaming**](https://github.com/nats-io/nats-streaming-server) instead of pure [NATS](https://nats.io/) as the default message queue service. </br>
 Please ensure you use the correct library to connect to NATS Streaming service.
 {{% /notice %}}
 
