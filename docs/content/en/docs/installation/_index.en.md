@@ -118,6 +118,7 @@ $ helm install --name fission --namespace fission \
 $ export FISSION_NAMESPACE="fission"
 $ kubectl create namespace $FISSION_NAMESPACE
 $ helm install --namespace $FISSION_NAMESPACE --name-template fission \
+    --set serviceType=NodePort,routerServiceType=NodePort \
     https://github.com/fission/fission/releases/download/{{% release-version %}}/fission-all-{{% release-version %}}.tgz
 ```
 
