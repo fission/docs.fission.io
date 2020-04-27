@@ -332,7 +332,7 @@ First, get a copy of the Fission source, which includes the
 Python environment:
 
 ```sh
-$ git clone github.com/fission/fission
+$ git clone https://github.com/fission/fission
 ```
 
 Get to the Python environment:
