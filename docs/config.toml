@@ -23,7 +23,7 @@ theme = ["docsy"]
 enableGitInfo = true
 
 # Language settings
-contentDir = "content/en"
+contentDir = "content"
 defaultContentLanguage = "en"
 defaultContentLanguageInSubdir = false
 # Useful when translating.
@@ -72,6 +72,14 @@ id = ""
 title = "Fission"
 description = "Fast Serverless Functions for Kubernetes"
 languageName ="English"
+contentDir = "content/en"
+# Weight used for sorting.
+weight = 1
+[languages.zh]
+title = "Fission"
+description = "基于 Kubernetes 的快速 Serverless 函数"
+languageName ="中文"
+contentDir = "content/zh"
 # Weight used for sorting.
 weight = 1
 

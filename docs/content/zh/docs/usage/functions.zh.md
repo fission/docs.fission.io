@@ -4,12 +4,12 @@ draft: false
 weight: 2
 ---
 
-This section walks through working with functions, for controlling execution of functions please refer to [Controlling Function Execution]({{% relref "./executor.en.md" %}})
+This section walks through working with functions, for controlling execution of functions please refer to [Controlling Function Execution]({{% relref "./executor.zh.md" %}})
 
 ### Create a function
 
 Before creating a function, you'll need an environment; read
-[environments]({{% relref "environments.en.md" %}}) if you
+[environments]({{% relref "environments.zh.md" %}}) if you
 haven't already.
 
 Let's create an environment for our function. 
@@ -43,7 +43,7 @@ $ fission route create --function hello --url /hello
 trigger '5327e9a7-6d87-4533-a4fb-c67f55b1e492' created
 ```
 
-Setup [FISSION_ROUTER]({{% relref "../installation/env_vars.en.md" %}}) environment variable if you haven't already.
+Setup [FISSION_ROUTER]({{% relref "../installation/env_vars.zh.md" %}}) environment variable if you haven't already.
 
 When you hit this function's URL, you get the expected response:
 
@@ -138,7 +138,7 @@ $ fission fn logs --name hello
 
 Most real world functions will require more than one source files. It is also easier to simply provide source files and let Fission take care of building from source files. Fission provides first class support for building from source as well as using compiled artifacts to create functions.
 
-You can attach the source/deployment packages to a function or explicitly create packages and use them across functions. Check documentation for [package]({{% relref "./package.en.md" %}}) for more information.
+You can attach the source/deployment packages to a function or explicitly create packages and use them across functions. Check documentation for [package]({{% relref "./package.zh.md" %}}) for more information.
 
 #### Building functions from source
 
