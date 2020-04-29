@@ -6,70 +6,54 @@ menu:
   main:
     weight: 20
 description: >
-  Serverless Functions for Kubernetes
+  Kubernetes 的 Serverless 函数
 ---
 
-# What is Fission?
+# Fission 是什么
 
 [fission.io](http://fission.io)  [@fissionio](http://twitter.com/fissionio)
 
-Fission is a fast, open source serverless framework for Kubernetes with a focus on
-developer productivity and high performance.
+Fission 是一个快速的，开源的 Kubernetes serverless 框架，专注于提升开发效率和高性能。
 
-Fission operates on _just the code_: Docker and Kubernetes are
-abstracted away under normal operation, though you can use both to
-extend Fission if you want to.
+Fission 操作的内容 _仅仅是代码_：Docker 和 Kubernetes 操作被抽象到了常规操作的底层，如果愿意，你仍然可以利用他们来增强 Fission。
 
-Fission is extensible to any language; the core is written in Go, and
-language-specific parts are isolated in something called
-_environments_ (more below).  Fission currently supports NodeJS, Python, Ruby, Go, 
-PHP, Bash, and any Linux executable, with more languages coming soon.
+Fission 是一个可以扩展到任意语言；它的核心使用 Go 语言编写，而且对于不同语言的部分使用了一种叫做 _environments_ 的东西个离开了。Fission 目前支持 NodeJS， Python， Ruby， Go， PHP， Bash， 和任意的 Linux executable，更多的语言持续更新中。
 
-# Performance: 100msec cold start
+# 性能: 100msec 冷启动
 
-Fission maintains a pool of "warm" containers that each contain a
-small dynamic loader.  When a function is first called,
-i.e. "cold-started", a running container is chosen and the function is
-loaded.  This pool is what makes Fission fast: cold-start latencies
-are typically about 100msec.
+Fission 维护了一个“热”的容器资源池，每个容器包含了一个小的动态加载器。当一个函数被调用的时候，例如“cold-started”，就会选择一个运行着的容器加载这个函数。这个资源池正式 Fission 快的原因：冷启动延迟一般在 100msec 左右。
 
-# Kubernetes is the right place for Serverless
+# Kubernetes 是 Serverless 的理想之选
 
-We're built on Kubernetes because we think any non-trivial app will
-use a combination of serverless functions and more conventional
-microservices, and Kubernetes is a great framework to bring these
-together seamlessly.
+因为我们认为任何具有一定复杂度的应用都会需要结合 serverless 函数和更传统一些的微服务，Kubernetes 正是一个可以把他们无缝结合到一起的伟大框架。
 
-Building on Kubernetes also means that anything you do for operations
-on your Kubernetes cluster &mdash; such as monitoring or log
-aggregation &mdash; also helps with ops on your Fission deployment.
+在 Kubernetes 上构建也意味着所有你为 Kubernetes 集群操作所做的事情 &mdash; 例如监控或者日志聚合 &mdash; 对于 Fission 部署的操作而言也是有所帮助的。
 
+# Fission 概念
 
-# Fission Concepts
+访问 [概念]({{% relref "./concepts/" %}}) 了解更多
 
-Visit [concepts]({{% relref "./concepts/" %}}) for more details.
-
-# Usage
+# 用法
 
 ```bash
-  # Add the stock NodeJS env to your Fission deployment
+  # 添加 NodeJS 环境到你的 Fission 部署
   $ fission env create --name nodejs --image fission/node-env
 
-  # A javascript one-liner that prints "hello world"
+  # 一个会显示 "hello world" 的单行 javascript 程序 
   $ curl https://raw.githubusercontent.com/fission/fission/master/examples/nodejs/hello.js > hello.js
 
-  # Upload your function code to fission
+  # 上传你的函数到 fission
   $ fission function create --name hello --env nodejs --code hello.js
 
-  # Map GET /hello to your new function
+  # 映射 GET /hello 到你的新函数
   $ fission route create --method GET --url /hello --function hello
 
-  # Run the function.  This takes about 100msec the first time.
+  # 运行函数.  第一次运行大概需要 100msec 的时间。
   $ fission function test --name hello
   Hello, world!
 ```
 
-# Join Us
+# 加入我们
 
-* [Join Slack](https://join.slack.com/t/fissionio/shared_invite/enQtOTI3NjgyMjE5NzE3LTllODJiODBmYTBiYWUwMWQxZWRhNDhiZDMyN2EyNjAzMTFiYjE2Nzc1NzE0MTU4ZTg2MzVjMDQ1NWY3MGJhZmE)
+* [加入 Slack](https://join.slack.com/t/fissionio/shared_invite/enQtOTI3NjgyMjE5NzE3LTllODJiODBmYTBiYWUwMWQxZWRhNDhiZDMyN2EyNjAzMTFiYjE2Nzc1NzE0MTU4ZTg2MzVjMDQ1NWY3MGJhZmE)
 * Twitter: http://twitter.com/fissionio
