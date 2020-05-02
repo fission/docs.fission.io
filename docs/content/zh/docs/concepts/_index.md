@@ -1,22 +1,19 @@
 ---
-title: "Concepts"
+title: "概念"
 weight: 10
 description: >
-  Concepts of Fission architecture and components
+  Fission 架构和组件的概念
 ---
 
-Fission has three main concepts: **Functions, Environments, and Triggers.**
+Fission 有三个主要概念： **函数，环境，和触发器**
 
-{{< img "./assets/trigger-function-environment.png" "Trigger, Function, Environment" "30em" "1" >}}
+{{< img "./assets/trigger-function-environment.png" "触发器，环境，函数" "30em" "1" >}}
 
-## Functions
+## 函数
 
-A **Fission** function is something that Fission executes. It's usually a
-module with one entry point, and that entry point is a function with a
-certain interface. A number of programming languages are supported
-for Functions.
+一个 **Fission** 函数是用来给 Fission 运行的。 它通常是一个包含入口点的模块，而那个入口点是一个具有指定接口的函数。函数已经支持许多种编程语言了。
 
-Here's an example of a simple function in JavaScript:
+这是一个 JavaScript 的 简单函数示例：
 
 ```js
 module.exports = async function(context) {
@@ -27,65 +24,50 @@ module.exports = async function(context) {
 }
 ```
 
-## Environments
+## 环境
 
-Environments are the language-specific parts of Fission. An
-**Environment** contains just enough software to build and run a Fission
-Function.
+环境是 Fission 针对语言相关的部分。一个**环境**包含了刚好够构建和运行 Fission 函数的软件。
 
-Since Fission invokes Functions through HTTP, this means the runtime
-of an environment is a container with an HTTP server, and usually a
-dynamic loader that can load a function.  Some environments also
-contain builder containers, which take care of compilation and
-gathering dependencies.
+因为 Fission 通过 HTTP 调用函数，这代表着一个环境的运行时是一个 HTTP 服务端的容器，并且通常是一个可以加载函数的动态加载器。有些环境也包含构建容器，它们可以负责编译和加载依赖。
 
-You can modify any of Fission's existing environments and rebuild them,
-or you can also build a new environment from scratch.
+你可以修改任意现有的 Fission 环境并重新构建它们，或者你也可以从头开始构建一个新的环境。
 
-See [here]({{% relref "../languages/" %}}) for the full image list.
+点击 [这里]({{% relref "../languages/" %}}) 查看详细镜像列表。
 
-## Triggers
+## 触发器
  
-Functions are invoked on the occurrence of an event; a **Trigger** is
-what configures Fission to use that event to invoke a function.  In
-other words, a trigger is a binding of events to function invocations.
+函数在事件发生的时候被调用；一个**触发器**是用来配置 Fission 指定事件来调用函数的。换句话说，一个触发器就是一个事件到函数调用的绑定。
 
-For example, an **HTTP Trigger** may bind GET requests on a certain path
-to the invocation of a certain function.
+例如，一个 **HTTP 触发器**可以绑定指定路径上的 GET 请求来调用一个指定的函数。
 
-There are several types of triggers: 
+我们支持几种类型的触发器：
 
-* **HTTP Triggers** invoke functions when receiving HTTP requests.
-* **Timer Triggers** invoke functions based on time.
-* **Message Queue Triggers** for Kafka, NATS, and Azure queues.
-* **Kubernetes Watch Triggers** to invoke functions when something in your cluster changes.
+* **HTTP 触发器** 当收到 HTTP 请求时调用函数。
+* **Timer 触发器** 基于事件触发函数。
+* **消息队列触发器** 例如 Kafka，NATS，和 Azure queues。
+* **Kubernetes Watch 触发器** 当你的集群发生变化时触发函数。
 
-When a trigger receives requests/events, it invokes the target function 
-defined in trigger object by sending an HTTP request through router to a function.
+当一个触发器收到请求/事件，它通过向函数的路由发送 HTTP 请求的方式调用在触发器对象中定义的目标函数。
 
-## Other Concepts
+## 其他概念
 
-These are concepts you may not need while starting out, but might be
-useful to know in more advanced usage.
+还有一些你开始的时候无需了解的概念，但是在高级用法中可能还是有用的。
 
-### Archives
+### Archive
 
-An **Archive** is a zip file containing source code or compiled binaries.
+一个 **Archive** 是一个包含源代码或编译后二进制的 zip 文件。
 
-Archives with runnable functions in them are called **Deployment
-Archives**; those with source code in them are called **Source
-Archives**.
+包含可运行函数的 Archive 被称为 **部署
+Archive**；包含源代码的则被称为 **源码
+Archive**。
 
-### Packages
+### Package
 
-A **Package** is a Fission object containing a Deployment Archive and
-a Source Archive (if any). A Package also references a certain environment.
+一个 **Package** 是一个包含部署 Archive 和源码 Archive（如果存在的话）的 Fission 对象。一个 Package 也关联到一个特定的环境。
 
-When you create a Package with a Source Archive, Fission automatically
-builds it using the appropriate builder environment, and adds a
-Deployment Archive to the package.
+当你通过源码 Archive 创建一个 Package 的时候， Fission 自动构建它并使用对应的构建环境，并且添加一个部署 Archive 到这个 package。
 
-### Specifications
+### Specification
 
 Specifications (**specs** for short) are simply YAML config files
 containing the objects we've spoken about so far --- Functions,
