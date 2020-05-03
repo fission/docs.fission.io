@@ -1,6 +1,6 @@
 ---
-title: "Core"
+title: "核心"
 weight: 1
 description: >
-   Core components in details
+   核心组件详情
 ---

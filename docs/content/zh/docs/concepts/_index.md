@@ -69,13 +69,8 @@ Archive**。
 
 ### Specification
 
-Specifications (**specs** for short) are simply YAML config files
-containing the objects we've spoken about so far --- Functions,
-Environments, Triggers, Packages and Archives.  
+Specification（简称 **specs**）就是包含我们以上所述 --- 函数，环境，触发器，Package 和 Archive 的 YAML 配置文件。
 
-Specifications exist only on the client side, and are a way to
-instruct the Fission CLI about what objects to create or update.  They
-also specify how to bundle up source code, binaries etc into Archives.
+Specification 仅存在于客户端，是一种指导 Fission 命令行来创建和更新对象的方式。它们也指定如何构建源码，二进制等到 Archive。
 
-The Fission CLI features an idempotent deployment tool that works
-using these specifications.
+Fission 命令行实现了一个能够使用这些 Specification 的幂等部署工具。

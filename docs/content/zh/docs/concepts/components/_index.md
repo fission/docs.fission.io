@@ -1,5 +1,5 @@
 ---
-title: "Components"
+title: "组件"
 description: >
-  Components in details
+  组件详情
 ---
