@@ -23,7 +23,7 @@ Helm](#without-helm).
 If you don't have a Kubernetes cluster, [here's a official guide to set one up](https://kubernetes.io/docs/setup/).
 
 {{% notice info %}}
-Fission requires Kubernetes 1.9 or higher
+Fission requires Kubernetes 1.16 or higher
 {{% /notice %}}
 
 ## Kubectl
