@@ -2,30 +2,29 @@
 title: "Builder Pod"
 weight: 7
 description: >
-  Place to load and execute the user function
+  用来加载并执行用户函数的地方
 ---
 
-# Brief Intro
+# 简介
 
-Builder Pod is to build source archive into a deployment archive that is able to use in the function pod. 
-It contains two containers: Fetcher and Builder Container. 
+Builder Pod 是用来把源码 Archive 构建成可以在函数 Pod 中运行的部署 Archive。
+它包含两个容器：Fetcher 容器和 Builder 容器。
 
-# Diagram
+# 图例
 
 {{< img "../assets/builder-pod.png" "Fig.1 Builder Pod" "50em" "1" >}}
 
-1. Builder Manager asks Fetcher to pull the source archive.
-2. Fetcher pulls the source archive from the StorageSvc.
-3. Save the archive to the shared volume.
-4. Builder Manager sends a build request to the Builder Container to start the build process.
-5. Builder Container reads source archive from the volume, compiles it into deployment archive. </br>
-Finally, save the result back to the share volume.  
-6. Builder Manager asks Fetcher to upload the deployment archive.
+1. Builder Manager 请求 Fetcher 拉取源码 archive。
+2. Fetcher 从 StorageSvc 拉取源码 archive。
+3. 把 archive 保存到共享的 volume。
+4. Builder Manager 向 Builder Container 发送一个构建请求来启动构建过程。
+5. Builder Container 从 volume 读取源码 archive，把它编译到部署 archive。 </br>
+最终，把结果回存到共享 volume 上。  
+6. Builder Manager 请求 Fetcher 上传部署 archive.
 
 # Builder Container
-Builder Container compiles function source code into executable binary/files and is language-specific.
+Builder Container 构建函数源码到可执行的二进制/文件，而且每个 Builder Container 都是针对特定语言的。
 
 # Fetcher
 
-Fetcher is responsible to pull source archive from the StorageSvc and verify the checksum
-of file to ensure the integrity of file. After the build process, it uploads the deployment archive to StorageSvc.
+Fetcher 负责从 StorageSvc 拉取源码 archive 并验证文件的检查和来保证文件的完整性。构建结束后，它把部署 archive 上传到 StorageSvc。

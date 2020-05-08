@@ -17,9 +17,9 @@ Fission 是一个快速的，开源的 Kubernetes serverless 框架，专注于�
 
 Fission 操作的内容 _仅仅是代码_：Docker 和 Kubernetes 操作被抽象到了常规操作的底层，如果愿意，你仍然可以利用他们来增强 Fission。
 
-Fission 是一个可以扩展到任意语言；它的核心使用 Go 语言编写，而且对于不同语言的部分使用了一种叫做 _environments_ 的东西个离开了。Fission 目前支持 NodeJS， Python， Ruby， Go， PHP， Bash， 和任意的 Linux executable，更多的语言持续更新中。
+Fission 是一个可以扩展到任意语言；它的核心使用 Go 语言编写，而且对于不同语言的部分使用了一种叫做 _environments_ 的东西隔离开了。Fission 目前支持 NodeJS， Python， Ruby， Go， PHP， Bash， 和任意的 Linux executable，更多的语言持续更新中。
 
-# 性能: 100msec 冷启动
+# 性能: 100ms 冷启动
 
 Fission 维护了一个“热”的容器资源池，每个容器包含了一个小的动态加载器。当一个函数被调用的时候，例如“cold-started”，就会选择一个运行着的容器加载这个函数。这个资源池正式 Fission 快的原因：冷启动延迟一般在 100msec 左右。
 
