@@ -10,7 +10,7 @@ In this usage guide we'll cover how to use this environment, write functions, an
 ## Before you start
 
 We'll assume you have Fission and Kubernetes setup.  If not, head over
-to the [install guide]({{% relref "../installation/_index.en.md" %}}).  Verify your Fission setup with:
+to the [install guide]({{% ref "../installation/_index.en.md" %}}).  Verify your Fission setup with:
 
 ``` bash
 $ fission version
@@ -86,7 +86,7 @@ $ fission fn test --name <function-name>
 ```
 
 {{% notice info %}} 
-See [here]({{% relref "../triggers/_index.md" %}}) for how to setup different trigger for Go function. 
+See [here]({{% ref "../triggers/_index.md" %}}) for how to setup different trigger for Go function. 
 {{% /notice %}} 
 
 ## HTTP requests and HTTP responses

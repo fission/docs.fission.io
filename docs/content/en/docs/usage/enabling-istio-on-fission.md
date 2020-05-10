@@ -28,7 +28,7 @@ $ kubectl label namespace $FISSION_NAMESPACE istio-injection=enabled
 $ kubectl config set-context $(kubectl config current-context) --namespace=$FISSION_NAMESPACE
 ```
 
-Follow the [installation guide]({{% relref "../installation/_index.en.md" %}}) to install fission with flag `enableIstio` true.
+Follow the [installation guide]({{% ref "../installation/_index.en.md" %}}) to install fission with flag `enableIstio` true.
 
 ```bash
 $ helm install --namespace $FISSION_NAMESPACE --set enableIstio=true --name istio-demo <chart-fission-all-url>

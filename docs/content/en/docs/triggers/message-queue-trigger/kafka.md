@@ -4,7 +4,7 @@ draft: false
 weight: 77
 ---
 
-This tutorial will demonstrate how to use a Kafka trigger to invoke a function. We'll assume you have Fission and Kubernetes installed with Kafka MQ integration installed.  If not, please head over to the [install guide]({{% relref "../../installation/_index.en.md" %}}).
+This tutorial will demonstrate how to use a Kafka trigger to invoke a function. We'll assume you have Fission and Kubernetes installed with Kafka MQ integration installed.  If not, please head over to the [install guide]({{% ref "../../installation/_index.en.md" %}}).
 
 You will also need Kafka setup which is reachable from the Fission Kubernetes cluster. If you want to setup Kafka on the Kubernetes cluster, you can use the [information here](https://github.com/fission/fission-kafka-sample/tree/master/00_setup).
 

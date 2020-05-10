@@ -68,7 +68,7 @@ We'll see examples of all these commands in the tutorial below.
 This tutorial assumes you've already set up Fission, and tested a
 simple hello world function to make sure everything's working.  To
 learn how to do that, head over to the [installation
-guide]({{% relref "../installation" %}}).
+guide]({{% ref "../installation" %}}).
 
 We'll make a small calculator app with one python environment and two
 functions, all of which will be declaratively specified using YAML
@@ -321,7 +321,7 @@ their checksum has changed.
 # Improve Portability of Spec (1.7.0+)
 
 Sometimes you may want to release spec files only without the function source code or the compiled binary. To improve
-the portability, you can specify a URL that points to the target archive by following the step described in [here]({{% relref "../usage/url-as-archive-source.md" %}}).
+the portability, you can specify a URL that points to the target archive by following the step described in [here]({{% ref "../usage/url-as-archive-source.md" %}}).
 
 # More Examples
 

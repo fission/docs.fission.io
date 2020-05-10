@@ -160,4 +160,4 @@ Hello, world!
 
 While these examples illustrate how to use packages, you don't have to
 use them every time you need to build your source code.  A better way
-is to use [Specifications]({{% relref "../spec/_index.md" %}}).
+is to use [Specifications]({{% ref "../spec/_index.md" %}}).
