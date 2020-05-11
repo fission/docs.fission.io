@@ -8,7 +8,7 @@ Fission supports functions written in Java and runs then on JVM. Current JVM env
 ## Before you start
 
 We'll assume you have Fission and Kubernetes setup.  If not, head over
-to the [install guide]({{% relref "../installation/_index.en.md" %}}). Verify your Fission setup with:
+to the [install guide]({{% ref "../installation/_index.en.md" %}}). Verify your Fission setup with:
 
 ``` sh
 $ fission version
@@ -269,7 +269,7 @@ $ fission fn create --name javatest --pkg  java-src-pkg-zip-dqo5 --env java --en
 
 You can provide options to JVM such as heap size or additional parameters for tuning the JVM to your needs. The Fission JVM environment supports the JVM options.
 
-You can create the JVM environment spec (For more information on using specs check [using Fission specs]({{% relref "../spec/_index.md" %}})) and then add environment variable named `JVM_OPTS`. The value of environment variable is used as options to JVM when function starts. The following is an example of Fission environment YAML with JVM_OPTS added as an environment variable.
+You can create the JVM environment spec (For more information on using specs check [using Fission specs]({{% ref "../spec/_index.md" %}})) and then add environment variable named `JVM_OPTS`. The value of environment variable is used as options to JVM when function starts. The following is an example of Fission environment YAML with JVM_OPTS added as an environment variable.
 
 ```yaml
 apiVersion: fission.io/v1

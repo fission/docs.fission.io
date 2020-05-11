@@ -22,7 +22,7 @@ specific to [Docker for Windows](https://docs.docker.com/docker-for-windows/) or
 
 # Installing Fission
 
-See [Fission installation]({{%relref "_index.en.md" %}}) to learn more how to install Fission.
+See [Fission installation]({{%ref "_index.en.md" %}}) to learn more how to install Fission.
 
 # Accessing Routes
 
@@ -100,4 +100,4 @@ Even after installing metric server if the HPA does not show the current usage o
 ```bash
 $ fission fn create --name helloscale --env nodescale  --code hello.js --executortype newdeploy --minmemory 64 --maxmemory 128 --mincpu 100 --maxcpu 500 --minscale 1 --maxscale 6  --targetcpu 50
 ```
-For more details on autoscaling please [check this section of documentation]({{% relref "../usage/executor.en.md" %}}#autoscaling)
+For more details on autoscaling please [check this section of documentation]({{% ref "../usage/executor.en.md" %}}#autoscaling)

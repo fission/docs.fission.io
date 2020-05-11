@@ -43,7 +43,7 @@ The following pre-built environments are currently available for use in Fission:
 | ------------------------------------ | ------------------------- | -------------------------- | --- | --- | --- |
 | NodeJS                               | `fission/node-env`        | `fission/node-builder`     | O   | O   | O   |
 | Python 3                             | `fission/python-env`      | `fission/python-builder`   | O   | O   | O   |
-| Go                                   | see [here]({{% relref "go.md" %}}#add-the-go-environment-to-your-cluster) for more info | | O   | O   | O   |
+| Go                                   | see [here]({{% ref "go.md" %}}#add-the-go-environment-to-your-cluster) for more info | | O   | O   | O   |
 | JVM (Java)                           | `fission/jvm-env`         | `fission/jvm-builder`      | O   | O   | O   |
 | Ruby                                 | `fission/ruby-env`        | `fission/ruby-builder`     | O   | O   | O   |
 | Binary (for executables or scripts)  | `fission/binary-env`      | `fission/binary-builder`   | O   | O   | O   |

@@ -47,7 +47,7 @@ aggregation &mdash; also helps with ops on your Fission deployment.
 
 # Fission Concepts
 
-Visit [concepts]({{% relref "./concepts/" %}}) for more details.
+Visit [concepts]({{% ref "./concepts/" %}}) for more details.
 
 # Usage
 

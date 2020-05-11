@@ -39,7 +39,7 @@ spec:
 ```
 
 In this section we will look at various use cases that are possible with PodSpec support in Fission. 
-To learn more about how specs please check [this documentation link]({{% relref "_index.md"%}}).
+To learn more about how specs please check [this documentation link]({{% ref "_index.md"%}}).
 
 # Many More!
 

@@ -7,7 +7,7 @@ description: >
 
 # Installing Fission
 
-See [Fission installation]({{%relref "_index.en.md" %}}) to learn more how to install Fission.
+See [Fission installation]({{%ref "_index.en.md" %}}) to learn more how to install Fission.
 
 # Run Logger as privileged container
 
