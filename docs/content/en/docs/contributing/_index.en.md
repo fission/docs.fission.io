@@ -185,31 +185,33 @@ Now you can run `$ skaffold run` - which will build images and deploy using Helm
 
 #### Build the code
 
-You will need to build images for fission-bundle, fetcher, preupgradechecks based on changes you are making. You can push it to a docker hub account. But it's easier to use minikube and its built-in docker daemon:
+You will need to build images for fission-bundle, fetcher, preupgradechecks and environments based on changes you are making. You can push it to a docker hub account or any docker registry. 
+
+If  are using Minikube, you can directly build in the docker engine inside Minikube by pointing your Docker daemon to Minikube's docker engine:
 
 > If you want to build the image with the docker inside minikube, you'll need to set the proper environment variables with `eval $(minikube docker-env)`
 
 
 ```sh
-$ docker build -t minikube/fission-bundle:<tag> -f cmd/fission-bundle/Dockerfile.fission-bundle .
+$ docker build -t repo_name/fission-bundle:<tag> -f cmd/fission-bundle/Dockerfile.fission-bundle .
 ```
 
-Replace the `<tag>` with any tag you want (e.g., minikube/fission-bundle:latest).  
+Replace the `<tag>` with any tag you want (e.g., repo_name/fission-bundle:latest).  
 
 #### Install with Helm
 
-Next, pull in the dependencies for the Helm chart:
+Now let's pull dependent helm charts with Helm's dep command:
 
 ```sh
 $ helm dep update $GOPATH/src/github.com/fission/fission/charts/fission-all
 ```
 
-Next, install fission with this image on your kubernetes cluster using the helm chart:
+Next, you can install fission with this image on your kubernetes cluster using the helm chart:
 
 ```sh
-$ helm upgrade --install fission ./charts/fission-all --namespace fission --set namespace=fission --set repository=index.docker.io --set fetcher.image=minikube/fetcher --set fetcher.imageTag=<TAG> --set image=minikube/fission-bundle --set imageTag=<TAG> --set preUpgradeChecksImage=minikube/preupgradechecks -f ./charts/fission-all/values.yaml
+$ helm upgrade --install fission ./charts/fission-all --namespace fission --set namespace=fission --set repository=index.docker.io --set fetcher.image=repo_name/fetcher --set fetcher.imageTag=<TAG> --set image=repo_name/fission-bundle --set imageTag=<TAG> --set preUpgradeChecksImage=repo_name/preupgradechecks -f ./charts/fission-all/values.yaml
 ```
-Replace `<tag>` with the tag used to build the `minikube/fission-bundle` image.  
+Replace `<tag>` with the tag used to build the images.
 
 #### Install CLI
 
