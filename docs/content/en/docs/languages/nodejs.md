@@ -7,7 +7,7 @@ Fission supports functions written in Nodejs. Current fission nodejs runtime env
 
 ## Before you start
 
-We assume you have Fission and Kubernetes setup. If not, head over to the [install guide]({{% relref "../installation/_index.en.md" %}}).  Verify your Fission setup with:
+We assume you have Fission and Kubernetes setup. If not, head over to the [install guide]({{% ref "../installation/_index.en.md" %}}).  Verify your Fission setup with:
 
 ```bash
 $ fission version

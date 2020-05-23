@@ -2,13 +2,13 @@
 
 set -euo pipefail
 
-cd docs
-npm install -D --save autoprefixer postcss-cli
+pushd docs
+npm install -D --save autoprefixer@9.7.6 postcss-cli@7.1.0
 
 echo "Running hugo"
 hugo
 
-cd ..
+popd
 
 echo "Removing old site"
 rm -rf dist/public

@@ -143,5 +143,5 @@ resources to execute functions, by using a baseline capacity with minimum scale 
 up to maximum scale based on spikes in demand.
 
 {{% notice info %}}
-Learn more further usage/setup of **executor type** for functions, please see [here]({{% relref "../../../usage/executor.en.md" %}}).
+Learn more further usage/setup of **executor type** for functions, please see [here]({{% ref "../../../usage/executor.en.md" %}}).
 {{% /notice %}}

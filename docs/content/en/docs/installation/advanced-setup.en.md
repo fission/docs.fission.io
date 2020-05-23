@@ -28,7 +28,7 @@ fission routers behind any existing proxy solution like [NGINX](https://www.ngin
 [Caddy](https://caddyserver.com/) or [Ambassador](https://github.com/datawire/ambassador) that helps to handle SSL/TLS 
 connections. 
 
-You can also set up **Ingress with TLS termination** to expose functions, see [here]({{% relref "../usage/ingress/ingress-extra-settings.md" %}}#tls-ingresstls).
+You can also set up **Ingress with TLS termination** to expose functions, see [here]({{% ref "../usage/ingress/ingress-extra-settings.md" %}}#tls-ingresstls).
 
 # Router
 

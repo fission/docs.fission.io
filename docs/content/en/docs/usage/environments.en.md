@@ -28,7 +28,7 @@ When you create an environment, you can specify a builder image and
 builder command which will be used for building from source code. You
 can override the build command when creating a function.  For more
 details on builder and packages, check out examples in
-[Functions]({{% relref "./functions.en.md" %}}) and [Packages]({{% relref "./package.en.md" %}}).
+[Functions]({{% ref "./functions.en.md" %}}) and [Packages]({{% ref "./package.en.md" %}}).
 
 ```bash
 $ fission env create --name python --image fission/python-env:latest --builder fission/python-builder:latest

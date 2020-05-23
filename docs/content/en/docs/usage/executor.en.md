@@ -4,7 +4,7 @@ draft: false
 weight: 45
 ---
 
-[Fission Concepts/Function Executors]({{%relref "../concepts/components/core/executor.md" %}}) describes the major difference between executors. 
+[Fission Concepts/Function Executors]({{%ref "../concepts/components/core/executor.md" %}}) describes the major difference between executors. 
 In this guide, we will go through how to set up/config different executors for function.  
 
 ### Poolmgr (Pool-based executor)
