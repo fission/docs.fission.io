@@ -11,8 +11,8 @@ Controller is the component that the client talks to. It contains CRUD APIs for
 functions, triggers, environments, Kubernetes event watches, etc. and proxy APIs to
 internal 3rd-party services.   
 
-All fission resources are stored in kubernetes CRDs. It needs to be able to talk to 
-kubernetes API service. To access CRDs in all namespaces, a service account with 
+All fission resources are stored in Kubernetes CRDs. It needs to be able to talk to 
+Kubernetes API service. To access CRDs in all namespaces, a service account with 
 cluster-wide admin permission is used by Controller.   
 
 # Diagram
