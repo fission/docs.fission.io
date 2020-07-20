@@ -1,18 +1,17 @@
 ---
-title: "Message Queue Trigger of kind Keda"
+title: "MQ Trigger of kind Keda"
 date: 2020-07-20T14:30:01+05:30
 weight: 1
 ---
 
-# Brief Intro
+# Brief Introduction
 
-Regular message Queue Trigger component has following limitations:
+Message queue trigger integration with KEDA has enabled autoscaling of trigger handler. Now, there are two kinds of message queue triggers:
 
-- For every new integration you want to enable - there was one pod running for enabling the integration
-- Autoscaling of the trigger handler was not available.
-- Lastly - one Fission installation could connect to and handle only one instance of a MQ. So for example you could only connect to one Kafka instance in a given Fission installation.
+1. fission
+2. keda
 
-When we decided to build out these features we came across [KEDA project](https://keda.sh) and it solved most of the limitations which Fission had in the event integration area. To understand the working of KEDA refer to the [KEDA documentation](https://keda.sh/docs/1.5/concepts/).
+Message queue trigger kind can be specified using "mqtkind" flag. By default, "mqtkind" is set to "fission" which creates regular [message queue trigger](https://docs.fission.io/docs/triggers/message-queue-trigger/). To create message queue trigger of kind keda one must specify "mqtkind=keda".
 
 # Architecture
 
@@ -24,13 +23,6 @@ When we decided to build out these features we came across [KEDA project](https:
 4. The function consumes the message and puts the response in response topic and errors in error topic as may be applicable.
 
 # Usage
-
-Now, there are two kinds of message queue triggers:
-
-1. fission
-2. keda
-
-Message queue trigger kind can be specified using "mqtkind" flag. By default, "mqtkind" is set to "fission" which creates regular [message queue trigger](https://docs.fission.io/docs/triggers/message-queue-trigger/). To create message queue trigger of kind keda one must specify "mqtkind=keda".
 
 When you a create message queue trigger of kind keda, it creates a [ScaledObject and a TriggerAuthentication](https://keda.sh/docs/1.5/concepts/#custom-resources-crd). The ScaledObjects represent the desired mapping between an event source (e.g. Apache Kafka) and the Kubernetes deployment. A ScaledObject may also reference a TriggerAuthentication which contains the authentication configuration or secrets to monitor the event source. For successful creation of these objects, user should specify the following fields while creating a message queue trigger.
 
@@ -51,4 +43,4 @@ $ fission mqt create --name mqttest --function consumer --mqtype kafka \
 --metadata lagThreshold=50 --pollinginterval=30
 ```
 
-For complete tutorial refer [this blog post](link).
+For complete tutorial refer [this blog post](link to be updated).
