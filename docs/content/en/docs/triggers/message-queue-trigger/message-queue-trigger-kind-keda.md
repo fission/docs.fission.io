@@ -20,7 +20,7 @@ Message queue trigger kind can be specified using "mqtkind" flag. By default, "m
 1. The user creates a trigger - for Keda based integration you have to specify the “mqtkind=keda” and add all relevant parameters. These parameters are different for each message queue and hence are encapsulated in a metadata field and follow a key-value format. As soon as you create the MQ Trigger, Fission creates a ScaledObject and a consumer deployment object which is referenced by ScaledObject. The ScaledObject is a Keda’s way of encapsulating the consumer deployment and all relevant information for connecting to an event source! Keda goes ahead and creates a HPA for the deployment and scales down the deployment to zero.
 2. As the message arrives in the event source - the Keda will scale the HPA and deployment from 0 - to 1 for consuming messages. As more messages arrive the deployment is scaled beyond 1 automatically too.
 3. The deployment is like an connector which consumes messages from the source and then calls a function.
-4. The function consumes the message and puts the response in response topic and errors in error topic as may be applicable.
+4. The function consumes the message and returns the response to deployment pods, which puts the response in response topic and errors in error topic as may be applicable.
 
 # Usage
 
