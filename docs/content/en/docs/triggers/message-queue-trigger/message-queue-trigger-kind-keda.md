@@ -16,7 +16,7 @@ When we decided to build out these features we came across [KEDA project](https:
 
 # Architecture
 
-{{< img "assets/message-queue-trigger.png" "Architecture" "45em" "1" >}}
+{{< img "assets/mqt-kind-keda.png" "Architecture" "45em" "1" >}}
 
 1. The user creates a trigger - for Keda based integration you have to specify the “mqtkind=keda” and add all relevant parameters. These parameters are different for each message queue and hence are encapsulated in a metadata field and follow a key-value format. As soon as you create the MQ Trigger, Fission creates a ScaledObject and a consumer deployment object which is referenced by ScaledObject. The ScaledObject is a Keda’s way of encapsulating the consumer deployment and all relevant information for connecting to an event source! Keda goes ahead and creates a HPA for the deployment and scales down the deployment to zero.
 2. As the message arrives in the event source - the Keda will scale the HPA and deployment from 0 - to 1 for consuming messages. As more messages arrive the deployment is scaled beyond 1 automatically too.
