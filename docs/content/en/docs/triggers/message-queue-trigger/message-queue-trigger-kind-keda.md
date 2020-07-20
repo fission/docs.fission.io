@@ -1,12 +1,12 @@
 ---
-title: "Message Queue Trigger Kind Keda"
+title: "Message Queue Trigger kind Keda"
 date: 2020-07-20T14:30:01+05:30
 weight: 1
 ---
 
 # Brief Intro
 
-Message Queue Trigger component has following limitations:
+Regular message Queue Trigger component has following limitations:
 
 - For every new integration you want to enable - there was one pod running for enabling the integration
 - Autoscaling of the trigger handler was not available.
@@ -16,7 +16,7 @@ When we decided to build out these features we came across [KEDA project](https:
 
 # Architecture
 
-{{< img "assets/mqt-kind-keda.png" "Architecture" "45em" "1" >}}
+![Architecture](assets/mqt-kind-keda.png)
 
 1. The user creates a trigger - for Keda based integration you have to specify the “mqtkind=keda” and add all relevant parameters. These parameters are different for each message queue and hence are encapsulated in a metadata field and follow a key-value format. As soon as you create the MQ Trigger, Fission creates a ScaledObject and a consumer deployment object which is referenced by ScaledObject. The ScaledObject is a Keda’s way of encapsulating the consumer deployment and all relevant information for connecting to an event source! Keda goes ahead and creates a HPA for the deployment and scales down the deployment to zero.
 2. As the message arrives in the event source - the Keda will scale the HPA and deployment from 0 - to 1 for consuming messages. As more messages arrive the deployment is scaled beyond 1 automatically too.
