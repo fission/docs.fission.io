@@ -32,16 +32,16 @@ Now, there are two kinds of message queue triggers:
 
 Message queue trigger kind can be specified using "mqtkind" flag. By default, "mqtkind" is set to "fission" which creates regular [message queue trigger](https://docs.fission.io/docs/triggers/message-queue-trigger/). To create message queue trigger of kind keda one must specify "mqtkind=keda".
 
-When you a create message queue trigger of kind keda, it creates a (ScaledObject and a TriggerAuthentication)[https://keda.sh/docs/1.5/concepts/#custom-resources-crd]. The ScaledObjects represent the desired mapping between an event source (e.g. Apache Kafka) and the Kubernetes deployment. A ScaledObject may also reference a TriggerAuthentication which contains the authentication configuration or secrets to monitor the event source. For successful creation of these objects, user should specify the following fields while creating a message queue trigger.
+When you a create message queue trigger of kind keda, it creates a [ScaledObject and a TriggerAuthentication](https://keda.sh/docs/1.5/concepts/#custom-resources-crd). The ScaledObjects represent the desired mapping between an event source (e.g. Apache Kafka) and the Kubernetes deployment. A ScaledObject may also reference a TriggerAuthentication which contains the authentication configuration or secrets to monitor the event source. For successful creation of these objects, user should specify the following fields while creating a message queue trigger.
 
 1. pollinginterval: Interval to check the message source for up/down scaling operation of consumers
 2. cooldownperiod: The period to wait after the last trigger reported active before scaling the consumer back to 0
 3. minreplicacount: Minimum number of replicas of consumers to scale down to
 4. maxreplicacount: Maximum number of replicas of consumers to scale up to
 5. metadata: Metadata needed for connecting to source system in format: --metadata key1=value1 --metadata key2=value2
-6. secret: Name of secret object (secret fields must be similarly specified as in mentioned for (particular Scaler)[https://keda.sh/docs/1.5/scalers/])
+6. secret: Name of secret object (secret fields must be similarly specified as in mentioned for [particular Scaler](https://keda.sh/docs/1.5/scalers/])
 
-Lets create message queue trigger with information of the kafka scaler with sasl auth enabled (described here)[https://keda.sh/docs/1.5/scalers/apache-kafka/#example]
+Lets create message queue trigger with information of the kafka scaler with sasl auth enabled [described here](https://keda.sh/docs/1.5/scalers/apache-kafka/#example)
 
 ```bash
 $ fission mqt create --name mqttest --function consumer --mqtype kafka \
@@ -51,4 +51,4 @@ $ fission mqt create --name mqttest --function consumer --mqtype kafka \
 --metadata lagThreshold=50 --pollinginterval=30
 ```
 
-For complete tutorial refer (this blog post)[link].
+For complete tutorial refer [this blog post](link).
