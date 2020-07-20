@@ -1,6 +1,6 @@
 ---
 title: "NATS Streaming"
-weight: 1
+weight: 2
 ---
 
 {{% notice info %}}
@@ -25,7 +25,7 @@ If the NATS Streaming is enabled, a kubernetes deployment called `mqtrigger-nats
 
 ```bash
 $ kubectl -n fission get deploy|grep mqtrigger-nats-streaming
-```    
+```
 
 The Message Queue Trigger talks to NATS Streaming through Kubernetes service, you can get the service information with command.
 
@@ -43,8 +43,8 @@ For further nats-streaming configuration/operation, please visit [NATS docs](htt
 
 Following are the default configuration while helm installation. (To change default configuration, see nats section of [values.yaml](https://github.com/fission/fission/blob/master/charts/fission-all/values.yaml).)
 
-* **Authentication Token**: `defaultFissionAuthToken`
-* **NATS Streaming ClusterID**: `fissionMQTrigger`
+- **Authentication Token**: `defaultFissionAuthToken`
+- **NATS Streaming ClusterID**: `fissionMQTrigger`
 
 The FQDN of nats-streaming server by default is `nats-streaming:4222` or using `nats-streaming.fission:4222` if the producer is in different namespace.
 So the full connection information for NATS client is
@@ -57,7 +57,7 @@ If the connection information changed, please modify the environment variable of
 
 ```bash
 $ kubectl -n fission edit deployment mqtrigger-nats-streaming
-```  
+```
 
 # Local Test
 
@@ -82,6 +82,7 @@ $ go run stan-pub.go -s nats://defaultFissionAuthToken@127.0.0.1:4222 -c fission
 ```
 
 Then, you should see the function invocation logs.
+
 ```bash
 $ fission fn logs --name hello1
 [2018-12-17 07:57:44.383563857 +0000 UTC] 2018/12/17 07:57:44 fetcher received fetch request and started downloading: {1 {hello-js-60kj  default    0 0001-01-01 00:00:00 +0000 UTC <nil> <nil> map[] map[] [] nil [] }   user [] [] false}
@@ -96,7 +97,7 @@ $ fission fn logs --name hello1
 
 # Example
 
-Following is the diagram of workable example. It demonstrates how to publish messages from a function and let 
+Following is the diagram of workable example. It demonstrates how to publish messages from a function and let
 message queue trigger to invoke another function.
 
 {{< img "../assets/nats-example.png" "" "40em" "1" >}}

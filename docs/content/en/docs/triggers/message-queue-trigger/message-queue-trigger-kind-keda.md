@@ -1,7 +1,7 @@
 ---
 title: "Message Queue Trigger Kind Keda"
 date: 2020-07-20T14:30:01+05:30
-draft: true
+weight: 1
 ---
 
 # Brief Intro
