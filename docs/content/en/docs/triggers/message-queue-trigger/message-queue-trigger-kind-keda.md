@@ -1,5 +1,5 @@
 ---
-title: "Message Queue Trigger kind Keda"
+title: "Message Queue Trigger of kind Keda"
 date: 2020-07-20T14:30:01+05:30
 weight: 1
 ---
@@ -39,9 +39,9 @@ When you a create message queue trigger of kind keda, it creates a [ScaledObject
 3. minreplicacount: Minimum number of replicas of consumers to scale down to
 4. maxreplicacount: Maximum number of replicas of consumers to scale up to
 5. metadata: Metadata needed for connecting to source system in format: --metadata key1=value1 --metadata key2=value2
-6. secret: Name of secret object (secret fields must be similarly specified as in mentioned for [particular Scaler](https://keda.sh/docs/1.5/scalers/])
+6. secret: Name of secret object (secret fields must be similarly specified as in mentioned for [particular scaler](https://keda.sh/docs/1.5/scalers/])
 
-Lets create message queue trigger with information of the kafka scaler with sasl auth enabled [described here](https://keda.sh/docs/1.5/scalers/apache-kafka/#example)
+Lets create message queue trigger with information of the kafka scaler with sasl auth enabled [described here](https://keda.sh/docs/1.5/scalers/apache-kafka/#example).
 
 ```bash
 $ fission mqt create --name mqttest --function consumer --mqtype kafka \
