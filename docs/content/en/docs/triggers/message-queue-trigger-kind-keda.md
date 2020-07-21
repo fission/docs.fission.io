@@ -4,6 +4,8 @@ date: 2020-07-20T14:30:01+05:30
 weight: 1
 ---
 
+*This is a new feature getting released in 1.11 and will be enhanced in coming releases*
+
 # Brief Introduction
 
 Message queue trigger integration with KEDA has enabled autoscaling of trigger handler. Now, there are two kinds of message queue triggers:
@@ -24,6 +26,12 @@ Message queue trigger kind can be specified using "mqtkind" flag. By default, "m
 
 # Usage
 
+### Prerequisite
+- KEDA must be installed on your cluster
+- Message queue trigger KEDA integration should be enabled. 
+
+To enable integration set the value "enabled: true" under "mqt_keda" in charts/fission-all/values.yaml or charts/fission-core/values.yaml depending on your installation.
+
 When you a create message queue trigger of kind keda, it creates a [ScaledObject and a TriggerAuthentication](https://keda.sh/docs/1.5/concepts/#custom-resources-crd). The ScaledObjects represent the desired mapping between an event source (e.g. Apache Kafka) and the Kubernetes deployment. A ScaledObject may also reference a TriggerAuthentication which contains the authentication configuration or secrets to monitor the event source. For successful creation of these objects, user should specify the following fields while creating a message queue trigger.
 
 1. pollinginterval: Interval to check the message source for up/down scaling operation of consumers
@@ -33,6 +41,7 @@ When you a create message queue trigger of kind keda, it creates a [ScaledObject
 5. metadata: Metadata needed for connecting to source system in format: --metadata key1=value1 --metadata key2=value2
 6. secret: Name of secret object (secret fields must be similarly specified as in mentioned for [particular scaler](https://keda.sh/docs/1.5/scalers/])
 
+## Apache Kafka
 Lets create message queue trigger with information of the kafka scaler with sasl auth enabled [described here](https://keda.sh/docs/1.5/scalers/apache-kafka/#example).
 
 ```bash
