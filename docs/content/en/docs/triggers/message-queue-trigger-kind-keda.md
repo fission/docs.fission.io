@@ -1,7 +1,7 @@
 ---
-title: "MQ Trigger: Keda based"
+title: "MQ Trigger: KEDA based"
 date: 2020-07-20T14:30:01+05:30
-weight: 1
+weight: 3
 ---
 
 *This is a new feature getting released in 1.11 and will be enhanced in coming releases*

@@ -1,7 +1,7 @@
 ---
 title: "Timer Triggers"
 date: 2019-12-17T14:38:24+08:00
-weight: 3
+weight: 4
 ---
 
 Time-based triggers invoke functions based on time.  They can run once
