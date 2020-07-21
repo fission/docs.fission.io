@@ -1,5 +1,5 @@
 ---
-title: "MQ Trigger of kind Keda"
+title: "MQ Trigger: Keda based"
 date: 2020-07-20T14:30:01+05:30
 weight: 1
 ---
