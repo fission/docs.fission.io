@@ -4,7 +4,7 @@ date: 2020-07-20T14:30:01+05:30
 weight: 3
 ---
 
-*This is a new feature getting released in 1.11 and will be enhanced in coming releases*
+*This is a new feature getting released in 1.11 and will be enhanced in coming releases.*
 
 # Brief Introduction
 
