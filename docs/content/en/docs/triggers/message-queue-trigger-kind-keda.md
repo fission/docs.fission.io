@@ -4,7 +4,7 @@ date: 2020-07-20T14:30:01+05:30
 weight: 3
 ---
 
-*This is a new feature getting released in 1.11 and will be enhanced in coming releases.*
+_This is a new feature getting released in 1.11 and will be enhanced in coming releases._
 
 # Brief Introduction
 
@@ -27,8 +27,9 @@ Message queue trigger kind can be specified using "mqtkind" flag. By default, "m
 # Usage
 
 ### Prerequisite
+
 - KEDA must be installed on your cluster
-- Message queue trigger KEDA integration should be enabled. 
+- Message queue trigger KEDA integration should be enabled.
 
 To enable integration set the value "enabled: true" under "mqt_keda" in charts/fission-all/values.yaml or charts/fission-core/values.yaml depending on your installation.
 
@@ -42,6 +43,7 @@ When you a create message queue trigger of kind keda, it creates a [ScaledObject
 6. secret: Name of secret object (secret fields must be similarly specified as in mentioned for [particular scaler](https://keda.sh/docs/1.5/scalers/])
 
 ## Apache Kafka
+
 Lets create message queue trigger with information of the kafka scaler with sasl auth enabled [described here](https://keda.sh/docs/1.5/scalers/apache-kafka/#example).
 
 ```bash
@@ -52,4 +54,4 @@ $ fission mqt create --name mqttest --function consumer --mqtype kafka \
 --metadata lagThreshold=50 --pollinginterval=30
 ```
 
-For complete tutorial refer [this blog post](link to be updated).
+For complete tutorial refer [this blog post](https://blog.fission.io/posts/event-driven-scaling-fission-function-using-keda/).
