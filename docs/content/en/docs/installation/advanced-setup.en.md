@@ -137,7 +137,7 @@ when using helm to deploy 1.7.0. Or, you can change the environment variable
 
 If the value of `router.traceSamplingRate` is `1` means to sample all incoming requests and `0` means to disable it.
 
-# Eexcutor
+# Executor
 
 ## Orphaned Resource Adoption (Experiment, 1.7.0+)
 
