@@ -221,13 +221,13 @@ Choose _one_ of the following commands to run:
 {{< tabs "fission-install-without-helm" >}}
 {{< tab "Basic" >}}
 ```bash
-$ kubectl -n fission apply -f \
+$ kubectl apply -f \
     https://github.com/fission/fission/releases/download/{{% release-version %}}/fission-all-{{% release-version %}}.yaml
 ```
 {{< /tab >}}
 {{< tab "Minikube" >}}
 ```bash
-$ kubectl -n fission apply -f \
+$ kubectl apply -f \
     https://github.com/fission/fission/releases/download/{{% release-version %}}/fission-all-{{% release-version %}}-minikube.yaml
 ```
 {{< /tab >}}
