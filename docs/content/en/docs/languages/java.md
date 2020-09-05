@@ -221,7 +221,8 @@ Build Logs:
 Finally let's create a function with package created earlier and provide an entrypoint. The function can be tested with `fission fn test` command.
 
 ``` sh
-$ fission fn create --name javatest --pkg  java-src-pkg-zip-dqo5 --env java --entrypoint io.fission.HelloWorld --executortype newdeploy --minscale 1 --maxscale 1
+$ fission fn create --name javatest --pkg  java-src-pkg-zip-dqo5 \
+                    --env java --entrypoint io.fission.HelloWorld --executortype newdeploy --minscale 1 --maxscale 1
 $ fission fn test --name javatest
 Hello World!
 ```
@@ -256,13 +257,16 @@ The JVM builder image source code is [available here](https://github.com/fission
 A minimum memory of 128MB is needed for JVM environment. You can specify CPU and memory when you create an environment as shown below. The min and max for resources correspond to resource request and resource limits of Kubernetes pods.
 
 ``` sh
-$ fission env create --name java --image fission/jvm-env --builder fission/jvm-builder --keeparchive --version 2 --mincpu 100 --maxcpu 500 --minmemory 128 --maxmemory 512
+$ fission env create --name java --image fission/jvm-env --builder fission/jvm-builder --keeparchive --version 2 \
+                     --mincpu 100 --maxcpu 500 --minmemory 128 --maxmemory 512
 ```
 
 For function of executor type "newdeploy" you can also override the resource values when creating a function. For functions of type "poolmgr", the resources can only be specified at environment level.
 
 ``` sh
-$ fission fn create --name javatest --pkg  java-src-pkg-zip-dqo5 --env java --entrypoint io.fission.HelloWorld --executortype newdeploy --minscale 1 --maxscale 1  --mincpu 100 --maxcpu 500 --minmemory 128 --maxmemory 512
+$ fission fn create --name javatest --pkg  java-src-pkg-zip-dqo5 \
+                    --env java --entrypoint io.fission.HelloWorld --executortype newdeploy \
+                    --minscale 1 --maxscale 1  --mincpu 100 --maxcpu 500 --minmemory 128 --maxmemory 512
 ```
 
 ## JVM Parameters
