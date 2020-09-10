@@ -14,7 +14,11 @@ also specify the number of initially pre-warmed pods, which is called
 the poolsize.
 
 ```bash
-$ fission env create --name node --image fission/node-env --mincpu 40 --maxcpu 80 --minmemory 64 --maxmemory 128 --poolsize 4
+$ fission env create --name node \
+                     --image fission/node-env \
+                     --mincpu 40 --maxcpu 80 \
+                     --minmemory 64 --maxmemory 128 \
+                     --poolsize 4
 ```
 
 In case of the pool based executor, the resources specified for
@@ -31,7 +35,9 @@ details on builder and packages, check out examples in
 [Functions]({{% ref "functions.en.md" %}}) and [Packages]({{% ref "package.en.md" %}}).
 
 ```bash
-$ fission env create --name python --image fission/python-env:latest --builder fission/python-builder:latest
+$ fission env create --name python \
+                     --image fission/python-env:latest \
+                     --builder fission/python-builder:latest
 ```
 
 # Viewing environment information

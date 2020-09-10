@@ -98,6 +98,7 @@ newdeploy-helloscale-default-gkxdkl8y   Deployment/newdeploy-helloscale-default-
 Even after installing metric server if the HPA does not show the current usage of pod - please check if you have given limit as well as request limit for CPU while creating function:
 
 ```bash
-$ fission fn create --name helloscale --env nodescale  --code hello.js --executortype newdeploy --minmemory 64 --maxmemory 128 --mincpu 100 --maxcpu 500 --minscale 1 --maxscale 6  --targetcpu 50
+$ fission fn create --name helloscale --env nodescale  --code hello.js --executortype newdeploy \
+                    --minmemory 64 --maxmemory 128 --mincpu 100 --maxcpu 500 --minscale 1 --maxscale 6  --targetcpu 50
 ```
 For more details on autoscaling please [check this section of documentation]({{% ref "../usage/executor.en.md" %}}#autoscaling)

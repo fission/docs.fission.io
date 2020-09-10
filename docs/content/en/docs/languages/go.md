@@ -508,7 +508,8 @@ Following are flags to manage function resource usage limitation.
 And you can specify them when creating/updating a function.
 
 ```bash
-$ fission fn create --name g1 --env go --src example.zip --entrypoint Handler --mincpu 20 --maxcpu 100 --minmemory 128 --maxmemory 256
+$ fission fn create --name g1 --env go --src example.zip --entrypoint Handler \
+                    --mincpu 20 --maxcpu 100 --minmemory 128 --maxmemory 256
 ```
 
 So what's the reasonable resource setting for a function? It really depends on what type of your function is. 

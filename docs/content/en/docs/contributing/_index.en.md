@@ -209,7 +209,15 @@ $ helm dep update $GOPATH/src/github.com/fission/fission/charts/fission-all
 Next, you can install fission with this image on your kubernetes cluster using the helm chart:
 
 ```sh
-$ helm upgrade --install fission ./charts/fission-all --namespace fission --set namespace=fission --set repository=index.docker.io --set fetcher.image=repo_name/fetcher --set fetcher.imageTag=<TAG> --set image=repo_name/fission-bundle --set imageTag=<TAG> --set preUpgradeChecksImage=repo_name/preupgradechecks -f ./charts/fission-all/values.yaml
+$ helm upgrade --install fission ./charts/fission-all --namespace fission \
+               --set namespace=fission \
+               --set repository=index.docker.io \
+               --set fetcher.image=repo_name/fetcher \
+               --set fetcher.imageTag=<TAG> \
+               --set image=repo_name/fission-bundle \
+               --set imageTag=<TAG> \
+               --set preUpgradeChecksImage=repo_name/preupgradechecks \
+               -f ./charts/fission-all/values.yaml
 ```
 Replace `<tag>` with the tag used to build the images.
 
