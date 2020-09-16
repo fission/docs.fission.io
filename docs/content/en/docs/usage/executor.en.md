@@ -9,11 +9,12 @@ In this guide, we will go through how to set up/config different executors for f
 
 ### Poolmgr (Pool-based executor)
 
-You can create a function like following to use poolmgr as backend executor.
+You can create a function like following to use poolmgr as backend executor. You can use the `concurrency` field to control the 
+maximum number of concurrent pod specialization(default 5) to serve requests. As of now, `concurrency` field is only supported by poolmgr.
 
 ```bash
 # The default executor type for function is poolmgr, 
-$ fission fn create --name foobar --env nodejs --code hello.js
+$ fission fn create --name foobar --concurrency=4 --env nodejs --code hello.js
 
 # Or, set executor type to poolmgr explicitly
 $ fission fn create --name foobar --env nodejs --code hello.js --executortype poolmgr
