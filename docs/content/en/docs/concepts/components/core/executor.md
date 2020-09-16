@@ -12,7 +12,9 @@ requests to a function, it checks whether a function service record exists in it
 If cache misses, the function service record was found or expired, it asks Executor to 
 provide a new one. Executor then retrieves function information from Kubernetes CRD and 
 invokes one of the executor types to spin up function pods. Once the function pods are up, 
-a function service record that contains the address of a service/pod will be returned.
+a function service record that contains the address of a service/pod will be returned. 
+Router side caching of function service is not applicable in case of poolmanager strategy, 
+instead request directly goes to executor.
 
 Fission now supports two different executor types:
 
@@ -56,9 +58,10 @@ then a new pod is specialised from the pool and used for execution.
 PoolManager is great for functions that are **short-living** and requires a **short 
 cold start time** [1].
 
-However, PoolManager has certain limitations. It selects only one pod per function, 
-which is not suitable for serving massive traffic. In such cases, you should consider
-using NewDeploy as executor type of function.
+In previous versions, PoolManager has certain limitations. It used to select only 
+one pod per function, which is not suitable for serving massive traffic. To overcome 
+this limitation, the `concurrency` field is introduced to control the maximum number 
+of concurrent pod specialization(default 5) to serve requests.
 
 [1] The cold start time depends on the package size of the function. If it's
 a snippet of code, the cold start time usually is less then 100ms.
