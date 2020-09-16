@@ -3667,7 +3667,7 @@
       /** @prop {Function} */
       onLoad: applyStyleOnLoad,
       /**
-       * @deprecated since version 1.10.0, the property moved to `computeStyle` modifier
+       * @deprecated since version 1.11.0, the property moved to `computeStyle` modifier
        * @prop {Boolean} gpuAcceleration=true
        * If true, it uses the CSS 3d transformation to position the popper.
        * Otherwise, it will use the `top` and `left` properties.
