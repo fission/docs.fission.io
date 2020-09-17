@@ -58,7 +58,7 @@ then a new pod is specialised from the pool and used for execution.
 PoolManager is great for functions that are **short-living** and requires a **short 
 cold start time** [1].
 
-In previous versions, PoolManager has certain limitations. It used to select only 
+In previous versions, PoolManager had certain limitations. It used to select only 
 one pod per function, which is not suitable for serving massive traffic. To overcome 
 this limitation, the `concurrency` field is introduced to control the maximum number 
 of concurrent pod specialization(default 5) to serve requests.
