@@ -59,7 +59,7 @@ PoolManager is great for functions that are **short-living** and requires a **sh
 cold start time** [1].
 
 In previous versions, PoolManager had certain limitations. It used to select only 
-one pod per function, which is not suitable for serving massive traffic. To overcome 
+one pod per function, which is not suitable if you want to serve more requests in parallel. To overcome 
 this limitation, the `concurrency` field is introduced to control the maximum number 
 of concurrent pod specialization(default 5) to serve requests.
 
