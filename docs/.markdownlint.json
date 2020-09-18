@@ -1,0 +1,10 @@
+{
+    "line-length": false,
+    "no-duplicate-header": false,
+    "commands-show-output": false,
+    "no-inline-html": {
+        "allowed_elements": [
+            "br"
+        ]
+    }
+}
