@@ -7,14 +7,14 @@ description: >
 
 In this section, we will cover how to troubleshoot your functions and collect information to troubleshoot problems related to Fission.
 
-## Check Pods Status and Logs
+### Check Pods Status and Logs
 
-If the Fission installation doesn't work for you, you can follow guides below to troubleshoot. 
+If the Fission installation doesn't work for you, you can follow guides below to troubleshoot.
 
-### Core Components
+#### Core Components
 
-All core component should stay in `RUNNING` state. If the pod is not in RUNNING state or the `RESTARTS` counts keep increasing,
-you can get some useful information with commands.
+All core component should stay in `RUNNING` state.
+If the pod is not in RUNNING state or the `RESTARTS` counts keep increasing, you can get some useful information with commands.
 
 In most cases, `Events` shows common errors like wrong image name, and can help you to locate common problems.
 
@@ -31,14 +31,15 @@ $ kubectl -n fission logs -f <pod>
 For example, here is log from executor which shows that in-Cluster DNS problem (port 53).
 
 ```bash
-error posting to getting service for function: Post http://executor.fission/v2/getServiceForFunction: 
+error posting to getting service for function: Post http://executor.fission/v2/getServiceForFunction:
 dial tcp: lookup executor.fission on 127.0.0.53:53: read udp 127.0.0.1:59676->127.0.0.53:53: read: connection refused
 ```
 
-### Function Pods 
+#### Function Pods
 
-A function pod consists with two containers: `Fetcher` and `Runtime`. Fetcher fetches user function into function pod 
-during specialization stage. Runtime is a container contains necessary language environment to run user function. 
+A function pod consists with two containers: `Fetcher` and `Runtime`.
+Fetcher fetches user function into function pod during specialization stage.
+Runtime is a container contains necessary language environment to run user function.
 
 You can filter out function pods you're interesting in and dump logs as follows.
 
@@ -46,29 +47,30 @@ You can filter out function pods you're interesting in and dump logs as follows.
 $ kubectl -n fission-function get pod -l functionName=<fn-name>
 ```
 
-You can also add additional labels to filter out pods. Here are some labels you can use.
+You can also add additional labels to filter out pods.
+Here are some labels you can use.
 
-| Label | Possible Value | Example |
-|-------|----------------|---------|
-| environmentName | environment name | environmentName=go |
-| functionName | function name | functionName=hello |
-| executorType | poolmgr/newdeploy  | executorType=newdeploy |
+| Label           | Possible Value    | Example                |
+|-----------------|-------------------|------------------------|
+| environmentName | environment name  | environmentName=go     |
+| functionName    | function name     | functionName=hello     |
+| executorType    | poolmgr/newdeploy | executorType=newdeploy |
 
-If you also want to filter out function pod in specific state like `RUNNING`, try
+If you also want to filter out function pod in specific state like `RUNNING`, try:
 
 ```bash
 $ kubectl -n fission-function get pod -l functionName=<fn-name> \
     --field-selector status.phase=Running
 ```
 
-Dump logs from containers
+Dump logs from containers:
 
 ```bash
 $ kubectl -n fission-function describe pod -f <pod>
 $ kubectl -n fission-function logs -f <pod> -c <container>
 ```
 
-### Builder Pods
+#### Builder Pods
 
 The builder pods is similar to function pod but for building user function source code into a deployable package.
 
@@ -81,10 +83,10 @@ NAME          BUILD_STATUS ENV
 go-zip-5obh   running      go
 ```
 
-Your function won't work until the package function used turns into `succeeded` state. If a package shows state other than
-succeeded you can retrieve build logs with commands as follows. 
+Your function won't work until the package function used turns into `succeeded` state.
+If a package shows state other than succeeded you can retrieve build logs with commands as follows. 
 
-```
+```bash
 $ fission pkg list
 NAME          BUILD_STATUS ENV
 go-zip-a7ns   failed       go
@@ -105,7 +107,7 @@ github.com/fission/fission/examples/go/go-module-example\n./main.go:4:2: importe
 \"fmt\"\n+ rm -rf /usr/src/go-zip-a7ns-tu8wfl\nerror building source package: error waiting for cmd \"build\": exit status 2\n"}
 ```
 
-To dump builder logs, you can do 
+To dump builder logs, you can do:
 
 ```bash
 $ kubectl -n fission-builder get pod -l envName=<env-name>
@@ -113,9 +115,9 @@ $ kubectl -n fission-builder describe pod -f <pod>
 $ kubectl -n fission-builder logs -f <pod> -c <container>
 ```
 
-## Dump Logs for Further Help
+### Dump Logs for Further Help
 
-If steps above cannot help you to solve the problem, you can run `support` command to dump logs. 
+If steps above cannot help you to solve the problem, you can run `support` command to dump logs.
 
 ```bash
 $ fission support dump

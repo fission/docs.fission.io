@@ -4,14 +4,12 @@ draft: false
 weight: 1
 ---
 
-# Create an environment
+## Create an environment
 
-You can create an environment on your cluster from an image for that
-language. 
+You can create an environment on your cluster from an image for that language.
 
-Optionally, you can specify CPU and memory resource limits. You can
-also specify the number of initially pre-warmed pods, which is called
-the poolsize.
+Optionally, you can specify CPU and memory resource limits.
+You can also specify the number of initially pre-warmed pods, which is called the poolsize.
 
 ```bash
 $ fission env create --name node \
@@ -21,18 +19,14 @@ $ fission env create --name node \
                      --poolsize 4
 ```
 
-In case of the pool based executor, the resources specified for
-environment are used for function pod as well. In case of new
-deployment executor, you can override the resources when you create a
-function.
+In case of the pool based executor, the resources specified for environment are used for function pod as well.
+In case of new deployment executor, you can override the resources when you create a function.
 
-# Using a builder
+## Using a builder
 
-When you create an environment, you can specify a builder image and
-builder command which will be used for building from source code. You
-can override the build command when creating a function.  For more
-details on builder and packages, check out examples in
-[Functions]({{% ref "functions.en.md" %}}) and [Packages]({{% ref "package.en.md" %}}).
+When you create an environment, you can specify a builder image and builder command which will be used for building from source code.
+You can override the build command when creating a function.
+For more details on builder and packages, check out examples in [Functions]({{% ref "functions.en.md" %}}) and [Packages]({{% ref "package.en.md" %}}).
 
 ```bash
 $ fission env create --name python \
@@ -40,7 +34,7 @@ $ fission env create --name python \
                      --builder fission/python-builder:latest
 ```
 
-# Viewing environment information
+## Viewing environment information
 
 You can list the environments or view information of an individual environment:
 

@@ -1,8 +1,8 @@
-+++
-title = "Accessing URL parameters"
-date =  2018-10-25T17:39:41+08:00
-weight = 3
-+++
+---
+title: "Accessing URL parameters"
+date: 2018-10-25T17:39:41+08:00
+weight: 3
+---
 
 To develop an application consists with REST APIs, we may want to access URL parameters in functions.
 
@@ -12,7 +12,7 @@ For example, a REST API with URL parameters like following
 http://192.168.0.1/guestbook/{name}/{age}
 ```
 
-You can put parameter placeholders in value of `--url` flag. 
+You can put parameter placeholders in value of `--url` flag.
 Since fission uses gorilla/mux as underlying URL router, you can also write regular expression to filter out illegal API requests.
 
 ```bash
@@ -23,11 +23,11 @@ $ fission httptrigger create --method GET \
     --url "/guestbook/{name}/{age:[0-9]+}" --function restapi-get
 ```
 
-Next step is to access the value of URL parameters. 
+Next step is to access the value of URL parameters.
 
 Due to some internal mechanism, the value of URL parameters will be attached to the HTTP request header like following.
 
-```plaintext
+```text
 Accept-Encoding: gzip
 Host: 172.17.0.25:8888
 Connection: close
@@ -48,7 +48,8 @@ X-Fission-Params-Age: 23
 
 The header with key prefix `X-Fission-Params-` are the actual fields contain value of URL parameters we want to access to.
 
-One thing worth to notice is in some language like Go the header key will be displayed as `MIME canonical format`. For example,
+One thing worth to notice is in some language like Go the header key will be displayed as `MIME canonical format`.
+For example:
 
 ```bash
 url: /guestbook/{name}
@@ -58,7 +59,6 @@ url: /guestbook/{FooBar}
 header key: X-Fission-Params-Foobar
 ```
 
-You have to check the letter case of header key and do conversion if necessary in order to get the right parameter value. 
+You have to check the letter case of header key and do conversion if necessary in order to get the right parameter value.
 
-(In Go, you can call `request.Header.Get()` to get the header value without worrying about the key cases.) 
-
+(In Go, you can call `request.Header.Get()` to get the header value without worrying about the key cases.)
