@@ -87,11 +87,13 @@ spec:
 EOF
 ```
 
-Install the ServiceMonitors. This will install the ServiceMonitors in the `fission` namespace, the same where Fission is installed.
+Install the ServiceMonitors.
 
 ```
 $ kubectl apply -f servicemonitors.yaml --namespace fission
 ```
+
+This will install the ServiceMonitors in the `fission` namespace, the same where Fission is installed.
 
 ## Accessing Grafana UI
 
