@@ -15,9 +15,9 @@ Table of Contents
 =================
 
    * [Choose something to work on](#choose-something-to-work-on)
-         * [Get Help.](#get-help)
+      * [Get Help.](#get-help)
    * [Contributing - building &amp; deploying](#contributing---building--deploying)
-      * [Prequisite](#prequisite)
+      * [Pre-requisite](#pre-requisite)
       * [Getting Started](#getting-started)
          * [Use Skaffold with Kind/K8S Cluster to build and deploy](#use-skaffold-with-kindk8s-cluster-to-build-and-deploy)
       * [Validating Installation](#validating-installation)
@@ -65,24 +65,71 @@ Do reach out on Slack or Twitter and we are happy to help.
 
 - And of course some basic concepts of Fission such as environment, function are good to be aware of!
 
-#### cmd
+### Use Skaffold with Kind/K8S Cluster to build and deploy
 
-Cmd package is entrypoint for all runtime components and also has Dockerfile for each component.
-The actual logic here will be pretty light and most of logic of each component is in `pkg` (Discussed later)
+You should bring up Kind/Minikube cluster or if using a cloud provider cluster then Kubecontext should be pointing to appropriate cluster.
 
-| Component        | Runtime Component | Used in                   |
-|:-----------------|:------------------|:--------------------------|
-| fetcher          | Docker Image      | Environments              |
-| fission-bundle   | Docker Image      | Binary for all components |
-| fission-cli      | CLI Binary        | CLI by user               |
-| preupgradechecks | Docker Image      | Pre-install upgrade       |
+* For building & deploying to Cloud Provider K8S cluster such as GKE/EKS/AKS:
+
+```
+$ skaffold config set default-repo vishalbiyani  // (vishalbiyani - should be your registry/Dockerhub handle)
+$ skaffold run
+```
+
+*  For building & deploying to Kind cluster use Kind profile
+```
+$ kind create cluster
+$ kubectl create ns fission
+$ skaffold run -p kind
+```
+
+## Validating Installation
+
+If you are using Helm, you should see release installed:
+
+```
+helm list
+NAME   	NAMESPACE	REVISION	UPDATED                             	STATUS	CHART            	APP VERSION
+fission	fission  	1       	2020-05-19 16:31:46.947562 +0530 IST	success	fission-all-1.11.0	1.11.0
+```
+
+Also you should see the Fission services deployed and running:
+
+```
+$ kubectl get pods -nfission
+NAME                                                    READY   STATUS             RESTARTS   AGE
+buildermgr-6f778d4ff9-dqnq5                             1/1     Running            0          6h9m
+controller-d44bd4f4d-5q4z5                              1/1     Running            0          6h9m
+executor-557c68c6fd-dg8ld                               1/1     Running            0          6h9m
+influxdb-845548c959-2954p                               1/1     Running            0          6h9m
+kubewatcher-5784c454b8-5mqsk                            1/1     Running            0          6h9m
+logger-bncqn                                            2/2     Running            0          6h9m
+mqtrigger-kafka-765b674ff-jk5x9                         1/1     Running            0          6h9m
+mqtrigger-nats-streaming-797498966c-xgxmk               1/1     Running            3          6h9m
+nats-streaming-6bf48bccb6-fmmr9                         1/1     Running            0          6h9m
+router-db76576bd-xxh7r                                  1/1     Running            0          6h9m
+storagesvc-799dcb5bdf-f69k9                             1/1     Running            0          6h9m
+timer-7d85d9c9fb-knctw                                  1/1     Running            0          6h9m
+```
 
 
-```text
+## Understanding code structure
+
+### cmd
+
+Cmd package is entrypoint for all runtime components and also has Dockerfile for each component. The actual logic here will be pretty light and most of logic of each component is in `pkg` (Discussed later)
+
+| Component         	   | Runtime Component      |Used in|
+| :-------------    	   |:-------------          |:-|
+| fetcher         		   | Docker Image           |Environments|
+| fission-bundle           | Docker Image           |Binary for all components|
+| fission-cli              | CLI Binary             |CLI by user|
+| preupgradechecks         | Docker Image           |Pre-install upgrade|
+
+```
 .
 cmd
 ├── fetcher
-│   ├── Dockerfile.fission-fetcher
 │   ├── app
 │   └── main.go
 ├── fission-bundle
