@@ -5,11 +5,54 @@ description: >
   Build deploy and contribute to Fission!
 ---
 
-## Prequisite
+Thanks for helping make Fission better😍!
+
+There are many areas we can use contributions - ranging from code, documentation, feature proposals, issue triage, samples, and content creation. 
+
+First, please read the [code of conduct](CODE_OF_CONDUCT.md). By participating, you're expected to uphold this code.
+
+Table of Contents
+=================
+
+   * [Choose something to work on](#choose-something-to-work-on)
+         * [Get Help.](#get-help)
+   * [Contributing - building &amp; deploying](#contributing---building--deploying)
+      * [Prequisite](#prequisite)
+      * [Getting Started](#getting-started)
+         * [Use Skaffold with Kind/K8S Cluster to build and deploy](#use-skaffold-with-kindk8s-cluster-to-build-and-deploy)
+      * [Validating Installation](#validating-installation)
+      * [Understanding code structure](#understanding-code-structure)
+         * [cmd](#cmd)
+         * [pkg](#pkg)
+         * [Charts](#charts)
+         * [Environments](#environments)
+
+# Choose something to work on
+
+* The easiest way to start is to look at existing [issues](https://github.com/fission/fission/issues) and see if there's something there that you'd like to work on. You can filter issues with label "[Good first issue](https://github.com/fission/fission/issues?q=is%3Aopen+is%3Aissue+label%3A%22good+first+issue%22)" which are relatively self sufficient issues and great for first time contributors.
+    - If you are going to pick up an issue, it would be good to add a comment stating the intention.
+    - If the contribution is a big change/new feature, please raise an issue and discuss the needs, design in the issue in detail.
+
+* For contributing a new Fission environment, please check the [environments repo](https://github.com/fission/environments)
+
+* For contributing a new Keda Connector, please check the [Keda Connectors repo](https://github.com/fission/keda-connectors)
+
+
+### Get Help.
+
+Do reach out on Slack or Twitter and we are happy to help.
+
+ * Drop by the [slack channel](https://join.slack.com/t/fissionio/shared_invite/enQtOTI3NjgyMjE5NzE3LTllODJiODBmYTBiYWUwMWQxZWRhNDhiZDMyN2EyNjAzMTFiYjE2Nzc1NzE0MTU4ZTg2MzVjMDQ1NWY3MGJhZmE).
+ * Say hi on [twitter](https://twitter.com/fissionio).
+
+
+# Contributing - building & deploying
+
+## Pre-requisite
 
 - You'll need the `go` compiler and tools installed. Currently version 1.12.x of Go is needed.
 
-- You'll also need [docker](https://docs.docker.com/install) for building images.
+- You'll also need [docker](https://docs.docker.com/install) for building images locally.
 
 - You will need a Kubernetes cluster and you can use one of options from below.
   - [Minikube](https://github.com/kubernetes/minikube)
@@ -22,14 +65,10 @@ description: >
 
 - And of course some basic concepts of Fission such as environment, function are good to be aware of!
 
-## Getting started
-
-### Understanding code structure
-
 #### cmd
 
 Cmd package is entrypoint for all runtime components and also has Dockerfile for each component.
-The actual logic here will be pretty light and most of logic of each component is in `pkg` (Discussecd later)
+The actual logic here will be pretty light and most of logic of each component is in `pkg` (Discussed later)
 
 | Component        | Runtime Component | Used in                   |
 |:-----------------|:------------------|:--------------------------|
@@ -37,6 +76,7 @@ The actual logic here will be pretty light and most of logic of each component i
 | fission-bundle   | Docker Image      | Binary for all components |
 | fission-cli      | CLI Binary        | CLI by user               |
 | preupgradechecks | Docker Image      | Pre-install upgrade       |
+
 
 ```text
 .
@@ -66,13 +106,14 @@ Fetcher helps in fetching and uploading code and in specializing environments.
 Based on arguments you pass to fission-bundle - it becomes that component.
 For ex.
 
+
 ```test
 /fission-bundle --controllerPort "8888" # Runs Controller
 
 /fission-bundle --kubewatcher --routerUrl http://router.fission  # Runs Kubewatcher
 ```
 
-So most serverside components running on server side are fission-bundle binary wrapped in container and used with different arguments.
+So most server side components running on server side are fission-bundle binary wrapped in container and used with different arguments.
 Various arguments and environment variables are passed from manifests/helm chart.
 
 **fission-cli** : is the cli used by end user to interact Fission
@@ -112,11 +153,21 @@ The structure is fairly self-explanatory for example all of executor related fun
 │   └── utils
 ```
 
-#### Environments
+### Charts
 
-Each of runtime environments is in environments directory and fairly independent.
-If you are enhancing or creating a new environment - most likely you will end up making changes here.
-Also understand that if you change an environment - you only need to build environment image.
+Fission currently has two charts - and we recommend using fission-all for development.
+
+```
+.
+├── charts
+│   ├── README.md
+│   ├── fission-all
+│   └── fission-core
+```
+
+### Environments
+
+Each of runtime environments is in fission/environments repository and fairly independent. If you are enhancing or creating a new environment - most likely you will end up making changes in that repository.
 
 ```text
 .
@@ -132,137 +183,4 @@ Also understand that if you change an environment - you only need to build envir
 │   ├── python
 │   ├── ruby
 │   └── tensorflow-serving
-```
-
-#### Charts
-
-Fission currently has two charts - and we reccommend using fission-all for development.
-
-```text
-.
-├── charts
-│   ├── README.md
-│   ├── fission-all
-│   └── fission-core
-```
-
-#### Misc
-
-There are some more directories but the once worth mentioning in this context are:
-
-Examples: Contains various examples functions.
-Test: This is where the tests & test suite lives.
-
-### Getting Started
-
-Get the code locally and after you have made changes - you can verify formatting and other basic checks.
-
-```sh
-# Clone the repo
-$ git clone https://github.com/fission/fission.git $GOPATH/src/github.com/fission/fission
-$ cd $GOPATH/src/github.com/fission/fission
-
-# Enable go module and get dependencies
-$ export GO111MODULE=on
-$ go mod vendor
-
-# Run checks on your changes
-$ ./hack/verify-gofmt.sh
-$ ./hack/verify-govet.sh
-```
-
-From this step onward you should stick to either "Use Skaffold and Kind/K8S Cluster" or an automated version of "Manual Steps". 
-Both the ways achieve the same result but Skaffold makes the development cycle faster and smoother.
-
-#### Use Skaffold and Kind/K8S Cluster
-
-You should bring up Kind/Minikube cluster or if using a cloud provider cluster then Kubecontext should be pointing to appropriate cluster.
-
-Now replace the "<DOCKERHUB_REPO>" with your dockerhub repo in the Skaffold.yaml definition. 
-(This will change once there is a resolution on issue here: <https://github.com/GoogleContainerTools/skaffold/issues/4090>)
-
-Now you can run `$ skaffold run` - which will build images and deploy using Helm.
-
-#### Manual Steps
-
-##### Build the code
-
-You will need to build images for fission-bundle, fetcher, preupgradechecks and environments based on changes you are making.
-You can push it to a docker hub account or any docker registry.
-
-If  are using Minikube, you can directly build in the docker engine inside Minikube by pointing your Docker daemon to Minikube's docker engine:
-
-> If you want to build the image with the docker inside minikube, you'll need to set the proper environment variables with `eval $(minikube docker-env)`
-
-```sh
-$ docker build -t repo_name/fission-bundle:<tag> -f cmd/fission-bundle/Dockerfile.fission-bundle .
-```
-
-Replace the `<tag>` with any tag you want (e.g., repo_name/fission-bundle:latest).  
-
-##### Install with Helm
-
-Now let's pull dependent helm charts with Helm's dep command:
-
-```sh
-$ helm dep update $GOPATH/src/github.com/fission/fission/charts/fission-all
-```
-
-Next, you can install fission with this image on your kubernetes cluster using the helm chart:
-
-```sh
-$ helm upgrade --install fission ./charts/fission-all --namespace fission \
-               --set namespace=fission \
-               --set repository=index.docker.io \
-               --set fetcher.image=repo_name/fetcher \
-               --set fetcher.imageTag=<TAG> \
-               --set image=repo_name/fission-bundle \
-               --set imageTag=<TAG> \
-               --set preUpgradeChecksImage=repo_name/preupgradechecks \
-               -f ./charts/fission-all/values.yaml
-```
-
-Replace `<tag>` with the tag used to build the images.
-
-##### Install CLI
-
-And if you're changing the CLI too, you can build it with:
-
-```sh
-$ cd $GOPATH/src/github.com/fission/fission/cmd/fission-cli
-$ go build -o $GOPATH/bin/fission
-```
-
-### Validating Installation
-
-If you are using Helm, you should see release installed:
-
-```text
-$ helm list
-NAME     NAMESPACE  REVISION  UPDATED                               STATUS   CHART               APP VERSION
-fission  fission    1         2020-05-19 16:31:46.947562 +0530 IST  success  fission-all-1.11.0  1.11.0
-```
-
-Also you should see the Fission services deployed and running:
-
-```text
-$ kubectl get pods -nfission
-NAME                                                    READY   STATUS             RESTARTS   AGE
-buildermgr-6f778d4ff9-dqnq5                             1/1     Running            0          6h9m
-controller-d44bd4f4d-5q4z5                              1/1     Running            0          6h9m
-executor-557c68c6fd-dg8ld                               1/1     Running            0          6h9m
-fission-prometheus-alertmanager-5844d99569-xq6cb        2/2     Running            0          6h9m
-fission-prometheus-kube-state-metrics-54f5c98c6-r7qv2   1/1     Running            0          6h9m
-fission-prometheus-node-exporter-fsq4g                  1/1     Running            0          6h9m
-fission-prometheus-pushgateway-66dcbbc99b-zj67m         1/1     Running            0          6h9m
-fission-prometheus-server-5f947998b9-djkjv              2/2     Running            0          6h9m
-influxdb-845548c959-2954p                               1/1     Running            0          6h9m
-kubewatcher-5784c454b8-5mqsk                            1/1     Running            0          6h9m
-logger-bncqn                                            2/2     Running            0          6h9m
-mqtrigger-kafka-765b674ff-jk5x9                         1/1     Running            0          6h9m
-mqtrigger-nats-streaming-797498966c-xgxmk               1/1     Running            3          6h9m
-nats-streaming-6bf48bccb6-fmmr9                         1/1     Running            0          6h9m
-router-db76576bd-xxh7r                                  1/1     Running            0          6h9m
-storagesvc-799dcb5bdf-f69k9                             1/1     Running            0          6h9m
-timer-7d85d9c9fb-knctw                                  1/1     Running            0          6h9m
 ```
