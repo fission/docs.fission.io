@@ -17,7 +17,7 @@ Fission exposes metrics which are pulled and operated by Prometheus at regular i
 
 ### Grafana
 
-Grafana is a visualizing tool which can query, visualize, alert on and understand metrics. It supports Prometheus as it's data source.
+Grafana is a visualization tool which can query, visualize, alert on and understand metrics. It supports Prometheus as it's data source.
 
 
 # Setting up
@@ -49,7 +49,11 @@ Install Prometheus and Grafana with the release name `fission-metrics`.
 $ helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
 $ helm repo add stable https://kubernetes-charts.storage.googleapis.com/
 $ helm repo update
-$ helm install fission-metrics --namespace $METRICS_NAMESPACE prometheus-community/kube-prometheus-stack --set kubelet.serviceMonitor.https=true --set prometheus.prometheusSpec.serviceMonitorSelectorNilUsesHelmValues=false --set prometheus.prometheusSpec.podMonitorSelectorNilUsesHelmValues=false --set prometheus.prometheusSpec.ruleSelectorNilUsesHelmValues=false
+$ helm install fission-metrics --namespace monitoring prometheus-community/kube-prometheus-stack \
+  --set kubelet.serviceMonitor.https=true \
+  --set prometheus.prometheusSpec.serviceMonitorSelectorNilUsesHelmValues=false \
+  --set prometheus.prometheusSpec.podMonitorSelectorNilUsesHelmValues=false \
+  --set prometheus.prometheusSpec.ruleSelectorNilUsesHelmValues=false
 ```
 
 This will install Prometheus and Grafana in the `monitoring` namespace. Along with the Prometheus server, it'll also install other components viz. `node-exporter`, `kube-state-metrics` and `pushgateway`
@@ -138,7 +142,7 @@ One such dashboard can be found [here](https://github.com/fission/examples/blob/
 
 Once imported, the dashboard will look similar to below image.
 
-{{< img "../assets/prometheus-grafana.png" "Prometheus Fission Functions dashboard" "30em" "1" >}}
+![Prometheus Fission Functions dashboard](../assets/prometheus-grafana.png)
 
 
 There will be more dashboards added to the same [location](https://github.com/fission/examples/blob/master/dashboards) over time.

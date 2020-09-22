@@ -5,26 +5,24 @@ weight: 20
 
 # Logs in Fission
 
-Fission works in a systematic way where there are different services (containers) providing functionalities for running applications (Functions) in a serverless way. Logs in Fission thus comprise of log statements from these services as well as from the applications.
+Fission has a few core services running and these core services handle user functions. The logs from both are useful in debugging the functions.
 
 A good log monitoring solution can be useful to make full use of these logs.
 
 # Grafana Loki
 
-Grafana Loki is a set of components which provides fully featured logging stack. This comprises of a client to fetch the logs, an aggregator and a visualizing tool. 
+Loki is a horizontally-scalable, highly-available, multi-tenant log aggregation system inspired by Prometheus. The main components are a client to fetch the logs, an aggregator, and a visualizing tool (Grafana).
 
-The stack supports multiple clients, for the case here we will use Promtail which is the recommended client whn using the stack in Kubernetes.
-The components are briefed below.
+The stack supports multiple clients, for the case here we will use Promtail which is the recommended client when using the stack in Kubernetes.
+Here is a quick overview of components that make up the Loki platform:
 
 - **Loki** - Loki is a horizontally scalable, highly available, multi-tenant log aggregation system inspired by Prometheus.
 - **Promtail** - Promtail is the client which fetches and forwards the logs to Loki. It is a good fit for Kubernetes as it automatically fetches metadata such as pod labels.
-- **Grafana** - A visualizing tool which supports Loki as a data source.
+- **Grafana** - A visualization tool that supports Loki as a data source.
 
 The stack is depicted briefly in the below image
 
-
-{{< img "../assets/stack.png" "Loki-Grafana stack" "50em" "1" >}}
-
+![Loki-Grafana stack](../assets/stack.png)
 
 
 # Setting up
@@ -110,7 +108,6 @@ An exported JSON of one such dashboard can be found [here](https://github.com/fi
 
 Once imported, the dashboard will look similar to below image.
 
-{{< img "../assets/loki-grafana-dashboard.png" "Loki-Grafana dashboard" "30em" "1" >}}
-
+![Loki-Grafana dashboard](../assets/loki-grafana-dashboard.png)
 
 Watch the same [location](https://github.com/fission/examples/tree/master/dashboards/) for more dashboards which will be added over time.
