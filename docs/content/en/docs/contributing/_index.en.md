@@ -5,44 +5,40 @@ description: >
   Build deploy and contribute to Fission!
 ---
 
-# Prequisite
-
+## Prequisite
 
 - You'll need the `go` compiler and tools installed. Currently version 1.12.x of Go is needed.
 
 - You'll also need [docker](https://docs.docker.com/install) for building images.
 
 - You will need a Kubernetes cluster and you can use one of options from below.
-	- [Minikube](https://github.com/kubernetes/minikube)
-	- [Kind](https://kind.sigs.k8s.io/)
-	- Cluster in cloud such as GKE (Google Kubernetes Engine cluster)/ EKS (Elastic Kubernetes Service)/ AKS (Azure Kubernetes Service)
+  - [Minikube](https://github.com/kubernetes/minikube)
+  - [Kind](https://kind.sigs.k8s.io/)
+  - Cluster in cloud such as GKE (Google Kubernetes Engine cluster)/ EKS (Elastic Kubernetes Service)/ AKS (Azure Kubernetes Service)
 
 - Kubectl and Helm installed.
-
 
 - [Skaffold](https://skaffold.dev/docs/install/) for local development workflow to make it easier to build and deploy Fission.
 
 - And of course some basic concepts of Fission such as environment, function are good to be aware of!
 
+## Getting started
 
-# Getting started
+### Understanding code structure
 
-## Understanding code structure
+#### cmd
 
+Cmd package is entrypoint for all runtime components and also has Dockerfile for each component.
+The actual logic here will be pretty light and most of logic of each component is in `pkg` (Discussecd later)
 
-### cmd
+| Component        | Runtime Component | Used in                   |
+|:-----------------|:------------------|:--------------------------|
+| fetcher          | Docker Image      | Environments              |
+| fission-bundle   | Docker Image      | Binary for all components |
+| fission-cli      | CLI Binary        | CLI by user               |
+| preupgradechecks | Docker Image      | Pre-install upgrade       |
 
-Cmd package is entrypoint for all runtime components and also has Dockerfile for each component. The actual logic here will be pretty light and most of logic of each component is in `pkg` (Discussecd later)
-
-
-| Component         	   | Runtime Component      |Used in|
-| :-------------    	   |:-------------          |:-|
-| fetcher         		   | Docker Image           |Environments|
-| fission-bundle           | Docker Image           |Binary for all components|
-| fission-cli              | CLI Binary             |CLI by user|
-| preupgradechecks         | Docker Image           |Pre-install upgrade|
-
-```
+```text
 .
 cmd
 ├── fetcher
@@ -63,28 +59,32 @@ cmd
     └── preupgradechecks.go
 ```
 
-**fetcher** : is a very lightweight component and all of related logic is in fetcher package itself. Fetcher helps in fetching and uploading code and in specializing environments.
+**fetcher** : is a very lightweight component and all of related logic is in fetcher package itself.
+Fetcher helps in fetching and uploading code and in specializing environments.
 
-**fission-bundle** : is a component which is a single binary for all components. Based on arguments you pass to fission-bundle - it becomes that component. For ex. 
+**fission-bundle** : is a component which is a single binary for all components.
+Based on arguments you pass to fission-bundle - it becomes that component.
+For ex.
 
-```
-/fission-bundle --controllerPort "8888"							 # Runs Controller
+```test
+/fission-bundle --controllerPort "8888" # Runs Controller
 
 /fission-bundle --kubewatcher --routerUrl http://router.fission  # Runs Kubewatcher
 ```
 
-So most serverside components running on server side are fission-bundle binary wrapped in container and used with different arguments. Various arguments and environment variables are passed from manifests/helm chart
+So most serverside components running on server side are fission-bundle binary wrapped in container and used with different arguments.
+Various arguments and environment variables are passed from manifests/helm chart.
 
 **fission-cli** : is the cli used by end user to interact Fission
 
 **preupgradechecks** : is again a small independent component to do pre-install upgrade tasks.
 
+#### pkg
 
-### pkg
+Pkg is where most of core components and logic reside.
+The structure is fairly self-explanatory for example all of executor related functionality will be in executor package and so on.
 
-Pkg is where most of core components and logic reside. The structure is fairly self-explanatory for example all of executor related functionality will be in executor package and so on.
-
-```
+```text
 .
 ├── pkg
 │   ├── apis
@@ -112,11 +112,13 @@ Pkg is where most of core components and logic reside. The structure is fairly s
 │   └── utils
 ```
 
-### Environments
+#### Environments
 
-Each of runtime environments is in environments directory and fairly independent. If you are enhancing or creating a new environment - most likely you will end up making changes here. Also understand that if you change an environment - you only need to build environment image.
+Each of runtime environments is in environments directory and fairly independent.
+If you are enhancing or creating a new environment - most likely you will end up making changes here.
+Also understand that if you change an environment - you only need to build environment image.
 
-```
+```text
 .
 ├── environments
 │   ├── binary
@@ -132,11 +134,11 @@ Each of runtime environments is in environments directory and fairly independent
 │   └── tensorflow-serving
 ```
 
-### Charts
+#### Charts
 
 Fission currently has two charts - and we reccommend using fission-all for development.
 
-```
+```text
 .
 ├── charts
 │   ├── README.md
@@ -144,15 +146,14 @@ Fission currently has two charts - and we reccommend using fission-all for devel
 │   └── fission-core
 ```
 
-### Misc
+#### Misc
 
 There are some more directories but the once worth mentioning in this context are:
 
-Examples: Contains various examples functions 
+Examples: Contains various examples functions.
 Test: This is where the tests & test suite lives.
 
-
-## Getting Started
+### Getting Started
 
 Get the code locally and after you have made changes - you can verify formatting and other basic checks.
 
@@ -170,27 +171,28 @@ $ ./hack/verify-gofmt.sh
 $ ./hack/verify-govet.sh
 ```
 
-From this step onward you should stick to either "Use Skaffold and Kind/K8S Cluster" or an automated version of "Manual Steps". Both the ways achieve the same result but Skaffold makes the development cycle faster and smoother.
+From this step onward you should stick to either "Use Skaffold and Kind/K8S Cluster" or an automated version of "Manual Steps". 
+Both the ways achieve the same result but Skaffold makes the development cycle faster and smoother.
 
-### Use Skaffold and Kind/K8S Cluster
+#### Use Skaffold and Kind/K8S Cluster
 
 You should bring up Kind/Minikube cluster or if using a cloud provider cluster then Kubecontext should be pointing to appropriate cluster.
 
-Now replace the "<DOCKERHUB_REPO>" with your dockerhub repo in the Skaffold.yaml definition. (This will change once there is a resolution on issue here: https://github.com/GoogleContainerTools/skaffold/issues/4090)
+Now replace the "<DOCKERHUB_REPO>" with your dockerhub repo in the Skaffold.yaml definition. 
+(This will change once there is a resolution on issue here: <https://github.com/GoogleContainerTools/skaffold/issues/4090>)
 
 Now you can run `$ skaffold run` - which will build images and deploy using Helm.
 
+#### Manual Steps
 
-### Manual Steps
+##### Build the code
 
-#### Build the code
-
-You will need to build images for fission-bundle, fetcher, preupgradechecks and environments based on changes you are making. You can push it to a docker hub account or any docker registry. 
+You will need to build images for fission-bundle, fetcher, preupgradechecks and environments based on changes you are making.
+You can push it to a docker hub account or any docker registry.
 
 If  are using Minikube, you can directly build in the docker engine inside Minikube by pointing your Docker daemon to Minikube's docker engine:
 
 > If you want to build the image with the docker inside minikube, you'll need to set the proper environment variables with `eval $(minikube docker-env)`
-
 
 ```sh
 $ docker build -t repo_name/fission-bundle:<tag> -f cmd/fission-bundle/Dockerfile.fission-bundle .
@@ -198,7 +200,7 @@ $ docker build -t repo_name/fission-bundle:<tag> -f cmd/fission-bundle/Dockerfil
 
 Replace the `<tag>` with any tag you want (e.g., repo_name/fission-bundle:latest).  
 
-#### Install with Helm
+##### Install with Helm
 
 Now let's pull dependent helm charts with Helm's dep command:
 
@@ -219,9 +221,10 @@ $ helm upgrade --install fission ./charts/fission-all --namespace fission \
                --set preUpgradeChecksImage=repo_name/preupgradechecks \
                -f ./charts/fission-all/values.yaml
 ```
+
 Replace `<tag>` with the tag used to build the images.
 
-#### Install CLI
+##### Install CLI
 
 And if you're changing the CLI too, you can build it with:
 
@@ -230,19 +233,19 @@ $ cd $GOPATH/src/github.com/fission/fission/cmd/fission-cli
 $ go build -o $GOPATH/bin/fission
 ```
 
-## Validating Installation
+### Validating Installation
 
 If you are using Helm, you should see release installed:
 
-```
-helm list
-NAME   	NAMESPACE	REVISION	UPDATED                             	STATUS	CHART            	APP VERSION
-fission	fission  	1       	2020-05-19 16:31:46.947562 +0530 IST	success	fission-all-1.11.0	1.11.0
+```text
+$ helm list
+NAME     NAMESPACE  REVISION  UPDATED                               STATUS   CHART               APP VERSION
+fission  fission    1         2020-05-19 16:31:46.947562 +0530 IST  success  fission-all-1.11.0  1.11.0
 ```
 
 Also you should see the Fission services deployed and running:
 
-```
+```text
 $ kubectl get pods -nfission
 NAME                                                    READY   STATUS             RESTARTS   AGE
 buildermgr-6f778d4ff9-dqnq5                             1/1     Running            0          6h9m

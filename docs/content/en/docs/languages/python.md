@@ -8,7 +8,7 @@ Python 3.x are supported.  In this usage guide we'll cover how to set
 up and use a Python environment on Fission, write functions, and work
 with dependencies.  We'll also cover basic troubleshooting.
 
-## Before you start
+### Before you start
 
 We'll assume you have Fission and Kubernetes setup.  If not, head over
 to the [installation guide]({{% ref "../installation/_index.en.md" %}}).  Verify your Fission setup with:
@@ -17,7 +17,7 @@ to the [installation guide]({{% ref "../installation/_index.en.md" %}}).  Verify
 $ fission version
 ```
 
-## Add the Python environment to your cluster
+### Add the Python environment to your cluster
 
 Fission language support is enabled by creating an _Environment_.  An
 environment is the language-specific part of Fission.  It has a
@@ -27,7 +27,7 @@ container image in which your function will run.
 $ fission environment create --name python --image fission/python-env 
 ```
 
-## Create a simple function in Python
+### Create a simple function in Python
 
 Create a file named `hello.py`:
 
@@ -63,16 +63,16 @@ $ curl $FISSION_ROUTER/hello
 Hello, world!
 ```
 
-## Function input and output interface
+### Function input and output interface
 
 In this section we'll describe the input and output interfaces of
 Python functions in Fission.  Fission's Python integration is built on
 the Flask framework.  You can access HTTP requests and responses as
 you do in Flask.  We'll provide some examples below.
 
-### Accessing HTTP Requests
+#### Accessing HTTP Requests
 
-#### HTTP Headers
+##### HTTP Headers
 
 Write a simple `headers.py` with something like this:
 
@@ -94,11 +94,11 @@ $ fission function create --name headers --env python --code headers.py
 
 $ fission route create --url /headers --function headers
 
-$ curl -H "X-My-Header: Hello" $FISSION_ROUTER/headers 
+$ curl -H "X-My-Header: Hello" $FISSION_ROUTER/headers
 The header's value is 'Hello'
 ```
 
-#### Query parameters
+##### Query parameters
 
 HTTP Query parameters are the key-value pairs in a URL after the `?`.
 They are also available through the request object:
@@ -118,40 +118,33 @@ Create that function, assign it a route, and invoke it with a query parameter:
 ```bash
 $ fission function create --name query --env python --code query.py
 
-$ fission route create --url /query --function query 
+$ fission route create --url /query --function query
 
 $ curl $FISSION_ROUTER/query?myKey=myValue
 Value for myKey: myValue
 ```
 
-#### Body 
+##### Body
 
-HTTP POST and PUT requests can have a request body.  Once again, you
-can access this body through the request object.
+HTTP POST and PUT requests can have a request body.
+Once again, youccan access this body through the request object.
 
-For requests with a JSON Content-Type, you can directly get a parsed
-object with `request.get_json()`
-[[docs]](http://flask.pocoo.org/docs/1.0/api/#flask.Request.get_json).  
+For requests with a JSON Content-Type, you can directly get a parsed object with `request.get_json()` [[docs]](http://flask.pocoo.org/docs/1.0/api/#flask.Request.get_json).  
 
-For form-encoded requests ( application/x-www-form-urlencoded), use
-`request.form.get('key')`
-[[docs]](http://flask.pocoo.org/docs/1.0/api/#flask.Request.form).
+For form-encoded requests ( application/x-www-form-urlencoded), use `request.form.get('key')` [[docs]](http://flask.pocoo.org/docs/1.0/api/#flask.Request.form).
 
-For all other requests, use `request.data`
-[[docs]](http://flask.pocoo.org/docs/1.0/api/#flask.Request.data) to
-get the full request body as a string of bytes.
+For all other requests, use `request.data` [[docs]](http://flask.pocoo.org/docs/1.0/api/#flask.Request.data) to get the full request body as a string of bytes.
 
 You can find the full docs on the request object in [the flask
 docs](http://flask.pocoo.org/docs/1.0/api/#incoming-request-data).
 
-### Controlling HTTP Responses
+#### Controlling HTTP Responses
 
-The simplest way to return a response is to return a string.  This
-implicitly says that your function succeeded with a status code of
-200; the returned string becomes the body.  However, you can control
-the response more closely using the Flask `response` object.
+The simplest way to return a response is to return a string.
+This implicitly says that your function succeeded with a status code of 200; the returned string becomes the body.
+However, you can control the response more closely using the Flask `response` object.
 
-#### Setting Response Headers
+##### Setting Response Headers
 
 ```python
 import flask
@@ -162,7 +155,7 @@ def main():
     return resp
 ```
 
-#### Setting Status Codes 
+##### Setting Status Codes
 
 ```python
 import flask
@@ -173,23 +166,23 @@ def main():
     return resp
 ```
 
-#### HTTP Redirects
+##### HTTP Redirects
 
 ```python
 import flask
 
 def main():
     r = flask.redirect('/new-url', code=303)
-    
+
     # Optional; set this to False to force a relative URL redirect.
     # Defaults to True, which converts the redirect to an absolute URL
     # that's only accessible within the cluster.
     r.autocorrect_location_header = False
-    
+
     return r
 ```
 
-### Logging
+#### Logging
 
 ```python
 from flask import current_app
@@ -199,31 +192,26 @@ def main():
     return "Hello, world"
 ```
 
-## Working with dependencies
+### Working with dependencies
 
-The examples above show simple one-file functions with no
-dependencies.  You can package dependencies with your function, and
-even use Fission to download and package up the dependencies.
+The examples above show simple one-file functions with no dependencies.
+You can package dependencies with your function, and even use Fission to download and package up the dependencies.
 
-### Using the Python environment with the builder
+#### Using the Python environment with the builder
 
-Fission supports _builders_, which are language-specific containers
-that know how to gather dependencies and build from a source zip file,
-into a deployment zip file. 
+Fission supports _builders_, which are language-specific containers that know how to gather dependencies and build from a source zip file, into a deployment zip file.
 
-To use a builder with your environment, create the environment with
-the --builder flag:
+To use a builder with your environment, create the environment with the --builder flag:
 
 ```sh
 $ fission env create --name python --image fission/python-env --builder fission/python-builder
 ```
 
-### A function with depedencies
+#### A function with depedencies
 
-Let's take a simple python function which has a dependency on the
-`pyyaml` module. We can specify the dependencies in `requirements.txt`
-and a simple command to build from source. The tree structure of
-directory and contents of the file would look like:
+Let's take a simple python function which has a dependency on the `pyyaml` module.
+We can specify the dependencies in `requirements.txt` and a simple command to build from source.
+The tree structure of directory and contents of the file would look like:
 
 ```bash
 sourcepkg/
@@ -232,11 +220,12 @@ sourcepkg/
 ├── requirements.txt
 └── user.py
 ```
+
 And the file contents:
 
 * user.py
 
-```python 
+```python
 import sys
 import yaml
 
@@ -253,7 +242,7 @@ def main():
 
 * requirements.txt
 
-```python 
+```python
 pyyaml
 ```
 
@@ -265,6 +254,7 @@ pip3 install -r ${SRC_PKG}/requirements.txt -t ${SRC_PKG} && cp -r ${SRC_PKG} ${
 ```
 
 Make sure the `build.sh` file is executable:
+
 ```bash
 $ chmod +x build.sh
 ```
@@ -278,6 +268,7 @@ $ zip -jr demo-src-pkg.zip sourcepkg/
   adding: requirements.txt (stored 0%)
   adding: user.py (deflated 25%)
 ```
+
 Using the source archive creared in previous step, you can create a package in Fission:
 
 ```bash
@@ -285,9 +276,8 @@ $ fission package create --sourcearchive demo-src-pkg.zip --env python --buildcm
 Package 'demo-src-pkg-zip-8lwt' created
 ```
 
-Since we are working with a source package, we provided the build
-command. Once you create the package, the build process will start and
-you can see the build logs with the `fission package info` command:
+Since we are working with a source package, we provided the build command.
+Once you create the package, the build process will start and you can see the build logs with the `fission package info` command:
 
 ```bash
 $ fission pkg info --name demo-src-pkg-zip-8lwt
@@ -303,13 +293,10 @@ Installing collected packages: pyyaml
 Successfully installed pyyaml-3.12
 ```
 
-Using the package above you can create the function. Since this package
-is already associated with a source archive, an environment and a
-build command, you don't need to provide these while creating a
-function from this package.
+Using the package above you can create the function.
+Since this package is already associated with a source archive, an environment and a build command, you don't need to provide these while creating a function from this package.
 
-The only additional thing you'll need to provide is the Function's
-entrypoint:
+The only additional thing you'll need to provide is the Function's entrypoint:
 
 ```bash
 $ fission fn create --name srcpy --pkg demo-src-pkg-zip-8lwt --entrypoint "user.main"
@@ -321,15 +308,12 @@ a: 1
 b: {c: 3, d: 4}
 ```
 
-## Modifying the runtime environment image
+### Modifying the runtime environment image
 
-The base runtime image of the Python can also be modified to include
-dependencies.  You can do this for dependencies that all your
-functions need, thus reducing the size of your function packages (and
-improving cold-start times).
+The base runtime image of the Python can also be modified to include dependencies.
+You can do this for dependencies that all your functions need, thus reducing the size of your function packages (and improving cold-start times).
 
-First, get a copy of the Fission source, which includes the
-Python environment:
+First, get a copy of the Fission source, which includes the Python environment:
 
 ```sh
 $ git clone https://github.com/fission/fission
@@ -341,20 +325,19 @@ Get to the Python environment:
 $ cd fission/environments/python
 ```
 
-To add package dependencies, edit `requirements.txt` to add what you
-need, and rebuild this image as follows:
+To add package dependencies, edit `requirements.txt` to add what you need, and rebuild this image as follows:
 
-Next, build and push the container image.  To push your image you'll
-need access to a Docker registry.  Let's assume you have a DockerHub
-account called "USER".  (You could use any other registry too.)
+Next, build and push the container image.
+To push your image you'll need access to a Docker registry.
+Let's assume you have a DockerHub account called "USER".  (You could use any other registry too.)
 
 ```sh
 $ docker build -t USER/python-env .
-$ docker push USER/python-env 
+$ docker push USER/python-env
 ```
 
-Now you can use this image as your function runtime.  You can
-re-create the environment, pointing the runtime at this image:
+Now you can use this image as your function runtime.
+You can re-create the environment, pointing the runtime at this image:
 
 ```sh
 $ fission env create --name python --image USER/python-env ...
@@ -362,9 +345,8 @@ $ fission env create --name python --image USER/python-env ...
 
 Or just update it, if you already have an image:
 
-```
+```sh
 $ fission env update --name python --image USER/python-env ...
 ```
 
-After this, functions that have the env parameter set to "python" will
-use this new customized image for running the functions.
+After this, functions that have the env parameter set to "python" will use this new customized image for running the functions.

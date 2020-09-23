@@ -6,19 +6,17 @@ weight: 2
 
 This section walks through working with functions, for controlling execution of functions please refer to [Controlling Function Execution]({{% ref "executor.en.md" %}})
 
-### Create a function
+#### Create a function
 
-Before creating a function, you'll need an environment; read
-[environments]({{% ref "environments.en.md" %}}) if you
-haven't already.
+Before creating a function, you'll need an environment; read [environments]({{% ref "environments.en.md" %}}) if you haven't already.
 
-Let's create an environment for our function. 
+Let's create an environment for our function.
+
 ```bash
 $ fission env create --name node --image fission/node-env
 ```
 
-Let's create a simple code snippet in NodeJS which will output the
-string "Hello, world!":
+Let's create a simple code snippet in NodeJS which will output the string `"Hello, world!"`:
 
 ```js
 module.exports = async function(context) {
@@ -29,8 +27,8 @@ module.exports = async function(context) {
 }
 ```
 
-Let's create this function on the cluster.  This only registers the
-function with Fission, it doesn't run it yet.
+Let's create this function on the cluster.
+This only registers the function with Fission, it doesn't run it yet.
 
 ```bash
 $ fission fn create --name hello --code hello.js --env node
@@ -52,14 +50,13 @@ $ curl http://${FISSION_ROUTER}/hello
 Hello, world!
 ```
 
-You can also create a function with executor type "newdeploy" and
-provide the minimum and maximum number of instances of the function.
+You can also create a function with executor type "newdeploy" and provide the minimum and maximum number of instances of the function.
 
 ```bash
 $ fission fn create --name hello2 --code hello.js --env node --minscale 1 --maxscale 5  --executortype newdeploy
 ```
 
-### View & update function source code
+#### View & update function source code
 
 You can look at the source code associated with given function:
 
@@ -73,7 +70,7 @@ module.exports = async function(context) {
 }
 ```
 
-Let's say you want to update the function to output "Hello Fission" instead of "Hello world". 
+Let's say you want to update the function to output "Hello Fission" instead of "Hello world".
 
 ```js
 module.exports = async function(context) {
@@ -83,10 +80,11 @@ module.exports = async function(context) {
     };
 }
 ```
+
 You can update the source file and update the source code for function:
 
 ```bash
-$ fission fn update --name hello --code hello.js 
+$ fission fn update --name hello --code hello.js
 package 'hello-js-ku9s' updated
 function 'hello' updated
 ```
@@ -99,15 +97,17 @@ $ curl http://${FISSION_ROUTER}/hello
 Hello, Fission!
 ```
 
-### Test and debug function
+#### Test and debug function
 
-You can run a function using the test command. If the function call succeeds, it will output the function's response. 
+You can run a function using the test command. If the function call succeeds, it will output the function's response:
+
 ```bash
 $ fission fn test --name hello
 Hello, Fission!
 ```
 
 But if there is an error in the function's execution (it returns HTTP >= 300), then the logs of function execution are displayed:
+
 ```bash
 $ fission fn test --name hello
 Error calling function hello: 500 Internal server error (fission)
@@ -122,6 +122,7 @@ user code load error: SyntaxError: Unexpected token function
 ```
 
 You can also look at function execution logs explicitly:
+
 ```bash
 $ fission fn logs --name hello
 [2018-02-16 08:41:43 +0000 UTC] 2018/02/16 08:41:43 fetcher received fetch request and started downloading: {1 {hello-js-rqew  default    0 0001-01-01 00:00:00 +0000 UTC <nil> <nil> map[] map[] [] nil [] }   user [] []}
@@ -134,15 +135,20 @@ $ fission fn logs --name hello
 [2018-02-16 08:41:43 +0000 UTC] ::ffff:10.8.1.182 - - [16/Feb/2018:08:41:43 +0000] "GET / HTTP/1.1" 200 16 "-" "curl/7.54.0"
 ```
 
-### Fission builds & compiled artifacts
+#### Fission builds & compiled artifacts
 
-Most real world functions will require more than one source files. It is also easier to simply provide source files and let Fission take care of building from source files. Fission provides first class support for building from source as well as using compiled artifacts to create functions.
+Most real world functions will require more than one source files.
+It is also easier to simply provide source files and let Fission take care of building from source files.
+Fission provides first class support for building from source as well as using compiled artifacts to create functions.
 
-You can attach the source/deployment packages to a function or explicitly create packages and use them across functions. Check documentation for [package]({{% ref "package.en.md" %}}) for more information.
+You can attach the source/deployment packages to a function or explicitly create packages and use them across functions.
+Check documentation for [package]({{% ref "package.en.md" %}}) for more information.
 
 #### Building functions from source
 
-Let's take a simple python function which has dependency on a python pyyaml module. We can specify the dependencies in requirements.txt and a simple command to build from source. The tree structure of directory looks like:
+Let's take a simple python function which has dependency on a python pyyaml module.
+We can specify the dependencies in requirements.txt and a simple command to build from source.
+The tree structure of directory looks like:
 
 ```plaintext
 sourcepkg/
@@ -155,7 +161,7 @@ sourcepkg/
 And the file contents:
 
 ```bash
-$ cat user.py 
+$ cat user.py
 
 import sys
 import yaml
@@ -170,15 +176,16 @@ document = """
 def main():
     return yaml.dump(yaml.load(document))
 
-$ cat requirements.txt 
+$ cat requirements.txt
 pyyaml
 
-$ cat build.sh 
+$ cat build.sh
 #!/bin/sh
 pip3 install -r ${SRC_PKG}/requirements.txt -t ${SRC_PKG} && cp -r ${SRC_PKG} ${DEPLOY_PKG}
 ```
 
 Make sure the `build.sh` file is executable:
+
 ```bash
 $ chmod +x build.sh
 ```
@@ -188,6 +195,7 @@ You first need to create an environment with environment image and python-builde
 ```bash
 $ fission env create --name python --image fission/python-env:latest --builder fission/python-builder:latest --mincpu 40 --maxcpu 80 --minmemory 64 --maxmemory 128 --poolsize 2
 ```
+
 Now let's zip the directory containing the source files and create a function with source package:
 
 ```bash
@@ -202,7 +210,9 @@ function 'hellopy' created
 
 $ fission route create --function hellopy --url /hellopy
 ```
-Once we create the function, the build process is started. You can check logs of the builder in fission-builder namespace:
+
+Once we create the function, the build process is started.
+You can check logs of the builder in fission-builder namespace:
 
 ```bash
 $ kubectl -n fission-builder logs -f py3-4214348-59555d9bd8-ks7m4 builder
@@ -222,18 +232,19 @@ Successfully installed pyyaml-3.12
 ```
 
 Once the build has succeeded, you can hit the function URL to test the function:
+
 ```bash
 $curl http://$FISSION_ROUTER/hellopy
 a: 1
 b: {c: 3, d: 4}
 ```
 
-If you're using Fission with source code, be sure to read about the
-recommended [development workflow]({{%ref "../spec/_index.md" %}}).
+If you're using Fission with source code, be sure to read about the recommended [development workflow]({{%ref "../spec/_index.md" %}}).
 
-#### Using compiled artifacts with Fission
+##### Using compiled artifacts with Fission
 
-In some cases you have a pre-built deployment package which you need to deploy to Fission. For this example let's use a simple python file as a deployment package but in practice it can be any other compiled package.
+In some cases you have a pre-built deployment package which you need to deploy to Fission.
+For this example let's use a simple python file as a deployment package but in practice it can be any other compiled package.
 
 We will use a simple python file in a directory and turn it into a deployment package:
 
@@ -243,8 +254,8 @@ def main():
     return "Hello, world!"
 
 $zip -jr demo-deploy-pkg.zip testDir/
-
 ```
+
 Let's use the deployment package to create a function and route and then test it.
 
 ```bash
@@ -257,7 +268,7 @@ $ curl http://$FISSION_ROUTER/hellopy
 Hello, world!
 ```
 
-### View function information
+#### View function information
 
 You can retrieve metadata information of a single function or list all functions to look at basic information of functions:
 
