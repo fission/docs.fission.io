@@ -1,0 +1,12 @@
+{
+    "line-length": false,
+    "no-duplicate-header": false,
+    "commands-show-output": false,
+    "ol-prefix": false,
+    "no-trailing-punctuation": false,
+    "no-inline-html": {
+        "allowed_elements": [
+            "br"
+        ]
+    }
+}

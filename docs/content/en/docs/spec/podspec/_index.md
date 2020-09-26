@@ -3,11 +3,12 @@ title: "Add PodSpec to spec file"
 date: 2019-12-06T13:39:39+08:00
 ---
 
-# What is PodSpec
+## What is PodSpec
 
-A pod in Kubernetes is basic unit of deployment. Like every Kubernetes resource the pod consists of the basic declaration, metadata, spec & status.
+A pod in Kubernetes is basic unit of deployment.
+Like every Kubernetes resource the pod consists of the basic declaration, metadata, spec & status.
 
-```
+```yaml
 apiVersion: v1
 kind: Pod
 metadata:
@@ -18,10 +19,10 @@ spec:
   containers:
 ```
 
-The spec in a pod, also known as PodSpec, defines [the specifications](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-architecture/api-conventions.md#spec-and-status) 
-of many behaviors in a declarative manner. A PodSpec defines the containers, environment variables for the container and other properties such as the scheduler name, security context etc.
+The spec in a pod, also known as PodSpec, defines [the specifications](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-architecture/api-conventions.md#spec-and-status) of many behaviors in a declarative manner.
+A PodSpec defines the containers, environment variables for the container and other properties such as the scheduler name, security context etc.
 
-```
+```yaml
 spec:
   containers:
     env:
@@ -38,10 +39,10 @@ spec:
   serviceAccount: fission-svc
 ```
 
-In this section we will look at various use cases that are possible with PodSpec support in Fission. 
+In this section we will look at various use cases that are possible with PodSpec support in Fission.
 To learn more about how specs please check [this documentation link]({{% ref "_index.md"%}}).
 
-# Many More!
+## Many More!
 
 Here are some ideas for how you can use PodSpec to enhance your function pods:
 

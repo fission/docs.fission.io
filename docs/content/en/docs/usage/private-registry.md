@@ -9,16 +9,16 @@ First, you need to follow the [kubernetes guide](https://kubernetes.io/docs/task
 
 {{% notice warning %}}
 The secret must be created in the same namespace where the function pods created.<br>
-For example, if the function pods are in the `fission-function` namespace, you need to create the secret in `fission-function` as well. 
+For example, if the function pods are in the `fission-function` namespace, you need to create the secret in `fission-function` as well.
 {{% /notice %}}
 
-Then, specify the secret when creating the environment. 
+Then, specify the secret when creating the environment.
 
 For example, if we want to create a nodejs environment and use secret `docker-secret` as credential.  
 
 ```bash
 $ fission environment create --name nodejs --image fission/node-env \
-    --imagepullsecret "docker-secret" 
+    --imagepullsecret "docker-secret"
 ```
 
 You should see `imagePullSecrets` in the environment deployment like following.
@@ -47,5 +47,5 @@ items:
 
 {{% notice warning %}}
 Fission won't check if a secret exists nor examining whether the secret setting works as expected.<br>
-You have to check the pod status to ensure everything works as expected. 
+You have to check the pod status to ensure everything works as expected.
 {{% /notice %}}

@@ -5,26 +5,24 @@ description: >
   OpenShift specific setup 
 ---
 
-# Installing Fission
+## Installing Fission
 
 See [Fission installation]({{%ref "_index.en.md" %}}) to learn more how to install Fission.
 
-# Run Logger as privileged container
+## Run Logger as privileged container
 
-The reason to run Logger pods as privileged container is because Fission mounts `hostPath` volume to FluentBit to
-read container log files and data persistence. 
+The reason to run Logger pods as privileged container is because Fission mounts `hostPath` volume to FluentBit to read container log files and data persistence.
 
-The persistence is for FluentBit [tail plugin](https://github.com/fluent/fluent-bit-docs/blob/master/input/tail.md) 
-to read/write it’s own sqlite database. Fission itself doesn’t persist anything.
+The persistence is for FluentBit [tail plugin](https://github.com/fluent/fluent-bit-docs/blob/master/input/tail.md) to read/write it’s own sqlite database.
+Fission itself doesn’t persist anything.
 
-```
-Optionally a database file can be used so the plugin can have a history of tracked 
-files and a state of offsets, this is very useful to resume a state if the service is restarted. 
+```text
+Optionally a database file can be used so the plugin can have a history of tracked files and a state of offsets, this is very useful to resume a state if the service is restarted.
 ```
 
 Once the logger restarted, it ensures no duplicate logs will be sent to log database.
 
-You may need to add `privileged` permission to service account `fission-svc`. 
+You may need to add `privileged` permission to service account `fission-svc`.
 
 ```bash
 oc adm policy add-scc-to-user privileged -z fission-svc
@@ -32,12 +30,11 @@ oc adm policy add-scc-to-user privileged -z fission-svc
 
 * Reference: https://github.com/fluent/fluentd-kubernetes-daemonset#running-on-openshift
 
-# Prometheus
+## Prometheus
 
-* Follow [this guide](https://docs.openshift.com/container-platform/4.2/monitoring/cluster-monitoring/configuring-the-monitoring-stack.html#creating-cluster-monitoring-configmap_configuring-monitoring) 
-to deploy Prometheus to OpenShift cluster. 
+* Follow [this guide](https://docs.openshift.com/container-platform/4.2/monitoring/cluster-monitoring/configuring-the-monitoring-stack.html#creating-cluster-monitoring-configmap_configuring-monitoring) to deploy Prometheus to OpenShift cluster.
 
-* Get Prometheus server URL by following [Accessing Prometheus, Alertmanager, and Grafana](https://docs.openshift.com/container-platform/4.2/monitoring/cluster-monitoring/prometheus-alertmanager-and-grafana.html#monitoring-accessing-prometheus-alertmanager-grafana-directly_accessing-prometheus). 
+* Get Prometheus server URL by following [Accessing Prometheus, Alertmanager, and Grafana](https://docs.openshift.com/container-platform/4.2/monitoring/cluster-monitoring/prometheus-alertmanager-and-grafana.html#monitoring-accessing-prometheus-alertmanager-grafana-directly_accessing-prometheus).
 
 For example, if we have `https://prometheus-k8s-openshift-monitoring.apps._url_.openshift.com` as Prometheus server URL, encode following config with base64
 
@@ -60,4 +57,4 @@ Delete controller pod to enforce it to reload the config.
 
 ```sh
 $ kubectl -n fission delete pod -l svc=controller
-``` 
+```
