@@ -9,7 +9,12 @@ weight: 35
 Before you create a package, you need to create an environment with an associated builder image:
 
 ```bash
-$ fission env create --name pythonsrc --image fission/python-env:latest --builder fission/python-builder:latest --mincpu 40 --maxcpu 80 --minmemory 64 --maxmemory 128 --poolsize 2
+$ fission env create --name pythonsrc --image fission/python-env:latest \
+                     --builder fission/python-builder:latest \
+                     --mincpu 40 --maxcpu 80 \
+                     --minmemory 64 --maxmemory 128 \
+                     --poolsize 2
+
 environment 'pythonsrc' created
 ```
 
@@ -17,7 +22,7 @@ Let's take a simple python function which has a dependency on the `pyyaml` modul
 We can specify the dependencies in `requirements.txt` and a simple command to build from source.
 The tree structure of directory and contents of the file would look like:
 
-```bash
+```text
 sourcepkg/
 ├── __init__.py
 ├── build.sh
@@ -85,6 +90,7 @@ Once you create the package, the build process will start and you can see the bu
 
 ```bash
 $ fission pkg info --name demo-src-pkg-zip-8lwt
+
 Name:        demo-src-pkg-zip-8lwt
 Environment: pythonsrc
 Status:      succeeded
@@ -104,6 +110,7 @@ The only additional thing you'll need to provide is the Function's entrypoint:
 
 ```bash
 $ fission fn create --name srcpy --pkg demo-src-pkg-zip-8lwt --entrypoint "user.main"
+
 function 'srcpy' created
 
 # Run the function:
@@ -117,7 +124,12 @@ b: {c: 3, d: 4}
 Before you create a package you need to create an environment with the builder image:
 
 ```bash
-$ fission env create --name pythondeploy --image fission/python-env:latest --builder fission/python-builder:latest --mincpu 40 --maxcpu 80 --minmemory 64 --maxmemory 128 --poolsize 2
+$ fission env create --name pythondeploy --image fission/python-env:latest \
+                     --builder fission/python-builder:latest \
+                     --mincpu 40 --maxcpu 80 \
+                     --minmemory 64 --maxmemory 128 \
+                     --poolsize 2
+
 environment 'pythondeploy' created
 ```
 
@@ -125,6 +137,7 @@ We will use a simple Python example which outputs "Hello World!" in a directory 
 
 ```bash
 $ cat testDir/hello.py
+
 def main():
     return "Hello, world!"
 
@@ -135,6 +148,7 @@ Using the archive and environments created previously, you can create a package:
 
 ```bash
 $ fission package create --deployarchive demo-deploy-pkg.zip --env pythondeploy
+
 Package 'demo-deploy-pkg-zip-whzl' created
 ```
 
@@ -142,6 +156,7 @@ Since it is a deployment archive, there is no need to build it, so the build log
 
 ```bash
 $ fission package info --name demo-deploy-pkg-zip-whzl
+
 Name:        demo-deploy-pkg-zip-xlaw
 Environment: pythondeploy2
 Status:      succeeded
@@ -154,6 +169,7 @@ Finally you can create a function with the package and test the function:
 $ fission fn create --name deploypy --pkg demo-deploy-pkg-zip-whzl --entrypoint "hello.main"
 
 $ fission fn test --name deploypy
+
 Hello, world!
 ```
 
