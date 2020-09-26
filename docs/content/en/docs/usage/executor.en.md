@@ -34,7 +34,8 @@ Now, you shall see only one pod for the environment we just created.
 With `--poolsize 0`, the executor will not be able to specialize any function due to no generic pod in pool.
 {{% /notice %}}
 
-If you want to set resource requests/limits for all functions use the same environment, you can provide extra min/max cpu & memory flags to set them at **environment-level**. For example, we want to limit an environment's min/max cpu to 100m/200m and min/max memory to 128Mi/256Mi.
+If you want to set resource requests/limits for all functions use the same environment, you can provide extra min/max cpu & memory flags to set them at **environment-level**.
+For example, we want to limit an environment's min/max cpu to 100m/200m and min/max memory to 128Mi/256Mi.
 
 ```bash
 $ fission env create --name python --version 3 --poolsize 1 --image fission/python-env \
@@ -112,6 +113,7 @@ Now let's use [hey](https://github.com/rakyll/hey) to generate the load with 250
 
 ```bash
 $ hey -c 250 -n 10000 http://${FISSION_ROUTER}/hello
+
 Summary:
   Total:        67.3535 secs
   Slowest:      4.6192 secs
@@ -167,6 +169,7 @@ More details can be found [here](https://kubernetes.io/docs/tasks/run-applicatio
 
 ```bash
 $ kubectl -n fission-function get hpa -w
+
 NAME             REFERENCE                   TARGETS      MINPODS   MAXPODS   REPLICAS   AGE
 hello-qoxmothj   Deployment/hello-qoxmothj   5% / 50%     1         6         1          3m
 hello-qoxmothj   Deployment/hello-qoxmothj   8% / 50%     1         6         1         3m
