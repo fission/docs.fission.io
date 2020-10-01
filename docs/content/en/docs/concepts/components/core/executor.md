@@ -127,6 +127,6 @@ You can set the initial and maximum CPU for a function and target CPU at which a
 Autoscaling is useful for workloads where you expect intermittant spikes in workloads.
 It also enables optimal the usage of resources to execute functions, by using a baseline capacity with minimum scale and ability to burst up to maximum scale based on spikes in demand.
 
-{{% notice info %}}
+{{< notice info >}}
 Learn more further usage/setup of **executor type** for functions, please see [here]({{% ref "../../../usage/executor.en.md" %}}).
-{{% /notice %}}
+{{< /notice >}}

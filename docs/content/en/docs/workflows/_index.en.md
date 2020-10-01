@@ -5,9 +5,9 @@ description: >
   Workflow system on top of Fission
 ---
 
-{{% notice info %}}
+{{< notice info >}}
 Fission Workflow only supports Fission 0.4.1 ~ 0.12.0
-{{% /notice %}}
+{{< /notice >}}
 
 #### Prerequisites
 

@@ -30,9 +30,9 @@ $ kubectl -n fission-function get pod -l environmentName=test
 
 Now, you shall see only one pod for the environment we just created.
 
-{{% notice warning %}}
+{{< notice warning >}}
 With `--poolsize 0`, the executor will not be able to specialize any function due to no generic pod in pool.
-{{% /notice %}}
+{{< /notice >}}
 
 If you want to set resource requests/limits for all functions use the same environment, you can provide extra min/max cpu & memory flags to set them at **environment-level**. For example, we want to limit an environment's min/max cpu to 100m/200m and min/max memory to 128Mi/256Mi.
 
@@ -83,9 +83,9 @@ NAME              DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
 foobar-hhytbcx4   1         1         1            1           51s
 ```
 
-{{% notice warning %}}
+{{< notice warning >}}
 With `--minscale 0`, a function will experience **long** cold-start time since it takes time for executor to create/scale deployment to 1 replica.
-{{% /notice %}}
+{{< /notice >}}
 
 #### Eliminating cold start
 

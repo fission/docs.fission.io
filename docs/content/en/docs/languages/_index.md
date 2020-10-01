@@ -51,6 +51,6 @@ The following pre-built environments are currently available for use in Fission:
 | .NET                                | `fission/dotnet-env`      | -                          | O   | X   | X   |
 | Perl                                | `fission/perl-env`        | -                          | O   | X   | X   |
 
-{{% notice info %}}
+{{< notice info >}}
 You can find the latest image tags by searching image name at [Fission Dockerhub](https://hub.docker.com/u/fission/).
-{{% /notice %}}
+{{< /notice >}}

@@ -84,9 +84,9 @@ Now, let's test our first Go function with `test` command
 $ fission fn test --name <function-name>
 ```
 
-{{% notice info %}}
+{{< notice info >}}
 See [here]({{% ref "../triggers/_index.md" %}}) for how to setup different trigger for Go function.
-{{% /notice %}}
+{{< /notice >}}
 
 ### HTTP requests and HTTP responses
 
@@ -277,10 +277,10 @@ Date: Sat, 27 Oct 2018 15:00:14 GMT
 
 ##### Setting Status Codes
 
-{{% notice warning %}}
+{{< notice warning >}}
 **Always write response status code before writing response body!**
 Otherwise, the client may receive unexpected status code.
-{{% /notice %}}
+{{< /notice >}}
 
 You can set response status code by calling function `writer.WriteHeader()`.
 However, one thing wroth to notice is if a function writes response body before status code, the client will receive HTTP 200 OK no matter what actual status code is.
