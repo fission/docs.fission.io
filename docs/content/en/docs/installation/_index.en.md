@@ -20,7 +20,7 @@ Helm](#without-helm).
 
 ## Kubernetes Cluster
 
-If you don't have a Kubernetes cluster, [here's a official guide to set one up](https://kubernetes.io/docs/setup/).
+If you don't have a Kubernetes cluster, [here's an official guide to set one up](https://kubernetes.io/docs/setup/).
 
 {{% notice info %}}
 Fission requires Kubernetes 1.9 or higher
