@@ -47,6 +47,9 @@ pygmentsStyle = "tango"
 [permalinks]
 blog = "/:section/:year/:month/:day/:slug/"
 
+[markup.goldmark.renderer]
+unsafe = true
+
 ## Configuration for BlackFriday markdown parser: https://github.com/russross/blackfriday
 [blackfriday]
 plainIDAnchors = true
