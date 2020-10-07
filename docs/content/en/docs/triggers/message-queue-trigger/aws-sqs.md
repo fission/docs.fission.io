@@ -29,13 +29,13 @@ When communicating to localstack we need aws cli installed in the respactive con
 Below are the commmand to create and send the message to a queue
 
 ```bash
-aws sqs create-queue --queue-name input
-aws sqs create-queue --queue-name output
-aws sqs create-queue --queue-name error
-
-aws sqs list-queues
-
-aws sqs send-message --queue-url https://sqs.ap-south-1.amazonaws.com/xxxxxxxx/input --message-body 'Test Message!'
+$ aws sqs create-queue --queue-name input
+$ aws sqs create-queue --queue-name output
+$ aws sqs create-queue --queue-name error
+  
+$ aws sqs list-queues
+  
+$ aws sqs send-message --queue-url https://sqs.ap-south-1.amazonaws.com/xxxxxxxx/input --message-body 'Test Message!'
 ```
 {{% /notice %}}
 
@@ -141,9 +141,9 @@ $ fission mqt create  --name sqstest --function consumerfunc --mqtype aws-sqs-qu
 ```
 
 {{% notice info %}}
-In case of localstack we don't have to give secret, for connecting to aws we need to create the secret e.g.
+if we are using localstack we don't have to give secret but if we are using aws SQS we need to provide the secret, below is the example to create secret
 ```bash
- kubectl create secret generic awsSecrets --from-env-file=./secret.yaml
+ $ kubectl create secret generic awsSecrets --from-env-file=./secret.yaml
  ```
 and secret.yaml file should contain values like
 ```yaml
