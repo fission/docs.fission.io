@@ -1,10 +1,10 @@
 ---
-title: "Aws SQS"
+title: "AWS SQS"
 draft: false
 weight: 78
 ---
 
-This tutorial will demonstrate how to use a aws sqs trigger to invoke a function.
+This tutorial will demonstrate how to use a AWS SQS trigger to invoke a function.
 We'll assume you have Fission and Kubernetes installed with AWS SQS Queue integration installed.
 If not, please head over to the [install guide]({{% ref "../../installation/_index.en.md" %}}).
 
@@ -19,9 +19,9 @@ If you want to setup SQS on the Kubernetes cluster, you can use the [information
 Before we dive into details, let's walk through overall flow of event and functions involved.
 
 1. A Go producer function (producerfunc) or aws cli command which acts as a producer and drops a message in a SQS queue named `input`.
-2. Fission sqs trigger activates and invokes another function (consumerfunc) with body of sqs message.
+2. Fission SQS trigger activates and invokes another function (consumerfunc) with body of SQS message.
 3. The consumer function (consumerfunc) gets body of message and returns a response.
-4. Fission sqs trigger takes the response of consumer function (consumerfunc) and drops the message in a response queue named `output`.
+4. Fission SQS trigger takes the response of consumer function (consumerfunc) and drops the message in a response queue named `output`.
    If there is an error, the message is dropped in error queue named `error`.
 
 {{% notice info %}}
@@ -88,7 +88,7 @@ func main() {
 }
 ```
 
-Since the go program uses aws sqs queue, we need to create the input queue to run the above program.
+Since the go program uses SQS queue, we need to create the input queue to run the above program.
 
 We are now ready to package this code and create a function so that we can execute it later.
 Following commands will create a environment, package and function.
@@ -170,7 +170,7 @@ There are a couple of ways you can verify that the consumerfunc is called:
 {"level":"info","ts":1602057917.4880567,"caller":"app/main.go:165","msg":"message deleted"}
 ```
 
-- Go to aws sqs queue and check if messages are comming in output queue
+- Go to aws SQS queue and check if messages are comming in output queue
 
 
 ## Introducing an error
@@ -199,5 +199,5 @@ Successfully sent to input
 
 We can verify the message in error queue as we did earlier:
 
-- Go to aws sqs queue and check if messages are comming in error queue
+- Go to aws SQS queue and check if messages are comming in error queue
 
