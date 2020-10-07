@@ -1,7 +1,7 @@
 ---
-title: "aws-sqs"
+title: "Aws SQS"
 draft: false
-weight: 4
+weight: 78
 ---
 
 This tutorial will demonstrate how to use a aws sqs trigger to invoke a function.
