@@ -32,9 +32,7 @@ Below are the commmand to create and send the message to a queue
 $ aws sqs create-queue --queue-name input
 $ aws sqs create-queue --queue-name output
 $ aws sqs create-queue --queue-name error
-  
 $ aws sqs list-queues
-  
 $ aws sqs send-message --queue-url https://sqs.ap-south-1.amazonaws.com/xxxxxxxx/input --message-body 'Test Message!'
 ```
 {{% /notice %}}
