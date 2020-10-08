@@ -5,14 +5,16 @@ weight: 78
 ---
 
 This tutorial will demonstrate how to use a AWS SQS trigger to invoke a function.
-We'll assume you have Fission and Kubernetes installed with AWS SQS Queue integration installed.
+We'll assume you have Fission and Kubernetes installed.
 If not, please head over to the [install guide]({{% ref "../../installation/_index.en.md" %}}).
 
 You will also need AWS SQS setup which is reachable from the Fission Kubernetes cluster.
 
 ## Installation
 
-If you want to setup SQS on the Kubernetes cluster, you can use the [information here](https://github.com/localstack/localstack) or you can create queue using your aws account [docs](https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-setting-up.html).
+If you want to setup SQS on the Kubernetes cluster, you can use the [information here](https://github.com/localstack/localstack) or you can create queue using your aws account [docs](https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-setting-up.html).  
+
+Also note that, if you are using localstack then it is only good for testing and dev environments and not for production usage. 
 
 ## Overview
 
@@ -135,8 +137,12 @@ Let's create a message queue trigger which will invoke the consumerfunc every ti
 The response will be sent to `output` queue and in case of consumerfunc invocation fails, the error is written to `error` queue.
 
 ```bash
-$ fission mqt create  --name sqstest --function consumerfunc --mqtype aws-sqs-queue --topic input --resptopic output --mqtkind keda --errortopic error --maxretries 3 --metadata queueURL=https://sqs.ap-south-1.amazonaws.com/xxxxxxxx/input --metadata awsRegion=ap-south-1 --cooldownperiod=30 --pollinginterval=5 --secret awsSecrets
+$ fission mqt create  --name sqstest --function consumerfunc --mqtype aws-sqs-queue --topic input --resptopic output --mqtkind keda --errortopic error --metadata queueURL=https://sqs.ap-south-1.amazonaws.com/xxxxxxxx/input --metadata awsRegion=ap-south-1 --secret awsSecrets
 ```
+Parameter list:
+- queueURL - Full URL for the SQS Queue
+- awsRegion - AWS Region for the SQS Queue
+- secret - AWS credentials require to connect the queue e.g. below
 
 {{% notice info %}}
 if we are using localstack we don't have to give secret but if we are using aws SQS we need to provide the secret, below is the example to create secret
