@@ -90,7 +90,7 @@ If you are using Helm, you should see release installed:
 ```
 helm list
 NAME   	NAMESPACE	REVISION	UPDATED                             	STATUS	CHART            	APP VERSION
-fission	fission  	1       	2020-05-19 16:31:46.947562 +0530 IST	success	fission-all-1.11.0	1.11.0
+fission	fission  	1       	2020-05-19 16:31:46.947562 +0530 IST	success	fission-all-1.11.1	1.11.1
 ```
 
 Also you should see the Fission services deployed and running:
