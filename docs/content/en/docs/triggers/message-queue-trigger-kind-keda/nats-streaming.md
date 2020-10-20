@@ -28,13 +28,13 @@ Before we dive into details, let's walk through overall flow of event and functi
 NATS streaming keda connector uses NATS monitoring to scale the deployment, to enable monitoring in nats we need to pass flags as below, you can get more [information here](https://docs.nats.io/nats-server/configuration/monitoring)
 
 ```bash
--m, --http_port PORT             HTTP PORT for monitoring  
+-m, --http_port PORT             HTTP PORT for monitoring    
 -ms,--https_port PORT            Use HTTPS PORT for monitoring  
 
 $ nats-server -m 8222
 ```
 
-To verify if the nats streaming server is us and running check below url
+To verify if the nats streaming server is up and running check below url
 ```bash
 $ curl http://localhost:8222/streaming/channelsz?channel=request
 ```
