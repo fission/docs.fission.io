@@ -13,7 +13,7 @@ You can create a function like following to use poolmgr as backend executor. You
 maximum number of concurrent pod specialization(default 5) to serve requests. The `concurrency` field is only supported by poolmgr.
 
 ```bash
-# The default executor type for function is poolmgr, 
+# The default executor type for function is poolmgr
 $ fission fn create --name foobar --concurrency=4 --env nodejs --code hello.js
 
 # Or, set executor type to poolmgr explicitly
