@@ -66,11 +66,3 @@ $ fission mqt create --name mqttest --function consumer --mqtype kafka \
 ```
 
 For complete tutorial refer [this blog post](https://blog.fission.io/posts/event-driven-scaling-fission-function-using-keda/).
-
-## RabbitMQ
-
-Message queue trigger using RabbitMQ with information of the rabbitMQ scaler [described here](https://keda.sh/docs/1.5/scalers/rabbitmq-queue/). Currently, only HTTP protocol is supported.
-
-```bash
-$ fission mqt create  --name rabbittest --function consumer --mqtype rabbitmq --topic request --resptopic response --mqtkind keda --errortopic error --maxretries 3 --metadata queueName=testqueue  --cooldownperiod=30 --pollinginterval=5 --secret keda-rabbitmq-secret
-```
