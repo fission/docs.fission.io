@@ -16,7 +16,7 @@ $ curl http://$FISSION_ROUTER/hello
 Hello World!
 ```
 
-{{% notice info %}} 
+{{% notice info %}}
 FISSION_ROUTER is the externally-visible address of your
 Fission router service.  For how to set up environment variable
 `FISSION_ROUTER`, see [here]({{% ref "../installation/env_vars.en.md" %}})
@@ -36,13 +36,12 @@ $ fission httptrigger create --method GET \
     --url "/guestbook/messages/{id:[0-9]+}" --function restapi-get
 ```
 
-{{% notice info %}} 
+{{% notice info %}}
 Learn how to access URL parameters in function to develop a **REST API**, please visit [here]({{% ref "../usage/accessing-url-params.md" %}})
 {{% /notice %}}
 
-If you want to use Kubernetes Ingress for the HTTP Trigger, you can
-provide the `--createingress` flag and a hostname.  If the hostname is
-not provided, it defaults to "*", which indicates a wildcard host.
+If you want to use Kubernetes Ingress for the HTTP Trigger, you can provide the `--createingress` flag and a hostname.
+If the hostname is not provided, it defaults to "*", which indicates a wildcard host.
 
 ```bash
 $ fission httptrigger create --url /hello --method GET --function hello --createingress --host acme.com
@@ -53,7 +52,8 @@ NAME                                 METHOD HOST     URL      INGRESS FUNCTION_N
 94cd5163-30dd-4fb2-ab3c-794052f70841 GET    acme.com /hello   true    hello
 ```
 
-Please note that for ingress to work, you will have to deploy an ingress controller in Kubernetes cluster. Kubernetes currently supports and maintains the following ingress controllers:
+Please note that for ingress to work, you will have to deploy an ingress controller in Kubernetes cluster.
+Kubernetes currently supports and maintains the following ingress controllers:
 
 - [Nginx Ingress Controller](https://github.com/kubernetes/ingress-nginx)
 - [GCE Ingress Controller](https://github.com/kubernetes/ingress-gce)

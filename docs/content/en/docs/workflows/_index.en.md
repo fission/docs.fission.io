@@ -6,10 +6,10 @@ description: >
 ---
 
 {{% notice info %}}
-Fission Workflow only supports Fission 0.4.1 ~ 0.12.0 
+Fission Workflow only supports Fission 0.4.1 ~ 0.12.0
 {{% /notice %}}
 
-### Prerequisites
+#### Prerequisites
 
 Fission Workflows requires the following components to be installed on your local machine:
 
@@ -19,13 +19,12 @@ Fission Workflows requires the following components to be installed on your loca
 Fission Workflows is deployed on top of a Kubernetes cluster.
 It requires a [Fission](https://github.com/fission/fission) deployment to be present on your Kubernetes cluster.
 If you do not have a Fission deployment, follow [Fission's installation guide]({{% ref "../installation/_index.en.md" %}}).
-
 **(Note that Fission Workflows 0.6.0 requires Fission 0.4.1 or higher, with the NATS component installed!)**
 
-### Installing Fission Workflows
+#### Installing Fission Workflows
 
-Fission Workflows is an add-on to Fission. You can install both
-Fission and Fission Workflows using helm charts.
+Fission Workflows is an add-on to Fission.
+You can install both Fission and Fission Workflows using helm charts.
 
 Assuming you have your Kubernetes cluster set up with a functioning deployment of Fission 0.4.1 or higher, run the following commands:
 
@@ -39,10 +38,9 @@ $ helm repo update
 $ helm install --wait -n fission-workflows fission-charts/fission-workflows --version 0.6.0
 ```
 
-### Creating your first workflow
+#### Creating your first workflow
 
-After installing Fission and Workflows, you're all set to run a simple
-test workflow.
+After installing Fission and Workflows, you're all set to run a simple test workflow.
 With the following code snippet you will be able to deploy and run a small workflow example:
 
 ```bash
@@ -79,9 +77,9 @@ $ fission route create --method GET --url /fortunewhale --function fortunewhale
 $ curl ${FISSION_ROUTER}/fortunewhale
 ```
 
-This last command, the invocation of the workflow, should return a whale saying something wise
+This last command, the invocation of the workflow, should return a whale saying something wise:
 
-```
+```text
  ______________________________________
 / Anthony's Law of Force:              \
 |                                      |
@@ -126,14 +124,15 @@ tasks:
 What you see is the [YAML](http://yaml.org/)-based workflow definition of the `fortunewhale` workflow.
 A workflow consists of multiple tasks, which are steps that it needs to complete.
 Each task has a unique identifier, such as `GenerateFortune`, a reference to a Fission function in the `run` field.
-Optionally, it can contain `inputs` which allows you to specify inputs to the task,
-as well as contain `requires` which allows you to specify which tasks need to complete before this task can start.
+Optionally, it can contain `inputs` which allows you to specify inputs to the task, as well as contain `requires` which allows you to specify which tasks need to complete before this task can start.
 Finally, at the top you will find the `output` field, which specifies the task whose output is used as the workflow's output.
 
 In this case, the `fortunewhale` workflow consists of a sequence of 3 tasks:
-```
+
+```text
 InternalFuncShowoff -> GenerateFortune -> WhaleWithFortune
 ```
+
 First, it starts with `InternalFuncShowoff` by running `noop`, which is an *internal function* in the workflow engine.
 Internal functions are run inside of the workflow engine, which makes them run much faster at the cost of expressiveness and scalability.
 So typically, light-weight functions, such as logic or control flow operations, are good candidates to be used as internal functions.
@@ -151,7 +150,8 @@ Finally, with all tasks completed, the workflow engine uses the top-level `outpu
 As the workflow engine adheres to the Fission function specification, a Fission workflow is just another Fission Function.
 This means that you could use this workflow as a function in the `run` in other workflows.
 
-### What's next?
+#### What's next?
+
 To learn more about the Fission Workflows system and its advanced concepts, see the [documentation on Github](https://github.com/fission/fission-workflows/tree/master/Docs).
 
 Or, check out the [examples](https://github.com/fission/fission-workflows/tree/0.6.0/examples) for more example workflows.

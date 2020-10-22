@@ -7,10 +7,9 @@ description: >
 
 In this section, we will cover how to troubleshoot the problems related to Kubernetes cluster setup.
 
-# Check In-Cluster Dns Service
+## Check In-Cluster Dns Service
 
-Fission utilizes in-cluster DNS to talk to other components, it's important to ensure that the in-cluster DNS
-service is available. 
+Fission utilizes in-cluster DNS to talk to other components, it's important to ensure that the in-cluster DNS service is available.
 
 First, check that we have running DNS pod(s).
 
@@ -19,53 +18,53 @@ $ kubectl -n kube-system get pod|grep dns
 coredns-fb8b8dccf-bjxmj                  1/1     Running   1          65m
 ```
 
-Create a pod and use `nslookup` to check availability of DNS service. 
+Create a pod and use `nslookup` to check availability of DNS service.
 
-```
+```bash
 $ kubectl -n fission get svc
 NAME                                       TYPE           CLUSTER-IP       EXTERNAL-IP   PORT(S)        AGE
 executor                                   ClusterIP      10.103.121.81    <none>        80/TCP         2d
 
 $ kubectl -n fission run busybox --image=busybox --restart=Never --tty -it
 / # nslookup executor
-Server:		10.96.0.10
-Address:	10.96.0.10:53
+Server:   10.96.0.10
+Address:  10.96.0.10:53
 
-Name:	executor.fission.svc.cluster.local
-Address: 10.103.121.81
+Name:     executor.fission.svc.cluster.local
+Address:  10.103.121.81
 ```
 
-The DNS service will return an address which matches the address shown in the previous command. 
+The DNS service will return an address which matches the address shown in the previous command.
 
-For more debugging DNS resolution, see [here](https://kubernetes.io/docs/tasks/administer-cluster/dns-debugging-resolution/). 
+For more debugging DNS resolution, see [here](https://kubernetes.io/docs/tasks/administer-cluster/dns-debugging-resolution/).
 
-# KubeConfig for Connecting to Cluster
+## KubeConfig for Connecting to Cluster
 
-Make sure that `~/.kube/config` exists or assign the correct value to `KUBECONFIG`. 
+Make sure that `~/.kube/config` exists or assign the correct value to `KUBECONFIG`.
 
 ```bash
 # https://github.com/fission/fission/issues/1133
 Fatal error: Error getting controller pod for port-forwarding
 ```
 
-If you run the cluster on cloud provider, follow the platform steps to add token to `~/.kube/config` for connecting kubernetes cluster.
+If you run the cluster on cloud provider, follow the platform steps to add token to `~/.kube/config` for connecting kubernetes cluster:
 
-* GKE: https://cloud.google.com/kubernetes-engine/docs/how-to/cluster-access-for-kubectl
-* AWS: https://docs.aws.amazon.com/eks/latest/userguide/create-kubeconfig.html
-* Azure: https://docs.microsoft.com/en-us/azure/aks/kubernetes-walkthrough#connect-to-the-cluster
+* GKE: <https://cloud.google.com/kubernetes-engine/docs/how-to/cluster-access-for-kubectl>
+* AWS: <https://docs.aws.amazon.com/eks/latest/userguide/create-kubeconfig.html>
+* Azure: <https://docs.microsoft.com/en-us/azure/aks/kubernetes-walkthrough#connect-to-the-cluster>
 
-# Error Upgrading Connection
+## Error Upgrading Connection
 
 Please check the pod status & log when CLI prompts `error upgrading connection` error.
 
 ```bash
-Fatal error: Error forwarding to port 51204: error upgrading connection: 
+Fatal error: Error forwarding to port 51204: error upgrading connection:
 unable to upgrade connection: pod not found ("controller-b87cd7857-8n75g_fission")
 ```
 
-# Dynamic Volume Provisioning
+## Dynamic Volume Provisioning
 
-Package storage and Prometheus services need persistent volume to store data. 
+Package storage and Prometheus services need persistent volume to store data.
 See [here](https://kubernetes.io/docs/concepts/storage/dynamic-provisioning/) to learn how to set up dynamic volume provisioning.
 And you should be able to list `pvc` and `pv` as follows after setting up.
 
@@ -89,10 +88,10 @@ If the underlying platform the cluster running on doesn't support persistent vol
 helm install --namespace fission --set persistence.enabled=false .....
 ```
 
-# Function Doesn't Scale
+## Function Doesn't Scale
 
-Fission relies on Kubernetes autoscaling mechanism to scale replicas of function when workloads increase. To enable it,
-you have to enable/install the metric server in your cluster. 
+Fission relies on Kubernetes autoscaling mechanism to scale replicas of function when workloads increase.
+To enable it, you have to enable/install the metric server in your cluster.
 
 ```bash
 # minikube
@@ -101,10 +100,10 @@ $ minikube addons enable metrics-server
 
 If you're not running on other platforms, see [metric-server](https://github.com/kubernetes-incubator/metrics-server).
 
-# HPA with Unknown Status
+## HPA with Unknown Status
 
-You may see `<unknown>` status as follows. It's because it takes some time for metric-server to collect enough 
-information to calculate the right number of replicas after installing metric server. 
+You may see `<unknown>` status as follows.
+It's because it takes some time for metric-server to collect enough information to calculate the right number of replicas after installing metric server.
 
 ```bash
 $ kubectl get hpa

@@ -47,6 +47,9 @@ pygmentsStyle = "tango"
 [permalinks]
 blog = "/:section/:year/:month/:day/:slug/"
 
+[markup.goldmark.renderer]
+unsafe = true
+
 ## Configuration for BlackFriday markdown parser: https://github.com/russross/blackfriday
 [blackfriday]
 plainIDAnchors = true
@@ -90,7 +93,7 @@ gcs_engine_id = "013477323950444988730:is1ujykktrh"
 # current release branch - could be rc
 release_branch = "master"
 # the main version. Never is rc.
-release_version = "1.10.0"
+release_version = "1.11.1"
 
 # User interface configuration
 [params.ui]

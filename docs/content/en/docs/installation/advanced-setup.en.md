@@ -141,11 +141,10 @@ If the value of `router.traceSamplingRate` is `1` means to sample all incoming r
 
 ## Orphaned Resource Adoption (Experiment, 1.7.0+)
 
-The executor used to be a stateful application that stores all kubernetes resources information it created in memory. 
-Store in memory means we are not able to retrieve information back if executor pod gets deleted/restarted. So 
-when a new executor starts, it detects and removes the kubernetes objects created by the deleted executors in order to
-rebuild the resources map. However, this approach may affect alive requests to function pods and terminates/deletes all existing
-pods when executor starts.
+The executor used to be a stateful application that stores all kubernetes resources information it created in memory.
+Store in memory means we are not able to retrieve information back if executor pod gets deleted/restarted.
+So when a new executor starts, it detects and removes the kubernetes objects created by the deleted executors in order to rebuild the resources map.
+However, this approach may affect alive requests to function pods and terminates/deletes all existing pods when executor starts.
 
 After 1.7.0, we use annotations to store all necessary information for resource adoption. Also,
 an experiment feature allows the executor to adopt existing orphaned kubernetes objects has been added
