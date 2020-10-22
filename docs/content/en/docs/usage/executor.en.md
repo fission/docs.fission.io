@@ -9,8 +9,7 @@ In this guide, we will go through how to set up/config different executors for f
 
 #### Poolmgr (Pool-based executor)
 
-You can create a function like following to use poolmgr as backend executor. You can use the `concurrency` field to control the 
-maximum number of concurrent pod specialization(default 5) to serve requests. The `concurrency` field is only supported by poolmgr.
+You can create a function like following to use poolmgr as backend executor. You can use the `concurrency` field to control the maximum number of concurrent pod specialization(default 5) to serve requests. The `concurrency` field is only supported by poolmgr.
 
 ```bash
 # The default executor type for function is poolmgr
