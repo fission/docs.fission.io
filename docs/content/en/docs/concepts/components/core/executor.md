@@ -51,10 +51,9 @@ If a new requests come after the earlier specialized pod was cleaned up, then a 
 
 PoolManager is great for functions that are **short-living** and requires a **short cold start time** [1].
 
-In previous versions, PoolManager had certain limitations. It used to select only 
-one pod per function, which is not suitable if you want to serve more requests in parallel. To overcome 
-this limitation, the `concurrency` field is introduced to control the maximum number 
-of concurrent pod specialization(default 5) to serve requests.
+In previous versions, PoolManager had certain limitations.
+It used to select only one pod per function, which is not suitable if you want to serve more requests in parallel.
+To overcome this limitation, the `concurrency` field is introduced to control the maximum number of concurrent pod specialization(default 5) to serve requests.
 
 [1] The cold start time depends on the package size of the function. If it's
 a snippet of code, the cold start time usually is less then 100ms.
