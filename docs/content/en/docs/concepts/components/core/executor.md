@@ -124,7 +124,7 @@ In future, a more intelligent dispatch mechanism will enable more complex combin
 The new deployment based executor provides autoscaling for functions based on CPU usage.
 In future custom metrics will be also supported for scaling the functions.
 You can set the initial and maximum CPU for a function and target CPU at which autoscaling will be triggered.
-Autoscaling is useful for workloads where you expect intermittant spikes in workloads.
+Autoscaling is useful for workloads where you expect intermittent spikes in workloads.
 It also enables optimal the usage of resources to execute functions, by using a baseline capacity with minimum scale and ability to burst up to maximum scale based on spikes in demand.
 
 {{% notice info %}}
