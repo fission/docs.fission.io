@@ -20,7 +20,7 @@ To access CRDs in all namespaces, a service account with cluster-wide admin perm
 
 1. The clients send requests to the endpoints on Controller.
 2. (A) Controller operates the CRDs based on the request.
-3. (B) If a request is to the another internal service, proxy the request to the service.
+3. (B) If a request is to another internal service, proxy the request to the service.
 
 ## API
 
