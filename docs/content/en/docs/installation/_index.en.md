@@ -268,7 +268,7 @@ this windows executable: [fission.exe](https://github.com/fission/fission/releas
 Finally, you're ready to use Fission!
 
 ```sh
-$ fission env create --name nodejs --image fission/node-env:{{% release-version %}}
+$ fission env create --name nodejs --image fission/node-env:latest
 
 $ curl -LO https://raw.githubusercontent.com/fission/fission/master/examples/nodejs/hello.js
 
