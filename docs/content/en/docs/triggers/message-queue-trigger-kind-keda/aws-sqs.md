@@ -149,10 +149,10 @@ if we are using localstack we don't have to give secret but if we are using aws 
 ```bash
  $ kubectl create secret generic awsSecrets --from-env-file=./secret.yaml
  ```
-and secret.yaml file should contain values like
+and secret.yaml file should contain values which should correspond with `parameter` name in `TriggerAuthentication.spec.secretTargetRef` like
 ```yaml
-AWS_ACCESS_KEY_ID=foo
-AWS_SECRET_ACCESS_KEY=bar
+awsAccessKeyID=foo 
+awsSecretAccessKey=bar
 ```
 {{% /notice %}}
 
