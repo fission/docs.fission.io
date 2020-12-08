@@ -5,7 +5,7 @@ weight: 20
 
 ## Oberservability with Linkerd
 
-[Linkerd](linkerd.io) is a simple and flexible service mesh which can work out of the box with Fission. 
+[Linkerd](https://linkerd.io) is a simple and flexible service mesh which can work out of the box with Fission. 
 In this post, we'll take a look at how it can provide metrics for the functions deployed and for Fission.
 
 ### Prerequisites
