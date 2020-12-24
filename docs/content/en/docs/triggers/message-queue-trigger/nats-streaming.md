@@ -3,10 +3,10 @@ title: "NATS Streaming"
 weight: 2
 ---
 
-{{% notice info %}}
+{{< notice info >}}
 Fission uses [**NATS Streaming**](https://github.com/nats-io/nats-streaming-server) instead of pure [NATS](https://nats.io/) as the default message queue service.</br>
 Please ensure you use the correct library to connect to NATS Streaming service.
-{{% /notice %}}
+{{< /notice >}}
 
 ## Installation
 
@@ -33,9 +33,9 @@ NAME             TYPE        CLUSTER-IP    EXTERNAL-IP   PORT(S)    AGE
 nats-streaming   ClusterIP   10.97.32.55   <none>        4222/TCP   6d
 ```
 
-{{% notice info %}}
+{{< notice info >}}
 For further nats-streaming configuration/operation, please visit [NATS docs](https://docs.nats.io/).
-{{% /notice %}}
+{{< /notice >}}
 
 ## Connection Information
 

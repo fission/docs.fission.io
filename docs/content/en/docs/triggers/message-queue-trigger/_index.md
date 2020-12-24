@@ -30,9 +30,9 @@ $ fission mqtrigger create --name hello --function node --topic foobar \
 
 If a function returns with 200 HTTP status code, the MQTrigger will send the response body to `resptopic`; otherwise, MQTrigger will retry multiple times until reach `maxretries` and sends to `errortopic` if all invocations failed.
 
-{{% notice warning %}}
+{{< notice warning >}}
 Currently, only **NATS Streaming** and **Kafka** type of message queue trigger supports error topic.
-{{% /notice %}}
+{{< /notice >}}
 
 ```bash
 $ fission mqt create --name hellomsg --function hello --mqtype nats-streaming --topic newfile --resptopic newfileresponse

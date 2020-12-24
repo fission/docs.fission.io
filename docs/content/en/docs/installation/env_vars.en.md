@@ -7,9 +7,9 @@ description: >
 
 ## Namespace
 
-{{% notice info %}}
+{{< notice info >}}
 You only need to set this if there are multiple Fission installations in **different namespaces** within the same Kubernetes cluster.
-{{% /notice %}}
+{{< /notice >}}
 
 Set `FISSION_NAMESPACE` to the namespace where the Fission installed.
 
@@ -19,14 +19,14 @@ $ export FISSION_NAMESPACE <namespace>
 
 ## Fission Router Address
 
-{{% notice info %}}
+{{< notice info >}}
 You don't need to set this if you're simply running `fission function test --name <fn>`, because Fission CLI uses **local port-forward** mechanism to talk to router pod.  
-{{% /notice %}}
+{{< /notice >}}
 
-{{% notice warning %}}
+{{< notice warning >}}
 Fission CLI uses value in `FISSION_ROUTER` if it's not empty instead of using local port-forward mechanism.</br>
 You need to ensure that the IP address in it is **accessible** from the public network.
-{{% /notice %}}
+{{< /notice >}}
 
 It's convenient to set the `FISSION_ROUTER` environment variable to the **externally-visible** address of the Fission router.
 

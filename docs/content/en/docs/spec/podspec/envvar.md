@@ -6,10 +6,10 @@ date: 2019-12-06T17:02:55+08:00
 Functions sometimes require to pass-in parameter through environment variable to control internal behavior of a function like `GOMAXPROCS` for Go or you may want to expose secret/configmap as environment variable.
 In such cases, we can add `env` to PodSpec.
 
-{{% notice info %}}
+{{< notice info >}}
 As Docker doesn't support to change configuration of a container once it's created.
 To ensure different executor types have consistent behavior, Fission only supports to set environment variable at Environment-level now.
-{{% /notice %}}
+{{< /notice >}}
 
 ## Add environment variable
 

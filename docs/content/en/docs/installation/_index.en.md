@@ -22,9 +22,9 @@ Helm](#without-helm).
 
 If you don't have a Kubernetes cluster, [here's a official guide to set one up](https://kubernetes.io/docs/setup/).
 
-{{% notice info %}}
+{{< notice info >}}
 Fission requires Kubernetes 1.9 or higher
-{{% /notice %}}
+{{< /notice >}}
 
 ## Kubectl
 
@@ -46,9 +46,9 @@ the next section](#install-fission).
 To install helm, first you'll need the helm CLI. Visit [here](https://helm.sh/docs/intro/install/) 
 to see how to install it.
 
-{{% notice info %}}
+{{< notice info >}}
 You can skip the following and head over [Fission installation](#install-fission) if you're using Helm **v3**.
-{{% /notice %}}
+{{< /notice >}}
 
 Next, install the Helm server on your Kubernetes cluster.  Before you
 do that, you have to give helm's server privileges to install software
@@ -210,9 +210,9 @@ anything in it. Create namespace for fission installation.
 $ kubectl create namespace fission 
 ```
   
-{{% notice info %}}
+{{< notice info >}}
 * If you want to install in another namespace, please consider to use `helm`.
-{{% /notice %}}
+{{< /notice >}}
 
 Choose _one_ of the following commands to run:
 

@@ -116,10 +116,10 @@ router.displayAccessLog=true
 when using helm to deploy 1.7.0. Or, you can change the environment variable 
 `DISPLAY_ACCESS_LOG` of router deployment to `"true"`.  
 
-{{% notice warning %}}
+{{< notice warning >}}
 Once enabling endpoint access log, the router resource 
 utilization increases when under heavy workloads.
-{{% /notice %}}
+{{< /notice >}}
 
 ## ProbabilitySampler in router
 
@@ -169,6 +169,6 @@ Or, you can enable it by modifying environment variable of deployment of executo
   value: "true"
 ```
 
-{{% notice warning %}}
+{{< notice warning >}}
 The executor will still delete resources when you upgrade from a version prior 1.7.0 even the feature is enabled.
-{{% /notice %}}
+{{< /notice >}}

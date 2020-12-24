@@ -16,11 +16,11 @@ $ curl http://$FISSION_ROUTER/hello
 Hello World!
 ```
 
-{{% notice info %}}
+{{< notice info >}}
 FISSION_ROUTER is the externally-visible address of your
 Fission router service.  For how to set up environment variable
 `FISSION_ROUTER`, see [here]({{% ref "../installation/env_vars.en.md" %}})
-{{% /notice %}}
+{{< /notice >}}
 
 Also, we can create a trigger contains URL parameter by putting placeholders in value of `--url` flag.
 
@@ -36,9 +36,9 @@ $ fission httptrigger create --method GET \
     --url "/guestbook/messages/{id:[0-9]+}" --function restapi-get
 ```
 
-{{% notice info %}}
+{{< notice info >}}
 Learn how to access URL parameters in function to develop a **REST API**, please visit [here]({{% ref "../usage/accessing-url-params.md" %}})
-{{% /notice %}}
+{{< /notice >}}
 
 If you want to use Kubernetes Ingress for the HTTP Trigger, you can provide the `--createingress` flag and a hostname.
 If the hostname is not provided, it defaults to "*", which indicates a wildcard host.
