@@ -11,7 +11,7 @@ We will assume that you already have a Kubernetes cluster setp and working.
 #### Set up Istio
 
 For installing Istio, please follow the setup guides [here](https://istio.io/docs/setup/kubernetes/install/).
-You can use a setup that works for you, we used the Helm install for Istio for this tutorial as [detailed here](https://istio.io/docs/setup/kubernetes/install/helm/).
+You can use a setup that works for you, we used the Helm install for Istio for this tutorial as [detailed here](https://istio.io/latest/docs/setup/install/helm/).
 
 #### Install fission
 
