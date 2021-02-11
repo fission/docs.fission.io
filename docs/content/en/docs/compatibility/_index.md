@@ -1,5 +1,5 @@
 ---
-title: "Compatibility Matrix"
+title: "Compatibility"
 weight: 1
 description: >
   Fission Compatibility with Keda and Keda Connectors
