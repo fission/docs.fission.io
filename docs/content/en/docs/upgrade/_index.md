@@ -9,5 +9,5 @@ In fission 1.11.2, OpenAPI Schema Validations were introduced, which requires to
 
 1. Take backup of your CRs.
 2. Uninstall fission
-3. Run `kubectl get crds | awk '{print $1}' | xargs -n1 kubectl delete crds` to delete all customresourcedefinition.
+3. Run `kubectl get crds | awk '{print $1}' | grep "fission.io" | xargs -n1 kubectl delete crds` to delete all customresourcedefinition.
 4. Install fission version 1.11.2 or 1.12.0
