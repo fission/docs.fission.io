@@ -1,6 +1,6 @@
 ---
 title: "Upgrade"
-weight: 2
+weight: -1
 description: >
   Upgrade guidance 1.10 onwards
 ---
