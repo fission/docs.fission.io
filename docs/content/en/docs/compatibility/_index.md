@@ -12,4 +12,4 @@ description: >
 
 All Keda Connector images can be used with both fission version except the Kafka connector, which has some breaking changes.
 
-Going forward all environment images for each language would follow its own version. For now all environment image tag starts with image tag `1.11.2`.
+Going forward all environment images for each language would follow its own version. For now all environment images have tag `1.11.0`.
