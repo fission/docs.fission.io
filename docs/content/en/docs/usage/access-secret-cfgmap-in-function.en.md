@@ -129,9 +129,9 @@ If the Secret or ConfigMap value is updated, the function will not get the updat
 {{% /notice %}}
 
 ## Fission Function and Secrets/ConfigMaps Namespace
-As of v1.12.0, you should aim to your fission function and the secret/configmap it is accessing in the same namespace. Fission will create a `RoleBinding` called `secret-configmap-getter-binding` in your function's namespace to access secrets/configmaps in the same namespace.
+As of v1.12.0, you should aim to have your fission function and the secret/configmap it is accessing in the same namespace. Fission will create a `RoleBinding` called `secret-configmap-getter-binding` in your function's namespace to access secrets/configmaps in the same namespace. Unexpected behavior can occur if functions are trying to access secrets/configmaps in a different namespace because the RoleBinding Fission creates is expecting secrets/configmaps to be in the same namespace.
 
-Do not manually create this rolebinding with the same name because Fission has a reaper function that will remove this rolebinding every 30 minutes if it cannot find functions in the same namespace as the `RoleBinding`. Here is the function that reaps dangling RoleBindings: https://github.com/fission/fission/blob/cc552d9777057ef1ae0fdfeef0a27126a1b8afcf/pkg/executor/reaper/reaper.go#L182
+Do not manually create this rolebinding with the same name (`secret-configmap-getter-binding`) because Fission has a reaper function that will remove this rolebinding every 30 minutes if it cannot find functions in the same namespace as the `RoleBinding`. Here is the function that reaps dangling RoleBindings: https://github.com/fission/fission/blob/cc552d9777057ef1ae0fdfeef0a27126a1b8afcf/pkg/executor/reaper/reaper.go#L182
 
 Errors that indicate this is an issue:
 
