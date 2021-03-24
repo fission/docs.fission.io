@@ -3,28 +3,30 @@ title: "Python3"
 weight: 10
 ---
 
-Fission supports functions written in Python.  Both Python 2.x and
-Python 3.x are supported.  In this usage guide we'll cover how to set
-up and use a Python environment on Fission, write functions, and work
-with dependencies.  We'll also cover basic troubleshooting.
+Fission supports functions written in Python.
+Both Python 2.x and Python 3.x are supported.
+In this usage guide we'll cover how to set up and use a Python environment on Fission, write functions, and work with dependencies.
+We'll also cover basic troubleshooting.
 
 ### Before you start
 
-We'll assume you have Fission and Kubernetes setup.  If not, head over
-to the [installation guide]({{% ref "../installation/_index.en.md" %}}).  Verify your Fission setup with:
+We'll assume you have Fission and Kubernetes setup.
+If not, head over to the [installation guide]({{% ref "../installation/_index.en.md" %}}).
 
-```
+Verify your Fission setup with:
+
+```bash
 $ fission version
 ```
 
 ### Add the Python environment to your cluster
 
-Fission language support is enabled by creating an _Environment_.  An
-environment is the language-specific part of Fission.  It has a
-container image in which your function will run.
+Fission language support is enabled by creating an _Environment_.
+An environment is the language-specific part of Fission.
+It has a container image in which your function will run.
 
-```
-$ fission environment create --name python --image fission/python-env 
+```bash
+$ fission environment create --name python --image fission/python-env
 ```
 
 ### Create a simple function in Python
@@ -50,10 +52,8 @@ $ fission function test --name hello
 Hello, world!
 ```
 
-You can also invoke this function by creating an HTTP trigger and
-making an HTTP request to the Fission router.  Ensure you have your
-router's address in the `FISSION_ROUTER` environment variable as 
-[this guide describes]({{% ref "../installation/env_vars.en.md" %}}#fission-router-address).
+You can also invoke this function by creating an HTTP trigger and making an HTTP request to the Fission router.
+Ensure you have your router's address in the `FISSION_ROUTER` environment variable as [this guide describes]({{% ref "../installation/env_vars.en.md" %}}#fission-router-address).
 Then,
 
 ```bash
@@ -65,10 +65,10 @@ Hello, world!
 
 ### Function input and output interface
 
-In this section we'll describe the input and output interfaces of
-Python functions in Fission.  Fission's Python integration is built on
-the Flask framework.  You can access HTTP requests and responses as
-you do in Flask.  We'll provide some examples below.
+In this section we'll describe the input and output interfaces of Python functions in Fission.
+Fission's Python integration is built on the Flask framework.
+You can access HTTP requests and responses as you do in Flask.
+We'll provide some examples below.
 
 #### Accessing HTTP Requests
 
