@@ -90,23 +90,6 @@ func main() {
 
 Since the go program uses SQS queue, we need to create the input queue to run the above program.
 
-We are now ready to package this code and create a function so that we can execute it later.
-Following commands will create a environment, package and function.
-Verify that build for package succeeded before proceeding.
-
-```sh
-$ fission env create --name goenv --image fission/go-env --builder fission/go-builder
-$ zip -qr sqs.zip *
-$ fission package create --env goenv --src sqs.zip
-Package 'sqs-zip-xpoi' created
-$ fission fn create --name producerfunc --env goenv --pkg sqs-zip-xpoi --entrypoint Handler
-$ fission package info --name sqs-zip-xpoi
-Name:        sqs-zip-xpoi
-Environment: go-sqs
-Status:      succeeded
-Build Logs:
-Building in directory /usr/src/sqs-zip-xpoi-1bicov
-```
 
 ### Consumer function
 
@@ -158,11 +141,10 @@ awsSecretAccessKey=bar
 
 ### Testing it out
 
-Let's invoke the producer function so that the queue `input` gets some messages and we can see the consumer function in action.
+We can run the producer function locally
 
 ```bash
-$ fission fn test --name producerfunc
-Successfully sent to input
+$ go run producer.go
 ```
 
 There are a couple of ways you can verify that the consumerfunc is called:
@@ -192,13 +174,12 @@ module.exports = async function (context) {
 }
 ```
 
-Update the function with new code and invoke the producer function:
+Update the function with new code and run the producer function:
 
 ```bash
 $ fission fn update --name consumerfunc --code hellosqs.js
 
-$ fission fn test --name producerfunc
-Successfully sent to input
+$ go run producer.go
 ```
 
 We can verify the message in error queue as we did earlier:

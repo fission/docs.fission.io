@@ -59,7 +59,7 @@ import (
 )
 
 func main() {
-	endpoint := "http://localhost:4568"
+	endpoint := "https://{service}.{region}.amazonaws.com"
 	region := "us-east-1"
 	config := &aws.Config{
 		Region:   &region,
@@ -89,25 +89,7 @@ func main() {
 }
 ```
 
-Since the go program uses Kinesis stream, we need to create the request stream to run the above program.
-
-We are now ready to package this code and create a function so that we can execute it later.
-Following commands will create a environment, package and function.
-Verify that build for package succeeded before proceeding.
-
-```sh
-$ fission env create --name goenv --image fission/go-env --builder fission/go-builder
-$ zip -qr kinesis.zip *
-$ fission package create --env goenv --src kinesis.zip
-Package 'kinesis-zip-cy16' created
-$ fission fn create --name producerfunc --env goenv --pkg kinesis-zip-cy16 --entrypoint Handler
-$ fission package info --name kinesis-zip-cy16
-Name:        kinesis-zip-cy16
-Environment: goenv
-Status:      succeeded
-Build Logs:
-Building in directory /usr/src/kinesis-zip-cy16-o3vrx1
-```
+Since the go program uses Kinesis stream, we need to create the request stream, one's connector is created we can run the above program
 
 ### Consumer function
 
@@ -160,11 +142,10 @@ AWS_SECRET_ACCESS_KEY=bar
 
 ### Testing it out
 
-Let's invoke the producer function so that the stream `request` gets some messages and we can see the consumer function in action.
+Let's invoke the producer function which we have create above, so that the stream `request` gets some messages and we can see the consumer function in action.
 
 ```bash
-$ fission fn test --name  
-Successfully sent to input
+$ go run producer.go
 ```
 
 There are a couple of ways you can verify that the consumerfunc is called:
