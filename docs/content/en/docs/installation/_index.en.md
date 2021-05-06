@@ -286,5 +286,5 @@ If something went wrong, we'd love to help -- please [drop by the
 slack channel](https://join.slack.com/t/fissionio/shared_invite/enQtOTI3NjgyMjE5NzE3LTllODJiODBmYTBiYWUwMWQxZWRhNDhiZDMyN2EyNjAzMTFiYjE2Nzc1NzE0MTU4ZTg2MzVjMDQ1NWY3MGJhZmE) and ask for help.
 
 Check out the
-[examples](https://github.com/fission/fission/tree/master/examples)
+[examples](https://github.com/fission/examples)
 for some example functions.
