@@ -86,7 +86,7 @@ $ docker build . -t producer:latest
 $ kind load docker-image producer:latest --name kind-1 
 $ kubectl apply -f deployment.yaml //replicas is set to 0 when deployed
 ```
-
+[Go file](https://github.com/fission/keda-connectors/blob/master/nats-streaming-http-connector/test/producer/main.go)
 ``` go
 package main
 
@@ -115,8 +115,53 @@ func main() {
 	
 	select {}
 }
+```
+[Dockerfile](https://github.com/fission/keda-connectors/blob/master/nats-streaming-http-connector/test/producer/Dockerfile)
+```docker
+FROM golang:1.12-alpine as builder
+
+RUN apk add bash ca-certificates git gcc g++ libc-dev
 
 
+RUN mkdir /app
+WORKDIR /app
+COPY go.mod . 
+COPY go.sum .
+
+RUN go mod download
+
+# Copy source code to image
+COPY . .
+
+RUN go build -a -o /go/bin/main
+FROM alpine:3.12 as base
+RUN apk add --update ca-certificates
+COPY --from=builder /go/bin/main /
+
+ENTRYPOINT ["/main"] 
+```
+[deployment.yaml](https://github.com/fission/keda-connectors/blob/master/nats-streaming-http-connector/test/producer/deployment.yaml)
+```yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: nats-pub
+  name: nats-pub
+spec:
+  replicas: 0
+  selector:
+    matchLabels:
+      app: nats-pub
+  template:
+    metadata:
+      labels:
+        app: nats-pub
+    spec:
+      containers:
+      - image: producer:latest
+        imagePullPolicy: Never
+        name: producer
 ```
 
 Verify that deployment succeeded before proceeding.
