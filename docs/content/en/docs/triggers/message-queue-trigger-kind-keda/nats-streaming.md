@@ -31,6 +31,7 @@ $ kubectl apply -f nats-dep.yaml
 NAME                                         READY   STATUS    RESTARTS   AGE
 nats-streaming-deployment-646768fcfd-qtpmk   1/1     Running   0          8s
 ```
+You can find above file reference [here](https://github.com/fission/keda-connectors/blob/master/nats-streaming-http-connector/test/nats-streaming-server/nats-dep.yaml)  
 
 Verify if monitoring endpoint is rechable by exec into any container
 ```sh
@@ -77,7 +78,7 @@ Before we dive into details, let's walk through overall flow of event and functi
 
 The producer function is a go program which creates a message and drops into a NATS streaming queue `request`.
 For brevity all values have been hard coded in the code itself.
-There are different ways of loading this function into cluster, i have tried by creating the deployment. The docker and other file is present under nats-streaming-http-connector/test/producer folder.
+There are different ways of loading this function into cluster, i have tried by creating the deployment. The docker and other file is present under nats-streaming-http-connector/test/producer folder [here](https://github.com/fission/keda-connectors/blob/master/nats-streaming-http-connector/test/producer).
 
 Below are the steps i did
 ```sh
@@ -127,7 +128,7 @@ nats-pub   0/0     0            0
 ```
 ### Consumer function
 
-The consumer function is golang function which takes the body of the request, appends a "Hello" and returns the resulting string, the code is present in nats-streaming-http-connector/test/consumer
+The consumer function is golang function which takes the body of the request, appends a "Hello" and returns the resulting string, the code is present in nats-streaming-http-connector/test/consumer [here](https://github.com/fission/keda-connectors/tree/master/nats-streaming-http-connector/test/consumer)
 
 ```go
 package main
