@@ -37,7 +37,7 @@ $ fission fn create --name hello --code hello.js --env node
 Next, let's create a route for the function which can be used for making HTTP requests:
 
 ```bash
-$ fission route create --function hello --url /hello
+$ fission route create --function hello --url /hello --name hello
 
 trigger '5327e9a7-6d87-4533-a4fb-c67f55b1e492' created
 ```
