@@ -79,7 +79,7 @@ Now that a Fission function did work with Istio, let's check under the hood see 
 After installation, you will see that all components such as executor, router etc. now have an additional sidecar for istio-proxy and they also had a istio-init as a init container.
 
 ```bash
-$ kubectl get pods -nfission
+$ kubectl get pods -n fission
 NAME                                                     READY     STATUS             RESTARTS   AGE
 buildermgr-86858f4f6c-drhlv                              2/2       Running            0          7m
 controller-78cbdfc4fb-vdjsj                              2/2       Running            0          7m
@@ -99,7 +99,7 @@ executor-97c7fc96d-9tclp                                 2/2       Running      
 Also all function pods now have 3 containers - the function container, fetcher and now additionally the the istio-proxy container and we can see the istio-proxy logs for function containers.
 
 ```bash
-$ kubectl get pods -nfission-function
+$ kubectl get pods -n fission-function
 NAME                                                READY     STATUS    RESTARTS   AGE
 newdeploy-hello-default-mmrlkoog-557678fdcd-gw7tz   3/3       Running   2          9m
 poolmgr-node-default-esibbicv-65488fbc4d-2hdzc      3/3       Running   0          9m
