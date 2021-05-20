@@ -297,4 +297,4 @@ To improve the portability, you can specify a URL that points to the target arch
 
 ## More Examples
 
-For more specs example, visit <https://github.com/fission/fission/tree/master/examples/spec-example>
+For more spec examples, please visit [fission/examples](https://github.com/fission/examples/tree/master/spec-example).
