@@ -80,7 +80,7 @@ $ fission fn create --name fna-v2 --code hello2.js --env nodejs
 3. Create an http trigger to these functions:
 
 ```bash
-$ fission route create --name route-fn-a --function fna-v1 --weight 100 --function fna-v2 --weight 0
+$ fission route create --name route-fn-a --function fna-v1 --weight 100 --function fna-v2 --weight 0 --url /hello2
 ```
 
 4. Create a canary config:
