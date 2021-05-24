@@ -360,7 +360,7 @@ $ mkdir example
 $ pushd example
 $ glide init --non-interactive
 $ glide get "github.com/golang/example/stringutil"
-$ curl https://raw.githubusercontent.com/fission/fission/master/examples/go/vendor-example/main.go > main.go
+$ curl https://raw.githubusercontent.com/fission/examples/master/go/vendor-example/main.go > main.go
 $ zip -r example.zip .
 $ fission fn create --name foobar --src example.zip --entrypoint Handler
 # wait for package build process

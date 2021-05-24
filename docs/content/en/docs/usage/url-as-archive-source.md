@@ -14,7 +14,7 @@ This approach brings couple benefits:
 
 ```bash
 $ fission pkg create --spec --name dummy-package2 --env nodejs \
-    --code https://raw.githubusercontent.com/fission/fission/master/examples/nodejs/hello.js
+    --code https://raw.githubusercontent.com/fission/examples/master/nodejs/hello.js
 ```
 
 which results in:
@@ -30,7 +30,7 @@ spec:
   deployment:
     checksum: {}
     type: url
-    url: https://raw.githubusercontent.com/fission/fission/master/examples/nodejs/hello.js
+    url: https://raw.githubusercontent.com/fission/examples/master/nodejs/hello.js
     ....
 ```
 
