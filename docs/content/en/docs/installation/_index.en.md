@@ -43,12 +43,12 @@ $ kubectl version
 Helm is an installer for Kubernetes.  If you already use helm, [skip to
 the next section](#install-fission).
 
-Helm v2 is deprecated, Fission can be installed via helm v3. 
 
 To install helm, first you'll need the helm CLI. Visit [here](https://helm.sh/docs/intro/install/) 
 to see how to install it.
 
 {{% notice info %}}
+Helm v2 is deprecated, Fission can be installed via helm v3. 
 You can skip the following and head over [Fission installation](#install-fission) if you're using Helm **v3**.
 {{% /notice %}}
 
