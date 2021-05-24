@@ -172,7 +172,7 @@ Choose _one_ of the following commands to run:
 ```bash
 $ kubectl -n fission apply  -f \
     https://github.com/fission/fission/releases/download/{{% release-version %}}/fission-all-{{% release-version %}}.yaml
-$ kubectl apply -f https://github.com/fission/fission/releases/download/1.12.0/sa-roles.yaml
+$ kubectl apply -f https://github.com/fission/fission/releases/download/{{% release-version %}}/sa-roles.yaml
 {{< /tab >}}
 {{< tab "Minikube" >}}
 ```bash
@@ -188,7 +188,7 @@ Please visit [OpenShift]({{%ref "_index.en.md" %}}) for more detailed informatio
 ```bash 
 $ kubectl -n fission apply -f \
     https://github.com/fission/fission/releases/download/{{% release-version %}}/fission-core-{{% release-version %}}-openshift.yaml
-$ kubectl apply -f https://github.com/fission/fission/releases/download/1.12.0/sa-roles.yaml
+$ kubectl apply -f https://github.com/fission/fission/releases/download/{{% release-version %}}/sa-roles.yaml
 {{< /tab >}}
 {{< /tabs >}}
 
