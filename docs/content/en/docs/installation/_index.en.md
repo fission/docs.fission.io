@@ -43,6 +43,8 @@ $ kubectl version
 Helm is an installer for Kubernetes.  If you already use helm, [skip to
 the next section](#install-fission).
 
+Helm v2 is deprecated, Fission can be installed via helm v3. 
+
 To install helm, first you'll need the helm CLI. Visit [here](https://helm.sh/docs/intro/install/) 
 to see how to install it.
 
@@ -178,7 +180,7 @@ $ kubectl apply -f https://github.com/fission/fission/releases/download/{{% rele
 ```bash
 $ kubectl -n fission apply  -f \
     https://github.com/fission/fission/releases/download/{{% release-version %}}/fission-all-{{% release-version %}}-minikube.yaml
-$ kubectl apply -f https://github.com/fission/fission/releases/download/1.12.0/sa-roles.yaml
+$ kubectl apply -f https://github.com/fission/fission/releases/download/{{% release-version %}}/sa-roles.yaml
 ```
 {{< /tab >}}
 {{< tab "OpenShift" >}}
