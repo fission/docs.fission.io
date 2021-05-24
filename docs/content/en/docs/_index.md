@@ -43,7 +43,7 @@ Visit [concepts]({{% ref "./concepts/" %}}) for more details.
 $ fission env create --name nodejs --image fission/node-env
 
 # A javascript one-liner that prints "hello world"
-$ curl https://raw.githubusercontent.com/fission/fission/master/examples/nodejs/hello.js > hello.js
+$ curl https://raw.githubusercontent.com/fission/examples/master/nodejs/hello.js > hello.js
 
 # Upload your function code to fission
 $ fission function create --name hello --env nodejs --code hello.js
