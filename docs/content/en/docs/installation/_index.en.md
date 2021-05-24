@@ -38,39 +38,20 @@ Next, ensure you have access to a cluster.  Do this by using kubectl to check yo
 $ kubectl version
 ```
 
-## Helm
+## Helm v3
 
 Helm is an installer for Kubernetes.  If you already use helm, [skip to
 the next section](#install-fission).
+
 
 To install helm, first you'll need the helm CLI. Visit [here](https://helm.sh/docs/intro/install/) 
 to see how to install it.
 
 {{% notice info %}}
+Helm v2 is deprecated, Fission can be installed via helm v3. 
 You can skip the following and head over [Fission installation](#install-fission) if you're using Helm **v3**.
 {{% /notice %}}
 
-Next, install the Helm server on your Kubernetes cluster.  Before you
-do that, you have to give helm's server privileges to install software
-on your cluster. 
-
-For example, you can use the following steps to install helm using a
-dedicated service account with full cluster admin privileges.
-
-```sh
-$ kubectl create serviceaccount --namespace kube-system tiller
-$ kubectl create clusterrolebinding tiller-cluster-rule \
-    --clusterrole=cluster-admin --serviceaccount=kube-system:tiller
-$ helm init --service-account tiller
-```
-
-Or, if your cluster is already set up with a permissive service
-account (this varies by version and how your Kubernetes was
-installed), you can simply do:
-
-```sh
-$ helm init
-```
 
 # Install Fission
 
@@ -104,14 +85,6 @@ router                                  LoadBalancer   10.109.61.85     <pending
 {{< tabs "fission-install" >}}
 {{< tab "Minikube, Docker Desktop" >}}
 
-* Helm v2
-
-```sh
-$ helm install --name fission --namespace fission \
-    --set serviceType=NodePort,routerServiceType=NodePort \
-    https://github.com/fission/fission/releases/download/{{% release-version %}}/fission-all-{{% release-version %}}.tgz
-```
-
 * Helm v3
 
 ```sh
@@ -126,13 +99,6 @@ $ helm install --namespace $FISSION_NAMESPACE --name-template fission \
 
 Please visit [OpenShift]({{%ref "_index.en.md" %}}) for more detailed information.
 
-* Helm v2
-
-```sh
-$ helm install --name fission --namespace fission \
-    --set serviceType=NodePort,routerServiceType=NodePort,logger.enableSecurityContext=true,prometheus.enabled=false \
-    https://github.com/fission/fission/releases/download/{{% release-version %}}/fission-all-{{% release-version %}}.tgz
-```
 
 * Helm v3
 
@@ -158,13 +124,6 @@ See [how to add token to kubeconfig]({{% ref "../trouble-shooting/setup/kubernet
 {{< tabs "fission-install-cloud-provider" >}}
 {{< tab "GKE, AKS, EKS" >}}
 
-* Helm v2
-
-```sh
-$ helm install --name fission --namespace fission \
-    https://github.com/fission/fission/releases/download/{{% release-version %}}/fission-all-{{% release-version %}}.tgz
-```
-
 * Helm v3
 
 ```sh
@@ -178,14 +137,6 @@ $ helm install --namespace $FISSION_NAMESPACE --name-template fission \
 {{< tab "OpenShift" >}}
 
 Please visit [OpenShift]({{%ref "_index.en.md" %}}) for more detailed information.
-
-* Helm v2
-
-```sh
-$ helm install --name fission --namespace fission \
-    --set logger.enableSecurityContext=true,prometheus.enabled=false \
-    https://github.com/fission/fission/releases/download/{{% release-version %}}/fission-all-{{% release-version %}}.tgz
-```
 
 * Helm v3
 
@@ -221,14 +172,15 @@ Choose _one_ of the following commands to run:
 {{< tabs "fission-install-without-helm" >}}
 {{< tab "Basic" >}}
 ```bash
-$ kubectl apply -f \
+$ kubectl -n fission apply  -f \
     https://github.com/fission/fission/releases/download/{{% release-version %}}/fission-all-{{% release-version %}}.yaml
-```
+$ kubectl apply -f https://github.com/fission/fission/releases/download/{{% release-version %}}/sa-roles.yaml
 {{< /tab >}}
 {{< tab "Minikube" >}}
 ```bash
-$ kubectl apply -f \
+$ kubectl -n fission apply  -f \
     https://github.com/fission/fission/releases/download/{{% release-version %}}/fission-all-{{% release-version %}}-minikube.yaml
+$ kubectl apply -f https://github.com/fission/fission/releases/download/{{% release-version %}}/sa-roles.yaml
 ```
 {{< /tab >}}
 {{< tab "OpenShift" >}}
@@ -238,7 +190,7 @@ Please visit [OpenShift]({{%ref "_index.en.md" %}}) for more detailed informatio
 ```bash 
 $ kubectl -n fission apply -f \
     https://github.com/fission/fission/releases/download/{{% release-version %}}/fission-core-{{% release-version %}}-openshift.yaml
-```
+$ kubectl apply -f https://github.com/fission/fission/releases/download/{{% release-version %}}/sa-roles.yaml
 {{< /tab >}}
 {{< /tabs >}}
 
