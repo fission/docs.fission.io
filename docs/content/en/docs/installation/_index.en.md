@@ -85,7 +85,7 @@ router                                  LoadBalancer   10.109.61.85     <pending
 {{< tabs "fission-install" >}}
 {{< tab "Minikube, Docker Desktop" >}}
 
-* Helm 
+* Helm v3
 
 ```sh
 $ export FISSION_NAMESPACE="fission"
