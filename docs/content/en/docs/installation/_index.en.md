@@ -38,7 +38,7 @@ Next, ensure you have access to a cluster.  Do this by using kubectl to check yo
 $ kubectl version
 ```
 
-## Helm
+## Helm v3
 
 Helm is an installer for Kubernetes.  If you already use helm, [skip to
 the next section](#install-fission).
