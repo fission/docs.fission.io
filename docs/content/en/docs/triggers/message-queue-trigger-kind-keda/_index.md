@@ -51,7 +51,7 @@ For successful creation of these objects, user should specify the following fiel
 3. minreplicacount: Minimum number of replicas of consumers to scale down to
 4. maxreplicacount: Maximum number of replicas of consumers to scale up to
 5. metadata: Metadata needed for connecting to source system in format: --metadata key1=value1 --metadata key2=value2
-6. secret: Name of secret object (secret fields must be similarly specified as in mentioned for [particular scaler](https://keda.sh/docs/1.5/scalers/])
+6. secret: Name of secret object (secret fields must be similarly specified as in mentioned for [particular scaler](https://keda.sh/docs/1.5/scalers/))
 
 ### Apache Kafka
 
