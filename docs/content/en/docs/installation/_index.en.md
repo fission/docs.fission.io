@@ -188,6 +188,7 @@ $ kubectl apply -f https://github.com/fission/fission/releases/download/{{% rele
 {{< /tab >}}
 {{< tab "Minikube" >}}
 ```bash
+$ kubectl create -k "github.com/fission/fission/crds/v1?ref=master"
 $ kubectl -n fission apply  -f \
     https://github.com/fission/fission/releases/download/{{% release-version %}}/fission-all-{{% release-version %}}-minikube.yaml
 $ kubectl apply -f https://github.com/fission/fission/releases/download/{{% release-version %}}/sa-roles.yaml
