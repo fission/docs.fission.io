@@ -90,9 +90,10 @@ router                                  LoadBalancer   10.109.61.85     <pending
 ```sh
 $ export FISSION_NAMESPACE="fission"
 $ kubectl create namespace $FISSION_NAMESPACE
-$ helm install --namespace $FISSION_NAMESPACE --name-template fission \
-    https://github.com/fission/fission/releases/download/{{% release-version %}}/fission-all-{{% release-version %}}.tgz
-```
+$ kubectl create -k "github.com/fission/fission/crds/v1?ref=master"
+$ helm repo add fission-charts https://fission.github.io/fission-charts/
+$ helm repo update
+$ helm install --namespace $FISSION_NAMESPACE fission fission-charts/fission-all
 
 {{< /tab >}}
 {{< tab "OpenShift without LoadBalancer" >}}
@@ -105,9 +106,12 @@ Please visit [OpenShift]({{%ref "_index.en.md" %}}) for more detailed informatio
 ```sh
 $ export FISSION_NAMESPACE="fission"
 $ kubectl create namespace $FISSION_NAMESPACE
-$ helm install --namespace $FISSION_NAMESPACE --name-template fission \
+$ kubectl create -k "github.com/fission/fission/crds/v1?ref=master"
+$ helm repo add fission-charts https://fission.github.io/fission-charts/
+$ helm repo update
+$ helm install --namespace $FISSION_NAMESPACE 
     --set serviceType=NodePort,routerServiceType=NodePort,logger.enableSecurityContext=true,prometheus.enabled=false \
-    https://github.com/fission/fission/releases/download/{{% release-version %}}/fission-all-{{% release-version %}}.tgz
+   fission fission-charts/fission-all
 ```
 
 {{< /tab >}}
@@ -129,8 +133,10 @@ See [how to add token to kubeconfig]({{% ref "../trouble-shooting/setup/kubernet
 ```sh
 $ export FISSION_NAMESPACE="fission"
 $ kubectl create namespace $FISSION_NAMESPACE
-$ helm install --namespace $FISSION_NAMESPACE --name-template fission \
-    https://github.com/fission/fission/releases/download/{{% release-version %}}/fission-all-{{% release-version %}}.tgz
+$ kubectl create -k "github.com/fission/fission/crds/v1?ref=master"
+$ helm repo add fission-charts https://fission.github.io/fission-charts/
+$ helm repo update
+$ helm install --namespace $FISSION_NAMESPACE  fission fission-charts/fission-all
 ```
 
 {{< /tab >}}
@@ -143,10 +149,13 @@ Please visit [OpenShift]({{%ref "_index.en.md" %}}) for more detailed informatio
 ```sh
 $ export FISSION_NAMESPACE="fission"
 $ kubectl create namespace $FISSION_NAMESPACE
-$ helm install --namespace $FISSION_NAMESPACE --name-template fission \
+$ kubectl create -k "github.com/fission/fission/crds/v1?ref=master"
+$ helm repo add fission-charts https://fission.github.io/fission-charts/
+$ helm repo update
+$ helm install --namespace $FISSION_NAMESPACE  \
     --set logger.enableSecurityContext=true,prometheus.enabled=false \
-    https://github.com/fission/fission/releases/download/{{% release-version %}}/fission-all-{{% release-version %}}.tgz
-```
+    fission fission-charts/fission-all
+``````
 
 {{< /tab >}}
 {{< /tabs >}}
@@ -172,6 +181,7 @@ Choose _one_ of the following commands to run:
 {{< tabs "fission-install-without-helm" >}}
 {{< tab "Basic" >}}
 ```bash
+$ kubectl create -k "github.com/fission/fission/crds/v1?ref=master"
 $ kubectl -n fission apply  -f \
     https://github.com/fission/fission/releases/download/{{% release-version %}}/fission-all-{{% release-version %}}.yaml
 $ kubectl apply -f https://github.com/fission/fission/releases/download/{{% release-version %}}/sa-roles.yaml
@@ -188,6 +198,7 @@ $ kubectl apply -f https://github.com/fission/fission/releases/download/{{% rele
 Please visit [OpenShift]({{%ref "_index.en.md" %}}) for more detailed information.
 
 ```bash 
+$ kubectl create -k "github.com/fission/fission/crds/v1?ref=master"
 $ kubectl -n fission apply -f \
     https://github.com/fission/fission/releases/download/{{% release-version %}}/fission-core-{{% release-version %}}-openshift.yaml
 $ kubectl apply -f https://github.com/fission/fission/releases/download/{{% release-version %}}/sa-roles.yaml
