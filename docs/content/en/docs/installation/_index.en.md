@@ -93,7 +93,7 @@ $ kubectl create namespace $FISSION_NAMESPACE
 $ kubectl create -k "github.com/fission/fission/crds/v1?ref={{% release-version %}}"
 $ helm repo add fission-charts https://fission.github.io/fission-charts/
 $ helm repo update
-$ helm install --namespace $FISSION_NAMESPACE fission fission-charts/fission-all
+$ helm install --version {{% release-version %}} --namespace $FISSION_NAMESPACE fission fission-charts/fission-all
 
 {{< /tab >}}
 {{< tab "OpenShift without LoadBalancer" >}}
@@ -109,7 +109,7 @@ $ kubectl create namespace $FISSION_NAMESPACE
 $ kubectl create -k "github.com/fission/fission/crds/v1?ref={{% release-version %}}"
 $ helm repo add fission-charts https://fission.github.io/fission-charts/
 $ helm repo update
-$ helm install --namespace $FISSION_NAMESPACE 
+$ helm install --version {{% release-version %}} --namespace $FISSION_NAMESPACE 
     --set serviceType=NodePort,routerServiceType=NodePort,logger.enableSecurityContext=true,prometheus.enabled=false \
    fission fission-charts/fission-all
 ```
@@ -136,7 +136,7 @@ $ kubectl create namespace $FISSION_NAMESPACE
 $ kubectl create -k "github.com/fission/fission/crds/v1?ref={{% release-version %}}"
 $ helm repo add fission-charts https://fission.github.io/fission-charts/
 $ helm repo update
-$ helm install --namespace $FISSION_NAMESPACE  fission fission-charts/fission-all
+$ helm install  --version {{% release-version %}} --namespace $FISSION_NAMESPACE  fission fission-charts/fission-all
 ```
 
 {{< /tab >}}
@@ -152,7 +152,7 @@ $ kubectl create namespace $FISSION_NAMESPACE
 $ kubectl create -k "github.com/fission/fission/crds/v1?ref={{% release-version %}}"
 $ helm repo add fission-charts https://fission.github.io/fission-charts/
 $ helm repo update
-$ helm install --namespace $FISSION_NAMESPACE  \
+$ helm install  --version {{% release-version %}}  --namespace $FISSION_NAMESPACE  \
     --set logger.enableSecurityContext=true,prometheus.enabled=false \
     fission fission-charts/fission-all
 ``````
