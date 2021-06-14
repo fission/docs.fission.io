@@ -2,7 +2,7 @@
 title: "Upgrade Guide"
 weight: -1
 description: >
-  Upgrade guidance 1.10 onwards
+  Upgrade guidance 1.11 onwards
 ---
 
 Note: Fission upgrades cause a downtime as of now. Please upvote the [issue](https://github.com/fission/fission/issues/1856) so we can priortize fixing it
