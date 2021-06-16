@@ -39,52 +39,111 @@ For this case, we'll use Helm.
 - kubectl and kubeconfig configured
 
 
-#### Install Loki and Promtail
+#### Install Grafana and Loki
 
 From a terminal, run the following commands to add the Loki repo and then install Loki
 
 ```bash
-$ helm repo add loki https://grafana.github.io/loki/charts
-$ helm repo update
-$ helm upgrade --install loki loki/loki-stack
-```
-
-This will install Loki in the default namespace.
-Check if there're pods running for Loki and Promtail.
-
-#### Install Grafana
-
-Similarly, to install Grafana, run the following commands from a terminal.
-
-```bash
 $ helm repo add grafana https://grafana.github.io/helm-charts
 $ helm repo update
-$ helm upgrade --install fission-logs grafana/grafana -n grafana
+$ helm upgrade -n monitoring --create-namespace --install loki-grafana grafana/loki-stack \
+--set grafana.enabled="true" \
+--set promtail.enabled="false"
 ```
 
-This will install Grafana in the `grafana` namespace, with helm release name as `fission-logs`
+This will install Loki & Grafana in the monitoring namespace.
+Check if there're pods running for Loki and Grafana.
+
+
+#### Install Promtail
+
+You'll notice that the Promtail installation is disabled above. This is because custom configuraiton
+is required to effectively tail logs. The default Promtail configuration follow the [kubernetes recommended labels] (https://kubernetes.io/docs/concepts/overview/working-with-objects/common-labels/) and filter out everthing that doesn't conform to those rules.
+
+Create a values.yaml file. This configuration will allow Promtail to tail and forward all labels. This is a necessity since fission poolmgr executor adds additional labels when a pod is specialized. 
+```bash
+cat > promtail-config.yaml <<EOF
+config:
+  lokiAddress: http://loki:3100/loki/api/v1/push
+  snippets:
+    common:
+      - action: replace
+        source_labels:
+          - __meta_kubernetes_pod_node_name
+        target_label: node_name
+      - action: replace
+        source_labels:
+          - __meta_kubernetes_namespace
+        target_label: namespace
+      - action: replace
+        replacement: $1
+        separator: /
+        source_labels:
+          - namespace
+          - app
+        target_label: job
+      - action: replace
+        source_labels:
+          - __meta_kubernetes_pod_name
+        target_label: pod
+      - action: replace
+        source_labels:
+          - __meta_kubernetes_pod_container_name
+        target_label: container
+      - action: replace
+        replacement: /var/log/pods/*$1/*.log
+        separator: /
+        source_labels:
+          - __meta_kubernetes_pod_uid
+          - __meta_kubernetes_pod_container_name
+        target_label: __path__
+      - action: replace
+        replacement: /var/log/pods/*$1/*.log
+        regex: true/(.*)
+        separator: /
+        source_labels:
+          - __meta_kubernetes_pod_annotationpresent_kubernetes_io_config_hash
+          - __meta_kubernetes_pod_annotation_kubernetes_io_config_hash
+          - __meta_kubernetes_pod_container_name
+        target_label: __path__
+      - action: labelmap
+        regex: __meta_kubernetes_pod_label_(.+)
+EOF
+```
+
+```bash
+$ helm upgrade -n monitoring --install promtail grafana/promtail -f promtail-config.yaml
+```
+
+This will install Prom in the `monitoring` namespace!
+Check if there're is a promtail pod running.
+
+We can access the Promtail UI at `localhost:3101` to see all of the pods logs being tailed along with the labels assigned to them.
+```bash
+$ kubectl --namespace monitoring port-forward $(kubectl  --namespace monitoring get pod -l app.kubernetes.io/instance=promtail -o name) 3101:3101
+```
 
 #### Accessing Grafana UI
 
-The installation above creates a Service in `grafana` namespace.
+If you've followed the above steps, `loki-stack` creates a grafana Service in the `monitoring` namespace.
 To access this, you can use Kubernetes port forwarding.
 
 ```bash
-$ kubectl --namespace grafana port-forward svc/fission-logs-grafana 3000:80
+$ kubectl --namespace monitoring port-forward svc/fission-logs-grafana 3000:80
 ```
-  
+
+You'll need to obtain a username and password to access the UI. 
+The username is `admin` and the password can be obtained from inside the kubernetes cluster.
+```bash
+$ kubectl --namespace monitoring get secrets loki-grafana -o go-template --template='{{index .data "admin-password"}}' | base64 -d
+```
+
 #### Adding Loki as a data source in Grafana
 
 Clicking on the Settings icon in the left pane will bring up a menu, click on `Data Sources`.
 Clicking on `Add Data Source` and select Loki.
-Under HTTP, in the URL field, put the ClusterIP followed by port number.
-You can get the ClusterIP using
+Under HTTP, in the URL field put `http://loki:3100`
 
-```bash
-$ kubectl get svc  -l "app=loki" -o jsonpath="{.items[0].spec.clusterIP}"
-```
-
-For example, if the ClusterIP is `http://10.108.230.242` the value to put is `http://10.108.230.242:3100`.
 Click on `Save and Test` and there should be a notification of the data source added successfully.
 
 ### Running Log Queries
