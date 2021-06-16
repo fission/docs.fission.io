@@ -60,7 +60,7 @@ Check if there're pods running for Loki and Grafana.
 You'll notice that the Promtail installation is disabled above. This is because custom configuraiton
 is required to effectively tail logs. The default Promtail configuration follow the [kubernetes recommended labels](https://kubernetes.io/docs/concepts/overview/working-with-objects/common-labels/) and filter out everything that doesn't conform to those rules.
 
-Create a values.yaml file. This configuration will allow Promtail to tail and forward all labels. This is a necessity since fission poolmgr executor adds additional labels when a pod is specialized. 
+Create a values.yaml file. This configuration will allow Promtail to tail and forward all labels. This is a necessity since fission adds additional labels when a pod is specialized. 
 ```bash
 cat > promtail-config.yaml <<EOF
 config:
