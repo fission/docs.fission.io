@@ -211,13 +211,13 @@ $ kubectl apply -f https://github.com/fission/fission/releases/download/{{% rele
 {{< tabs "fission-cli-install" >}}
 {{< tab "MacOS" >}}
 ```sh
-$ curl -Lo fission https://github.com/fission/fission/releases/download/{{% release-version %}}/fission-cli-osx \
+$ curl -Lo fission https://github.com/fission/fission/releases/download/{{% release-version %}}/fission-{{% release-version %}}-darwin-amd64 \
     && chmod +x fission && sudo mv fission /usr/local/bin/
 ```
 {{< /tab >}}
 {{< tab "Linux" >}}
 ```sh
-$ curl -Lo fission https://github.com/fission/fission/releases/download/{{% release-version %}}/fission-cli-linux \
+$ curl -Lo fission https://github.com/fission/fission/releases/download/{{% release-version %}}/fission-{{% release-version %}}-linux-amd64 \
     && chmod +x fission && sudo mv fission /usr/local/bin/
 ```
 {{< /tab >}}
