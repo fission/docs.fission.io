@@ -3,7 +3,7 @@
 set -euo pipefail
 
 pushd docs
-npm install -D --save autoprefixer postcss postcss-cli
+npm install -D --save autoprefixer@9.7.6 postcss-cli@7.1.0
 
 echo "Running hugo"
 hugo
@@ -12,8 +12,6 @@ popd
 
 echo "Removing old site"
 rm -rf dist/public
-
-mkdir -p dist/
 
 echo "Moving new site into dist"
 mv docs/public dist/public
