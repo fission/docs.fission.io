@@ -19,7 +19,7 @@
     }
 
     > h2:not(:first-child) {
-        margin-top: 2rem;
+        margin-top: 3rem;
     }
 
     > h2 + h3 {
@@ -44,9 +44,9 @@
     }
 
     > blockquote {
-        padding: 1.2em 0em 1.2em 1em;
+        padding: 0 0 0 1rem;
         margin-bottom: $spacer;
-        color: #616161;
+        color: $gray-600;
         border-left: 6px solid $secondary;
     }
 
@@ -58,7 +58,7 @@
         font-weight: $font-weight-bold;
     }
 
-    > pre, > .highlight, > .lead, > h1, > h2, > ul, > ol, > p, > blockquote, > dl dd, .footnotes, > .alert, > .book-tabs {
+    > pre, > .highlight, > .lead, > h1, > h2, > ul, > ol, > p, > blockquote, > dl dd, .footnotes, > .alert {
         @extend .td-max-width-on-larger-screens;
     }
 
