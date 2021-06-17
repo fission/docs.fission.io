@@ -46,6 +46,28 @@ NAME     UID               IMAGE              POOLSIZE MINCPU MAXCPU MINMEMORY M
 python   73e4e8a3-db49-... fission/python-env 1        100m   200m   128Mi     256Mi     false  360
 ```
 
+Functions created in Pool Manager can have the following features:
+* Requests Per Pod:
+
+You can control how many requests will be served by each pod. For instance, if you want each pod to serve only 5 requests, here's how you can do it:
+```bash
+$ fission fn create --name foobar --env nodejs --code hello.js --rpp 5
+```
+
+* OnceOnly:
+
+This can be enabled for functions which are long running tasks, the pod will only serve one request.  Each request is assured to be served by a new pod. 
+```bash
+$ fission fn create --name foobar --env nodejs --code hello.js --yolo true
+```
+
+* Concurrency:
+
+If you want to rate limit the amount of requests a function should process, you can do so by:
+```bash
+$ fission fn create --name foobar --env nodejs --code hello.js --con 1000
+```
+
 ### Newdeploy (New-deployment executor)
 
 Newdeploy provides autoscaling and min/max scale setting for functions, and allow a function to handle spikes in workloads.
