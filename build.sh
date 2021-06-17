@@ -13,6 +13,7 @@ popd
 echo "Removing old site"
 rm -rf dist/public
 
+mkdir -p dist
 echo "Moving new site into dist"
 mv docs/public dist/public
 
