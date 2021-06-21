@@ -9,7 +9,7 @@ description: >
 | --------------- | ------------ | ------------------------------|
 | 1.11.2          | 1.5          | v0.1                          |
 | 1.12.0          | 2.0          | v0.5                          |
-| 1.13.0          | 2.0          | v0.6 (except GCP pub-sub v0.1)|
+| 1.13.1          | 2.0          | v0.6 (except GCP pub-sub v0.1)|
 
 
 All Keda Connector images can be used with both fission version except the Kafka connector, which has some breaking changes.
