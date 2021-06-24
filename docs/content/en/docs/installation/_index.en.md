@@ -180,7 +180,6 @@ Choose _one_ of the following commands to run:
 ```bash
 $ kubectl create -k "github.com/fission/fission/crds/v1?ref={{% release-version %}}"
 $ export FISSION_NAMESPACE="fission"
-$ kubectl create namespace $FISSION_NAMESPACE
 $ kubectl config set-context --current --namespace=$FISSION_NAMESPACE
 $ kubectl apply -f https://github.com/fission/fission/releases/download/{{% release-version %}}/fission-all-{{% release-version %}}.yaml
 ```
