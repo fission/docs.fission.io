@@ -59,8 +59,7 @@ import (
 	"github.com/aws/aws-sdk-go/service/sqs"
 )
 ​
-func main() {
-​
+func Handler(w http.ResponseWriter, r *http.Request) {​
 	queueURL := "https://sqs.ap-south-1.amazonaws.com/xxxxxxxxxxxx/input"
 	region := "ap-south-1"
 	config := &aws.Config{
@@ -95,10 +94,15 @@ Following commands will create a environment, package and function.
 Verify that build for package succeeded before proceeding.
 
 ```sh
-$ fission env create --name goenv --image fission/go-env --builder fission/go-builder
+$ mkdir sqs && cd sqs
+$ go mod init
+
+# create a producer.go file with above code replacing the placeholder values with actual ones
+$ go mod tidy
 $ zip -qr sqs.zip *
+
+$ fission env create --name goenv --image fission/go-env --builder fission/go-builder
 $ fission package create --env goenv --src sqs.zip
-Package 'sqs-zip-xpoi' created
 $ fission fn create --name producerfunc --env goenv --pkg sqs-zip-xpoi --entrypoint Handler
 $ fission package info --name sqs-zip-xpoi
 Name:        sqs-zip-xpoi
@@ -145,7 +149,7 @@ Parameter list:
 - secret - AWS credentials require to connect the queue e.g. below
 
 {{% notice info %}}
-if we are using localstack we don't have to give secret but if we are using aws SQS we need to provide the secret, below is the example to create secret
+If we are using localstack we don't have to give secret but if we are using aws SQS we need to provide the secret, below is the example to create secret
 ```bash
  $ kubectl create secret generic awsSecrets --from-env-file=./secret.yaml
  ```
@@ -174,7 +178,7 @@ There are a couple of ways you can verify that the consumerfunc is called:
 {"level":"info","ts":1602057917.4880567,"caller":"app/main.go:165","msg":"message deleted"}
 ```
 
-- Go to aws SQS queue and check if messages are comming in output queue
+- Go to aws SQS queue and check if messages are coming in output queue.
 
 
 ## Introducing an error
@@ -203,5 +207,5 @@ Successfully sent to input
 
 We can verify the message in error queue as we did earlier:
 
-- Go to aws SQS queue and check if messages are comming in error queue
+- Go to aws SQS queue and check if messages are coming in error queue.
 
