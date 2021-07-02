@@ -127,3 +127,37 @@ The time it takes for the change to reflect depends on the time it takes for rol
 In Fission version prior to 1.4.
 If the Secret or ConfigMap value is updated, the function will not get the updated and may get a cached older value.
 {{% /notice %}}
+
+## Fission Function and Secrets/ConfigMaps Namespace
+As of v1.12.0, you should aim to have your fission function and the secret/configmap it is accessing in the same namespace. Fission will create a `RoleBinding` called `secret-configmap-getter-binding` in your function's namespace to access secrets/configmaps in the same namespace. Unexpected behavior can occur if functions are trying to access secrets/configmaps in a different namespace because the RoleBinding Fission creates is expecting secrets/configmaps to be in the same namespace.
+
+Do not manually create this rolebinding with the same name (`secret-configmap-getter-binding`) because Fission has a reaper function that will remove this rolebinding every 30 minutes if it cannot find functions in the same namespace as the `RoleBinding`. Here is the function that reaps dangling RoleBindings: https://github.com/fission/fission/blob/cc552d9777057ef1ae0fdfeef0a27126a1b8afcf/pkg/executor/reaper/reaper.go#L182
+
+Errors that indicate this is an issue:
+
+This would show in router logs
+```
+"level":"error",
+"ts":1615498236.260082,
+"logger":"triggerset.http_trigger_set.jira-cadence-integeration-api-route",
+"caller":"router/functionHandler.go:650",
+"msg":"error sending request to function",
+"error":" - error updating service address entry for function integeration-api_default: Internal error - [integeration-api] error creating service for function: Internal error - error fetching secrets/configs: error getting secret from kubeapi",
+```
+
+In your function's fetcher container. The forbidden here indicates a permissions issue. Check if your function's namespace has the correct RoleBinding to access your secret/configmap. Creating functions and secret/configmap in the same namespace should resolve this.
+```
+{
+  "level": "error",
+  "ts": 1615415275.78049,
+  "logger": "fetcher",
+  "caller": "fetcher/fetcher.go:340",
+  "msg": "error getting secret from kubeapi",
+  "error": "secrets \"svc-secret\" is forbidden: User \"system:serviceaccount:fission-function:fission-fetcher\" cannot get resource \"secrets\" in API group \"\" in the namespace \"fission-function\"",
+  "secret_name": "svc-secret",
+  "secret_namespace": "fission-function",
+  "stacktrace": "github.com/fission/fission/pkg/fetcher.(*Fetcher).FetchSecretsAndCfgMaps\n\t/go/src/pkg/fetcher/fetcher.go:340\ngithub.com/fission/fission/pkg/fetcher.(*Fetcher).SpecializePod\n\t/go/src/pkg/fetcher/fetcher.go:597\ngithub.com/fission/fission/pkg/fetcher.(*Fetcher).SpecializeHandler\n\t/go/src/pkg/fetcher/fetcher.go:197\nnet/http.HandlerFunc.ServeHTTP\n\t/usr/local/go/src/net/http/server.go:1995\nnet/http.(*ServeMux).ServeHTTP\n\t/usr/local/go/src/net/http/server.go:2375\ngo.opencensus.io/plugin/ochttp.(*Handler).ServeHTTP\n\t/go/pkg/mod/go.opencensus.io@v0.22.0/plugin/ochttp/server.go:86\nnet/http.serverHandler.ServeHTTP\n\t/usr/local/go/src/net/http/server.go:2774\nnet/http.(*conn).serve\n\t/usr/local/go/src/net/http/server.go:1878"
+}
+```
+
+
