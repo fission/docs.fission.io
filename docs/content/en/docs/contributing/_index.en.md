@@ -1,6 +1,7 @@
 ---
 title: "Contributing to Fission"
-weight: 250
+linkTitle: Contributing
+weight: 50
 description: >
   Build deploy and contribute to Fission!
 ---
