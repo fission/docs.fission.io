@@ -1,6 +1,6 @@
 ---
 title: "OpenShift"
-weight: 5
+weight: 30
 description: >
   OpenShift specific setup 
 ---
