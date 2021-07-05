@@ -1,5 +1,5 @@
 ---
-title: "Using Fission"
+title: "Usage"
 weight: 40
 description: >
   Fission usage

@@ -1,7 +1,8 @@
 ---
 title: "Exposing Functions With Ingress"
+linkTitle: Ingress
 draft: false
-weight: 5
+weight: 60
 ---
 
 Ingress is a Kubernetes built-in resource that allows accessing Kubernetes services from outside of cluster with help of a ingress controller.
