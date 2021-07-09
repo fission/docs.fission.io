@@ -50,42 +50,56 @@ For brevity all values have been hard coded in the code itself.
 package main
 
 import (
+	"encoding/json"
 	"fmt"
-	"log"
+	"net/http"
+	"strconv"
 
 	"github.com/aws/aws-sdk-go/aws"
+	"github.com/aws/aws-sdk-go/aws/credentials"
 	"github.com/aws/aws-sdk-go/aws/session"
 	"github.com/aws/aws-sdk-go/service/kinesis"
 )
 
-func main() {
-	endpoint := "http://localhost:4568"
-	region := "us-east-1"
+type message struct {
+	Content string `json:"content"`
+}
+
+func Handler(w http.ResponseWriter, r *http.Request) {
+	region := "ap-south-1"
 	config := &aws.Config{
-		Region:   &region,
-		Endpoint: &endpoint,
+		Region:      &region,
+		Credentials: credentials.NewStaticCredentials("xxxxxxxxxxxx", "xxxxxxxxxx", ""),
 	}
 
-	sess, err := session.NewSession(config)
+	s, err := session.NewSession(config)
 	if err != nil {
-		log.Panic("Error while creating session")
+		w.Write([]byte(fmt.Sprintf("error creating a session: %v", err)))
+		return
 	}
 
-	kc := kinesis.New(sess)
-	for i := 100; i < 200; i++ {
-		msg := fmt.Sprintf("Hello Msg %v", i+1)
-		params := &kinesis.PutRecordInput{
-			Data:         []byte(msg),           // Required
-			PartitionKey: aws.String(string(i)), // Required
-			StreamName:   aws.String("request"), // Required
-		}
+	kc := kinesis.New(s)
+	for i := 11; i <= 20; i++ {
+		record, err := json.Marshal(&message{
+			Content: fmt.Sprintf("message count %v", i+1),
+		})
 
-		_, err := kc.PutRecord(params)
 		if err != nil {
-			fmt.Println(err)
-			log.Panic("Error while writing message")
+			w.Write([]byte(fmt.Sprintf("error marshalling the message: %v", err)))
+			return
+		}
+		params := &kinesis.PutRecordInput{
+			Data:         record,                      // required
+			PartitionKey: aws.String(strconv.Itoa(i)), // required
+			StreamName:   aws.String("request"),       // required
+		}
+		_, err = kc.PutRecord(params)
+		if err != nil {
+			w.Write([]byte(fmt.Sprintf("error putting a record: %v", err)))
+			return
 		}
 	}
+	w.Write([]byte("messages sent successfully"))
 }
 ```
 
