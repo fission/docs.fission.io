@@ -1,7 +1,7 @@
 ---
 title: "Installing Fission"
-linkTitle: Installing Fission
-weight: 20
+linkTitle: Installation
+weight: 10
 description: >
   Installation guide for Fission installation
 ---
@@ -257,7 +257,7 @@ $ fission function test --name hello
 Hello, world!
 ```
 
-For more language tutorials, visit [Language]({{% ref "../languages/" %}}).
+For more language tutorials, visit [Language]({{% ref "../usage/languages/" %}}).
 
 # What's next?
 

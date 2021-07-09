@@ -1,8 +1,8 @@
 ---
 title: "Concepts"
-weight: 10
+weight: 20
 description: >
-  Concepts of Fission architecture and components
+  Concepts of Fission architecture
 ---
 
 Fission has three main concepts: **Functions, Environments, and Triggers.**
@@ -42,7 +42,7 @@ gathering dependencies.
 You can modify any of Fission's existing environments and rebuild them,
 or you can also build a new environment from scratch.
 
-See [here]({{% ref "../languages/" %}}) for the full image list.
+See [here]({{% ref "../usage/languages/" %}}) for the full image list.
 
 ## Triggers
  

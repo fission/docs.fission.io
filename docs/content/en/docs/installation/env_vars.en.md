@@ -1,6 +1,6 @@
 ---
 title: Environment Variables
-weight: 3
+weight: 10
 description: >
   Environment variables used by Fission CLI
 ---

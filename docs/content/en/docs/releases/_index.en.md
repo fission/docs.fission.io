@@ -1,7 +1,7 @@
 ---
 title: "Release Highlights"
 linkTitle: Release Highlights
-weight: 1
+weight: 70
 description: >
   Highlight for release 
 ---

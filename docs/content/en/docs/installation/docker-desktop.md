@@ -1,6 +1,6 @@
 ---
 title: "Docker Desktop"
-weight: 7
+weight: 20
 description: >
   Docker Desktop specific setup 
 ---
@@ -105,4 +105,4 @@ $ fission fn create --name helloscale --env nodescale  --code hello.js --executo
                     --minmemory 64 --maxmemory 128 --mincpu 100 --maxcpu 500 --minscale 1 --maxscale 6  --targetcpu 50
 ```
 
-For more details on autoscaling please [check this section of documentation]({{% ref "../usage/executor.en.md" %}}#autoscaling)
+For more details on autoscaling please [check this section of documentation]({{% ref "../usage/function/executor.en.md" %}}#autoscaling)

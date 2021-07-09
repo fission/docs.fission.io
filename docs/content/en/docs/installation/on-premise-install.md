@@ -1,6 +1,6 @@
 ---
 title: "Offline On-Premise"
-weight: 6
+weight: 10
 description: >
   Installation guide for offline on-premise.  
 ---

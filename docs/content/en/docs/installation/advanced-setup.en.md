@@ -1,6 +1,6 @@
 ---
 title: Advanced Setup
-weight: 1
+weight: 50
 description: >
   Advanced setup guide for Fission installation 
 ---
