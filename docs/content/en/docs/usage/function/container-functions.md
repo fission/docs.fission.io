@@ -4,14 +4,14 @@ draft: false
 weight: 46
 ---
 
-Note: Support for containers in alpha, we plan to improve experience over coming releases.
+Note: Support for containers in **alpha**, we plan to improve experience over coming releases.
 Your feedback is most appreciated to improve it.
 
-Fission allows you to run your existing container as a function with 1.14 release.
+With 1.14 release, Fission allows you to run your existing container as a function.
 
 #### Running container image with Fission
 
-`fission function run-container` provides required options to run exiting container image as a Fission function.
+`fission function run-container` provides required options to run an exiting container image as a Fission function.
 
 ```sh
 $ fission function run-container --name cn-hello --image gcr.io/google-samples/node-hello:1.0 --port 8080
@@ -33,13 +33,13 @@ $ fission fn test --name cn-hello
 Hello Kubernetes!
 ```
 
-We have added `spec.podspec` which can run container. Know more about options for running container with Functions,
+We have added `spec.podspec` in Function Spec which captures container function details. Know more about options for running container with Functions,
 
 ```sh
 kubectl explain functions.spec.podspec
 ```
 
-You can generate function spec with Fission CLI.
+You can also generate function spec with Fission CLI.
 
 ```sh
 $ fission spec init
@@ -95,11 +95,11 @@ trigger 'nextapp' created
 
 Visit app URL, `http://<router_url>/nextapp/`
 
-You can refer it source [here](https://github.com/fission/examples/tree/master/container-functions/next-app).
+You can refer it source for the application [here](https://github.com/fission/examples/tree/master/container-functions/next-app).
 
 ### Command options
 
 You can also use alias, `fission fn runc` instead of `fission function run-container` OR
 `fission fn updatec` instead of `fission fn updatec`.
 
-Please command help for more options while creating container based functions.
+Please check command help for more options while creating container based functions.
