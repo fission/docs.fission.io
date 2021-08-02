@@ -295,6 +295,10 @@ On the cluster, Archives are tracked with checksums; the Fission CLI only upload
 Sometimes you may want to release spec files only without the function source code or the compiled binary.
 To improve the portability, you can specify a URL that points to the target archive by following the step described in [here]({{% ref "../function/url-as-archive-source.md" %}}).
 
+## Custom Resources References
+
+You can refer latest definitions for Fission Custom Resources at [doc.crds.dev/github.com/fission/fission](https://doc.crds.dev/github.com/fission/fission)
+
 ## More Examples
 
 For more spec examples, please visit [fission/examples](https://github.com/fission/examples/tree/master/spec-example).
