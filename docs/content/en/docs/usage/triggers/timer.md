@@ -6,7 +6,7 @@ weight: 4
 
 Time-based triggers invoke functions based on time.
 They can run once or repeatedly.
-They're specified using [cron string specifications](https://en.wikipedia.org/wiki/Cron):
+They're specified using [cron string specifications](https://pkg.go.dev/github.com/robfig/cron):
 
 ```bash
 $ fission timer create --name halfhourly --function hello --cron "0 */30 * * * *"
