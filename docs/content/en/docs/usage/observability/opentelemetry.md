@@ -116,6 +116,7 @@ $ ./deploy/build.sh
 ```
 
 Note:
+
 - `build.sh` assumes you are using kind cluster. Please make necessary changes according to Kubernetes cluster type.
 - This example uses modified NodeJS environment and builder. These would be available in Fission default NodeJS environment soon.
 
@@ -155,5 +156,3 @@ Select the trace and on the next page expand the spans.
 You should be able to see the request flow similar to the one below:
 
 ![Fission OpenTelemetry](../assets/fission-otel.png)
-
-
