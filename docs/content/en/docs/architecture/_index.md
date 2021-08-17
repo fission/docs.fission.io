@@ -16,25 +16,25 @@ The optional components, on the other hand, are good to know and can be learned 
 
 The core components include:
 
-### [Controller](controller.md)
+### [Controller](controller)
 Accept REST API requests and create Fission resources
 
-### [Executor](executor.md)
+### [Executor](executor)
 Component to spin up function pods
 
-### [Router](router.md)
+### [Router](router)
 Bridge between triggers and functions
 
-### [Function Pod](function-pod.md)
+### [Function Pod](function-pod)
 Place to load and execute the user function
 
-### [Builder Manager](buildermgr.md)
+### [Builder Manager](buildermgr)
 Compile the source code into a runnable function
 
-### [Builder Pod](builder-pod.md)
+### [Builder Pod](builder-pod)
 Place to load and execute the user function
 
-### [StorageSvc](storagesvc.md)
+### [StorageSvc](storagesvc)
 Home for source and deployment archives
 
 
@@ -42,14 +42,14 @@ Home for source and deployment archives
 
 The optional components include:
 
-### [Logger](logger.md)
+### [Logger](logger)
 Record and persist function logs
 
-### [KubeWatcher](kubewatcher.md)
+### [KubeWatcher](kubewatcher)
 Hawkeye to watch resource changes in Kubernetes cluster
 
-### [Message Queue Trigger](message-queue-trigger.md)
+### [Message Queue Trigger](message-queue-trigger)
 Subscribe topics and invoke functions
 
-### [Timer](timer.md)
+### [Timer](timer)
 Invoke functions periodically
