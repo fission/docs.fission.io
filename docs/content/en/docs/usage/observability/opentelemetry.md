@@ -5,7 +5,7 @@ weight: 11
 
 ## Tracing in Fission
 
-Up to `1.14.1` release, Fission supports outputting traces to an OpenTracing Jaeger-formatted trace collection endpoint. This is great as it provides lots of insight into what Fission is doing and helps operators understand and maintain. However, as we add support OpenTelemetry, OpenTracing will be marked deprecated and removed in later releases.
+Up to `1.14.1` release, Fission supports outputting traces to an OpenTracing Jaeger-formatted trace collection endpoint. This is great as it provides lots of insight into what Fission is doing and helps operators understand and maintain. However, as we add support OpenTelemetry, OpenTracing will be marked deprecated and removed in later releases as we add support for OpenTelemetry.
 
 If you are starting fresh with Fission, we recommend using OpenTelemetry. This is primarily because OpenTelemetry makes robust, portable telemetry a built-in feature of cloud- native software. OpenTelemetry provides a single set of APIs, libraries, agents, and collector services to capture distributed traces and metrics from your application.
 
