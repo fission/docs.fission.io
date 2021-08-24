@@ -80,6 +80,13 @@ Before accessing function, need to ensure deploy package of function is in _succ
 $ fission pkg info --name <pkg-name>
 ```
 
+{{% notice info %}}
+
+For archive of package with size larger than 256KB, the package is upploaded to storage service. Double check `fission-storage-pvc` is properly setup if
+pkg `BUILD_STATUS` is not `succeeded`.
+
+{{% /notice %}}
+
 Now, let's test our first Go function with `test` command
 
 ```bash
