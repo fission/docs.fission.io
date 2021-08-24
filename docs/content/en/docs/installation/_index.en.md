@@ -247,7 +247,7 @@ this windows executable: [fission.exe](https://github.com/fission/fission/releas
 Finally, you're ready to use Fission!
 
 {{% notice info %}}
-it might take one or two mintues for fission to start running. check the status using `kubectl get pods -n fission`. 
+It might take one or two mintues for fission to start running. check the status using `kubectl get pods -n fission`. 
 {{% /notice %}}
 
 ```sh
