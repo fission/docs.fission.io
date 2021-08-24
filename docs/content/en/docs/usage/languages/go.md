@@ -44,6 +44,7 @@ You can find all images and image tags at following table.
 | 1.11.4 | [fission/go-env-1.11.4](https://hub.docker.com/r/fission/go-env-1.11.4/tags) | [fission/go-builder-1.11.4](https://hub.docker.com/r/fission/go-builder-1.11.4/tags) | | |
 | 1.12 | [fission/go-env-1.12](https://hub.docker.com/r/fission/go-env-1.12/tags) | [fission/go-builder-1.12](https://hub.docker.com/r/fission/go-builder-1.12/tags) | V |
 | 1.13 | [fission/go-env-1.13](https://hub.docker.com/r/fission/go-env-1.13/tags) | [fission/go-builder-1.13](https://hub.docker.com/r/fission/go-builder-1.13/tags) | V |
+| 1.14 | [fission/go-env-1.14](https://hub.docker.com/r/fission/go-env-1.14/tags) | [fission/go-builder-1.14](https://hub.docker.com/r/fission/go-builder-1.14/tags) | V |
 
 ### Write a simple function in Go
 
