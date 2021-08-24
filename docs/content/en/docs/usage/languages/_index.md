@@ -34,14 +34,14 @@ If the function requires third party dependencies during the runtime or the func
 
 If you want to adjust size of environment pre-warmed pool, use v3.
 
-## How to Create Specific Environment Interface Version
+## Using Specific Environment Interface Version
 
 ```sh
-  # add version option when create env
+  # add version option to fission environment create command
   --version=3
 ```
 
-for example, to create a go env with version 3 environment interface.
+For example, to create a go env with version 3 environment interface.
 
 ```sh
    fission environment create --name go --image fission/go-env-1.13 --builder fission/go-builder-1.13  --version 3
