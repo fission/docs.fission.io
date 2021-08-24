@@ -28,7 +28,7 @@ Please use the `fission release version` as image tag instead of `latest` when a
 **(Remember, the image tag of runtime and builder should always be the same.)**
 
 ```bash
-$ fission environment create --name go --image fission/go-env:<release-version> --builder fission/go-builder:<release-version>
+$ fission environment create --name go --image fission/go-env:<release-version> --builder fission/go-builder:<release-version> --version 3
 
 # Example
 $ fission environment create --name go --image fission/go-env-1.12:{{% release-version %}} --builder fission/go-builder-1.12:{{% release-version %}}
