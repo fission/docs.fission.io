@@ -79,7 +79,7 @@ router                                  LoadBalancer   10.109.61.85     <pending
 ```
 
 {{< tabs "fission-install" >}}
-{{< tab "Minikube, Docker Desktop" >}}
+{{< tab "Minikube, Docker Desktop, Kind" >}}
 
 * Helm v3
 
@@ -89,7 +89,10 @@ $ kubectl create namespace $FISSION_NAMESPACE
 $ kubectl create -k "github.com/fission/fission/crds/v1?ref={{% release-version %}}"
 $ helm repo add fission-charts https://fission.github.io/fission-charts/
 $ helm repo update
-$ helm install --version {{% release-version %}} --namespace $FISSION_NAMESPACE fission fission-charts/fission-all
+$ helm install --version {{% release-version %}} --namespace $FISSION_NAMESPACE fission \
+      --set serviceType=NodePort,routerServiceType=NodePort \
+      fission-charts/fission-all
+```
 
 {{< /tab >}}
 {{< tab "OpenShift without LoadBalancer" >}}
