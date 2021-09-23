@@ -55,7 +55,7 @@ For successful creation of these objects, user should specify the following fiel
 
 ### Apache Kafka
 
-Lets create message queue trigger with information of the kafka scaler with sasl auth enabled [described here](https://keda.sh/docs/1.5/scalers/apache-kafka/#example).
+Lets create message queue trigger with information of the kafka scaler with no sasl auth enabled [described here](https://keda.sh/docs/1.5/scalers/apache-kafka/#example).
 
 ```bash
 $ fission mqt create --name mqttest --function consumer --mqtype kafka \

@@ -14,4 +14,5 @@ description: >
 
 All Keda Connector images can be used with both fission version except the Kafka connector, which has some breaking changes.
 
-Going forward all environment images for each language would follow its own version. You can follow latest environment versions at [environments.fission.io](https://environments.fission.io/)
+Going forward all environment images for each language would follow its own version.
+You can follow latest environment versions at [environments.fission.io](https://environments.fission.io/)
