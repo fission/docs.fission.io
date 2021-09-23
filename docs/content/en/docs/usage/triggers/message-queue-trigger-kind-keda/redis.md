@@ -1,7 +1,6 @@
 ---
 title: "Redis"
 date: 2021-08-30T06:49:42+05:30
-draft: true
 ---
 
 This tutorial will demonstrate how to use a Redis List trigger to invoke a function.
