@@ -13,17 +13,16 @@ You will also need NATS Streaming server setup which is reachable from the Fissi
 ## Installation
 
 If you want to setup NATS Streaming server on the Kubernetes cluster, you can use the [information here](https://github.com/nats-io/nats-streaming-server) or you can check the documentation for nats streaming [docs](https://docs.nats.io/nats-on-kubernetes/minimal-setup).  
-Also i have created a yaml file in nats-streaming-http-connector/test/nats-streaming-server folder, you can use that directly(in that i have already configured monitoring).
-
+You can also setup NATS streaming server with this [yaml](https://github.com/fission/keda-connectors/blob/master/nats-streaming-http-connector/test/nats-streaming-server/nats-dep.yaml) file.(Monitoring is already configured)
 
 {{% notice info %}}
 NATS streaming keda connector uses NATS monitoring to scale the deployment, to enable monitoring in nats we need to pass flags as below, you can get more [information here](https://docs.nats.io/nats-server/configuration/monitoring)
 
 ```bash
--m, --http_port PORT             HTTP PORT for monitoring    
--ms,--https_port PORT            Use HTTPS PORT for monitoring  
-
+-m, --http_port PORT             HTTP PORT for monitoring
+-ms,--https_port PORT            Use HTTPS PORT for monitoring
 ```
+
 {{% /notice %}}
 
 ```sh
@@ -31,12 +30,12 @@ $ kubectl apply -f nats-dep.yaml
 NAME                                         READY   STATUS    RESTARTS   AGE
 nats-streaming-deployment-646768fcfd-qtpmk   1/1     Running   0          8s
 ```
-You can find above file reference [here](https://github.com/fission/keda-connectors/blob/master/nats-streaming-http-connector/test/nats-streaming-server/nats-dep.yaml)  
 
-Verify if monitoring endpoint is rechable by exec into any container
+Verify if monitoring endpoint is reachable by exec into any container
+
 ```sh
 $ kubectl create deployment test --image=nginx
-$ kubectl exec -it test-844b65666c-8kppc /bin/bash   
+$ kubectl exec -it test-844b65666c-8kppc /bin/bash
 $ curl nats.default.svc.cluster.local:8222
 <html lang="en">
    <head>
@@ -60,6 +59,7 @@ $ curl nats.default.svc.cluster.local:8222
   </body>
 </html>
 ```
+
 ## Overview
 
 Before we dive into details, let's walk through overall flow of event and functions involved.
@@ -67,10 +67,7 @@ Before we dive into details, let's walk through overall flow of event and functi
 1. A Go producer function (producer) which acts as a producer and drops a message in a NATS queue named `request`.
 2. Fission NATS Streaming trigger activates and invokes another function (consumer) with message received from producer.
 3. The consumer function (consumer) gets body of message and returns a response.
-4. Fission NATS streaming trigger takes the response of consumer function (consumer) and drops the message in a response queue named `response`.
-   If there is an error, the message is dropped in error queue named `error`.
-
-
+4. Fission NATS streaming trigger takes the response of consumer function (consumer) and drops the message in a response queue named `response`. If there is an error, the message is dropped in error queue named `error`.
 
 ## Building the app
 
@@ -78,16 +75,17 @@ Before we dive into details, let's walk through overall flow of event and functi
 
 The producer function is a go program which creates a message and drops into a NATS streaming queue `request`.
 For brevity all values have been hard coded in the code itself.
-There are different ways of loading this function into cluster, i have tried by creating the deployment. The docker and other file is present under nats-streaming-http-connector/test/producer folder [here](https://github.com/fission/keda-connectors/blob/master/nats-streaming-http-connector/test/producer).
+There are different ways of loading this function into cluster. One of the ways is to create a deployment.
 
-Below are the steps i did
+Steps for deploying producer function: (files are given below)
+
 ```sh
-$ docker build . -t producer:latest 
-$ kind load docker-image producer:latest --name kind-1 
+$ docker build . -t producer:latest
+$ kind load docker-image producer:latest --name kind
 $ kubectl apply -f deployment.yaml //replicas is set to 0 when deployed
 ```
-[Go file](https://github.com/fission/keda-connectors/blob/master/nats-streaming-http-connector/test/producer/main.go)
-``` go
+
+```go
 package main
 
 import (
@@ -112,20 +110,20 @@ func main() {
 		sc.Publish("hello", []byte("Test"+strconv.Itoa(i)))
 	}
 	fmt.Println("Published all the messages")
-	
+
 	select {}
 }
 ```
-[Dockerfile](https://github.com/fission/keda-connectors/blob/master/nats-streaming-http-connector/test/producer/Dockerfile)
+
 ```docker
-FROM golang:1.12-alpine as builder
+FROM golang:1.15-alpine as builder
 
 RUN apk add bash ca-certificates git gcc g++ libc-dev
 
 
 RUN mkdir /app
 WORKDIR /app
-COPY go.mod . 
+COPY go.mod .
 COPY go.sum .
 
 RUN go mod download
@@ -134,13 +132,13 @@ RUN go mod download
 COPY . .
 
 RUN go build -a -o /go/bin/main
-FROM alpine:3.12 as base
+FROM alpine:3.14 as base
 RUN apk add --update ca-certificates
 COPY --from=builder /go/bin/main /
 
-ENTRYPOINT ["/main"] 
+ENTRYPOINT ["/main"]
 ```
-[deployment.yaml](https://github.com/fission/keda-connectors/blob/master/nats-streaming-http-connector/test/producer/deployment.yaml)
+
 ```yaml
 apiVersion: apps/v1
 kind: Deployment
@@ -159,21 +157,23 @@ spec:
         app: nats-pub
     spec:
       containers:
-      - image: producer:latest
-        imagePullPolicy: Never
-        name: producer
+        - image: producer:latest
+          imagePullPolicy: Never
+          name: producer
 ```
 
-Verify that deployment succeeded before proceeding.
+Verify that the deployment succeeded before proceeding.
+
 ```sh
-$ kubectl get deployment nats-pub 
+$ kubectl get deployment nats-pub
 NAME       READY   UP-TO-DATE   AVAILABLE   AGE
-nats-pub   0/0     0            0           
+nats-pub   0/0     0            0
 
 ```
+
 ### Consumer function
 
-The consumer function is golang function which takes the body of the request, appends a "Hello" and returns the resulting string, the code is present in nats-streaming-http-connector/test/consumer [here](https://github.com/fission/keda-connectors/tree/master/nats-streaming-http-connector/test/consumer)
+The consumer function is golang function which takes the body of the request, appends a "Hello" and returns the resulting string.
 
 ```go
 package main
@@ -214,7 +214,9 @@ The response will be sent to `response` queue and in case of consumerfunc invoca
 ```bash
 $ fission mqt create --name natstest --function helloworld --mqtype stan --topic hello --resptopic response --mqtkind keda --errortopic error --maxretries 3 --metadata subject=hello --metadata queueGroup=grp1 --metadata durableName=due --metadata natsServerMonitoringEndpoint=nats.default.svc.cluster.local:8222 --metadata clusterId=test-cluster --metadata natsServer=nats://nats:4222
 ```
+
 Parameter list:
+
 - natsServerMonitoringEndpoint - Location of the Nats Streaming Monitoring
 - queueGroup - Queue group name of the subscribers
 - durableName - Must identify the durability name used by the subscribers
@@ -234,8 +236,9 @@ deployment.apps/nats-pub scaled
 There are a couple of ways you can verify that the consumerfunc is called:
 
 - Check the logs of `natstest` pods:
+
 ```sh
-k logs natstest-b4f6c6579-q2bxd -f  
+kubectl logs natstest-b4f6c6579-q2bxd -f
 ```
 
 ```text
@@ -250,11 +253,9 @@ k logs natstest-b4f6c6579-q2bxd -f
 
 - Go to nats streaming server queue and check if messages are comming in response queue
 
-
 ## Introducing an error
 
 Let's introduce an error scenario - instead of consumer function returning a 200, you can return 400 which will cause an error:
-
 
 ```go
 package main
@@ -275,11 +276,12 @@ Update the function with new code and invoke the producer function:
 
 ```bash
 $ fission fn update --name consumerfunc --code hello.go
-$ kubectl scale --replicas=0 deployment/nats-pub 
-$ kubectl scale --replicas=1 deployment/nats-pub 
+$ kubectl scale --replicas=0 deployment/nats-pub
+$ kubectl scale --replicas=1 deployment/nats-pub
 ```
 
 We can verify the message in error queue as we did earlier:
+
 ```sh
 {"level":"info","ts":1616589794.4876041,"caller":"app/main.go:62","msg":"NATs consumer up and running!..."}
 {"level":"info","ts":1616589794.4877403,"caller":"app/main.go:36","msg":"Test138"}
@@ -289,4 +291,3 @@ We can verify the message in error queue as we did earlier:
 ```
 
 - Go to nats streaming server and check if messages are comming in error queue
-
