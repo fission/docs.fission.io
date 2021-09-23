@@ -31,6 +31,8 @@ NAME                                         READY   STATUS    RESTARTS   AGE
 nats-streaming-deployment-646768fcfd-qtpmk   1/1     Running   0          8s
 ```
 
+You can find the above file [here](https://github.com/fission/keda-connectors/blob/master/nats-streaming-http-connector/test/nats-streaming-server/nats-dep.yaml).
+
 Verify if monitoring endpoint is reachable by exec into any container
 
 ```sh
@@ -74,16 +76,19 @@ Before we dive into details, let's walk through overall flow of event and functi
 ### Producer Function
 
 The producer function is a go program which creates a message and drops into a NATS streaming queue `request`.
-For brevity all values have been hard coded in the code itself.
-There are different ways of loading this function into cluster. One of the ways is to create a deployment.
+For brevity all values have been hard coded in the code itself.  
+There are different ways of loading this function into cluster. One of the ways is to create a deployment.  
+All the files required are present [here](https://github.com/fission/keda-connectors/blob/master/nats-streaming-http-connector/test/producer).
 
-Steps for deploying producer function: (files are given below)
+Steps for deploying producer function:
 
 ```sh
 $ docker build . -t producer:latest
 $ kind load docker-image producer:latest --name kind
 $ kubectl apply -f deployment.yaml //replicas is set to 0 when deployed
 ```
+
+[Go file](https://github.com/fission/keda-connectors/blob/master/nats-streaming-http-connector/test/producer/main.go)
 
 ```go
 package main
@@ -115,6 +120,8 @@ func main() {
 }
 ```
 
+[Dockerfile](https://github.com/fission/keda-connectors/blob/master/nats-streaming-http-connector/test/producer/Dockerfile)
+
 ```docker
 FROM golang:1.15-alpine as builder
 
@@ -138,6 +145,8 @@ COPY --from=builder /go/bin/main /
 
 ENTRYPOINT ["/main"]
 ```
+
+[deployment.yaml](https://github.com/fission/keda-connectors/blob/master/nats-streaming-http-connector/test/producer/deployment.yaml)
 
 ```yaml
 apiVersion: apps/v1
@@ -173,7 +182,7 @@ nats-pub   0/0     0            0
 
 ### Consumer function
 
-The consumer function is golang function which takes the body of the request, appends a "Hello" and returns the resulting string.
+The consumer function is golang function which takes the body of the request, appends a "Hello" and returns the resulting string. The file is present [here](https://github.com/fission/keda-connectors/blob/master/nats-streaming-http-connector/test/consumer/hello.go).
 
 ```go
 package main
