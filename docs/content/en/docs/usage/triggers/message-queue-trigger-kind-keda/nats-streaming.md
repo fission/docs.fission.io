@@ -6,7 +6,7 @@ weight: 4
 
 This tutorial will demonstrate how to use a NATS Streaming trigger to invoke a function.
 We'll assume you have Fission and Kubernetes installed.
-If not, please head over to the [install guide]({{% ref "../../installation/_index.en.md" %}}).
+If not, please head over to the [install guide]({{% ref "../../../installation/_index.en.md" %}}).
 
 You will also need NATS Streaming server setup which is reachable from the Fission Kubernetes cluster.
 
