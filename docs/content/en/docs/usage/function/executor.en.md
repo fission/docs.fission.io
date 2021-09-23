@@ -10,10 +10,12 @@ In this guide, we will go through how to set up/config different executors for f
 #### Poolmgr (Pool-based executor)
 
 You can create a function like following to use poolmgr as backend executor.
+You can use the `concurrency` field to control the maximum number of concurrent pod specialization(default 5) to serve requests.
+The `concurrency` field is only supported by poolmgr.
 
 ```bash
 # The default executor type for function is poolmgr
-$ fission fn create --name foobar --env nodejs --code hello.js
+$ fission fn create --name foobar --concurrency=4 --env nodejs --code hello.js
 
 # Or, set executor type to poolmgr explicitly
 $ fission fn create --name foobar --env nodejs --code hello.js --executortype poolmgr
@@ -47,16 +49,19 @@ python   73e4e8a3-db49-... fission/python-env 1        100m   200m   128Mi     2
 ```
 
 Functions created in Pool Manager can have the following features:
+
 * Requests Per Pod:
 
 You can control how many requests will be served by each pod. For instance, if you want each pod to serve only 5 requests, here's how you can do it:
+
 ```bash
 $ fission fn create --name foobar --env nodejs --code hello.js --rpp 5
 ```
 
 * OnceOnly:
 
-This can be enabled for functions which are long running tasks, the pod will only serve one request.  Each request is assured to be served by a new pod. 
+This can be enabled for functions which are long running tasks, the pod will only serve one request.  Each request is assured to be served by a new pod.
+
 ```bash
 $ fission fn create --name foobar --env nodejs --code hello.js --yolo true
 ```
@@ -64,6 +69,7 @@ $ fission fn create --name foobar --env nodejs --code hello.js --yolo true
 * Concurrency:
 
 If you want to rate limit the amount of requests a function should process, you can do so by:
+
 ```bash
 $ fission fn create --name foobar --env nodejs --code hello.js --con 1000
 ```
