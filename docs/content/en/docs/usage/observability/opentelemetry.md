@@ -5,27 +5,84 @@ weight: 11
 
 ## Tracing in Fission
 
-Up to `1.14.1` release, Fission supports outputting traces to an OpenTracing Jaeger-formatted trace collection endpoint. This is great as it provides lots of insight into what Fission is doing and helps operators understand and maintain. However, as we add support OpenTelemetry, OpenTracing will be marked deprecated and removed in later releases as we add support for OpenTelemetry.
+Up to `1.14.1` release, Fission supports collecting traces to an OpenTracing Jaeger-formatted trace collection endpoint.
+Tracing provides insight into what Fission is doing, and how it is doing it.
+OpenTelenetry provides a new tracing system that is more flexible and powerful.
+As we add support OpenTelemetry, OpenTracing will be marked deprecated and removed. OpenTelemtry is backward compatible with OpenTracing.
 
-If you are starting fresh with Fission, we recommend using OpenTelemetry. This is primarily because OpenTelemetry makes robust, portable telemetry a built-in feature of cloud- native software. OpenTelemetry provides a single set of APIs, libraries, agents, and collector services to capture distributed traces and metrics from your application.
+If you are starting fresh with Fission, we recommend using OpenTelemetry.
+This is primarily because OpenTelemetry makes robust, portable telemetry a built-in feature of cloud-native software. OpenTelemetry provides a single set of APIs, libraries, agents, and collector services to capture distributed traces and metrics from your application.
 
 ## OpenTelemetry
 
-OpenTelemetry is a set of APIs, SDKs, tooling and integrations that are designed for the creation and management of telemetry data such as traces, metrics, and logs. The project provides a vendor-agnostic implementation that can be configured to send telemetry data to the backend(s) of your choice. It supports a variety of popular open-source projects including Jaeger and Prometheus.
+OpenTelemetry is a set of APIs, SDKs, tooling and integrations that are designed for the creation and management of telemetry data such as traces, metrics, and logs.
+The project provides a vendor-agnostic implementation that can be configured to send telemetry data to the backend(s) of your choice.
+It supports a variety of popular open-source projects including Jaeger and Prometheus.
 
-## Setting up
+## Fission Opentelemetry Integration
 
-### Prerequisite
+If you are have OpenTelemetry installed, you can use it to collect traces and metrics from Fission.
 
-- Docker
-- Kubernetes cluster (the document uses a `kind` cluster)
-- [Helm](https://helm.sh/) (This post assumes helm 3 in use)
-- kubectl and kubeconfig configured
+`openTelemetry` section in helm chart will be used to configure OpenTelemetry sdk used by different Fission components.
+Fission chart will pass different environment variables to pod to configure OpenTelemetry based on the configuration.
 
-### OTEL Collector
+| Option | Description |
+| ------ | ----------- |
+| `openTelemetry.otlpCollectorEndpoint` | Collector endpoint for OpenTelemetry |
+| `openTelemetry.otlpInsecure` | Secure endpoint for the collector with true/false |
+| `openTelemetry.otlpHeaders` | Key-value pairs to be used as headers associated with gRPC or HTTP requests |
+| `openTelemetry.tracesSampler` | Sampler for traces |
+| `openTelemetry.tracesSamplingRate` | Argument for sampler|
+| `openTelemetry.propagators` | Propagator to generate trace id header |
+
+If you have not configured collector endpoint, you won't be able to visualize traces.
+Based on sampler configuration, you can observed `trace_id` in Fission component logs.
+You can search with `trace_id` across Fission services logs in case of debugging or troubleshooting.
+
+Many of the observability platforms such as DataDog, Dynatrace, Honeycomb, Lightstep, New Relic, Signoz, Splunk etc. support OpenTelemetry out-of-box, `otlpHeaders` can be used to configure the headers required by the observability platform.
+You don't need to setup up Opentelemtry Collector from scratch in that case.
+
+If you feel any of the above options are not adequate, feel free to raise an issue or open a pull request.
+
+### Types of samplers
+
+- `always_on` - Sampler that always samples spans, regardless of the parent span's sampling decision.
+- `always_off` - Sampler that never samples spans, regardless of the parent span's sampling decision.
+- `traceidratio` - Sampler that samples probabalistically based on rate.
+- `parentbased_always_on` - (default if empty) Sampler that respects its parent span's sampling decision, but otherwise always samples.
+- `parentbased_always_off` - Sampler that respects its parent span's sampling decision, but otherwise never samples.
+- `parentbased_traceidratio` - (default in chart) Sampler that respects its parent span's sampling decision, but otherwise samples probabalistically based on rate.
+
+#### Sampler Arguments
+
+Each Sampler type defines its own expected input, if any.
+Currently we get trace ratio for the case of following samplers,
+
+- `traceidratio`
+- `parentbased_traceidratio`
+
+Sampling probability, a number in the [0..1] range, e.g. "0.1". Default is 0.1.
+
+## Types of propagators
+
+Based on the propagator type, OpenTelemetry will generate a trace id header.
+
+- `tracecontext` - W3C Trace Context
+- `baggage` - W3C Baggage
+- `b3` - B3 Single
+- `b3multi` - B3 Multi
+- `jaeger` - Jaeger uber-trace-id header
+- `xray` - AWS X-Ray (third party)
+- `ottrace` - OpenTracing Trace (third party)
+
+Propogator config is uselful, if you want to use different header from W3C Trace Context.
+E.g. If you are using OpenTracing/Jaeger, you can set propagator to `jaeger`.
+
+## Sample OTEL Collector
 
 We will be using the [OpenTelemetry Operator for Kubernetes](https://github.com/open-telemetry/opentelemetry-operator) to setup OTEL collector.
 To install the operator in an existing cluster, `cert-manager` is required.
+
 Use the following commands to install `cert-manager` and the operator:
 
 ```sh
@@ -37,6 +94,7 @@ kubectl apply -f https://github.com/open-telemetry/opentelemetry-operator/releas
 ```
 
 Once the `opentelemetry-operator` deployment is ready, we need to create an OpenTelemetry Collector instance.
+
 The following configuration provides a good starting point, however, you may change as per your requirement:
 
 ```sh
@@ -243,17 +301,19 @@ You should now be able to access Jaeger at [http://localhost:8080/](http://local
 ### Installing Fission
 
 At the time of writing this document, the Fission installation does not have OpenTelemetry enabled by default.
-In order to enable OpenTelemetry, we need to explicitly set the value of `otelCollectorEndpoint`:
+In order to enable OpenTelemetry collector, we need to explicitly set the value of `openTelemetry.otlpCollectorEndpoint`:
 
 ```sh
 export FISSION_NAMESPACE=fission
 helm install --namespace $FISSION_NAMESPACE \
   fission fission-charts/fission-all \
-  --set openTracing.enabled=false \
-  --set otelCollectorEndpoint="otel-collector.opentelemetry-operator-system.svc:4317"
+  --set openTelemetry.otlpCollectorEndpoint="otel-collector.opentelemetry-operator-system.svc:4317" \
+  --set openTelemetry.otlpInsecure=true \
+  --set openTelemetry.tracesSampler="parentbased_traceidratio" \
+  --set openTelemetry.tracesSamplingRate="1"
 ```
 
-Note that you may have to change the `otelCollectorEndpoint` value as per your setup.
+Note: You may have to change the `openTelemetry.otlpCollectorEndpoint` value as per your setup.
 
 ## Testing
 
@@ -283,7 +343,9 @@ Select the `Fission-Router` and click the `Find Traces` button.
 You should see the spans created for the function request we just tested.
 
 Select the trace and on the next page expand the spans.
+
 You should be able to see the request flow similar to the one below:
 
 ![Fission OpenTelemetry](../assets/fission-otel.png)
 
+If you enable OpenTelemetry tracing withing your function, you can capture spans and events for the function request.
