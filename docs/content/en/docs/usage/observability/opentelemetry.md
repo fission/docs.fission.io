@@ -7,7 +7,7 @@ weight: 11
 
 Up to `1.14.1` release, Fission supports collecting traces to an OpenTracing Jaeger-formatted trace collection endpoint.
 Tracing provides insight into what Fission is doing, and how it is doing it.
-OpenTelenetry provides a new tracing system that is more flexible and powerful.
+OpenTelemetry provides a new tracing system that is more flexible and powerful.
 As we add support OpenTelemetry, OpenTracing will be marked deprecated and removed. OpenTelemtry is backward compatible with OpenTracing.
 
 If you are starting fresh with Fission, we recommend using OpenTelemetry.
@@ -348,4 +348,4 @@ You should be able to see the request flow similar to the one below:
 
 ![Fission OpenTelemetry](../assets/fission-otel.png)
 
-If you enable OpenTelemetry tracing withing your function, you can capture spans and events for the function request.
+If you enable OpenTelemetry tracing within your function, you can capture spans and events for the function request.
