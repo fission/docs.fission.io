@@ -63,7 +63,7 @@ Currently we get trace ratio for the case of following samplers,
 
 Sampling probability, a number in the [0..1] range, e.g. "0.1". Default is 0.1.
 
-## Types of propagators
+### Types of propagators
 
 Based on the propagator type, OpenTelemetry will generate a trace id header.
 
@@ -349,3 +349,9 @@ You should be able to see the request flow similar to the one below:
 ![Fission OpenTelemetry](../assets/fission-otel.png)
 
 If you enable OpenTelemetry tracing within your function, you can capture spans and events for the function request.
+
+Following are few samples of spans and events captured by invoking a Go base function:
+
+![Fission Spans](../assets/fission-go-func-trace.png)
+
+![Fission Executor Span Events](../assets/fission-executor-span-event.png)
