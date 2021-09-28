@@ -24,62 +24,62 @@ HUGO_ENABLEGITINFO = "true"
 # workaround before we are able to fix :learn more" link on fission.io
 [[redirects]]
   from = "/latest/installation/installation/*"
-  to = "/docs/installation/"
+  to = "https://fission.io/docs/installation/"
   force = true
 
 [[redirects]]
   from = "/latest/*"
-  to = "/docs/:splat"
+  to = "https://fission.io/docs/:splat"
   force = true
 
 [[redirects]]
   from = "/0.2.1/*"
-  to = "/docs/:splat"
+  to = "https://fission.io/docs/:splat"
   force = true
 
 [[redirects]]
   from = "/0.3.0/*"
-  to = "/docs/:splat"
+  to = "https://fission.io/docs/:splat"
   force = true
 
 [[redirects]]
   from = "/0.4.0/*"
-  to = "/docs/:splat"
+  to = "https://fission.io/docs/:splat"
   force = true
 
 [[redirects]]
   from = "/0.5.0/*"
-  to = "/docs/:splat"
+  to = "https://fission.io/docs/:splat"
   force = true
 
 [[redirects]]
   from = "/0.6.0/*"
-  to = "/docs/:splat"
+  to = "https://fission.io/docs/:splat"
   force = true
 
 [[redirects]]
   from = "/0.6.1/*"
-  to = "/docs/:splat"
+  to = "https://fission.io/docs/:splat"
   force = true
 
 [[redirects]]
   from = "/0.7.0/*"
-  to = "/docs/:splat"
+  to = "https://fission.io/docs/:splat"
   force = true
 
 [[redirects]]
   from = "/0.7.1/*"
-  to = "/docs/:splat"
+  to = "https://fission.io/docs/:splat"
   force = true
 
 [[redirects]]
   from = "/0.7.2/*"
-  to = "/docs/:splat"
+  to = "https://fission.io/docs/:splat"
   force = true
 
 [[redirects]]
   from = "/0.8.0/*"
-  to = "/docs/:splat"
+  to = "https://fission.io/docs/:splat"
   force = true
 
 [[redirects]]
@@ -89,110 +89,115 @@ HUGO_ENABLEGITINFO = "true"
 
 [[redirects]]
   from = "/0.9.1/*"
-  to = "/docs/:splat"
+  to = "https://fission.io/docs/:splat"
   force = true
 
 [[redirects]]
   from = "/0.9.2/*"
-  to = "/docs/:splat"
+  to = "https://fission.io/docs/:splat"
   force = true
 
 [[redirects]]
   from = "/0.10.0/*"
-  to = "/docs/:splat"
+  to = "https://fission.io/docs/:splat"
   force = true
 
 [[redirects]]
   from = "/0.11.0/*"
-  to = "/docs/:splat"
+  to = "https://fission.io/docs/:splat"
   force = true
 
 [[redirects]]
   from = "/0.12.0/*"
-  to = "/docs/:splat"
+  to = "https://fission.io/docs/:splat"
   force = true
 
 [[redirects]]
   from = "/1.0-rc1/*"
-  to = "/docs/:splat"
+  to = "https://fission.io/docs/:splat"
   force = true
 
 [[redirects]]
   from = "/installation/installation"
-  to = "/docs/installation"
+  to = "https://fission.io/docs/installation"
   force = true
 
 [[redirects]]
   from = "/docs/usage/developer-workflow/*"
-  to = "/docs/spec/:splat"
+  to = "https://fission.io/docs/spec/:splat"
   force = true
 
 [[redirects]]
   from = "/concepts/*"
-  to = "/docs/concepts/:splat"
+  to = "https://fission.io/docs/concepts/:splat"
   force = true
 
 [[redirects]]
   from = "/contributing/*"
-  to = "/docs/contributing/:splat"
+  to = "https://fission.io/docs/contributing/:splat"
   force = true
 
 [[redirects]]
   from = "/installation/*"
-  to = "/docs/installation/:splat"
+  to = "https://fission.io/docs/installation/:splat"
   force = true
 
 [[redirects]]
   from = "/languages/*"
-  to = "/docs/languages/:splat"
+  to = "https://fission.io/docs/languages/:splat"
   force = true
 
 [[redirects]]
   from = "/releases/*"
-  to = "/docs/releases/:splat"
+  to = "https://fission.io/docs/releases/:splat"
   force = true
 
 [[redirects]]
   from = "/trouble-shooting/*"
-  to = "/docs/installation/trouble-shooting/:splat"
+  to = "https://fission.io/docs/installation/trouble-shooting/:splat"
   force = true
 
 [[redirects]]
   from = "/tutorial/*"
-  to = "/docs/usage/:splat"
+  to = "https://fission.io/docs/usage/:splat"
   force = true
 
 [[redirects]]
   from = "/docs/usage/kafka-trigger-tutorial/*"
-  to = "/docs/triggers/message-queue-trigger/kafka/:splat"
+  to = "https://fission.io/docs/triggers/message-queue-trigger/kafka/:splat"
   force = true
 
 [[redirects]]
   from = "/docs/usage/ingress-tutorial/*"
-  to = "/docs/usage/ingress/:splat"
+  to = "https://fission.io/docs/usage/ingress/:splat"
   force = true
 
 [[redirects]]
   from = "/usage/*"
-  to = "/docs/usage/:splat"
+  to = "https://fission.io/docs/usage/:splat"
   force = true
 
 [[redirects]]
   from = "/workflows/*"
-  to = "/docs/workflows/:splat"
+  to = "https://fission.io/docs/workflows/:splat"
   force = true
 
 [[redirects]]
   from = "/docs/message-queuing/*"
-  to = "/docs/triggers/message-queue-trigger/:splat"
+  to = "https://fission.io/docs/triggers/message-queue-trigger/:splat"
   force = true
 
 [[redirects]]
   from = "/docs/usage/trigger/*"
-  to = "/docs/triggers/:splat"
+  to = "https://fission.io/docs/triggers/:splat"
   force = true
 
 [[redirects]]
   from = "/"
-  to = "/docs/"
+  to = "https://fission.io/docs/"
+  force = true
+
+[[redirects]]
+  from = "/docs/*"
+  to = "https://fission.io/docs/:splat"
   force = true
